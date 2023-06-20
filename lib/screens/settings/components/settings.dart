@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/settings/controller/settings_controller.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
 
   @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  final settingsController = Get.put(SettingsController());
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(
@@ -14,49 +23,52 @@ class Settings extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                     "Profile settings",
                   style: TextStyle(
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: CircleAvatar(),
                 ),
-                Text(
+                const Text(
                     "Brian Nakamoto",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20
                   ),
                 ),
-                Text(
+                const Text(
                     "Number : +254 789 890 890",
                 ),
-                Divider(),
-                Text(
+                const Divider(),
+                const Text(
                   "Email",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20
                   ),
                 ),
-                Text(
+                const Text(
                   "briannakamoto@gmail.com",
                 ),
-                Divider(),
-                Text(
+                const Divider(),
+                const Text(
                   "Location",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20
                   ),
                 ),
-                Text(
+                const Text(
                   "Machakos, kenya",
                 ),
-                Divider(),
+                const Divider(),
+                MaterialButton(onPressed: (){ settingsController.logout();},
+                  child: const Text("Logout"),
+                )
               ],
             ),
           ),

@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Obx(() => MaterialButton(
-                onPressed: () {},
+                onPressed: () { signInController.login(); },
                 height: 50,
                 color: Colors.orange,
                 child: Row(
@@ -51,7 +51,6 @@ class _SignInState extends State<SignIn> {
                   children: [
                     if(!signInController.isLoading.value) const Image(image: AssetImage('assets/images/google_logo.png'))
                     else const Icon(Icons.refresh, color: Colors.white,),
-                    const Image(image: AssetImage('assets/images/google_logo.png')),
                     const SizedBox(
                       width: 5,
                     ),

@@ -49,7 +49,7 @@ class _SignUpState extends State<SignUp> {
             const Spacer(),
             Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Obx(() =>
-                  MaterialButton(onPressed: (){ signUpController.login(); },
+                  MaterialButton(onPressed: (){ signUpController.signUp(); },
                       height: 50,
                       color: Colors.orange,
                       child: Row(
