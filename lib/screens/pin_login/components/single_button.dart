@@ -8,7 +8,7 @@ class SingleButton extends StatefulWidget {
     super.key,
     required this.number,
     required this.onPress,
-    this.color = Colors.brown,
+    this.color = const Color(0xFFfff7e8),
   });
 
   @override
@@ -20,7 +20,7 @@ class _SingleButtonState extends State<SingleButton> {
   Widget build(BuildContext context) {
     return MaterialButton(onPressed: widget.onPress,
       elevation: 0,
-      color: const Color(0xFFfff7e8),
+      color: widget.color,
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(16),
