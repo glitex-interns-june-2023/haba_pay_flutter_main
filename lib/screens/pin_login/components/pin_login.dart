@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/screens/pin_login/components/SingleButton.dart';
 
 class PinLogin extends StatefulWidget {
   const PinLogin({super.key});
@@ -14,30 +15,48 @@ class _PinLoginState extends State<PinLogin> {
       body: Column(
         children: [
           const Spacer(),
-          const Text("Good afternoon, Brian"),
+          const Text(
+              "Good afternoon, Brian",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+            ),
+          ),
           const Spacer(),
           Row(),
           const Spacer(),
-          Row(),
-          const Spacer(),
-          Row(),
-          const Spacer(),
-          Row(),
-          const Spacer(),
-          Row(),
-          const Spacer(),
-          MaterialButton(onPressed: (){
+          Row(
+            children: [
+              SingleButton(
+                number: "1",
+                onPress: () {
 
-          },
-            height: 50,
-            color: Colors.orange,
-            child: const Text(
-                "Login",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 20
-                )
+                },
+              )
+            ],
+          ),
+          const Spacer(),
+          Row(),
+          const Spacer(),
+          Row(),
+          const Spacer(),
+          Row(),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: MaterialButton(onPressed: (){
+
+            },
+              minWidth: double.infinity,
+              height: 50,
+              color: Colors.orange,
+              child: const Text(
+                  "Log in",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16
+                  )
+              ),
             ),
           ),
           const Spacer()
