@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class PinSecureStorage {
-  // Create storage
+
   final storage = const FlutterSecureStorage();
 
   late final String _keyPin;
