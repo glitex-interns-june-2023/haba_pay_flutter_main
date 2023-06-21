@@ -20,7 +20,7 @@ class _SingleButtonState extends State<SingleButton> {
   Widget build(BuildContext context) {
     return MaterialButton(onPressed: widget.onPress,
       elevation: 0,
-      color: widget.color,
+      color: const Color(0xFFfff7e8),
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(16),
