@@ -27,8 +27,10 @@ class _PinLoginState extends State<PinLogin> {
             ),
           ),
           const Spacer(),
-          Row(
+          Obx(() =>
+              Row(
 
+              )
           ),
           const Spacer(),
           Row(
