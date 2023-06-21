@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/pin_login/components/SingleButton.dart';
+import 'package:haba_pay_main/screens/pin_login/controllers/pin_login_controller.dart';
 
 class PinLogin extends StatefulWidget {
   const PinLogin({super.key});
@@ -9,6 +11,8 @@ class PinLogin extends StatefulWidget {
 }
 
 class _PinLoginState extends State<PinLogin> {
+  final pinLoginController = Get.put(PinLoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,24 +27,88 @@ class _PinLoginState extends State<PinLogin> {
             ),
           ),
           const Spacer(),
-          Row(),
+          Row(
+
+          ),
           const Spacer(),
           Row(
             children: [
+              const Spacer(),
               SingleButton(
                 number: "1",
-                onPress: () {
-
-                },
-              )
+                onPress: () { pinLoginController.onNumberClicked(1); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "2",
+                onPress: () { pinLoginController.onNumberClicked(2); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "3",
+                onPress: () { pinLoginController.onNumberClicked(3); },
+              ),
+              const Spacer()
             ],
           ),
           const Spacer(),
-          Row(),
+          Row(
+            children: [
+              const Spacer(),
+              SingleButton(
+                number: "4",
+                onPress: () { pinLoginController.onNumberClicked(4); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "5",
+                onPress: () { pinLoginController.onNumberClicked(5); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "6",
+                onPress: () { pinLoginController.onNumberClicked(6); },
+              ),
+              const Spacer()
+            ],
+          ),
           const Spacer(),
-          Row(),
+          Row(
+            children: [
+              const Spacer(),
+              SingleButton(
+                number: "7",
+                onPress: () { pinLoginController.onNumberClicked(7); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "8",
+                onPress: () { pinLoginController.onNumberClicked(8); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "9",
+                onPress: () { pinLoginController.onNumberClicked(9); },
+              ),
+              const Spacer()
+            ],
+          ),
           const Spacer(),
-          Row(),
+          Row(
+            children: [
+              const Spacer(flex: 3,),
+              SingleButton(
+                number: "0",
+                onPress: () { pinLoginController.onNumberClicked(0); },
+              ),
+              const Spacer(),
+              SingleButton(
+                number: "del",
+                onPress: () { pinLoginController.onClearLast(); },
+              ),
+              const Spacer()
+            ],
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16),
