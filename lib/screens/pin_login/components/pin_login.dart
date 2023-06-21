@@ -29,8 +29,18 @@ class _PinLoginState extends State<PinLogin> {
           MaterialButton(onPressed: (){
 
           },
-            child: const Text("Login"),
-          )
+            height: 50,
+            color: Colors.orange,
+            child: const Text(
+                "Login",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20
+                )
+            ),
+          ),
+          const Spacer()
         ],
       ),
     );
