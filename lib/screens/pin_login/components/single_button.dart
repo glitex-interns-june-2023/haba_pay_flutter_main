@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SingleButton extends StatelessWidget {
+class SingleButton extends StatefulWidget {
   final String number;
   final Color? color;
   final Function() onPress;
@@ -8,19 +8,24 @@ class SingleButton extends StatelessWidget {
     super.key,
     required this.number,
     required this.onPress,
-    this.color = Colors.brown
+    this.color = Colors.brown,
   });
 
   @override
+  State<SingleButton> createState() => _SingleButtonState();
+}
+
+class _SingleButtonState extends State<SingleButton> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialButton(onPressed: onPress,
+    return MaterialButton(onPressed: widget.onPress,
       elevation: 0,
-      color: color,
+      color: widget.color,
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
-          number,
+          widget.number,
           style: const TextStyle(
             fontSize: 20,
             color: Colors.black
