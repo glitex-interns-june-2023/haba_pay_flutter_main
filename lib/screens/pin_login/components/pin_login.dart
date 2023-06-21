@@ -138,7 +138,7 @@ class _PinLoginState extends State<PinLogin> {
           Row(
             children: [
               const Spacer(),
-              Container(),
+              const SizedBox(width: 80,),
               const Spacer(),
               SingleButton(
                 number: "0",
@@ -152,6 +152,8 @@ class _PinLoginState extends State<PinLogin> {
                   onPressed: (){
                     pinLoginController.onClearLast();
                   },
+                  elevation: 0,
+                  color: const Color(0xFFfff7e8),
                   child: const Padding(
                     padding: EdgeInsets.all(16),
                       child: Icon(Icons.clear))

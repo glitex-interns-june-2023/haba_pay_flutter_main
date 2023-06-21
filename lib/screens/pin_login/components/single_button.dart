@@ -27,7 +27,7 @@ class _SingleButtonState extends State<SingleButton> {
         child: Text(
           widget.number,
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 25,
             color: Colors.black
           ),
         ),
