@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import '../screens/dashboard/components/dashboard.dart';
 import '../screens/home/components/home.dart';
 import '../screens/settings/components/add_phone_number_settings.dart';
@@ -21,6 +22,7 @@ class AppPage{
   static String statement = "/statement";
   static String signIn = "/sign_in";
   static String signUp = "/sign_up";
+  static String pinLogin = "/pin_login";
   static String addPhoneNumber = "/add_phone_number";
   static String verificationSuccessful = "/verification_successful";
   static String verifyPhoneNumber = "/verify_phone_number";
@@ -36,6 +38,7 @@ class AppPage{
   static getStatement() => statement;
   static getSignIn() => signIn;
   static getSignUp() => signUp;
+  static getPinLogin() => pinLogin;
   static getAddPhoneNumber() => addPhoneNumber;
   static getVerificationSuccessful() => verificationSuccessful;
   static getVerifyPhoneNumber() => verifyPhoneNumber;
@@ -52,6 +55,7 @@ class AppPage{
     GetPage(name: statement, page: () => const Statement()),
     GetPage(name: signIn, page: () => const SignIn()),
     GetPage(name: signUp, page: () => const SignUp()),
+    GetPage(name: pinLogin, page: () => const PinLogin()),
     GetPage(name: addPhoneNumber, page: () => const AddPhoneNumber()),
     GetPage(name: verificationSuccessful, page: () => const VerificationSuccessful()),
     GetPage(name: verifyPhoneNumber, page: () => const VerifyPhoneNumber()),
