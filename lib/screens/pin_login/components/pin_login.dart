@@ -19,10 +19,10 @@ class _PinLoginState extends State<PinLogin> {
     return Scaffold(
       body: Column(
         children: [
-          const Spacer(),
+          const Spacer(flex: 2,),
           const Text(
             "Good afternoon, Brian",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           Obx(() => Row(
