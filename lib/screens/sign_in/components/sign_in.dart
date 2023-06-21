@@ -59,7 +59,8 @@ class _SignInState extends State<SignIn> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          fontSize: 20),
+                          fontSize: 20
+                      ),
                     )
                   ],
                 )))),
