@@ -19,12 +19,12 @@ class _PinLoginState extends State<PinLogin> {
     return Scaffold(
       body: Column(
         children: [
-          const Spacer(flex: 2,),
+          const Spacer(flex: 4,),
           const Text(
             "Good afternoon, Brian",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          const Spacer(),
+          const Spacer(flex: 2,),
           Obx(() => Row(
                 children: [
                   const Spacer(),
@@ -53,7 +53,7 @@ class _PinLoginState extends State<PinLogin> {
                   const Spacer(),
                 ],
               )),
-          const Spacer(),
+          const Spacer(flex: 2,),
           Row(
             children: [
               const Spacer(),
@@ -148,6 +148,9 @@ class _PinLoginState extends State<PinLogin> {
               ),
               const Spacer(),
               MaterialButton(
+                  focusElevation: 0,
+                  hoverElevation: 0,
+                  highlightElevation: 0,
                   shape: const CircleBorder(),
                   onPressed: (){
                     pinLoginController.onClearLast();
@@ -173,7 +176,7 @@ class _PinLoginState extends State<PinLogin> {
                   style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
           ),
-          const Spacer()
+          const Spacer(flex: 2)
         ],
       ),
     );

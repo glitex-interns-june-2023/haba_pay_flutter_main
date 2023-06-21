@@ -19,6 +19,9 @@ class _SingleButtonState extends State<SingleButton> {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(onPressed: widget.onPress,
+      focusElevation: 0,
+      hoverElevation: 0,
+      highlightElevation: 0,
       elevation: 0,
       color: widget.color,
       shape: const CircleBorder(),
