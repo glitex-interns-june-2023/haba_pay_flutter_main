@@ -17,8 +17,9 @@ class SingleButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
-            number,
+          number,
           style: const TextStyle(
+            fontSize: 20,
             color: Colors.white
           ),
         ),
