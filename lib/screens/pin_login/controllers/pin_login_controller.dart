@@ -6,7 +6,7 @@ class PinLoginController extends GetxController{
 
   onNumberClicked(int number){
     if(pin.length == 4){
-      //full
+      //array is full
     } else {
       pin.add(number);
     }
@@ -19,6 +19,7 @@ class PinLoginController extends GetxController{
       pin.remove(pin.last);
     }
   }
+
   login() async{
     //compare the pin with local storage pin
   }
