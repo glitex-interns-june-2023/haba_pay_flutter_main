@@ -153,11 +153,14 @@ class _PinLoginState extends State<PinLogin> {
                 },
               ),
               const Spacer(),
-              SingleButton(
-                number: "del",
-                onPress: () {
-                  pinLoginController.onClearLast();
-                },
+              MaterialButton(
+                  shape: const CircleBorder(),
+                  onPressed: (){
+                    pinLoginController.onClearLast();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(16),
+                      child: Icon(Icons.clear))
               ),
               const Spacer()
             ],
