@@ -21,6 +21,9 @@ class PinLoginController extends GetxController{
   }
 
   login() async{
+    if(pin.length < 4){
+      //enter four characters
+    }
     //compare the pin with local storage pin
   }
 }

@@ -137,9 +137,15 @@ class _PinLoginState extends State<PinLogin> {
           const Spacer(),
           Row(
             children: [
-              const Spacer(
-                flex: 3,
+              const Spacer(),
+              SingleButton(
+                number: "",
+                color: Colors.white,
+                onPress: () {
+                  pinLoginController.onNumberClicked(0);
+                },
               ),
+              const Spacer(),
               SingleButton(
                 number: "0",
                 onPress: () {
