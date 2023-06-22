@@ -6,6 +6,7 @@ class SecureStorage {
 
   final String _keyPin = "pin";
   final String _keyClientId = "client_id";
+  final String _keyEmail = "email";
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
 
@@ -23,6 +24,14 @@ class SecureStorage {
 
   Future<String?> getClientId() async {
     return await storage.read(key: _keyClientId);
+  }
+
+  Future setEmail(String email) async {
+    await storage.write(key: _keyEmail, value: email);
+  }
+
+  Future<String?> getEmail() async {
+    return await storage.read(key: _keyEmail);
   }
 
   Future setPhoneNumber(String phoneNumber) async {
