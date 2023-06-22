@@ -17,7 +17,8 @@ class SignUpController extends GetxController{
       if(googleAccount.value == null){
         //show toast error
       } else {
-        await _secureStorage.setClientId(googleAccount.value?.id ?? "null");
+        await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
+        await _secureStorage.setUserName(googleAccount.value?.displayName ?? "no name");
         Get.to(()=>const AddPhoneNumber(), transition: Transition.rightToLeft);
       }
     } finally {
