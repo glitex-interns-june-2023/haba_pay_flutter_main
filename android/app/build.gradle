@@ -55,12 +55,7 @@ android {
     }
 
     signingConfigs{
-        debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'C0mp13x*'
-            storeFile file('./mykey.jks')
-            storePassword 'C0mp13x*'
-        }
+        
     }
 
     buildTypes {
