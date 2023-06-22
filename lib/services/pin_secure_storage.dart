@@ -4,10 +4,10 @@ class SecureStorage {
 
   final storage = const FlutterSecureStorage();
 
-  late final String _keyPin;
-  late final String _keyClientId;
-  late final String _keyPhoneNumber;
-  late final String _keyAuthToken;
+  final String _keyPin = "pin";
+  final String _keyClientId = "client_id";
+  final String _keyPhoneNumber = "phone_number";
+  final String _keyAuthToken = "auth_token";
 
   Future setUserName(String pin) async {
     await storage.write(key: _keyPin, value: pin);

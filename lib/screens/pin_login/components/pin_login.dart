@@ -52,7 +52,8 @@ class _PinLoginState extends State<PinLogin> {
                     const SinglePinField(color: Colors.grey),
                   const Spacer(),
                 ],
-              )),
+              )
+          ),
           const Spacer(flex: 2,),
           Row(
             children: [
