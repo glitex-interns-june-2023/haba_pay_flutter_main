@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -18,10 +17,8 @@ class SignUpController extends GetxController{
       if(googleAccount.value == null){
         Get.showSnackbar(
           const GetSnackBar(
-            title: "title",
-            message: 'User Registered Successfully',
-            icon: Icon(Icons.refresh),
-            duration: Duration(seconds: 3),
+            message: 'Unknown error occurred',
+            duration: Duration(seconds: 2),
           ),
         );
       } else {
@@ -31,6 +28,16 @@ class SignUpController extends GetxController{
         Get.to(()=>const AddPhoneNumber(), transition: Transition.rightToLeft);
       }
     } finally {
+      isLoading(false);
+    }
+  }
+
+  sendUserInfo() async{
+    isLoading(true);
+    try{
+      //post data
+      //get token and store it locally
+    } finally{
       isLoading(false);
     }
   }
