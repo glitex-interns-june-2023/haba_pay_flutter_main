@@ -12,7 +12,11 @@ class AddPhoneNumber extends StatefulWidget {
 }
 
 class _AddPhoneNumberState extends State<AddPhoneNumber> {
-  TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  bool isLoading = false;
+  bool isValid = true;
+  String errorMsg = "Please enter your phone";
 
   @override
   Widget build(BuildContext context) {
@@ -39,29 +43,39 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                errorText: !isValid ? errorMsg : null,
               ),
+              keyboardType: TextInputType.number,
               controller: _phoneNumberController,
             ),
           ),
+          const Spacer(),
+          Visibility(
+            visible: isLoading,
+            replacement: const SizedBox(),
+            child: const CircularProgressIndicator(
+              color: Colors.orange,
+            ),
+          ),
           const Spacer(
-            flex: 4,
+            flex: 2,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: MaterialButton(
                 onPressed: () {
-                  sendOtp(context, _phoneNumberController.text);
+                  sendOtp(_phoneNumberController.text);
                 },
                 height: 50,
                 minWidth: double.infinity,
                 color: Colors.orange,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Text(
-                    "Add",
-                    style: TextStyle(
+                    isLoading ? "Sending..." : "Add",
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20),
@@ -75,54 +89,64 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
   }
 
   /// sends OTP
-  void sendOtp(BuildContext context, phoneNumber) async {
-    showLoadingDialog(context);
-    String verificationSid = await OTP.sendOTP(phoneNumber);
+  void sendOtp(phoneNumber) async {
+    if (!validateInput()) return;
 
-    if (verificationSid == "") {
-      // ignore: use_build_context_synchronously
-      hideLoadingDialog(context);
-      // could not send OTP
-      debugPrint("Could not send OTP");
-      return;
-    }
+    setState(() {
+      isLoading = true;
+    });
 
-    // OTP sent success.
-    // save token to storage
-    const storage = FlutterSecureStorage();
+    try {
+      String verificationSid = await OTP.sendOTP(phoneNumber);
 
-    await storage.write(key: "verificatonSid", value: verificationSid);
-    await storage.write(key: "phoneNumber", value: phoneNumber);
-
-    // Next page to verify OTP
-    Get.to(() => const VerifyPhoneNumber(),
-        transition: Transition.rightToLeft,
-        duration: const Duration(seconds: 1));
-    debugPrint("OTP sent successfully");
-  }
-
-  /// show loading modal
-  void showLoadingDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(""),
-            content: const CircularProgressIndicator(),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
-              )
-            ],
-          );
+      if (verificationSid == "") {
+        setState(() {
+          isLoading = false;
         });
+        // could not send OTP
+        debugPrint("Could not send OTP");
+        return;
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+
+      // OTP sent success.
+      // save token to storage
+      const storage = FlutterSecureStorage();
+      debugPrint("Verification Sid: $verificationSid");
+
+      await storage.write(key: "verificationSid", value: verificationSid);
+      await storage.write(key: "phoneNumber", value: phoneNumber);
+
+      // Next page to verify OTP
+      Get.to(() => const VerifyPhoneNumber(),
+          transition: Transition.rightToLeft,
+          duration: const Duration(milliseconds: 500));
+
+      debugPrint("OTP sent successfully");
+    } catch (e) {
+      debugPrint("Error trying to send OTP: $e");
+
+      setState(() {
+        isLoading = false;
+        isValid = false;
+        errorMsg = e.toString() == ""
+            ? "Error sending verification code"
+            : e.toString();
+      });
+    }
   }
 
-  /// hide loading dialog
-  void hideLoadingDialog(BuildContext context) {
-    Navigator.of(context).pop();
+  /// validate empty phone number
+  bool validateInput() {
+    final bool valid = _phoneNumberController.text.isEmpty ? false : true;
+
+    setState(() {
+      isValid = valid;
+    });
+
+    return valid;
   }
 }

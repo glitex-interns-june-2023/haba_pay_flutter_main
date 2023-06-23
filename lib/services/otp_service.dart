@@ -66,8 +66,6 @@ class OTP {
           return false;
         }
       } else {
-        print("Error verifying OTP. StatusCode : ${response.statusCode}");
-        print("Response Body: ${response.body}");
         return false;
       }
     } finally {
