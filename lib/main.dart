@@ -10,7 +10,7 @@ void main() async {
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: AppPage.getPinLogin(),
+    initialRoute: AppPage.getSignUp(),
     getPages: AppPage.routes,
   ));
 }

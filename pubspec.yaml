@@ -39,8 +39,14 @@ dependencies:
   flutter_native_splash: ^2.3.1
   http: ^0.13.1
   google_sign_in: ^6.1.4
+<<<<<<< HEAD
   flutter_dotenv: ^5.1.0
   flutter_secure_storage: ^8.0.0
+=======
+  twilio_flutter: ^0.0.9
+  flutter_secure_storage: ^8.0.0
+  fluttertoast: ^8.2.2
+>>>>>>> master
 
 dev_dependencies:
   flutter_test:
