@@ -27,13 +27,15 @@ class _SingleButtonState extends State<SingleButton> {
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Text(
-          widget.number,
-          style: const TextStyle(
-            fontSize: 25,
-            color: Colors.black
-          ),
-        ),
+        child: widget.number == "del"
+            ? IconButton(
+                onPressed: widget.onPress,
+                icon: const Icon(Icons.backspace),
+              )
+            : Text(
+                widget.number,
+                style: const TextStyle(fontSize: 20, color: Colors.black),
+              ),
       ),
     );
   }
