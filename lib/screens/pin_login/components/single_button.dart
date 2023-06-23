@@ -8,7 +8,7 @@ class SingleButton extends StatefulWidget {
     super.key,
     required this.number,
     required this.onPress,
-    this.color = Colors.brown,
+    this.color = const Color(0xFFFFF7E8),
   });
 
   @override
@@ -18,19 +18,22 @@ class SingleButton extends StatefulWidget {
 class _SingleButtonState extends State<SingleButton> {
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(onPressed: widget.onPress,
+    return MaterialButton(
+      onPressed: widget.onPress,
       elevation: 0,
       color: widget.color,
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Text(
-          widget.number,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.black
-          ),
-        ),
+        child: widget.number == "del"
+            ? IconButton(
+                onPressed: widget.onPress,
+                icon: const Icon(Icons.backspace),
+              )
+            : Text(
+                widget.number,
+                style: const TextStyle(fontSize: 20, color: Colors.black),
+              ),
       ),
     );
   }
