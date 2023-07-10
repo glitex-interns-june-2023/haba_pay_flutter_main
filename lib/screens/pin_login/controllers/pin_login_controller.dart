@@ -12,7 +12,12 @@ class PinLoginController extends GetxController{
 
   onNumberClicked(int number){
     if(pin.length == 4){
-      //array is full
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'Enter only 4 numbers',
+          duration: Duration(seconds: 3),
+        ),
+      );
     } else {
       pin.add(number);
     }
@@ -20,7 +25,12 @@ class PinLoginController extends GetxController{
 
   onClearLast(){
     if(pin.isEmpty){
-      //all cleared
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'All numbers are cleared',
+          duration: Duration(seconds: 3),
+        ),
+      );
     } else {
       pin.remove(pin.last);
     }
@@ -58,7 +68,7 @@ class PinLoginController extends GetxController{
         ),
       );
     } else if(finishPin == pin.string){
-      Get.to(()=>const Dashboard(), transition: Transition.rightToLeft);
+      Get.offAll(()=>const Dashboard(), transition: Transition.rightToLeft);
     } else {
       Get.showSnackbar(
         const GetSnackBar(
