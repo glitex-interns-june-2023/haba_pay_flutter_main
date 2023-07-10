@@ -34,6 +34,14 @@ class PinLoginController extends GetxController{
   }
 
   createLoginPin() async{
+    if(pin.length < 4){
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'Please enter 4 numbers',
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
     await _secureStorage.setPin(pin.string);
     pin = [].obs;
     Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
@@ -41,6 +49,14 @@ class PinLoginController extends GetxController{
 
   confirmLoginPin() async{
     var finishPin = await _secureStorage.getPin();
+    if(pin.length < 4){
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'Please enter 4 numbers',
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
     if(finishPin == pin.string){
       Get.to(()=>const Dashboard(), transition: Transition.rightToLeft);
     } else {
