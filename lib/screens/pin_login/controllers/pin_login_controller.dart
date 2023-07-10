@@ -41,10 +41,11 @@ class PinLoginController extends GetxController{
           duration: Duration(seconds: 3),
         ),
       );
+    } else {
+      await _secureStorage.setPin(pin.string);
+      pin = [].obs;
+      Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
     }
-    await _secureStorage.setPin(pin.string);
-    pin = [].obs;
-    Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
   }
 
   confirmLoginPin() async{
@@ -56,8 +57,7 @@ class PinLoginController extends GetxController{
           duration: Duration(seconds: 3),
         ),
       );
-    }
-    if(finishPin == pin.string){
+    } else if(finishPin == pin.string){
       Get.to(()=>const Dashboard(), transition: Transition.rightToLeft);
     } else {
       Get.showSnackbar(
