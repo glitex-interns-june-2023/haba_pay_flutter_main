@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 
 import '../../../services/pin_secure_storage.dart';
@@ -41,7 +42,7 @@ class PinLoginController extends GetxController{
   confirmLoginPin() async{
     var finishPin = await _secureStorage.getPin();
     if(finishPin == pin.string){
-      Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
+      Get.to(()=>const Dashboard(), transition: Transition.rightToLeft);
     } else {
       Get.showSnackbar(
         const GetSnackBar(

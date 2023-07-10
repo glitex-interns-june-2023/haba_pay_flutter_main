@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'create_login_pin.dart';
 
 class VerificationSuccessful extends StatelessWidget {
   const VerificationSuccessful({super.key});
@@ -22,13 +26,15 @@ class VerificationSuccessful extends StatelessWidget {
           Image.asset('assets/images/smile_face.png'),
           const Spacer(flex: 4,),
           Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: MaterialButton(onPressed: (){},
+            child: MaterialButton(onPressed: (){
+              Get.to(()=>const CreateLoginPin(), transition: Transition.rightToLeft);
+            },
                 height: 50,
                 minWidth: double.infinity,
                 color: Colors.orange,
                 child: const Padding(padding: EdgeInsets.symmetric(horizontal: 50),
                   child: Text(
-                    "Start",
+                    "Proceed",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
