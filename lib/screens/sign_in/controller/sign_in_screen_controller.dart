@@ -20,12 +20,12 @@ class SignInController extends GetxController{
       if(googleAccount.value == null){
         //show toast error
       } else {
-        await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
-        var response = await BaseClient.post(
-            "/google_token_validation",
-            await _secureStorage.getClientId()
-        );
-        user(SignInEntity.fromJson(response));
+        // await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
+        // var response = await BaseClient.post(
+        //     "/google_token_validation",
+        //     await _secureStorage.getClientId()
+        // );
+        // user(SignInEntity.fromJson(response));
         await _secureStorage.setAuthToken(user.value.accessToken);
         Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
       }
