@@ -32,12 +32,12 @@ class PinLoginController extends GetxController{
     //compare the pin with local storage pin
   }
 
-  confirmLoginPin() async{
+  createLoginPin() async{
     await _secureStorage.setPin(pin.string);
     Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
   }
 
-  finishLoginPinSetup() async{
+  confirmLoginPin() async{
     var finishPin = await _secureStorage.getPin();
     if(finishPin == pin.string){
       Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);

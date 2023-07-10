@@ -172,7 +172,7 @@ class _CreateLoginPinState extends State<CreateLoginPin> {
             padding: const EdgeInsets.all(16),
             child: MaterialButton(
               onPressed: () {
-                pinLoginController.confirmLoginPin();
+                pinLoginController.createLoginPin();
               },
               minWidth: double.infinity,
               height: 50,
