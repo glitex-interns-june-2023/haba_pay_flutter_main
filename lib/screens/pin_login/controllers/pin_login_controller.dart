@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 
 import '../../../services/pin_secure_storage.dart';
 
@@ -33,6 +34,15 @@ class PinLoginController extends GetxController{
 
   confirmLoginPin() async{
     await _secureStorage.setPin(pin.string);
-    Get.to(()=>const AddPhoneNumber(), transition: Transition.rightToLeft);
+    Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
+  }
+
+  finishLoginPinSetup() async{
+    var finishPin = await _secureStorage.getPin();
+    if(finishPin == pin.string){
+      Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
+    } else {
+      print("error");
+    }
   }
 }
