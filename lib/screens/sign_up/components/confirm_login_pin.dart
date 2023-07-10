@@ -8,10 +8,10 @@ class ConfirmLoginPin extends StatefulWidget {
   const ConfirmLoginPin({super.key});
 
   @override
-  State<CLoginPin> createState() => _CreateLoginPinState();
+  State<ConfirmLoginPin> createState() => _ConfirmLoginPinState();
 }
 
-class _CreateLoginPinState extends State<CreateLoginPin> {
+class _ConfirmLoginPinState extends State<ConfirmLoginPin> {
   final pinLoginController = Get.put(PinLoginController());
 
   @override
@@ -23,7 +23,7 @@ class _CreateLoginPinState extends State<CreateLoginPin> {
             flex: 2,
           ),
           const Text(
-            "Create a Login PIN",
+            "Repeat PIN to confirm",
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
           const Spacer(flex: 2,),
