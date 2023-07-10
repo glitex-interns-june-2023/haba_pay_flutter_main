@@ -5,17 +5,26 @@ class SecureStorage {
   final storage = const FlutterSecureStorage();
 
   final String _keyPin = "pin";
+  final String _keyUserName = "username";
   final String _keyClientId = "client_id";
   final String _keyEmail = "email";
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
 
-  Future setUserName(String pin) async {
+  Future setPin(String pin) async {
     await storage.write(key: _keyPin, value: pin);
   }
 
-  Future<String?> getUserName() async {
+  Future<String?> getPin() async {
     return await storage.read(key: _keyPin);
+  }
+
+  Future setUserName(String username) async {
+    await storage.write(key: _keyUserName, value: username);
+  }
+
+  Future<String?> getUserName() async {
+    return await storage.read(key: _keyUserName);
   }
 
   Future setClientId(String clientId) async {

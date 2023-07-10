@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../services/pin_secure_storage.dart';
+
+
 class PinLoginController extends GetxController{
+  final SecureStorage _secureStorage = SecureStorage();
   var isAuthenticated = false.obs;
   var pin = [].obs;
 
@@ -25,5 +29,10 @@ class PinLoginController extends GetxController{
       //enter four characters
     }
     //compare the pin with local storage pin
+  }
+
+  confirmLoginPin() async{
+    await _secureStorage.setPin(pin.string);
+    Get.to(()=>const AddPhoneNumber(), transition: Transition.rightToLeft);
   }
 }

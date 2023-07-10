@@ -41,7 +41,6 @@ dependencies:
   google_sign_in: ^6.1.4
   twilio_flutter: ^0.0.9
   flutter_secure_storage: ^8.0.0
-  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:
