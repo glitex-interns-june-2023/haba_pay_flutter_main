@@ -44,6 +44,7 @@ class PinLoginController extends GetxController{
     if(finishPin == pin.string){
       Get.to(()=>const Dashboard(), transition: Transition.rightToLeft);
     } else {
+      pin = [].obs;
       Get.showSnackbar(
         const GetSnackBar(
           message: 'Incorrect pin try again',
