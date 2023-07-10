@@ -34,6 +34,7 @@ class PinLoginController extends GetxController{
 
   createLoginPin() async{
     await _secureStorage.setPin(pin.string);
+    pin = [].obs;
     Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
   }
 
@@ -42,7 +43,12 @@ class PinLoginController extends GetxController{
     if(finishPin == pin.string){
       Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
     } else {
-      print("error");
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'Incorrect pin try again',
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 }
