@@ -79,10 +79,7 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(width: 5,),
                 InkWell(
                   onTap: (){
-                    Get.to(()=>const SignIn(),
-                        transition: Transition.rightToLeft,
-                        duration: const Duration(seconds: 1)
-                    );
+                    Get.offAll(()=>const SignIn(), transition: Transition.rightToLeft,);
                   },
                   child: const Text(
                     "sign in",
