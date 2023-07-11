@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
+import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
+import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import '../screens/dashboard/components/dashboard.dart';
 import '../screens/home/components/home.dart';
 import '../screens/settings/components/add_phone_number_settings.dart';
@@ -23,6 +25,8 @@ class AppPage{
   static String signIn = "/sign_in";
   static String signUp = "/sign_up";
   static String pinLogin = "/pin_login";
+  static String createLoginPin = "/create_login_pin";
+  static String confirmLoginPin = "/confirm_login_pin";
   static String addPhoneNumber = "/add_phone_number";
   static String verificationSuccessful = "/verification_successful";
   static String verifyPhoneNumber = "/verify_phone_number";
@@ -39,6 +43,8 @@ class AppPage{
   static getSignIn() => signIn;
   static getSignUp() => signUp;
   static getPinLogin() => pinLogin;
+  static getCreateLoginPin() => createLoginPin;
+  static getConfirmLoginPin() => confirmLoginPin;
   static getAddPhoneNumber() => addPhoneNumber;
   static getVerificationSuccessful() => verificationSuccessful;
   static getVerifyPhoneNumber() => verifyPhoneNumber;
@@ -56,6 +62,8 @@ class AppPage{
     GetPage(name: signIn, page: () => const SignIn()),
     GetPage(name: signUp, page: () => const SignUp()),
     GetPage(name: pinLogin, page: () => const PinLogin()),
+    GetPage(name: createLoginPin, page: ()=> const CreateLoginPin()),
+    GetPage(name: confirmLoginPin, page: ()=> const ConfirmLoginPin()),
     GetPage(name: addPhoneNumber, page: () => const AddPhoneNumber()),
     GetPage(name: verificationSuccessful, page: () => const VerificationSuccessful()),
     GetPage(name: verifyPhoneNumber, page: () => const VerifyPhoneNumber()),
