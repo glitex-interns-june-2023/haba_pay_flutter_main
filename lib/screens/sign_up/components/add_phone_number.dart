@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/routes/app_page.dart';
 import 'package:haba_pay_main/screens/sign_up/components/verify_phone_number.dart';
-import 'package:haba_pay_main/services/otp_service.dart';
-import "package:flutter_secure_storage/flutter_secure_storage.dart";
+import 'package:haba_pay_main/screens/sign_up/controller/otp_controller.dart';
 
 class AddPhoneNumber extends StatefulWidget {
   const AddPhoneNumber({super.key});
@@ -12,6 +12,7 @@ class AddPhoneNumber extends StatefulWidget {
 }
 
 class _AddPhoneNumberState extends State<AddPhoneNumber> {
+  final OtpController otpController = Get.put(OtpController());
   final TextEditingController _phoneNumberController = TextEditingController();
 
   bool isLoading = false;
@@ -97,33 +98,20 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
     });
 
     try {
-      String verificationSid = await OTP.sendOTP(phoneNumber);
-
-      if (verificationSid == "") {
-        setState(() {
-          isLoading = false;
-        });
-        // could not send OTP
-        debugPrint("Could not send OTP");
-        return;
-      }
+      // OTP sent success.
+      await otpController.sendOTP(phoneNumber);
 
       setState(() {
         isLoading = false;
       });
 
-      // OTP sent success.
-      // save token to storage
-      const storage = FlutterSecureStorage();
-      debugPrint("Verification Sid: $verificationSid");
-
-      await storage.write(key: "verificationSid", value: verificationSid);
-      await storage.write(key: "phoneNumber", value: phoneNumber);
-
       // Next page to verify OTP
-      Get.to(() => const VerifyPhoneNumber(),
-          transition: Transition.rightToLeft,
-          duration: const Duration(milliseconds: 500));
+      Get.to(
+        () => const VerifyPhoneNumber(),
+        routeName: AppPage.getVerifyPhoneNumber(),
+        transition: Transition.rightToLeft,
+        duration: const Duration(milliseconds: 500),
+      );
 
       debugPrint("OTP sent successfully");
     } catch (e) {
@@ -141,9 +129,19 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
 
   /// validate empty phone number
   bool validateInput() {
-    final bool valid = _phoneNumberController.text.isEmpty ? false : true;
+    final String phoneNumber = _phoneNumberController.text;
+    bool valid = true;
+    String error = "";
+    if (phoneNumber.isEmpty) {
+      error = "Please enter your phone";
+      valid = false;
+    } else if (phoneNumber.length < 10) {
+      error = "Phone should be at least 10 digits";
+      valid = false;
+    }
 
     setState(() {
+      errorMsg = error;
       isValid = valid;
     });
 
