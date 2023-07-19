@@ -4,10 +4,10 @@ import 'package:haba_pay_main/routes/app_page.dart';
 
 void main() {
   runApp(
-      GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppPage.getCreateLoginPin(),
-        getPages: AppPage.routes
-      )
+    GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppPage.getSignUp(),
+      getPages: AppPage.routes,
+    ),
   );
 }
