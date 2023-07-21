@@ -4,6 +4,7 @@ import 'package:haba_pay_main/model/User.dart';
 import 'package:haba_pay_main/model/sign_in_entity.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
+import '../../../services/base_client.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/add_phone_number.dart';
 
@@ -37,26 +38,23 @@ class SignUpController extends GetxController{
     }
   }
 
-  // sendUserInfo() async{
-  //   isLoading(true);
-  //   try{
-  //     userInfo(
-  //      User(
-  //        username: await _secureStorage.getUserName(),
-  //        clientId: await _secureStorage.getClientId(),
-  //        email: await _secureStorage.getEmail(),
-  //        phoneNumber: await _secureStorage.getPhoneNumber()
-  //      )
-  //     );
-  //     // var response = await BaseClient.post(
-  //     //     "/sign_up",
-  //     //     userInfo
-  //     // );
-  //     // user(SignInEntity.fromJson(response));
-  //     await _secureStorage.setAuthToken(user.value.accessToken);
-  //     Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
+  sendUserInfo() async{
+    isLoading(true);
+    try{
+      userInfo(
+       User(
+         token: await _secureStorage.getClientId(),
+       )
+      );
+      var response = await BaseClient.post(
+          "/sign_up",
+          userInfo
+      );
+      // user(SignInEntity.fromJson(response));
+      await _secureStorage.setAuthToken(user.value.accessToken);
+      Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
+    } finally {
+      isLoading(false);
+    }
+  }
 }

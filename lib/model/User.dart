@@ -1,16 +1,10 @@
 
 class User{
 
-  String? username;
-  String? clientId;
-  String? email;
-  String? phoneNumber;
+  String? token;
 
   User({
-    this.username,
-    this.clientId,
-    this.email,
-    this.phoneNumber
+    this.token,
   });
 
 }
