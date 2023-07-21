@@ -50,7 +50,7 @@ class SignUpController extends GetxController{
           "/sign_up",
           userInfo
       );
-      // user(SignInEntity.fromJson(response));
+      user(SignInEntity.fromJson(response));
       await _secureStorage.setAuthToken(user.value.accessToken);
       Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
     } finally {
