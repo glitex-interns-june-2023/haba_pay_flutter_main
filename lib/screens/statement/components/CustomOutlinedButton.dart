@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
 
+import '../../sign_in/controller/sign_in_screen_controller.dart';
+
 class CustomOutlinedButton extends StatefulWidget {
   final String title;
   final IconData? icon;
@@ -19,23 +21,24 @@ class CustomOutlinedButton extends StatefulWidget {
 }
 
 class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
-  final statementController = Get.put(StatementController());
+  final StatementController statementController = Get.put(StatementController());
+  //final signInController = Get.put(SignInController());
+
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => OutlinedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed) || statementController.onButtonPressed(widget.title)) {
-              return Colors.orange;
-            }
-            return Colors.transparent;
-          },
-        )),
+            backgroundColor: MaterialStateProperty.all(
+              statementController.onButtonPressed(widget.title)
+                ? Colors.orange : Colors.transparent
+            )
+        ),
         onPressed: widget.onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Icon(widget.icon), Text(widget.title)],
-        )));
+        ))
+    );
   }
 }
