@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getDepositDetails(),
+      initialRoute: AppPage.getVerifyPhoneNumberSettings(),
       getPages: AppPage.routes,
     ),
   );
