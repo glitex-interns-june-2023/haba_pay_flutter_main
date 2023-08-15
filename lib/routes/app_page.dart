@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
+import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import '../screens/dashboard/components/dashboard.dart';
@@ -35,6 +36,7 @@ class AppPage{
   static String addPhoneNumberSettings = "/add_phone_number_settings";
   static String verifyPhoneNumberSettings = "/verify_phone_number_settings";
   static String verificationSuccessfulNumberSettings = "/verification_successful_number_settings";
+  static String sendMoney = "/send_money";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -53,6 +55,7 @@ class AppPage{
   static getAddPhoneNumberSettings() => addPhoneNumberSettings;
   static getVerifyPhoneNumberSettings() => verifyPhoneNumberSettings;
   static getVerificationSuccessfulNumberSettings() => verificationSuccessfulNumberSettings;
+  static getSendMoney() => sendMoney;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -71,6 +74,7 @@ class AppPage{
     GetPage(name: pinUpdated, page: () => const PinUpdated()),
     GetPage(name: addPhoneNumberSettings, page: () => const AddPhoneNumberSettings()),
     GetPage(name: verifyPhoneNumberSettings, page: () => const VerifyPhoneNumberSettings()),
-    GetPage(name: verificationSuccessfulNumberSettings, page: () => const VerificationSuccessfulPhoneSettings())
+    GetPage(name: verificationSuccessfulNumberSettings, page: () => const VerificationSuccessfulPhoneSettings()),
+    GetPage(name: sendMoney, page: () => const SendMoney())
   ];
 }

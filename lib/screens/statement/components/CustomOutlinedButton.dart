@@ -24,21 +24,20 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
   final StatementController statementController = Get.put(StatementController());
   //final signInController = Get.put(SignInController());
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() => OutlinedButton(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(
-              statementController.onButtonPressed(widget.title)
+              statementController.isAllPressed == true.obs
                 ? Colors.orange : Colors.transparent
             )
         ),
         onPressed: widget.onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Icon(widget.icon), Text(widget.title)],
-        ))
+          children: [ Icon(widget.icon), Text(widget.title)],
+        )),
     );
   }
 }
