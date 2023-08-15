@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/model/sign_in_entity.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
-import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 
@@ -17,7 +16,7 @@ class SignInController extends GetxController{
     isLoading(true);
     try{
       googleAccount.value = await _googleSignIn.signIn();
-      if(googleAccount.value == null){
+      if(googleAccount.value?.email == null){
         //show toast error
       } else {
         // await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
@@ -26,7 +25,7 @@ class SignInController extends GetxController{
         //     await _secureStorage.getClientId()
         // );
         // user(SignInEntity.fromJson(response));
-        await _secureStorage.setAuthToken(user.value.accessToken);
+        // await _secureStorage.setAuthToken(user.value.accessToken);
         Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
       }
     } finally {
