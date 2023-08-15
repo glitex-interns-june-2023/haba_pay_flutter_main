@@ -109,13 +109,32 @@ class _DepositMoneyState extends State<DepositMoney> {
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 50),
                     child: Text(
-                      "send",
+                      "Proceed with number",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           fontSize: 20),
                     ),
                   )),
+              const SizedBox(height: 20,),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      "Use ",
+                    style: TextStyle(
+                      fontSize: 18
+                    ),
+                  ),
+                  Text(
+                    "my number",
+                    style: TextStyle(
+                      color: Colors.orange,
+                        fontSize: 18
+                    ),
+                  ),
+                ],
+              ),
               const Spacer()
             ],
           ),
