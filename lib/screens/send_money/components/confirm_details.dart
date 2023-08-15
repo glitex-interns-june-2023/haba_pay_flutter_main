@@ -14,7 +14,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
     return Scaffold(
       body: Card(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               const Spacer(),
@@ -24,7 +24,10 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(
                       "New Balance",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Colors.grey,
+                          fontSize: 18
+                      ),
                     )),
               ),
               const Row(

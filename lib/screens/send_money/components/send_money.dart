@@ -28,6 +28,7 @@ class _SendMoneyState extends State<SendMoney> {
                     child: Text(
                       "Balance",
                       style: TextStyle(
+                        color: Colors.grey,
                           fontSize: 18
                       ),
                     )),

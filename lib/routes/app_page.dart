@@ -6,6 +6,7 @@ import 'package:haba_pay_main/screens/send_money/components/verifying_transactio
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import '../screens/dashboard/components/dashboard.dart';
+import '../screens/deposit_money/components/deposit_details.dart';
 import '../screens/home/components/home.dart';
 import '../screens/send_money/components/confirm_details.dart';
 import '../screens/send_money/components/confirm_identity.dart';
@@ -45,6 +46,7 @@ class AppPage{
   static String confirmIdentity = "/confirm_identity";
   static String verifyingTransaction = "/verifying_transaction";
   static String depositMoney = "/deposit_money";
+  static String depositDetails = "/deposit_details";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -68,6 +70,7 @@ class AppPage{
   static getConfirmIdentity() => confirmIdentity;
   static getVerifyingTransaction() => verifyingTransaction;
   static getDepositMoney() => depositMoney;
+  static getDepositDetails() => depositDetails;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -91,6 +94,7 @@ class AppPage{
     GetPage(name: confirmDetails, page: () => const ConfirmDetails()),
     GetPage(name: confirmIdentity, page: () => const ConfirmIdentity()),
     GetPage(name: verifyingTransaction, page: () => const VerifyingTransaction()),
-    GetPage(name: depositMoney, page: () => const DepositMoney())
+    GetPage(name: depositMoney, page: () => const DepositMoney()),
+    GetPage(name: depositDetails, page: () => const DepositDetails())
   ];
 }
