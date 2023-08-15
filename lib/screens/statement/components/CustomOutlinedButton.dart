@@ -21,8 +21,10 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+        style: ButtonStyle(),
         onPressed: widget.onPress,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(widget.icon),
             Text(widget.title)

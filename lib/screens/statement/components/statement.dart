@@ -13,6 +13,7 @@ class Statement extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
               CustomOutlinedButton(title: "All", onPress: (){}, icon: null),
               CustomOutlinedButton(title: "Sent", onPress: (){}, icon: Icons.send),
