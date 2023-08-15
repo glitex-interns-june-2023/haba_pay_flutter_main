@@ -117,22 +117,25 @@ class _DepositMoneyState extends State<DepositMoney> {
                     ),
                   )),
               const SizedBox(height: 20,),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                       "Use ",
                     style: TextStyle(
                       fontSize: 18
                     ),
                   ),
-                  Text(
-                    "my number",
-                    style: TextStyle(
-                      color: Colors.orange,
-                        fontSize: 18
+                  InkWell(
+                    onTap: (){},
+                    child: const Text(
+                      "my number",
+                      style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: 18
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const Spacer()
