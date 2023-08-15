@@ -5,6 +5,8 @@ import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart'
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import '../screens/dashboard/components/dashboard.dart';
 import '../screens/home/components/home.dart';
+import '../screens/send_money/components/confirm_details.dart';
+import '../screens/send_money/components/confirm_identity.dart';
 import '../screens/settings/components/add_phone_number_settings.dart';
 import '../screens/settings/components/pin_updated.dart';
 import '../screens/settings/components/settings.dart';
@@ -37,6 +39,8 @@ class AppPage{
   static String verifyPhoneNumberSettings = "/verify_phone_number_settings";
   static String verificationSuccessfulNumberSettings = "/verification_successful_number_settings";
   static String sendMoney = "/send_money";
+  static String confirmDetails = "/confirm_details";
+  static String confirmIdentity = "/confirm_identity";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -56,6 +60,8 @@ class AppPage{
   static getVerifyPhoneNumberSettings() => verifyPhoneNumberSettings;
   static getVerificationSuccessfulNumberSettings() => verificationSuccessfulNumberSettings;
   static getSendMoney() => sendMoney;
+  static getConfirmDetails() => confirmDetails;
+  static getConfirmIdentity() => confirmIdentity;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -75,6 +81,8 @@ class AppPage{
     GetPage(name: addPhoneNumberSettings, page: () => const AddPhoneNumberSettings()),
     GetPage(name: verifyPhoneNumberSettings, page: () => const VerifyPhoneNumberSettings()),
     GetPage(name: verificationSuccessfulNumberSettings, page: () => const VerificationSuccessfulPhoneSettings()),
-    GetPage(name: sendMoney, page: () => const SendMoney())
+    GetPage(name: sendMoney, page: () => const SendMoney()),
+    GetPage(name: confirmDetails, page: () => const ConfirmDetails()),
+    GetPage(name: confirmIdentity, page: () => const ConfirmIdentity())
   ];
 }
