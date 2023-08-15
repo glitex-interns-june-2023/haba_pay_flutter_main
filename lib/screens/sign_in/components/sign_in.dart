@@ -17,77 +17,95 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        const Spacer(),
-        const Text(
-          "Sign in to account",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Image.asset('assets/images/undraw_sign_in.png'),
-        ),
-        const Spacer(),
-        const Text(
-          "Welcome to the convenience of payment \n"
-          "By continuing, you agree with our",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black54),
-        ),
-        const Text(
-          "terms & conditions",
-          style: TextStyle(color: Colors.orange),
-        ),
-        const Spacer(),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Obx(() => MaterialButton(
-                onPressed: () { signInController.login(); },
-                height: 50,
-                color: Colors.orange,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if(!signInController.isLoading.value) const Image(image: AssetImage('assets/images/google_logo.png'))
-                    else const Icon(Icons.refresh, color: Colors.white,),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
-                      "Continue with Google",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20
+      body: LayoutBuilder(
+        builder: (context, constraint){
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(children: [
+                  const Spacer(),
+                  const Text(
+                    "Sign in to account",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Image.asset('assets/images/undraw_sign_in.png'),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "Welcome to the convenience of payment \n"
+                        "By continuing, you agree with our",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                  const Text(
+                    "terms & conditions",
+                    style: TextStyle(color: Colors.orange),
+                  ),
+                  const Spacer(),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Obx(() => MaterialButton(
+                          onPressed: () {
+                            signInController.login();
+                          },
+                          height: 50,
+                          color: Colors.orange,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (!signInController.isLoading.value)
+                                const Image(
+                                    image: AssetImage('assets/images/google_logo.png'))
+                              else
+                                const Icon(
+                                  Icons.refresh,
+                                  color: Colors.white,
+                                ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Continue with Google",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              )
+                            ],
+                          )))),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Or "),
+                      const SizedBox(
+                        width: 5,
                       ),
-                    )
-                  ],
-                )))),
-        const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Or "),
-            const SizedBox(
-              width: 5,
-            ),
-            InkWell(
-              onTap: () {
-                Get.to(
-                  () => const SignUp(),
-                  transition: Transition.rightToLeft,
-                );
-              },
-              child: const Text(
-                "create new account",
-                style: TextStyle(color: Colors.orange),
+                      InkWell(
+                        onTap: () {
+                          Get.to(
+                                () => const SignUp(),
+                            transition: Transition.rightToLeft,
+                          );
+                        },
+                        child: const Text(
+                          "create new account",
+                          style: TextStyle(color: Colors.orange),
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer()
+                ]),
               ),
-            )
-          ],
-        ),
-        const Spacer()
-      ]),
+            ),
+          );
+        },
+      ),
     );
   }
 }
