@@ -28,8 +28,8 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                 flex: 2,
               ),
               const Text(
-                "Good afternoon, Brian",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                "Confirm identity",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Spacer(flex: 2,),
               Obx(() => Row(
