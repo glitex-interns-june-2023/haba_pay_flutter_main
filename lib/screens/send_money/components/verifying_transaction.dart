@@ -109,7 +109,9 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                         ),
                         Expanded(
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              sendMoneyController.verifyTransaction();
+                            },
                             height: 50,
                             color: Colors.orange,
                             shape: RoundedRectangleBorder(
