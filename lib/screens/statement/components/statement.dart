@@ -17,28 +17,39 @@ class _StatementState extends State<Statement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Obx(() => OutlinedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          statementController.isAllPressed == true.obs
-                              ? Colors.transparent
-                              : Colors.orange)),
-                  onPressed: () {
-                    statementController.isAllPressed = true.obs;
-                    print("================================${statementController.isAllPressed.value}");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Icon(Icons.abc), Text("All")],
-                  )))
-            ],
-          )
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraint){
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Obx(() => OutlinedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    statementController.isAllPressed == true.obs
+                                        ? Colors.transparent
+                                        : Colors.orange)),
+                            onPressed: () {
+                              statementController.isAllPressed = true.obs;
+                              print("================================${statementController.isAllPressed.value}");
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [Icon(Icons.abc), Text("All")],
+                            )))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
