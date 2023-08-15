@@ -44,7 +44,9 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                  const Spacer(),
+                  const SizedBox(height: 30,),
+                  const Divider(),
+                  const SizedBox(height: 20,),
                   if (sendMoneyController.isLoading.value)
                     const CircularProgressIndicator(color: Colors.orange)
                   else if (sendMoneyController.isSuccessful.value)

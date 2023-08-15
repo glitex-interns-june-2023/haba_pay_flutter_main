@@ -56,7 +56,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                   fontSize: 18,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 20,),
               const Align(
                 alignment: Alignment.topLeft,
                 child: Padding(

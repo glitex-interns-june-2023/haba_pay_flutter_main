@@ -31,7 +31,7 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                 "Confirm identity",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const Spacer(flex: 2,),
+              const SizedBox(height: 20,),
               Obx(() => Row(
                 children: [
                   const Spacer(),

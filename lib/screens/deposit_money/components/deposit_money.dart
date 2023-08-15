@@ -53,13 +53,13 @@ class _DepositMoneyState extends State<DepositMoney> {
               const Divider(),
               const SizedBox(height: 10,),
               const Text(
-                "Send to",
+                "Deposit from",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 20,),
               const Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
