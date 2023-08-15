@@ -1,35 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
 
 class CustomOutlinedButton extends StatefulWidget {
   final String title;
   final IconData? icon;
   final Function() onPress;
 
-  const CustomOutlinedButton({
-    super.key,
-    required this.title,
-    required this.onPress,
-    required this.icon
-  });
+  const CustomOutlinedButton(
+      {super.key,
+      required this.title,
+      required this.onPress,
+      required this.icon});
 
   @override
   State<CustomOutlinedButton> createState() => _CustomOutlinedButtonState();
 }
 
 class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
+  final statementController = Get.put(StatementController());
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-        style: ButtonStyle(),
+    return Obx(() => OutlinedButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed) || statementController.onButtonPressed(widget.title)) {
+              return Colors.orange;
+            }
+            return Colors.transparent;
+          },
+        )),
         onPressed: widget.onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(widget.icon),
-            Text(widget.title)
-          ],
-        )
-    );
+          children: [Icon(widget.icon), Text(widget.title)],
+        )));
   }
 }

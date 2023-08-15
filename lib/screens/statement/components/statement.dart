@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/screens/statement/components/CustomOutlinedButton.dart';
@@ -12,10 +11,9 @@ class Statement extends StatelessWidget {
       body: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomOutlinedButton(title: "All", onPress: (){}, icon: null),
+              CustomOutlinedButton(title: "All", onPress: (){}, icon: Icons.co2),
               CustomOutlinedButton(title: "Sent", onPress: (){}, icon: Icons.send),
               CustomOutlinedButton(title: "Withdraw", onPress: (){}, icon: Icons.receipt),
               CustomOutlinedButton(title: "Deposit", onPress: (){}, icon: Icons.abc)
