@@ -10,7 +10,7 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney> {
   final TextEditingController _phoneNumberController = TextEditingController();
-
+  final TextEditingController _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,9 @@ class _SendMoneyState extends State<SendMoney> {
                   )
                 ],
               ),
-              const Spacer(),
+              const SizedBox(height: 10,),
+              const Divider(),
+              const SizedBox(height: 10,),
               const Text(
                   "Send to",
                 style: TextStyle(
@@ -94,7 +96,7 @@ class _SendMoneyState extends State<SendMoney> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
-                controller: _phoneNumberController,
+                controller: _amountController,
               ),
               const Spacer(flex: 2,),
               MaterialButton(
