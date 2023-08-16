@@ -26,18 +26,34 @@ class _StatementState extends State<Statement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: list.length,
-          itemBuilder: (context, index){
-            return SingleStatement(
-                icon: list[index].icon,
-                onClick: (){},
-                name: list[index].name,
-                phoneNumber: list[index].phoneNumber,
-                amount: list[index].amount,
-                time: list[index].time
-            );
-          }
+      body: Column(
+        children: [
+          Row(
+            children: [
+              MaterialButton(onPressed: (){}),
+              MaterialButton(onPressed: (){}),
+              MaterialButton(onPressed: (){}),
+              MaterialButton(onPressed: (){}),
+            ],
+          ),
+          Expanded(
+            child: Card(
+              child: ListView.builder(
+                itemCount: list.length,
+                  itemBuilder: (context, index){
+                    return SingleStatement(
+                        icon: list[index].icon,
+                        onClick: (){},
+                        name: list[index].name,
+                        phoneNumber: list[index].phoneNumber,
+                        amount: list[index].amount,
+                        time: list[index].time
+                    );
+                  }
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
