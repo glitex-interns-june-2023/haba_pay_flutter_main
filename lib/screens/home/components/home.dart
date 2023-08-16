@@ -35,15 +35,85 @@ class Home extends StatelessWidget {
                               const SizedBox(height: 250,),
                               Card(
                                 elevation: 10,
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            MaterialButton(
+                                                onPressed: (){},
+                                              color: Colors.white,
+                                              child: SvgPicture.asset(
+                                                'assets/images/send.svg'
+                                              ),
+                                            ),
+                                            const Text(
+                                                "Send",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                color: Colors.orange
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            MaterialButton(
+                                              onPressed: (){},
+                                              color: Colors.white,
+                                              child: SvgPicture.asset(
+                                                  'assets/images/withdraw.svg'
+                                              ),
+                                            ),
+                                            const Text(
+                                              "Withdraw",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  color: Colors.orange
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            MaterialButton(
+                                              onPressed: (){},
+                                              color: Colors.white,
+                                              child: SvgPicture.asset(
+                                                  'assets/images/deposit.svg',
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            const Text(
+                                              "Deposit",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  color: Colors.orange
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Container(
                               height: 200,
                               decoration: BoxDecoration(
