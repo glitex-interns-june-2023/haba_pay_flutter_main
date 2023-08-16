@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getVerifyEmail(),
+      initialRoute: AppPage.getPinUpdated(),
       getPages: AppPage.routes,
     ),
   );

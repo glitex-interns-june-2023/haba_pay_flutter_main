@@ -38,6 +38,7 @@ class UpdateLoginPin extends GetView<BottomNavBarController> {
                                 child: Text(
                                   "Current pin",
                                   style: TextStyle(
+                                    fontSize: 18,
                                       fontWeight: FontWeight.bold
                                   ),
                                 )
@@ -56,8 +57,23 @@ class UpdateLoginPin extends GetView<BottomNavBarController> {
                             child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
+                                  "Forgot pin",
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                )
+                            ),
+                          ),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
                                   "New pin",
                                   style: TextStyle(
+                                    fontSize: 18,
                                       fontWeight: FontWeight.bold
                                   ),
                                 )
@@ -78,6 +94,7 @@ class UpdateLoginPin extends GetView<BottomNavBarController> {
                                 child: Text(
                                   "Confirm pin",
                                   style: TextStyle(
+                                    fontSize: 18,
                                       fontWeight: FontWeight.bold
                                   ),
                                 )
