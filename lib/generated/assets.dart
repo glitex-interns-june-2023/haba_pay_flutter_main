@@ -4,6 +4,7 @@ class Assets {
 
   static const String imagesAddPhoneNumberIndicator = 'assets/images/add_phone_number_indicator.png';
   static const String imagesAddPhoneNumberProgress = 'assets/images/add_phone_number_progress.png';
+  static const String imagesDeposit = 'assets/images/deposit.svg';
   static const String imagesFrame = 'assets/images/Frame.svg';
   static const String imagesGoogleLogo = 'assets/images/google_logo.png';
   static const String imagesGroup 302 = 'assets/images/Group 30-2.png';
@@ -14,6 +15,7 @@ class Assets {
   static const String imagesMpesa = 'assets/images/mpesa.svg';
   static const String imagesNotification = 'assets/images/notification.png';
   static const String imagesSadFace = 'assets/images/sad_face.png';
+  static const String imagesSend = 'assets/images/send.svg';
   static const String imagesSettings = 'assets/images/settings.png';
   static const String imagesSmileFace = 'assets/images/smile_face.png';
   static const String imagesStatement = 'assets/images/statement.png';
@@ -22,5 +24,6 @@ class Assets {
   static const String imagesVerificationSuccessfulProgress = 'assets/images/verification_successful_progress.png';
   static const String imagesVerifyPhoneNumberIndicator = 'assets/images/verify_phone_number_indicator.png';
   static const String imagesVerifyPhoneNumberProgress = 'assets/images/verify_phone_number_progress.png';
+  static const String imagesWithdraw = 'assets/images/withdraw.svg';
 
 }
