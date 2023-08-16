@@ -132,6 +132,8 @@ class _DepositDetailsState extends State<DepositDetails> {
                             minWidth: double.infinity,
                             color: Colors.orange,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
                                   'assets/images/mpesa.svg',
