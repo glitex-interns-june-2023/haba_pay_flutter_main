@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:haba_pay_main/model/StatementModel.dart';
+import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,13 @@ class Statement extends StatefulWidget {
 }
 
 class _StatementState extends State<Statement> {
+  List<StatementModel> list = [
+    StatementModel("Jane Mukenya", 'assets/images/deposit.svg',"Ksh 400","+254 787 787 879", "12:45 pm"),
+    StatementModel("Jane jashas", 'assets/images/deposit.svg',"Ksh 7568","+254 787 787 879", "12:45 pm"),
+    StatementModel("Jane Mukenya", 'assets/images/send.svg',"Ksh 653","+254 787 787 879", "12:45 pm"),
+    StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',"Ksh 4535","+254 787 787 879", "12:45 pm"),
+    StatementModel("Jane dhladk", 'assets/images/withdraw.svg',"Ksh 5667","+254 787 787 879", "12:45 pm"),
+  ];
   final StatementController statementController =
       Get.put(StatementController());
 
@@ -19,35 +28,43 @@ class _StatementState extends State<Statement> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraint){
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Obx(() => OutlinedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    statementController.isAllPressed == true.obs
-                                        ? Colors.transparent
-                                        : Colors.orange)),
-                            onPressed: () {
-                              statementController.isAllPressed = true.obs;
-                              print("================================${statementController.isAllPressed.value}");
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Icon(Icons.abc), Text("All")],
-                            )))
-                      ],
-                    )
-                  ],
-                ),
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Obx(() => OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              statementController.isAllPressed == true.obs
+                                  ? Colors.transparent
+                                  : Colors.orange)),
+                      onPressed: () {
+                        statementController.isAllPressed = true.obs;
+                        print("================================${statementController.isAllPressed.value}");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [Icon(Icons.abc), Text("All")],
+                      )))
+                ],
               ),
-            ),
+              Card(
+                child: ListView.builder(
+                  itemCount: list.length,
+                    itemBuilder: (context, index){
+                      return SingleStatement(
+                          icon: list[index].icon,
+                          onClick: (){},
+                          name: list[index].name,
+                          phoneNumber: list[index].phoneNumber,
+                          amount: list[index].amount,
+                          time: list[index].time
+                      );
+                    }
+                ),
+              )
+            ],
           );
         },
       ),

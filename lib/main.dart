@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getTransactionDetails(),
+      initialRoute: AppPage.getStatement(),
       getPages: AppPage.routes,
     ),
   );
