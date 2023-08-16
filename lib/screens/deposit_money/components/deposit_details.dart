@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DepositDetails extends StatefulWidget {
   const DepositDetails({super.key});
@@ -130,22 +131,20 @@ class _DepositDetailsState extends State<DepositDetails> {
                             height: 50,
                             minWidth: double.infinity,
                             color: Colors.orange,
-                            child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                        Icons.card_giftcard
-                                    ),
-                                    Text(
-                                      " Deposit from mpesa",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                )
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/mpesa.svg',
+                                  width: 40,
+                                ),
+                                const Text(
+                                  " Deposit from mpesa",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                ),
+                              ],
                             )),
                         const SizedBox(height: 20,),
                         const Row(

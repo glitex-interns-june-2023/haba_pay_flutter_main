@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getWithdrawTo(),
+      initialRoute: AppPage.getDepositDetails(),
       getPages: AppPage.routes,
     ),
   );

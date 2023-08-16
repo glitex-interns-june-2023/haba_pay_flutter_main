@@ -112,20 +112,22 @@ class _WithdrawToState extends State<WithdrawTo> {
                             height: 50,
                             minWidth: double.infinity,
                             color: Colors.orange,
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset('assets/images/mpesa.svg'),
-                                    const Text(
-                                      " Deposit from mpesa",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                )
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/images/mpesa.svg',
+                                  width: 40,
+                                ),
+                                const Text(
+                                  " Deposit from mpesa",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                ),
+                              ],
                             )),
                         const SizedBox(height: 20,),
                         const Row(
