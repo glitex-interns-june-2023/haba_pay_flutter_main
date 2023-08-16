@@ -30,66 +30,63 @@ class _SingleStatementState extends State<SingleStatement> {
       children: [
         InkWell(
           onTap: widget.onClick,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: SizedBox(
-              height: 70,
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        widget.icon,
-                        color: Colors.orange,
+          child: SizedBox(
+            height: 70,
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      widget.icon,
+                      color: Colors.orange,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 20,),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        widget.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
                       ),
-                    ],
-                  ),
-                  const SizedBox(width: 20,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          widget.name,
-                        style: const TextStyle(
+                    ),
+                    Text(
+                        widget.phoneNumber,
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey
+                      ),
+                    )
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                        widget.amount,
+                      style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold
-                        ),
                       ),
-                      Text(
-                          widget.phoneNumber,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey
-                        ),
-                      )
-                    ],
-                  ),
-                  const Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          widget.amount,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        ),
+                    ),
+                    Text(
+                        widget.time,
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey
                       ),
-                      Text(
-                          widget.time,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),

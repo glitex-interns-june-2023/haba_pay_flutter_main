@@ -25,6 +25,7 @@ class Assets {
   static const String imagesVerifyEmail = 'assets/images/verify_email.svg';
   static const String imagesVerifyPhoneNumberIndicator = 'assets/images/verify_phone_number_indicator.png';
   static const String imagesVerifyPhoneNumberProgress = 'assets/images/verify_phone_number_progress.png';
+  static const String imagesVisibilityOff = 'assets/images/visibility_off.svg';
   static const String imagesWithdraw = 'assets/images/withdraw.svg';
 
 }
