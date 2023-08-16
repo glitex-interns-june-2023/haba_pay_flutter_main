@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
@@ -11,23 +10,23 @@ class VerifyingTransaction extends StatefulWidget {
 }
 
 class _VerifyingTransactionState extends State<VerifyingTransaction> {
-  final SendMoneyController sendMoneyController =
-      Get.put(SendMoneyController());
+  final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return Card(
             child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: SingleChildScrollView(
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                    constraints:
+                        BoxConstraints(minHeight: constraint.maxHeight),
                     child: IntrinsicHeight(
                       child: Obx(
-                            () => Column(
+                        () => Column(
                           children: [
                             const Spacer(
                               flex: 2,
@@ -35,32 +34,39 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                             if (sendMoneyController.isLoading.value)
                               const Text(
                                 "Verifying transaction",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               )
                             else if (sendMoneyController.isSuccessful.value)
                               const Text(
                                 "Transaction Successful",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               )
                             else
                               const Text(
                                 "Transaction failed",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                            const SizedBox(height: 30,),
+                            const SizedBox(
+                              height: 30,
+                            ),
                             const Divider(),
-                            const SizedBox(height: 20,),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             if (sendMoneyController.isLoading.value)
-                              const CircularProgressIndicator(color: Colors.orange)
+                              const CircularProgressIndicator(
+                                  color: Colors.orange)
                             else if (sendMoneyController.isSuccessful.value)
                               const Image(
-                                  image: AssetImage('assets/images/smile_face.png'))
+                                  image: AssetImage(
+                                      'assets/images/smile_face.png'))
                             else
                               const Image(
-                                  image: AssetImage('assets/images/google_logo.png')),
+                                  image: AssetImage(
+                                      'assets/images/google_logo.png')),
                             const Spacer(),
                             if (sendMoneyController.isLoading.value)
                               const Text(
@@ -98,8 +104,10 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                                       child: Container(
                                         height: 50,
                                         decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.orange),
-                                            borderRadius: BorderRadius.circular(8)),
+                                            border: Border.all(
+                                                color: Colors.orange),
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
                                         child: const Center(
                                           child: Text(
                                             "Call support",
@@ -123,7 +131,8 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                                       height: 50,
                                       color: Colors.orange,
                                       shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8)),
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
                                       child: const Text(
                                         "Retry",
                                         style: TextStyle(
@@ -144,7 +153,8 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                                   minWidth: double.infinity,
                                   color: Colors.orange,
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 50),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 50),
                                     child: Text(
                                       "Return to Home",
                                       style: TextStyle(
