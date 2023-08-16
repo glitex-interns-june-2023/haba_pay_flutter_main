@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getDepositConfirmIdentity(),
+      initialRoute: AppPage.getSendMoneyConfirmIdentity(),
       getPages: AppPage.routes,
     ),
   );
