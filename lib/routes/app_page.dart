@@ -3,6 +3,7 @@ import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_d
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_identity.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_payment.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
+import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
@@ -57,6 +58,7 @@ class AppPage{
   static String depositConfirmDetails = "/deposit_confirm_details";
   static String depositConfirmIdentity = "/deposit_confirm_identity";
   static String depositConfirmPayment = "/deposit_confirm_payment";
+  static String depositVerifyTransaction = "/deposit_verify_transaction";
   static String withdrawMoney = "/withdraw_money";
   static String withdrawTo = "/withdraw_to";
   static String withdrawConfirmDetails = "/withdraw_confirm_details";
@@ -88,6 +90,7 @@ class AppPage{
   static getDepositConfirmDetails() => depositConfirmDetails;
   static getDepositConfirmIdentity() => depositConfirmIdentity;
   static getDepositConfirmPayment() => depositConfirmPayment;
+  static getDepositVerifyTransaction() => depositVerifyTransaction;
   static getWithdrawMoney() => withdrawMoney;
   static getWithdrawTo() => withdrawTo;
   static getWithdrawConfirmDetails() => withdrawConfirmDetails;
@@ -120,6 +123,7 @@ class AppPage{
     GetPage(name: depositConfirmDetails, page: () => const DepositConfirmDetails()),
     GetPage(name: depositConfirmIdentity, page: () => const DepositConfirmIdentity()),
     GetPage(name: depositConfirmPayment, page: () => const DepositConfirmPayment()),
+    GetPage(name: depositVerifyTransaction, page: () => const DepositVerifyTransaction()),
     GetPage(name: withdrawMoney, page: () => const WithdrawMoney()),
     GetPage(name: withdrawTo, page: () => const WithdrawTo()),
     GetPage(name: withdrawConfirmDetails, page: () => const WithdrawConfirmDetails()),
