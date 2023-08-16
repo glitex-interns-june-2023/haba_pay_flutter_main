@@ -31,6 +31,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                               fontWeight: FontWeight.bold
                             ),
                           ),
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +49,9 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                               )
                             ],
                           ),
+                          const Spacer(),
                           const Divider(),
+                          const Spacer(),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
