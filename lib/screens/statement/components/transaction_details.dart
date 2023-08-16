@@ -32,6 +32,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
                                   'assets/images/deposit.svg',
@@ -131,7 +133,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                             style: TextStyle(
                               fontSize: 18
                             ),
-                          )
+                          ),
+                          const Spacer()
                         ],
                       ),
                     ),
