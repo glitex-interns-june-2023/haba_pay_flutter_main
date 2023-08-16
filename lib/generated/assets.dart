@@ -11,11 +11,12 @@ class Assets {
   static const String imagesGroup 304 = 'assets/images/Group 30-4.png';
   static const String imagesHome = 'assets/images/home.png';
   static const String imagesMenu = 'assets/images/menu.png';
+  static const String imagesMpesa = 'assets/images/mpesa.svg';
   static const String imagesNotification = 'assets/images/notification.png';
+  static const String imagesSadFace = 'assets/images/sad_face.png';
   static const String imagesSettings = 'assets/images/settings.png';
   static const String imagesSmileFace = 'assets/images/smile_face.png';
   static const String imagesStatement = 'assets/images/statement.png';
-  static const String imagesSvgg = 'assets/images/mpesa.svg';
   static const String imagesUndrawSignIn = 'assets/images/undraw_sign_in.png';
   static const String imagesUndrawSignUp = 'assets/images/undraw_sign_up.png';
   static const String imagesVerificationSuccessfulProgress = 'assets/images/verification_successful_progress.png';
