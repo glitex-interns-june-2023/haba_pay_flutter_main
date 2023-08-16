@@ -5,7 +5,24 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Home");
+    return Scaffold(
+      body: LayoutBuilder(
+          builder: (context, constraint){
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+      ),
+    );
   }
 }
 
