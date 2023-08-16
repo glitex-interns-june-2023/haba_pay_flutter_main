@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ConfirmDetails extends StatefulWidget {
-  const ConfirmDetails({super.key});
+class DepositConfirmDetails extends StatefulWidget {
+  const DepositConfirmDetails({super.key});
 
   @override
-  State<ConfirmDetails> createState() => _ConfirmDetailsState();
+  State<DepositConfirmDetails> createState() => _DepositConfirmDetailsState();
 }
 
-class _ConfirmDetailsState extends State<ConfirmDetails> {
+class _DepositConfirmDetailsState extends State<DepositConfirmDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +89,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                           child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                "Recipient",
+                                "Paybill number",
                                 style:
                                 TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                               )),
@@ -99,7 +99,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                           child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                "Jane Mukenya",
+                                "2345678 - Habapay",
                                 style: TextStyle(fontSize: 18),
                               )),
                         ),
