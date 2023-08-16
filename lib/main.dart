@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getWithdrawConfirmDetails(),
+      initialRoute: AppPage.getWithdrawVerifyTransaction(),
       getPages: AppPage.routes,
     ),
   );

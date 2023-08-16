@@ -66,7 +66,7 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                             else
                               const Image(
                                   image: AssetImage(
-                                      'assets/images/google_logo.png')),
+                                      'assets/images/sad_face.png')),
                             const Spacer(),
                             if (sendMoneyController.isLoading.value)
                               const Text(
