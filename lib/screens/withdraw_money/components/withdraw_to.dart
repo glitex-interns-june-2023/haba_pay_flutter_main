@@ -1,13 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class DepositDetails extends StatefulWidget {
-  const DepositDetails({super.key});
+class WithdrawTo extends StatefulWidget {
+  const WithdrawTo({super.key});
 
   @override
-  State<DepositDetails> createState() => _DepositDetailsState();
+  State<WithdrawTo> createState() => _WithdrawToState();
 }
 
-class _DepositDetailsState extends State<DepositDetails> {
+class _WithdrawToState extends State<WithdrawTo> {
   final TextEditingController _amountController = TextEditingController();
 
   @override
@@ -60,7 +62,7 @@ class _DepositDetailsState extends State<DepositDetails> {
                           height: 10,
                         ),
                         const Text(
-                          "Confirm Details",
+                          "Withdraw to",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -91,25 +93,6 @@ class _DepositDetailsState extends State<DepositDetails> {
                           child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                "To HabaPay",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "234586785",
-                                style: TextStyle(fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
                                 "Amount",
                                 style:
                                 TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -130,14 +113,12 @@ class _DepositDetailsState extends State<DepositDetails> {
                             height: 50,
                             minWidth: double.infinity,
                             color: Colors.orange,
-                            child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50),
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 50),
                                 child: Row(
                                   children: [
-                                    Icon(
-                                        Icons.card_giftcard
-                                    ),
-                                    Text(
+                                    SvgPicture.asset('assets/images/mpesa.svg'),
+                                    const Text(
                                       " Deposit from mpesa",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
