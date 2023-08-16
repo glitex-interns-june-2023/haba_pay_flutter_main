@@ -22,6 +22,7 @@ class Assets {
   static const String imagesUndrawSignIn = 'assets/images/undraw_sign_in.png';
   static const String imagesUndrawSignUp = 'assets/images/undraw_sign_up.png';
   static const String imagesVerificationSuccessfulProgress = 'assets/images/verification_successful_progress.png';
+  static const String imagesVerifyEmail = 'assets/images/verify_email.svg';
   static const String imagesVerifyPhoneNumberIndicator = 'assets/images/verify_phone_number_indicator.png';
   static const String imagesVerifyPhoneNumberProgress = 'assets/images/verify_phone_number_progress.png';
   static const String imagesWithdraw = 'assets/images/withdraw.svg';
