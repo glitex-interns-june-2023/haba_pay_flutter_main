@@ -28,11 +28,10 @@ class Home extends StatelessWidget {
                   child: Column(
                     children: [
                       Stack(
-                        alignment: Alignment.center,
+                        alignment: Alignment.bottomCenter,
                         children: [
                           Column(
                             children: [
-                              const SizedBox(height: 250,),
                               Card(
                                 elevation: 10,
                                 child: SizedBox(
@@ -57,8 +56,7 @@ class Home extends StatelessWidget {
                                             const Text(
                                                 "Send",
                                               style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
+                                                fontSize: 14,
                                                 color: Colors.orange
                                               ),
                                             )
@@ -77,8 +75,7 @@ class Home extends StatelessWidget {
                                             const Text(
                                               "Withdraw",
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
+                                                  fontSize: 14,
                                                   color: Colors.orange
                                               ),
                                             )
@@ -98,8 +95,7 @@ class Home extends StatelessWidget {
                                             const Text(
                                               "Deposit",
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
+                                                  fontSize: 14,
                                                   color: Colors.orange
                                               ),
                                             )
@@ -114,75 +110,80 @@ class Home extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(16),
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  color: Colors.indigo,
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                            "Account balance",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10,),
-                                        Row(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo,
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             const Text(
-                                                "KSH 90,000",
+                                                "Account balance",
                                               style: TextStyle(
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            InkWell(
-                                              onTap: (){},
-                                              child: SvgPicture.asset(
-                                                'assets/images/visibility_off.svg'),
-                                            )
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        const Row(
-                                          children: [
-                                            Text(
-                                                "+254 789 787",
-                                              style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 color: Colors.grey
                                               ),
                                             ),
-                                            Spacer(),
-                                            Text(
-                                                "Haba pay",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white
-                                              ),
+                                            const SizedBox(height: 10,),
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                    "KSH 90,000",
+                                                  style: TextStyle(
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                InkWell(
+                                                  onTap: (){},
+                                                  child: SvgPicture.asset(
+                                                    'assets/images/visibility_off.svg'),
+                                                )
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            const Row(
+                                              children: [
+                                                Text(
+                                                    "+254 789 787",
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.grey
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                Text(
+                                                    "Haba pay",
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.white
+                                                  ),
+                                                )
+                                              ],
                                             )
                                           ],
-                                        )
-                                      ],
-                                    ),
+                                        ),
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/images/Frame.svg'
+                                      )
+                                    ],
                                   ),
-                                  SvgPicture.asset(
-                                    'assets/images/Frame.svg'
-                                  )
-                                ],
-                              ),
+                                ),
+                                const SizedBox(height: 100,),
+                              ],
                             ),
                           )
                         ],
