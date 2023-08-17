@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/add_business/add_business.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_details.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_identity.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_payment.dart';
@@ -8,6 +9,7 @@ import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
 import 'package:haba_pay_main/screens/settings/components/verify_email.dart';
+import 'package:haba_pay_main/screens/share_app/share_app.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
@@ -67,6 +69,8 @@ class AppPage{
   static String withdrawVerifyTransaction = "/withdraw_verify_transaction";
   static String transactionDetails = "/transaction_details";
   static String verifyEmail = "/verify_email";
+  static String shareApp = "/share_app";
+  static String addBusiness = "/add_business";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -101,6 +105,8 @@ class AppPage{
   static getWithdrawVerifyTransaction() => withdrawVerifyTransaction;
   static getTransactionDetails() => transactionDetails;
   static getVerifyEmail() => verifyEmail;
+  static getShareApp() => shareApp;
+  static getAddBusiness() => addBusiness;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -135,6 +141,8 @@ class AppPage{
     GetPage(name: withdrawConfirmDetails, page: () => const WithdrawConfirmDetails()),
     GetPage(name: withdrawVerifyTransaction, page: () => const WithdrawVerifyingTransaction()),
     GetPage(name: transactionDetails, page: () => const TransactionDetails()),
-    GetPage(name: verifyEmail, page: () => const VerifyEmail())
+    GetPage(name: verifyEmail, page: () => const VerifyEmail()),
+    GetPage(name: shareApp, page: () => const ShareApp()),
+    GetPage(name: addBusiness, page: () => const AddBusiness())
   ];
 }

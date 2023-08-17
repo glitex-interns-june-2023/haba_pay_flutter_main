@@ -4,6 +4,9 @@ class Assets {
 
   static const String imagesAddPhoneNumberIndicator = 'assets/images/add_phone_number_indicator.png';
   static const String imagesAddPhoneNumberProgress = 'assets/images/add_phone_number_progress.png';
+  static const String imagesArrowBack = 'assets/images/arrow_back.svg';
+  static const String imagesBell = 'assets/images/bell.svg';
+  static const String imagesCopy = 'assets/images/copy.svg';
   static const String imagesDeposit = 'assets/images/deposit.svg';
   static const String imagesFrame = 'assets/images/Frame.svg';
   static const String imagesGoogleLogo = 'assets/images/google_logo.png';

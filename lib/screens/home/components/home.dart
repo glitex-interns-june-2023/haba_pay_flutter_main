@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/StatementModel.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
 
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: CustomTheme().background,
       body: LayoutBuilder(builder: (context, constraint) {
         return SingleChildScrollView(
           child: ConstrainedBox(
@@ -111,7 +112,7 @@ class Home extends StatelessWidget {
                             Container(
                               height: 200,
                               decoration: BoxDecoration(
-                                  color: Colors.indigo,
+                                  color: CustomTheme().linear,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Stack(
                                 alignment: Alignment.center,
