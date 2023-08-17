@@ -26,39 +26,45 @@ class _UpdatesState extends State<Updates> {
               child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: IntrinsicHeight(
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      TitleText(title: "Check for updates"),
-                      const SizedBox(height: 20,),
-                      const Divider(),
-                      const SizedBox(height: 20,),
-                      CircularProgressIndicator(
-                        color: theme.orange,
-                      ),
-                      const Spacer(),
-                      Description(description: "We are checking to see whether \n your app is up-to-date"),
-                      const Spacer(),
-                      CustomButton(title: "Return to Home", onClick: (){}),
-                      Row(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
                         children: [
-                          Obx(() =>
-                              Checkbox(
-                                  value: updatesController.isChecked.value,
-                                  onChanged: (value){
-                                    updatesController.onChanged(value!);
-                                  }
-                              )
+                          const Spacer(),
+                          const TitleText(title: "Check for updates"),
+                          const SizedBox(height: 20,),
+                          const Divider(),
+                          const SizedBox(height: 20,),
+                          CircularProgressIndicator(
+                            color: theme.orange,
                           ),
-                          const Text(
-                              "Automatically install updates",
-                            style: TextStyle(
-                              fontSize: 18
-                            ),
-                          )
+                          const Spacer(),
+                          const Description(description: "We are checking to see whether \n your app is up-to-date"),
+                          const Spacer(flex: 2,),
+                          CustomButton(title: "Return to Home", onClick: (){}),
+                          Row(
+                            children: [
+                              Obx(() =>
+                                  Checkbox(
+                                      value: updatesController.isChecked.value,
+                                      onChanged: (value){
+                                        updatesController.onChanged(value!);
+                                      }
+                                  )
+                              ),
+                              const Text(
+                                  "Automatically install updates",
+                                style: TextStyle(
+                                  fontSize: 18
+                                ),
+                              )
+                            ],
+                          ),
+                          const Spacer()
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ),
