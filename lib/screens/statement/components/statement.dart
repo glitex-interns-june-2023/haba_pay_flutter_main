@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/StatementModel.dart';
 import 'package:haba_pay_main/model/TransactionModel.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/statement/components/Single_transaction.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
@@ -25,9 +26,7 @@ class _StatementState extends State<Statement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Statement"),
-      ),
+      appBar: CustomAppBar(title: "statement", onIconClicked: (){ }),
       backgroundColor: theme.background,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
