@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/add_business/components/add_business.dart';
-import 'package:haba_pay_main/screens/add_business/add_business_successful.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_details.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_identity.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_payment.dart';
@@ -22,6 +21,7 @@ import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_to.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_verifying_transaction.dart';
+import '../screens/add_business/components/add_business_successful.dart';
 import '../screens/dashboard/components/dashboard.dart';
 import '../screens/deposit_money/components/deposit_details.dart';
 import '../screens/home/components/home.dart';

@@ -9,6 +9,7 @@ class Assets {
   static const String imagesBell = 'assets/images/bell.svg';
   static const String imagesCopy = 'assets/images/copy.svg';
   static const String imagesDeposit = 'assets/images/deposit.svg';
+  static const String imagesFilter = 'assets/images/filter.svg';
   static const String imagesFrame = 'assets/images/Frame.svg';
   static const String imagesGoogleLogo = 'assets/images/google_logo.png';
   static const String imagesGroup 302 = 'assets/images/Group 30-2.png';
