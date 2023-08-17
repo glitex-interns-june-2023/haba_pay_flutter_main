@@ -3,6 +3,8 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/description.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
+import 'package:haba_pay_main/screens/updates/controller/updates_controller.dart';
+import 'package:get/get.dart';
 
 class Updates extends StatefulWidget {
   const Updates({super.key});
@@ -12,6 +14,7 @@ class Updates extends StatefulWidget {
 }
 
 class _UpdatesState extends State<Updates> {
+  final UpdatesController updatesController = Get.put(UpdatesController());
   CustomTheme theme = CustomTheme();
 
   @override
@@ -39,7 +42,14 @@ class _UpdatesState extends State<Updates> {
                       CustomButton(title: "Return to Home", onClick: (){}),
                       Row(
                         children: [
-                          Checkbox(value: value, onChanged: onChanged)
+                          Obx(() =>
+                              Checkbox(
+                                  value: updatesController.isChecked.value,
+                                  onChanged: (value){
+                                    updatesController.onChanged(value!);
+                                  }
+                              )
+                          )
                         ],
                       )
                     ],
