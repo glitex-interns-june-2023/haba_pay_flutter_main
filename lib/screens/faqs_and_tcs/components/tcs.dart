@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/model/tcs.dart';
+import '../../Shared/custom_button.dart';
+import '../../Shared/title_text.dart';
+import '../controller/faqs_and_tcs_controller.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/Shared/custom_button.dart';
-import 'package:haba_pay_main/screens/Shared/title_text.dart';
-import 'package:haba_pay_main/screens/faqs_and_tcs/controller/faqs_and_tcs_controller.dart';
 
-import '../../../model/faq.dart';
-
-class Faqs extends StatefulWidget {
-  const Faqs({super.key});
+class Tcs extends StatefulWidget {
+  const Tcs({super.key});
 
   @override
-  State<Faqs> createState() => _FaqsState();
+  State<Tcs> createState() => _TcsState();
 }
 
-class _FaqsState extends State<Faqs> {
+class _TcsState extends State<Tcs> {
   final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
-  final List<Faq> list = [
-    Faq("How do i complete my profile", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-    Faq("Do i have to add my business", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-    Faq("Can i download all my records", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+  final List<TcsModel> list = [
+    TcsModel("Term of use", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("Data privacy policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("Cookies policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("User responsibility", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: Card(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -33,15 +33,15 @@ class _FaqsState extends State<Faqs> {
               const TitleText(title: "Frequently asked questions"),
               const SizedBox(height: 20,),
               Expanded(
-                flex: 5,
+                  flex: 5,
                   child: ListView.builder(
-                    itemCount: list.length,
+                      itemCount: list.length,
                       itemBuilder: (context, index){
                         return Obx(() =>
                             ExpansionTile(
-                                title: Text(list[index].title),
+                              title: Text(list[index].title),
                               onExpansionChanged: (expanded){
-                                  faqsAndTcsController.toggleItem(index);
+                                faqsAndTcsController.toggleItem(index);
                               },
                               initiallyExpanded: faqsAndTcsController.expandedItems[index] ?? false,
                               children: [
@@ -54,9 +54,6 @@ class _FaqsState extends State<Faqs> {
                       }
                   )
               ),
-              const SizedBox(height: 20,),
-              CustomButton(title: "contact support", onClick: (){}),
-              const Spacer(),
             ],
           ),
         ),

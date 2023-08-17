@@ -1,9 +1,21 @@
 import 'package:get/get.dart';
 
 class FaqsAndTcsController extends GetxController{
-  var expandedItems = <bool>[].obs;
+  var expandedFaqItems = <bool>[].obs;
+  var expandedTcItems = <bool>[].obs;
 
-  toggleItem(int index){
-    expandedItems[index] = !expandedItems[index];
+  @override
+  void onInit(){
+    super.onInit();
+    for(int i = 0; i < 3; i ++){
+      expandedFaqItems.add(false);
+    }
+    for(int i = 0; i < 3; i ++){
+      expandedFaqItems.add(false);
+    }
+  }
+
+  toggleFaqItem(int index){
+    expandedFaqItems[index] = !expandedFaqItems[index];
   }
 }
