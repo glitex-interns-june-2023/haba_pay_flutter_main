@@ -89,7 +89,7 @@ class _AddBusinessState extends State<AddBusiness> {
                           DropdownButtonFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)
+                                borderRadius: BorderRadius.circular(5)
                               ),
                             ),
                             value: dropDownValue,
