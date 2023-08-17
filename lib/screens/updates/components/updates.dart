@@ -50,7 +50,7 @@ class _UpdatesState extends State<Updates> {
                             )),
                       const Spacer(),
                       Obx(
-                        () => updatesController.isUpdateAvailable.value
+                        () => updatesController.isLoading.value
                             ? const Description(
                                 description:
                                     "We are checking to see whether \n your app is up-to-date")
@@ -62,7 +62,7 @@ class _UpdatesState extends State<Updates> {
                         flex: 2,
                       ),
                       Obx(
-                        () => updatesController.isUpdateAvailable.value
+                        () => updatesController.isLoading.value
                             ? CustomButton(
                                 title: "Return to Home", onClick: () {})
                             : CustomButton(
