@@ -45,17 +45,29 @@ class _UpdatesState extends State<Updates> {
                               color: theme.orange,
                             )
                           : SvgPicture.asset(
-                          'assets/images/updates.svg',
-                        color: theme.orange,
-                      )),
+                              'assets/images/updates.svg',
+                              color: theme.orange,
+                            )),
                       const Spacer(),
-                      const Description(
-                          description:
-                              "We are checking to see whether \n your app is up-to-date"),
+                      Obx(
+                        () => updatesController.isUpdateAvailable.value
+                            ? const Description(
+                                description:
+                                    "We are checking to see whether \n your app is up-to-date")
+                            : const Description(
+                                description:
+                                    "We found some new features \n you are missing out on"),
+                      ),
                       const Spacer(
                         flex: 2,
                       ),
-                      CustomButton(title: "Return to Home", onClick: () {}),
+                      Obx(
+                        () => updatesController.isUpdateAvailable.value
+                            ? CustomButton(
+                                title: "Return to Home", onClick: () {})
+                            : CustomButton(
+                                title: "Install updates", onClick: () {}),
+                      ),
                       Row(
                         children: [
                           Obx(() => Checkbox(
