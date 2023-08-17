@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/add_business/add_business.dart';
+import 'package:haba_pay_main/screens/add_business/components/add_business.dart';
 import 'package:haba_pay_main/screens/add_business/add_business_successful.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_details.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_identity.dart';
@@ -16,6 +16,7 @@ import 'package:haba_pay_main/screens/share_app/share_app.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_download.dart';
 import 'package:haba_pay_main/screens/updates/components/updates.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
@@ -79,6 +80,7 @@ class AppPage{
   static String updates = "/updates";
   static String faqs = "/faqs";
   static String tcs = "/tcs";
+  static String statementDownload = "/statement_download";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -119,6 +121,7 @@ class AppPage{
   static getUpdates() => updates;
   static getFaqs() => faqs;
   static getTcs() => tcs;
+  static getStatementDownload() => statementDownload;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -159,6 +162,7 @@ class AppPage{
     GetPage(name: addBusinessSuccessful, page: () => const AddBusinessSuccessful()),
     GetPage(name: updates, page: () => const Updates()),
     GetPage(name: faqs, page: () => const Faqs()),
-    GetPage(name: tcs, page: () => const Tcs())
+    GetPage(name: tcs, page: () => const Tcs()),
+    GetPage(name: statementDownload, page: () => const StatementDownload())
   ];
 }
