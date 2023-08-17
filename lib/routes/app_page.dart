@@ -130,7 +130,7 @@ class AppPage{
   static getStatementDownload() => statementDownload;
   static getStatementConfirmation() => statementConfirmation;
   static getStatementDownloadConfirmIdentity() => statementDownloadConfirmIdentity;
-  static getStatementPreparingDownload() => getStatementPreparingDownload();
+  static getStatementPreparingDownload() => statementPreparingDownload;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class StatementDownloadController extends GetxController{
+  var isLoading = false.obs;
+  var isDownloaded = false.obs;
   var transactionType = "Select".obs;
   var duration = "Select".obs;
   var downloadMethod = "Select".obs;
@@ -21,5 +23,14 @@ class StatementDownloadController extends GetxController{
 
   updateDownload(String value){
     downloadMethod.value = value;
+  }
+
+  downloadingStatement(){
+    isLoading(true);
+    try{
+      isDownloaded(true);
+    } finally {
+      isLoading(false);
+    }
   }
 }
