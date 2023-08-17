@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/description.dart';
+import 'package:haba_pay_main/screens/Shared/title_text.dart';
 
 class Updates extends StatefulWidget {
   const Updates({super.key});
@@ -8,6 +11,8 @@ class Updates extends StatefulWidget {
 }
 
 class _UpdatesState extends State<Updates> {
+  CustomTheme theme = CustomTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +23,20 @@ class _UpdatesState extends State<Updates> {
                   constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: IntrinsicHeight(
                   child: Column(
-                    const Spacer()
+                    children: [
+                      const Spacer(),
+                      TitleText(title: "Check for updates"),
+                      const SizedBox(height: 20,),
+                      const Divider(),
+                      const SizedBox(height: 20,),
+                      CircularProgressIndicator(
+                        color: theme.orange,
+                      ),
+                      const Spacer(),
+                      Description(description: "We are checking to see whether \n your app is up-to-date"),
+                      const Spacer(),
+
+                    ],
                   ),
                 ),
               ),
