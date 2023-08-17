@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getAddBusiness(),
+      initialRoute: AppPage.getAddBusinessSuccessful(),
       getPages: AppPage.routes,
     ),
   );

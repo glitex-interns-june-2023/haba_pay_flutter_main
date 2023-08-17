@@ -11,7 +11,6 @@ class AddBusiness extends StatefulWidget {
 class _AddBusinessState extends State<AddBusiness> {
   CustomTheme theme = CustomTheme();
   final TextEditingController _businessNameController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
 
   String dropDownValue = "Select";

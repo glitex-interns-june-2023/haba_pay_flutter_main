@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsImagesSmileFace = 'assets/images/smile_face.svg';
   static const String imagesAddPhoneNumberIndicator = 'assets/images/add_phone_number_indicator.png';
   static const String imagesAddPhoneNumberProgress = 'assets/images/add_phone_number_progress.png';
   static const String imagesArrowBack = 'assets/images/arrow_back.svg';
