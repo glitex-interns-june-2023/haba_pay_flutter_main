@@ -119,6 +119,7 @@ class _AddBusinessState extends State<AddBusiness> {
                           ),
                           TextField(
                             decoration: const InputDecoration(
+                              hintText: "Pin",
                               border: OutlineInputBorder(),
                             ),
                             keyboardType: TextInputType.name,
