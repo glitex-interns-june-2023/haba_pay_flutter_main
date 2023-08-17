@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/model/tcs.dart';
-import '../../Shared/custom_button.dart';
 import '../../Shared/title_text.dart';
 import '../controller/faqs_and_tcs_controller.dart';
 import 'package:get/get.dart';
