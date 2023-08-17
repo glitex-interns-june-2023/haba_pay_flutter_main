@@ -154,7 +154,9 @@ class _AddBusinessState extends State<AddBusiness> {
                                       color: Colors.white,
                                       fontSize: 20),
                                 ),
-                              )),
+                              )
+                          ),
+                          const Spacer()
                         ],
                       ),
                     ),
