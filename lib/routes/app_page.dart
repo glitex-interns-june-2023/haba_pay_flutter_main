@@ -15,6 +15,7 @@ import 'package:haba_pay_main/screens/share_app/share_app.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_confirmation.dart';
 import 'package:haba_pay_main/screens/statement_download/components/statement_download.dart';
 import 'package:haba_pay_main/screens/updates/components/updates.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
@@ -81,6 +82,8 @@ class AppPage{
   static String faqs = "/faqs";
   static String tcs = "/tcs";
   static String statementDownload = "/statement_download";
+  static String statementConfirmation = "/statement_confirmation";
+  static String statementDownloadConfirmIdentity = "/statement_download_confirm_identity";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -122,6 +125,8 @@ class AppPage{
   static getFaqs() => faqs;
   static getTcs() => tcs;
   static getStatementDownload() => statementDownload;
+  static getStatementConfirmation() => statementConfirmation;
+  static getStatementDownloadConfirmIdentity() => statementDownloadConfirmIdentity;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -163,6 +168,8 @@ class AppPage{
     GetPage(name: updates, page: () => const Updates()),
     GetPage(name: faqs, page: () => const Faqs()),
     GetPage(name: tcs, page: () => const Tcs()),
-    GetPage(name: statementDownload, page: () => const StatementDownload())
+    GetPage(name: statementDownload, page: () => const StatementDownload()),
+    GetPage(name: statementConfirmation, page: () => const StatementConfirmation()),
+    GetPage(name: statementDownloadConfirmIdentity, page: () => const State)
   ];
 }
