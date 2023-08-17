@@ -135,45 +135,55 @@ class _StatementDownloadState extends State<StatementDownload> {
                       ),
                       Row(
                         children: [
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "From",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
-                                )),
-                          ),
-                          TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.datetime,
-                            controller: _fromController,
-                          ),
+                          Expanded(child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      "From",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18
+                                      ),
+                                    )),
+                              ),
+                              TextField(
+                                decoration: const InputDecoration(
+                                  hintText: "mm/dd/yyyy",
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.datetime,
+                                controller: _fromController,
+                              ),
+                            ],
+                          )),
                           const SizedBox(width: 20,),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "To",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
-                                )),
-                          ),
-                          TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.datetime,
-                            controller: _toController,
-                          ),
+                          Expanded(child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      "To",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18
+                                      ),
+                                    )),
+                              ),
+                              TextField(
+                                decoration: const InputDecoration(
+                                  hintText: "dd/mm/yyyy",
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.datetime,
+                                controller: _toController,
+                              ),
+                            ],
+                          ))
                         ],
                       ),
                       const Align(
