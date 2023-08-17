@@ -17,6 +17,8 @@ import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
 import 'package:haba_pay_main/screens/statement_download/components/statement_confirmation.dart';
 import 'package:haba_pay_main/screens/statement_download/components/statement_download.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_download_confirm_identity.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_preparing_download.dart';
 import 'package:haba_pay_main/screens/updates/components/updates.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
@@ -84,6 +86,7 @@ class AppPage{
   static String statementDownload = "/statement_download";
   static String statementConfirmation = "/statement_confirmation";
   static String statementDownloadConfirmIdentity = "/statement_download_confirm_identity";
+  static String statementPreparingDownload = "/statement_preparing_download";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -127,6 +130,7 @@ class AppPage{
   static getStatementDownload() => statementDownload;
   static getStatementConfirmation() => statementConfirmation;
   static getStatementDownloadConfirmIdentity() => statementDownloadConfirmIdentity;
+  static getStatementPreparingDownload() => getStatementPreparingDownload();
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -170,6 +174,7 @@ class AppPage{
     GetPage(name: tcs, page: () => const Tcs()),
     GetPage(name: statementDownload, page: () => const StatementDownload()),
     GetPage(name: statementConfirmation, page: () => const StatementConfirmation()),
-    GetPage(name: statementDownloadConfirmIdentity, page: () => const State)
+    GetPage(name: statementDownloadConfirmIdentity, page: () => const StatementDownloadConfirmIdentity()),
+    GetPage(name: statementPreparingDownload, page: () => const StatementPreparingDownload())
   ];
 }
