@@ -49,6 +49,12 @@ class _UpdatesState extends State<Updates> {
                                     updatesController.onChanged(value!);
                                   }
                               )
+                          ),
+                          const Text(
+                              "Automatically install updates",
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
                           )
                         ],
                       )
