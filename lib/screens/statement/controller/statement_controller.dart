@@ -4,7 +4,7 @@ import '../../../model/StatementModel.dart';
 import '../../../model/TransactionModel.dart';
 
 class StatementController extends GetxController{
-  List<TransactionModel> list = [
+  var list = [
     TransactionModel("2 February 2023", [
       StatementModel("Jane Mukenya", "deposit", "Ksh 400",
           "+254 787 787 879", "12:45 pm"),
@@ -20,32 +20,62 @@ class StatementController extends GetxController{
           "+254 787 787 879", "12:45 pm"),
     ])
   ].obs;
+  var updatedList = [].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;
   var isWithdrawPressed = false.obs;
   var isDepositPressed = false.obs;
 
+  @override
+  void onInit(){
+    super.onInit();
+    updatedList.addAll(list.toList());
+  }
+
   onAllClicked(){
-    list.obs.value = list.toList();
+    updatedList.clear();
+    updatedList.addAll(list.toList());
   }
 
   onSentClicked(){
-    list.obs.value = list.where((transaction){
-      return transaction.statementList.any((statement) => statement.type == "sent");
-    }).toList();
+    updatedList.clear();
+    updatedList.addAll(
+        list.where((transaction){
+          return transaction.statementList.any((statement) => statement.type == "send");
+        }).map((transaction){
+          return TransactionModel(
+              transaction.date,
+              transaction.statementList.where((statement) => statement.type == "send").toList());
+        }).toList()
+    );
   }
 
   onWithdrawClicked(){
-    list.obs.value = list.where((transaction){
-      return transaction.statementList.any((statement) => statement.type == "withdraw");
-    }).toList();
+    updatedList.clear();
+    updatedList.addAll(
+        list.where((transaction){
+          return transaction.statementList.any((statement) => statement.type == "withdraw");
+        }).map((transaction){
+          return TransactionModel(
+              transaction.date,
+              transaction.statementList.where((statement) => statement.type == "withdraw").toList());
+        }).toList()
+    );
   }
 
   onDepositClicked(){
-    list.obs.value = list.where((transaction){
-      return transaction.statementList.any((statement) => statement.type == "deposit");
-    }).toList();
+    updatedList.clear();
+    updatedList.addAll(
+        list.where((transaction){
+          return transaction.statementList.any((statement) => statement.type == "deposit");
+        }).map((transaction){
+          return TransactionModel(
+              transaction.date,
+              transaction.statementList.where((statement) => statement.type == "deposit").toList());
+        }).toList()
+    );
   }
+
   onButtonPressed(String title){
     if(title == "All"){
       isAllPressed(true);
