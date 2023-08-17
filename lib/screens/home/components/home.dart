@@ -217,7 +217,7 @@ class Home extends StatelessWidget {
                                       itemCount: list.length,
                                       itemBuilder: (context, index) {
                                         return SingleStatement(
-                                            icon: list[index].icon,
+                                            type: list[index].type,
                                             onClick: () {},
                                             name: list[index].name,
                                             phoneNumber:

@@ -1,6 +1,6 @@
 class StatementModel{
 
-  String icon;
+  String type;
   String name;
   String amount;
   String phoneNumber;
@@ -8,7 +8,7 @@ class StatementModel{
 
   StatementModel(
     this.name,
-    this.icon,
+    this.type,
     this.amount,
     this.phoneNumber,
     this.time

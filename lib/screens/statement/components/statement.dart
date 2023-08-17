@@ -17,22 +17,7 @@ class Statement extends StatefulWidget {
 
 class _StatementState extends State<Statement> {
   final CustomTheme theme = CustomTheme();
-  List<TransactionModel> list = [
-    TransactionModel("2 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/deposit.svg', "Ksh 400",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane jashas", 'assets/images/deposit.svg', "Ksh 7568",
-          "+254 787 787 879", "12:45 pm")
-    ]),
-    TransactionModel("1 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/send.svg', "Ksh 653",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',
-          "Ksh 4535", "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane dhladk", 'assets/images/withdraw.svg', "Ksh 5667",
-          "+254 787 787 879", "12:45 pm"),
-    ])
-  ];
+
   final StatementController statementController =
       Get.put(StatementController());
 
@@ -44,10 +29,10 @@ class _StatementState extends State<Statement> {
         children: [
           Row(
             children: [
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
+              OutlinedButton(onPressed: (){statementController.onAllClicked();}, child: const Text("All")),
+              OutlinedButton(onPressed: (){statementController.onSentClicked();}, child: const Text("send")),
+              OutlinedButton(onPressed: (){statementController.onWithdrawClicked();}, child: const Text("withdraw")),
+              OutlinedButton(onPressed: (){statementController.onDepositClicked();}, child: const Text("deposit"))
             ],
           ),
           Expanded(
@@ -59,14 +44,14 @@ class _StatementState extends State<Statement> {
                     Obx(() => SliverList(
                         delegate: SliverChildBuilderDelegate(
                               (context, index) {
-                            final transaction = list[index];
+                            final transaction = statementController.list[index];
                             return Column(
                               children: [
                                 Text(transaction.date),
                                 const Divider(),
                                 for (var statement in transaction.statementList)
                                   SingleStatement(
-                                      icon: statement.icon,
+                                      type: statement.type,
                                       onClick: () {},
                                       name: statement.name,
                                       phoneNumber: statement.phoneNumber,
@@ -76,7 +61,7 @@ class _StatementState extends State<Statement> {
                               ],
                             );
                           },
-                          childCount: list.length,
+                          childCount: statementController.list.length,
                         ))
                     )
                   ],
