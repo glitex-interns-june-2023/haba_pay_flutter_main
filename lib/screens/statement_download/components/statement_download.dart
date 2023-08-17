@@ -125,7 +125,9 @@ class _StatementDownloadState extends State<StatementDownload> {
                           SizedBox(
                             height: 65,
                             child: OutlinedButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  statementDownloadController.onFilterClicked();
+                                },
                                 child: SvgPicture.asset(
                                   'assets/images/filter.svg'
                                 )
@@ -133,59 +135,62 @@ class _StatementDownloadState extends State<StatementDownload> {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          Expanded(child: Column(
-                            children: [
-                              const Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8),
-                                    child: Text(
-                                      "From",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18
-                                      ),
-                                    )),
-                              ),
-                              TextField(
-                                decoration: const InputDecoration(
-                                  hintText: "mm/dd/yyyy",
-                                  border: OutlineInputBorder(),
+                      Obx(() => Visibility(
+                        visible: statementDownloadController.isFilterClicked.value,
+                        child: Row(
+                          children: [
+                            Expanded(child: Column(
+                              children: [
+                                const Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 8),
+                                      child: Text(
+                                        "From",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18
+                                        ),
+                                      )),
                                 ),
-                                keyboardType: TextInputType.datetime,
-                                controller: _fromController,
-                              ),
-                            ],
-                          )),
-                          const SizedBox(width: 20,),
-                          Expanded(child: Column(
-                            children: [
-                              const Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8),
-                                    child: Text(
-                                      "To",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18
-                                      ),
-                                    )),
-                              ),
-                              TextField(
-                                decoration: const InputDecoration(
-                                  hintText: "dd/mm/yyyy",
-                                  border: OutlineInputBorder(),
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: "mm/dd/yyyy",
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.datetime,
+                                  controller: _fromController,
                                 ),
-                                keyboardType: TextInputType.datetime,
-                                controller: _toController,
-                              ),
-                            ],
-                          ))
-                        ],
-                      ),
+                              ],
+                            )),
+                            const SizedBox(width: 20,),
+                            Expanded(child: Column(
+                              children: [
+                                const Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 8),
+                                      child: Text(
+                                        "To",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18
+                                        ),
+                                      )),
+                                ),
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: "dd/mm/yyyy",
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.datetime,
+                                  controller: _toController,
+                                ),
+                              ],
+                            ))
+                          ],
+                        ),
+                      ),),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
