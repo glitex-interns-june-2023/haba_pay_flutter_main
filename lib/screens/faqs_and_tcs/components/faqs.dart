@@ -41,9 +41,9 @@ class _FaqsState extends State<Faqs> {
                             ExpansionTile(
                                 title: Text(list[index].title),
                               onExpansionChanged: (expanded){
-                                  faqsAndTcsController.toggleItem(index);
+                                  faqsAndTcsController.toggleFaqItem(index);
                               },
-                              initiallyExpanded: faqsAndTcsController.expandedItems[index] ?? false,
+                              initiallyExpanded: faqsAndTcsController.expandedFaqItems[index] ?? false,
                               children: [
                                 ListTile(
                                   title: Text(list[index].description),

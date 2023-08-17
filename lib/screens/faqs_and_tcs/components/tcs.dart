@@ -29,7 +29,7 @@ class _TcsState extends State<Tcs> {
           child: Column(
             children: [
               const Spacer(),
-              const TitleText(title: "Frequently asked questions"),
+              const TitleText(title: "Terms and conditions"),
               const SizedBox(height: 20,),
               Expanded(
                   flex: 5,
@@ -40,9 +40,9 @@ class _TcsState extends State<Tcs> {
                             ExpansionTile(
                               title: Text(list[index].title),
                               onExpansionChanged: (expanded){
-                                faqsAndTcsController.toggleItem(index);
+                                faqsAndTcsController.toggleTcItem(index);
                               },
-                              initiallyExpanded: faqsAndTcsController.expandedItems[index] ?? false,
+                              initiallyExpanded: faqsAndTcsController.expandedTcItems[index] ?? false,
                               children: [
                                 ListTile(
                                   title: Text(list[index].description),
