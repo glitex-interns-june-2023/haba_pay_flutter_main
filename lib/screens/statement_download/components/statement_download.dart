@@ -14,6 +14,8 @@ class StatementDownload extends StatefulWidget {
 }
 
 class _StatementDownloadState extends State<StatementDownload> {
+  final TextEditingController _fromController = TextEditingController();
+  final TextEditingController _toController = TextEditingController();
   final StatementDownloadController statementDownloadController = Get.put(StatementDownloadController());
   List<String> transactionType = [
     "Select",
@@ -133,7 +135,45 @@ class _StatementDownloadState extends State<StatementDownload> {
                       ),
                       Row(
                         children: [
-
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "From",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18
+                                  ),
+                                )),
+                          ),
+                          TextField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.datetime,
+                            controller: _fromController,
+                          ),
+                          const SizedBox(width: 20,),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "To",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18
+                                  ),
+                                )),
+                          ),
+                          TextField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.datetime,
+                            controller: _toController,
+                          ),
                         ],
                       ),
                       const Align(
