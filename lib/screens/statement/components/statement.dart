@@ -45,7 +45,10 @@ class _StatementState extends State<Statement> {
                       onPressed: () {
                         statementController.onAllClicked();
                       },
-                      child: const Text("All")),
+                      child: Text(
+                        "All",
+                        style: TextStyle(color: theme.orange),
+                      )),
                   const SizedBox(
                     width: 20,
                   ),
@@ -59,7 +62,10 @@ class _StatementState extends State<Statement> {
                           const SizedBox(
                             width: 5,
                           ),
-                          const Text("Send")
+                          Text(
+                            "Send",
+                            style: TextStyle(color: theme.orange),
+                          )
                         ],
                       )),
                   const SizedBox(
@@ -75,7 +81,10 @@ class _StatementState extends State<Statement> {
                           const SizedBox(
                             width: 5,
                           ),
-                          const Text("Withdraw")
+                          Text(
+                            "Withdraw",
+                            style: TextStyle(color: theme.orange),
+                          )
                         ],
                       )),
                   const SizedBox(
@@ -87,13 +96,22 @@ class _StatementState extends State<Statement> {
                       },
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/images/deposit.svg'),
+                          SvgPicture.asset(
+                            'assets/images/deposit.svg',
+                            color: theme.orange,
+                          ),
                           const SizedBox(
                             width: 5,
                           ),
-                          const Text("Deposit")
+                          Text(
+                            "Deposit",
+                            style: TextStyle(color: theme.orange),
+                          )
                         ],
-                      ))
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
                 ],
               ),
             ),
