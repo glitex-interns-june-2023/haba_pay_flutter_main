@@ -6,6 +6,7 @@ import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_i
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_payment.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
+import 'package:haba_pay_main/screens/faqs_and_tcs/components/faqs.dart';
 import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
@@ -75,6 +76,7 @@ class AppPage{
   static String addBusiness = "/add_business";
   static String addBusinessSuccessful = "/add_business_successful";
   static String updates = "/updates";
+  static String faqs = "/faqs";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -113,6 +115,7 @@ class AppPage{
   static getAddBusiness() => addBusiness;
   static getAddBusinessSuccessful() => addBusinessSuccessful;
   static getUpdates() => updates;
+  static getFaqs() => faqs;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -151,6 +154,7 @@ class AppPage{
     GetPage(name: shareApp, page: () => const ShareApp()),
     GetPage(name: addBusiness, page: () => const AddBusiness()),
     GetPage(name: addBusinessSuccessful, page: () => const AddBusinessSuccessful()),
-    GetPage(name: updates, page: () => const Updates())
+    GetPage(name: updates, page: () => const Updates()),
+    GetPage(name: faqs, page: () => const Faqs())
   ];
 }
