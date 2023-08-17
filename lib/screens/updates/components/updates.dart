@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/description.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
 
@@ -35,7 +36,12 @@ class _UpdatesState extends State<Updates> {
                       const Spacer(),
                       Description(description: "We are checking to see whether \n your app is up-to-date"),
                       const Spacer(),
-
+                      CustomButton(title: "Return to Home", onClick: (){}),
+                      Row(
+                        children: [
+                          Checkbox(value: value, onChanged: onChanged)
+                        ],
+                      )
                     ],
                   ),
                 ),
