@@ -22,6 +22,23 @@ class _StatementDownloadState extends State<StatementDownload> {
     "transaction type3",
     "transaction type4"
   ];
+
+  List<String> duration = [
+    "Select",
+    "duration type1",
+    "duration type2",
+    "duration type3",
+    "duration type4"
+  ];
+
+  List<String> downloadMethod = [
+    "Select",
+    "method type1",
+    "method type2",
+    "method type3",
+    "method type4"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,25 +107,33 @@ class _StatementDownloadState extends State<StatementDownload> {
                                     borderRadius: BorderRadius.circular(5)
                                 ),
                               ),
-                              value: statementDownloadController.transactionType.value,
-                              items: transactionType.map((String items){
+                              value: statementDownloadController.duration.value,
+                              items: duration.map((String items){
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),
                                 );
                               }).toList(),
                               onChanged: (String? newValue){
-                                statementDownloadController.updateTransactionType(newValue!);
+                                statementDownloadController.updateDuration(newValue!);
                               },
                             ),
                           ),),
-                          const SizedBox(width: 5,),
-                          OutlinedButton(
-                              onPressed: (){},
-                              child: SvgPicture.asset(
-                                'assets/images/filter.svg'
-                              )
+                          const SizedBox(width: 10,),
+                          SizedBox(
+                            height: 65,
+                            child: OutlinedButton(
+                                onPressed: (){},
+                                child: SvgPicture.asset(
+                                  'assets/images/filter.svg'
+                                )
+                            ),
                           )
+                        ],
+                      ),
+                      Row(
+                        children: [
+
                         ],
                       ),
                       const Align(
@@ -129,15 +154,15 @@ class _StatementDownloadState extends State<StatementDownload> {
                               borderRadius: BorderRadius.circular(5)
                           ),
                         ),
-                        value: statementDownloadController.transactionType.value,
-                        items: transactionType.map((String items){
+                        value: statementDownloadController.downloadMethod.value,
+                        items: downloadMethod.map((String items){
                           return DropdownMenuItem(
                             value: items,
                             child: Text(items),
                           );
                         }).toList(),
                         onChanged: (String? newValue){
-                          statementDownloadController.updateTransactionType(newValue!);
+                          statementDownloadController.updateDownload(newValue!);
                         },
                       ),),
                       const Spacer(),
