@@ -14,6 +14,7 @@ import 'package:haba_pay_main/screens/share_app/share_app.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
+import 'package:haba_pay_main/screens/updates/updates.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_to.dart';
@@ -73,6 +74,7 @@ class AppPage{
   static String shareApp = "/share_app";
   static String addBusiness = "/add_business";
   static String addBusinessSuccessful = "/add_business_successful";
+  static String updates = "/updates";
 
   static getDashboard() => dashboard;
   static getHome() => home;
@@ -110,6 +112,7 @@ class AppPage{
   static getShareApp() => shareApp;
   static getAddBusiness() => addBusiness;
   static getAddBusinessSuccessful() => addBusinessSuccessful;
+  static getUpdates() => updates;
 
   static List<GetPage> routes = [
     GetPage(name: dashboard, page: () => const Dashboard()),
@@ -147,6 +150,7 @@ class AppPage{
     GetPage(name: verifyEmail, page: () => const VerifyEmail()),
     GetPage(name: shareApp, page: () => const ShareApp()),
     GetPage(name: addBusiness, page: () => const AddBusiness()),
-    GetPage(name: addBusinessSuccessful, page: () => const AddBusinessSuccessful())
+    GetPage(name: addBusinessSuccessful, page: () => const AddBusinessSuccessful()),
+    GetPage(name: updates, page: () => const Updates())
   ];
 }
