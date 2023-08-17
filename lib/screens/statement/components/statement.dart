@@ -56,27 +56,29 @@ class _StatementState extends State<Statement> {
                 padding: const EdgeInsets.all(16),
                 child: CustomScrollView(
                   slivers: [
-                    SliverList(
+                    Obx(() => SliverList(
                         delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final transaction = list[index];
-                        return Column(
-                          children: [
-                            Text(transaction.date),
-                            const Divider(),
-                            for (var statement in transaction.statementList)
-                              SingleStatement(
-                                  icon: statement.icon,
-                                  onClick: () {},
-                                  name: statement.name,
-                                  phoneNumber: statement.phoneNumber,
-                                  amount: statement.amount,
-                                  time: statement.time),
-                          ],
-                        );
-                      },
-                      childCount: list.length,
-                    ))
+                              (context, index) {
+                            final transaction = list[index];
+                            return Column(
+                              children: [
+                                Text(transaction.date),
+                                const Divider(),
+                                for (var statement in transaction.statementList)
+                                  SingleStatement(
+                                      icon: statement.icon,
+                                      onClick: () {},
+                                      name: statement.name,
+                                      phoneNumber: statement.phoneNumber,
+                                      amount: statement.amount,
+                                      time: statement.time
+                                  ),
+                              ],
+                            );
+                          },
+                          childCount: list.length,
+                        ))
+                    )
                   ],
                 ),
               ),
