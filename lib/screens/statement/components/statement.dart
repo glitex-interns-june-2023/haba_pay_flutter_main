@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/StatementModel.dart';
 import 'package:haba_pay_main/model/TransactionModel.dart';
 import 'package:haba_pay_main/screens/statement/components/Single_transaction.dart';
@@ -15,6 +16,7 @@ class Statement extends StatefulWidget {
 }
 
 class _StatementState extends State<Statement> {
+  final CustomTheme theme = CustomTheme();
   List<TransactionModel> list = [
     TransactionModel("2 February 2023", [
       StatementModel("Jane Mukenya", 'assets/images/deposit.svg', "Ksh 400",
@@ -37,6 +39,7 @@ class _StatementState extends State<Statement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
       body: Column(
         children: [
           Row(
