@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getStatementPreparingDownload(),
+      initialRoute: AppPage.getStatement(),
       getPages: AppPage.routes,
     ),
   );

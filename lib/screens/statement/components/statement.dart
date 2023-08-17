@@ -17,13 +17,18 @@ class Statement extends StatefulWidget {
 class _StatementState extends State<Statement> {
   List<TransactionModel> list = [
     TransactionModel("2 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/deposit.svg',"Ksh 400","+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane jashas", 'assets/images/deposit.svg',"Ksh 7568","+254 787 787 879", "12:45 pm")
+      StatementModel("Jane Mukenya", 'assets/images/deposit.svg', "Ksh 400",
+          "+254 787 787 879", "12:45 pm"),
+      StatementModel("Jane jashas", 'assets/images/deposit.svg', "Ksh 7568",
+          "+254 787 787 879", "12:45 pm")
     ]),
     TransactionModel("1 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/send.svg',"Ksh 653","+254 787 787 879", "12:45 pm"),
-      StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',"Ksh 4535","+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane dhladk", 'assets/images/withdraw.svg',"Ksh 5667","+254 787 787 879", "12:45 pm"),
+      StatementModel("Jane Mukenya", 'assets/images/send.svg', "Ksh 653",
+          "+254 787 787 879", "12:45 pm"),
+      StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',
+          "Ksh 4535", "+254 787 787 879", "12:45 pm"),
+      StatementModel("Jane dhladk", 'assets/images/withdraw.svg', "Ksh 5667",
+          "+254 787 787 879", "12:45 pm"),
     ])
   ];
   final StatementController statementController =
@@ -36,25 +41,44 @@ class _StatementState extends State<Statement> {
         children: [
           Row(
             children: [
-              MaterialButton(onPressed: (){}),
-              MaterialButton(onPressed: (){}),
-              MaterialButton(onPressed: (){}),
-              MaterialButton(onPressed: (){}),
+              MaterialButton(onPressed: () {}),
+              MaterialButton(onPressed: () {}),
+              MaterialButton(onPressed: () {}),
+              MaterialButton(onPressed: () {}),
             ],
           ),
           Expanded(
             child: Card(
-              child: ListView.builder(
-                itemCount: list.length,
-                  itemBuilder: (context, index){
-                    return SingleTransaction(
-                        date: list[index].date,
-                        statementList: list[index].statementList
-                    );
-                  }
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final transaction = list[index];
+                        return Column(
+                          children: [
+                            Text(transaction.date),
+                            const Divider(),
+                            for (var statement in transaction.statementList)
+                              SingleStatement(
+                                  icon: statement.icon,
+                                  onClick: () {},
+                                  name: statement.name,
+                                  phoneNumber: statement.phoneNumber,
+                                  amount: statement.amount,
+                                  time: statement.time),
+                          ],
+                        );
+                      },
+                      childCount: list.length,
+                    ))
+                  ],
+                ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
