@@ -10,6 +10,8 @@ class Updates extends StatefulWidget {
 class _UpdatesState extends State<Updates> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: ,
+    );
   }
 }
