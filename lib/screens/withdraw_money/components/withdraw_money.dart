@@ -118,10 +118,10 @@ class WithdrawMoney extends StatelessWidget {
                                 Get.to(()=> const WithdrawConfirmDetails(),
                                     transition: Transition.rightToLeft,
                                     arguments: MoneyModel(
-                                        _phoneNumberController.text,
-                                        "Jane Makena",
-                                        _amountController.text,
-                                        "800"
+                                        phoneNumber: _phoneNumberController.text,
+                                        recipient: "Jane Makena",
+                                        amount: _amountController.text,
+                                        newBalance: "800"
                                     )
                                 );
                               },

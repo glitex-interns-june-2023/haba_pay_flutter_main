@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_payment.dart';
 
 import '../../Shared/confirm_identity.dart';
+import 'package:get/get.dart';
 
-class DepositConfirmIdentity extends StatefulWidget {
+class DepositConfirmIdentity extends StatelessWidget {
   const DepositConfirmIdentity({super.key});
 
   @override
-  State<DepositConfirmIdentity> createState() => _DepositConfirmIdentityState();
-}
-
-class _DepositConfirmIdentityState extends State<DepositConfirmIdentity> {
-  @override
   Widget build(BuildContext context) {
     return ConfirmIdentity(
-      onConfirm: (){},
+      onConfirm: (){
+        Get.to(()=> const DepositConfirmPayment(),
+            transition: Transition.rightToLeft,
+        );
+      },
     );
   }
 }

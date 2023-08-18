@@ -9,6 +9,7 @@ final TextEditingController _phoneNumberController = TextEditingController();
 
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
+
 class SendMoney extends StatelessWidget {
   const SendMoney({super.key});
 
@@ -18,7 +19,7 @@ class SendMoney extends StatelessWidget {
       backgroundColor: theme.background,
       appBar: const CustomAppBar(title: "Send money"),
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -31,16 +32,15 @@ class SendMoney extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                           Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
                                   "Balance",
                                   style: TextStyle(
-                                      color: theme.grey,
-                                      fontSize: 18
-                                  ),
+                                      color: theme.grey, fontSize: 18),
                                 )),
                           ),
                           const Row(
@@ -54,15 +54,17 @@ class SendMoney extends StatelessWidget {
                               ),
                               Spacer(),
                               InkWell(
-                                child: Icon(
-                                    Icons.visibility_off
-                                ),
+                                child: Icon(Icons.visibility_off),
                               )
                             ],
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           const Divider(),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           const Text(
                             "Send to",
                             style: TextStyle(
@@ -70,7 +72,9 @@ class SendMoney extends StatelessWidget {
                               fontSize: 18,
                             ),
                           ),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
@@ -79,8 +83,7 @@ class SendMoney extends StatelessWidget {
                                   "Phone",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
+                                      fontSize: 18),
                                 )),
                           ),
                           TextField(
@@ -98,8 +101,7 @@ class SendMoney extends StatelessWidget {
                                   "Amount",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
+                                      fontSize: 18),
                                 )),
                           ),
                           TextField(
@@ -109,24 +111,26 @@ class SendMoney extends StatelessWidget {
                             keyboardType: TextInputType.number,
                             controller: _amountController,
                           ),
-                          const Spacer(flex: 2,),
+                          const Spacer(
+                            flex: 2,
+                          ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(()=> const ConfirmDetails(),
+                                Get.to(() => const ConfirmDetails(),
                                     transition: Transition.rightToLeft,
-                                  arguments: MoneyModel(
-                                    _phoneNumberController.text,
-                                    "Jane Makena",
-                                    _amountController.text,
-                                    "800"
-                                  )
-                                );
+                                    arguments: MoneyModel(
+                                        phoneNumber:
+                                            _phoneNumberController.text,
+                                        recipient: "Jane Makena",
+                                        amount: _amountController.text,
+                                        newBalance: "800"));
                               },
                               height: 50,
                               minWidth: double.infinity,
                               color: theme.orange,
-                              child:  Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 50),
                                 child: Text(
                                   "send",
                                   style: TextStyle(

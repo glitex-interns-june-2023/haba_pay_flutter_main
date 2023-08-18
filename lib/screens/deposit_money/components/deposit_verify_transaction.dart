@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
-class DepositVerifyTransaction extends StatefulWidget {
+import '../../home/components/home.dart';
+
+final DepositMoneyController depositMoneyController =
+    Get.put(DepositMoneyController());
+final CustomTheme theme = CustomTheme();
+
+class DepositVerifyTransaction extends StatelessWidget {
   const DepositVerifyTransaction({super.key});
-
-  @override
-  State<DepositVerifyTransaction> createState() =>
-      _DepositVerifyTransactionState();
-}
-
-class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
-  final DepositMoneyController depositMoneyController =
-      Get.put(DepositMoneyController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying deposit"),
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Obx(
                         () => Column(
                           children: [
-                            const Spacer(
-                              flex: 2,
-                            ),
+                            const Spacer(),
                             if (depositMoneyController.isLoading.value)
                               const Text(
                                 "Verifying transaction",
@@ -52,15 +52,14 @@ class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                             const SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             const Divider(),
                             const SizedBox(
                               height: 20,
                             ),
                             if (depositMoneyController.isLoading.value)
-                              const CircularProgressIndicator(
-                                  color: Colors.orange)
+                              CircularProgressIndicator(color: theme.orange)
                             else if (depositMoneyController.isSuccessful.value)
                               const Image(
                                   image: AssetImage(
@@ -106,17 +105,17 @@ class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
                                       child: Container(
                                         height: 50,
                                         decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.orange),
+                                            border:
+                                                Border.all(color: theme.orange),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
                                             "Call support",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
+                                                color: theme.orange),
                                           ),
                                         ),
                                       ),
@@ -132,15 +131,15 @@ class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
                                             .verifyTransaction();
                                       },
                                       height: 50,
-                                      color: Colors.orange,
+                                      color: theme.orange,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      child: const Text(
+                                      child: Text(
                                         "Retry",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: theme.white,
                                             fontSize: 20),
                                       ),
                                     ),
@@ -150,19 +149,22 @@ class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    depositMoneyController.verifyTransaction();
+                                    Get.offAll(
+                                      () => const Home(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   minWidth: double.infinity,
-                                  color: Colors.orange,
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 50),
+                                  color: theme.orange,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 50),
                                     child: Text(
                                       "Return to Home",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: theme.white,
                                           fontSize: 20),
                                     ),
                                   )),
@@ -172,7 +174,9 @@ class _DepositVerifyTransactionState extends State<DepositVerifyTransaction> {
                       ),
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),

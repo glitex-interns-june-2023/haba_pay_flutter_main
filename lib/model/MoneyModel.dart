@@ -3,7 +3,12 @@ class MoneyModel {
   String recipient;
   String amount;
   String newBalance;
+  String? payBillNumber;
 
   MoneyModel(
-      this.phoneNumber, this.recipient, this.amount, this.newBalance);
+      {required this.phoneNumber,
+      required this.recipient,
+      required this.amount,
+      required this.newBalance,
+      this.payBillNumber});
 }
