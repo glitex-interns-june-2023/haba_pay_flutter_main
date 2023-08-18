@@ -17,10 +17,10 @@ class UpdateLoginPin extends StatelessWidget {
       backgroundColor: theme.background,
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Card(
-              child: SingleChildScrollView(
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Card(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraint.maxHeight),
                   child: IntrinsicHeight(
@@ -32,7 +32,7 @@ class UpdateLoginPin extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 20,),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
@@ -96,7 +96,7 @@ class UpdateLoginPin extends StatelessWidget {
                             decoration:
                                 InputDecoration(border: OutlineInputBorder()),
                           )),
-                      const Spacer(),
+                      const SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: MaterialButton(
