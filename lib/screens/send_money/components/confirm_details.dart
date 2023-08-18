@@ -3,6 +3,7 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/model/SendMoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
 
 final CustomTheme theme = CustomTheme();
 
@@ -134,7 +135,9 @@ class ConfirmDetails extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.back();
+                                  },
                                   child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
@@ -157,7 +160,9 @@ class ConfirmDetails extends StatelessWidget {
                               ),
                               Expanded(
                                 child: MaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(()=> const VerifyingTransaction(), transition: Transition.rightToLeft,);
+                                  },
                                   height: 50,
                                   color: theme.orange,
                                   shape: RoundedRectangleBorder(
