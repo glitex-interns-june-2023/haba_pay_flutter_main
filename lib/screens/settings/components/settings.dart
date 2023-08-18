@@ -87,6 +87,7 @@ class Settings extends StatelessWidget {
                           const SingleSettingsText(title: "Location", description: "Machakos, kenya"),
                           const Divider(),
                           Obx(() => ExpansionTile(
+                            iconColor: theme.black,
                             textColor: theme.black,
                             onExpansionChanged: (expanded){
                               settingsController.onIsMoreExpanded();
