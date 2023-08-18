@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/routes/app_page.dart';
 import 'package:haba_pay_main/screens/sign_up/components/verification_successful.dart';
 import 'package:haba_pay_main/screens/sign_up/controller/otp_controller.dart';
@@ -14,6 +16,7 @@ class VerifyPhoneNumber extends StatefulWidget {
 }
 
 class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
+  final CustomTheme theme = CustomTheme();
   final OtpController otpController = Get.put(OtpController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
@@ -30,83 +33,95 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    Image.asset('assets/images/verify_phone_number_progress.png'),
-                    const Spacer(),
-                    const Text(
-                      "Verify phone number",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const Spacer(),
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "Code",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Form(
-                        key: _formKey,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            errorText: hasError ? errorMsg : null,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset('assets/images/step_2.svg'),
+                      const SizedBox(height: 20,),
+                      const Text(
+                        "Verify phone number",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      const Spacer(),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              "Code",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                fontSize: 18
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              errorText: hasError ? errorMsg : null,
+                            ),
+                            validator: (String? value) {
+                              if (value == null) {
+                                return "Please enter code";
+                              }
+                              return null;
+                            },
+                            onSaved: ((value) => {otp = value ?? ""}),
                           ),
-                          validator: (String? value) {
-                            if (value == null) {
-                              return "Please enter code";
-                            }
-                            return null;
+                        ),
+                      ),
+                      const Spacer(),
+                      Visibility(
+                        visible: isLoading,
+                        replacement: const SizedBox(),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: theme.orange,
+                          ),
+                        ),
+                      ),
+                      const Spacer(
+                        flex: 4,
+                      ),
+                      const Text(
+                        "A verification code was sent \n"
+                            "to your sms",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: MaterialButton(
+                          onPressed: () {
+                            Get.to(
+                                  () => const VerificationSuccessful(),
+                              transition: Transition.rightToLeft,
+                            );
+                            //verifyOTP();
                           },
-                          onSaved: ((value) => {otp = value ?? ""}),
+                          height: 50,
+                          minWidth: double.infinity,
+                          color: theme.orange,
+                          child: Text(
+                            "Verify",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: theme.white,
+                                fontSize: 18),
+                          ),
                         ),
                       ),
-                    ),
-                    const Spacer(),
-                    Visibility(
-                      visible: isLoading,
-                      replacement: const SizedBox(),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.orange,
-                        ),
-                      ),
-                    ),
-                    const Spacer(
-                      flex: 4,
-                    ),
-                    const Text(
-                      "A verification code was sent \n"
-                          "to your sms",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: MaterialButton(
-                        onPressed: () {
-                          verifyOTP();
-                        },
-                        height: 50,
-                        minWidth: double.infinity,
-                        color: Colors.orange,
-                        child: const Text(
-                          "Verify",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                      ),
-                    ),
-                    const Spacer()
-                  ],
+                      const Spacer()
+                    ],
+                  ),
                 ),
               ),
             ),
