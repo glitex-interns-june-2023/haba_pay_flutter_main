@@ -8,7 +8,8 @@ import 'package:haba_pay_main/screens/faqs_and_tcs/controller/faqs_and_tcs_contr
 
 import '../../../model/faq.dart';
 
-final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
+final FaqsAndTcsController faqsAndTcsController =
+    Get.put(FaqsAndTcsController());
 final CustomTheme theme = CustomTheme();
 
 class Faqs extends StatelessWidget {
@@ -28,33 +29,37 @@ class Faqs extends StatelessWidget {
               children: [
                 const Spacer(),
                 const TitleText(title: "Frequently asked questions"),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Expanded(
-                  flex: 5,
+                    flex: 5,
                     child: ListView.builder(
-                      itemCount: faqsAndTcsController.list.length,
-                        itemBuilder: (context, index){
-                          return Obx(() =>
-                              ExpansionTile(
+                        itemCount: faqsAndTcsController.list.length,
+                        itemBuilder: (context, index) {
+                          return Obx(() => ExpansionTile(
                                 textColor: theme.black,
-                                  iconColor: theme.black,
-                                  title: Text(faqsAndTcsController.list[index].title),
-                                onExpansionChanged: (expanded){
-                                    faqsAndTcsController.toggleFaqItem(index);
+                                iconColor: theme.black,
+                                title: Text(
+                                    faqsAndTcsController.list[index].title),
+                                onExpansionChanged: (expanded) {
+                                  faqsAndTcsController.toggleFaqItem(index);
                                 },
-                                initiallyExpanded: faqsAndTcsController.expandedFaqItems[index] ?? false,
+                                initiallyExpanded: faqsAndTcsController
+                                        .expandedFaqItems[index] ??
+                                    false,
                                 children: [
                                   ListTile(
-                                    title: Text(faqsAndTcsController.list[index].description),
+                                    title: Text(faqsAndTcsController
+                                        .list[index].description),
                                   )
                                 ],
-                              )
-                          );
-                        }
-                    )
+                              ));
+                        })),
+                const SizedBox(
+                  height: 20,
                 ),
-                const SizedBox(height: 20,),
-                CustomButton(title: "contact support", onClick: (){}),
+                CustomButton(title: "contact support", onClick: () {}),
                 const Spacer(),
               ],
             ),
