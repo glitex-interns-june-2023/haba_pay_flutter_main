@@ -19,58 +19,47 @@ class Faqs extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.background,
       appBar: const CustomAppBar(title: "Frequently asked questions"),
-      body: LayoutBuilder(
-        builder: (context, constraint) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
-              child: IntrinsicHeight(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          const TitleText(title: "Frequently asked questions"),
-                          const SizedBox(height: 20,),
-                          Expanded(
-                            flex: 5,
-                              child: ListView.builder(
-                                itemCount: faqsAndTcsController.list.length,
-                                  itemBuilder: (context, index){
-                                    return Obx(() =>
-                                        ExpansionTile(
-                                          textColor: theme.black,
-                                            iconColor: theme.black,
-                                            title: Text(faqsAndTcsController.list[index].title),
-                                          onExpansionChanged: (expanded){
-                                              faqsAndTcsController.toggleFaqItem(index);
-                                          },
-                                          initiallyExpanded: faqsAndTcsController.expandedFaqItems[index] ?? false,
-                                          children: [
-                                            ListTile(
-                                              title: Text(faqsAndTcsController.list[index].description),
-                                            )
-                                          ],
-                                        )
-                                    );
-                                  }
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                const Spacer(),
+                const TitleText(title: "Frequently asked questions"),
+                const SizedBox(height: 20,),
+                Expanded(
+                  flex: 5,
+                    child: ListView.builder(
+                      itemCount: faqsAndTcsController.list.length,
+                        itemBuilder: (context, index){
+                          return Obx(() =>
+                              ExpansionTile(
+                                textColor: theme.black,
+                                  iconColor: theme.black,
+                                  title: Text(faqsAndTcsController.list[index].title),
+                                onExpansionChanged: (expanded){
+                                    faqsAndTcsController.toggleFaqItem(index);
+                                },
+                                initiallyExpanded: faqsAndTcsController.expandedFaqItems[index] ?? false,
+                                children: [
+                                  ListTile(
+                                    title: Text(faqsAndTcsController.list[index].description),
+                                  )
+                                ],
                               )
-                          ),
-                          const SizedBox(height: 20,),
-                          CustomButton(title: "contact support", onClick: (){}),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
-                  ),
+                          );
+                        }
+                    )
                 ),
-              ),
+                const SizedBox(height: 20,),
+                CustomButton(title: "contact support", onClick: (){}),
+                const Spacer(),
+              ],
             ),
-          );
-        }
+          ),
+        ),
       ),
     );
   }
