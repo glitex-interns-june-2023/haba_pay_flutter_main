@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 
 import '../../dashboard/controller/dashboard_controller.dart';
 import 'package:get/get.dart';
 
-class UpdateLoginPin extends GetView<BottomNavBarController> {
+final CustomTheme theme = CustomTheme();
+
+class UpdateLoginPin extends StatelessWidget {
   const UpdateLoginPin({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
+      appBar: const CustomAppBar(title: "Change login pin"),
+      backgroundColor: theme.background,
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return Padding(
             padding: const EdgeInsets.all(10),
             child: Card(
@@ -19,116 +24,97 @@ class UpdateLoginPin extends GetView<BottomNavBarController> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraint.maxHeight),
                   child: IntrinsicHeight(
-                    child: Column(
-                        children: [
-                          const Spacer(),
-                          const Text(
-                            "Update login pin",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
-                          const Spacer(),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  "Current pin",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()
-                                ),
-                              )
-                          ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  "Forgot pin",
-                                  style: TextStyle(
-                                    color: Colors.orange,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                          ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  "New pin",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()
-                                ),
-                              )
-                          ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  "Confirm pin",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()
-                                ),
-                              )
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: MaterialButton(onPressed: (){
-
-                            },
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: Colors.orange,
-                              child: const Text(
-                                "Update",
+                    child: Column(children: [
+                      const Spacer(),
+                      const Text(
+                        "Update login pin",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      const Spacer(),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              "Current pin",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          )),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Text(
+                                "Forgot pin",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                ),
+                                    color: theme.orange,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
+                            )),
+                      ),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              "New pin",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          )),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              "Confirm pin",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          )),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: MaterialButton(
+                          onPressed: () {},
+                          height: 50,
+                          minWidth: double.infinity,
+                          color: theme.orange,
+                          child: Text(
+                            "Update",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: theme.white),
                           ),
-                          const Spacer()
-                        ]
-                    ),
+                        ),
+                      ),
+                      const Spacer()
+                    ]),
                   ),
                 ),
               ),
