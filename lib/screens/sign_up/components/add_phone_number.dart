@@ -81,7 +81,11 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: MaterialButton(
                             onPressed: () {
-                              sendOtp(_phoneNumberController.text);
+                              Get.to(
+                                    () => const VerifyPhoneNumber(),
+                                transition: Transition.rightToLeft,
+                              );
+                              //sendOtp(_phoneNumberController.text);
                             },
                             height: 50,
                             minWidth: double.infinity,
