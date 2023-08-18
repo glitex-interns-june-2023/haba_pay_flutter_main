@@ -15,14 +15,16 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Obx(
                         () => Column(
                           children: [
@@ -167,7 +169,9 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
                       ),
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),
