@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:get/get.dart';
 
@@ -155,7 +156,7 @@ class DepositConfirmPayment extends StatelessWidget {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    Get.back();
+                                    Get.until((route) => route.settings.name == "/deposit_money");
                                   },
                                   child: Container(
                                     height: 50,

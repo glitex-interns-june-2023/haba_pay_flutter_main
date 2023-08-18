@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
@@ -61,13 +62,13 @@ class DepositVerifyTransaction extends StatelessWidget {
                             if (depositMoneyController.isLoading.value)
                               CircularProgressIndicator(color: theme.orange)
                             else if (depositMoneyController.isSuccessful.value)
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/smile_face.png'))
+                              SvgPicture.asset(
+                                  'assets/images/smile_face.svg'
+                              )
                             else
-                              const Image(
-                                  image:
-                                      AssetImage('assets/images/sad_face.png')),
+                              SvgPicture.asset(
+                                  'assets/images/sad_face.svg'
+                              ),
                             const Spacer(),
                             if (depositMoneyController.isLoading.value)
                               const Text(
