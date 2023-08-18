@@ -5,41 +5,39 @@ import 'package:haba_pay_main/screens/Shared/title_text.dart';
 import 'package:haba_pay_main/screens/statement_download/controller/statement_download_controller.dart';
 import 'package:get/get.dart';
 
+final TextEditingController _fromController = TextEditingController();
 
-class StatementDownload extends StatefulWidget {
+final TextEditingController _toController = TextEditingController();
+
+final StatementDownloadController statementDownloadController = Get.put(StatementDownloadController());
+
+List<String> transactionType = [
+  "Select",
+  "transaction type1",
+  "transaction type2",
+  "transaction type3",
+  "transaction type4"
+];
+
+List<String> duration = [
+  "Select",
+  "duration type1",
+  "duration type2",
+  "duration type3",
+  "duration type4"
+];
+
+List<String> downloadMethod = [
+  "Select",
+  "method type1",
+  "method type2",
+  "method type3",
+  "method type4"
+];
+
+class StatementDownload extends StatelessWidget {
   const StatementDownload({super.key});
 
-  @override
-  State<StatementDownload> createState() => _StatementDownloadState();
-}
-
-class _StatementDownloadState extends State<StatementDownload> {
-  final TextEditingController _fromController = TextEditingController();
-  final TextEditingController _toController = TextEditingController();
-  final StatementDownloadController statementDownloadController = Get.put(StatementDownloadController());
-  List<String> transactionType = [
-    "Select",
-    "transaction type1",
-    "transaction type2",
-    "transaction type3",
-    "transaction type4"
-  ];
-
-  List<String> duration = [
-    "Select",
-    "duration type1",
-    "duration type2",
-    "duration type3",
-    "duration type4"
-  ];
-
-  List<String> downloadMethod = [
-    "Select",
-    "method type1",
-    "method type2",
-    "method type3",
-    "method type4"
-  ];
 
   @override
   Widget build(BuildContext context) {

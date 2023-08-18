@@ -1,162 +1,157 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/add_business/controller/AddBusinessController.dart';
+import 'package:haba_pay_main/screens/home/components/home.dart';
 
-class AddBusiness extends StatefulWidget {
+final TextEditingController _businessNameController = TextEditingController();
+final TextEditingController _locationController = TextEditingController();
+final AddBusinessController addBusinessController = Get.put(AddBusinessController());
+final CustomTheme theme = CustomTheme();
+
+class AddBusiness extends StatelessWidget {
   const AddBusiness({super.key});
 
   @override
-  State<AddBusiness> createState() => _AddBusinessState();
-}
-
-class _AddBusinessState extends State<AddBusiness> {
-  CustomTheme theme = CustomTheme();
-  final TextEditingController _businessNameController = TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
-
-  String dropDownValue = "Select";
-
-  var items = [
-    "Select",
-    "item1",
-    "item2"
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Add your business"),
       body: LayoutBuilder(
           builder: (context, constraint){
             return SingleChildScrollView(
               child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: IntrinsicHeight(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          const Text(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            const Spacer(),
+                            const Text(
                               "Add your business",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20,),
-                          const Text(
+                            const SizedBox(height: 20,),
+                            const Text(
                               "Adding your business allows us to \n customize your experience",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18
-                            ),
-                          ),
-                          const SizedBox(height: 20,),
-                          const Divider(),
-                          const SizedBox(height: 20,),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Business name",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
-                                )),
-                          ),
-                          TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.name,
-                            controller: _businessNameController,
-                          ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Category",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
-                                )),
-                          ),
-                          DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5)
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 18
                               ),
                             ),
-                            value: dropDownValue,
-                              items: items.map((String items){
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue){
-                              setState(() {
-                                dropDownValue = newValue!;
-                              });
-                            }
-                          ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                            const SizedBox(height: 20,),
+                            const Divider(),
+                            const SizedBox(height: 20,),
+                            const Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    "Business name",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                            ),
+                            TextField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              keyboardType: TextInputType.name,
+                              controller: _businessNameController,
+                            ),
+                            const Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    "Category",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                            ),
+                            Obx(() => DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
+                                value: addBusinessController.dropDownValue.value,
+                                items: addBusinessController.items.map((String items){
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue){
+                                  addBusinessController.onChanged(newValue!);
+                                }
+                            )),
+                            const Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    "Location",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                            ),
+                            TextField(
+                              decoration: const InputDecoration(
+                                hintText: "Pin",
+                                border: OutlineInputBorder(),
+                              ),
+                              keyboardType: TextInputType.name,
+                              controller: _locationController,
+                            ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: InkWell(
+                                onTap: (){},
                                 child: Text(
-                                  "Location",
+                                  "Open in maps",
                                   style: TextStyle(
+                                      color: theme.orange,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18
                                   ),
-                                )),
-                          ),
-                          TextField(
-                            decoration: const InputDecoration(
-                              hintText: "Pin",
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.name,
-                            controller: _locationController,
-                          ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: InkWell(
-                              onTap: (){},
-                              child: Text(
-                                "Open in maps",
-                                style: TextStyle(
-                                  color: theme.orange,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
                                 ),
                               ),
                             ),
-                          ),
-                          const Spacer(),
-                          MaterialButton(
-                              onPressed: () {},
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: Colors.orange,
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50),
-                                child: Text(
-                                  "Add",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                ),
-                              )
-                          ),
-                          const Spacer()
-                        ],
+                            const Spacer(),
+                            MaterialButton(
+                                onPressed: () {},
+                                height: 50,
+                                minWidth: double.infinity,
+                                color: theme.orange,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                                  child: Text(
+                                    "Add",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: theme.white,
+                                        fontSize: 20),
+                                  ),
+                                )
+                            ),
+                            const Spacer()
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -168,3 +163,4 @@ class _AddBusinessState extends State<AddBusiness> {
     );
   }
 }
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 
 class AddPhoneNumberSettings extends StatelessWidget {
   const AddPhoneNumberSettings({super.key});
@@ -6,6 +7,8 @@ class AddPhoneNumberSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Add new number"),
       body: LayoutBuilder(
         builder: (context, constraint) {
           return Padding(
@@ -47,11 +50,11 @@ class AddPhoneNumberSettings extends StatelessWidget {
                             onPressed: () {},
                             height: 50,
                             minWidth: double.infinity,
-                            color: Colors.orange,
-                            child: const Text(
+                            color: theme.orange,
+                            child: Text(
                               "Add",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: theme.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

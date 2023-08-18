@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/add_business/components/add_business.dart';
 import 'package:haba_pay_main/screens/faqs_and_tcs/components/faqs.dart';
 import 'package:haba_pay_main/screens/faqs_and_tcs/components/tcs.dart';
@@ -15,6 +16,7 @@ import 'package:haba_pay_main/screens/statement_download/components/statement_do
 import 'package:haba_pay_main/screens/updates/components/updates.dart';
 
 final settingsController = Get.put(SettingsController());
+final CustomTheme theme = CustomTheme();
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
