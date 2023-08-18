@@ -7,5 +7,6 @@ class CustomTheme{
   Color orange = Colors.orange;
   Color white = Colors.white;
   Color black = Colors.black;
+  Color grey = Colors.grey;
   Color linear = const Color(0xFF8437E8);
 }
