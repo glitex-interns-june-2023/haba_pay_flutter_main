@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/settings/components/SingleSettingsButton.dart';
 import 'package:haba_pay_main/screens/settings/components/SingleSettingsText.dart';
 import 'package:haba_pay_main/screens/settings/controller/settings_controller.dart';
 
@@ -38,13 +39,31 @@ class _SettingsState extends State<Settings> {
                           ),
                           const Align(
                             alignment: Alignment.center,
-                            child: CircleAvatar(),
+                            child: CircleAvatar(
+                              child: Text("BN"),
+                            ),
                           ),
                           const SingleSettingsText(title: "Brian Nakamoto", description: "Number : +254 789 890 890"),
                           const Divider(),
                           const SingleSettingsText(title: "Email", description: "briannakamoto@gmail.com"),
                           const Divider(),
                           const SingleSettingsText(title: "Location", description: "Machakos, kenya"),
+                          const Divider(),
+                          Obx(() => ExpansionTile(
+                            onExpansionChanged: (expanded){
+                              settingsController.onIsMoreExpanded();
+                            },
+                              initiallyExpanded: settingsController.isMoreExpanded.value,
+                              title: const Text(
+                                "More Information",
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),
+                              ),
+                            children: [
+                              SingleSettingsButton(icon: 'assets/images/verify_email.svg', title: "Verify your email", onClick: (){})
+                            ],
+                          ),),
                           const Divider(),
                           MaterialButton(onPressed: (){ settingsController.logout();},
                             child: const Text("Logout"),

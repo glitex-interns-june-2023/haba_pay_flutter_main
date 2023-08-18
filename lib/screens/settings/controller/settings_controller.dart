@@ -4,6 +4,7 @@ import 'package:haba_pay_main/screens/sign_up/components/sign_up.dart';
 
 
 class SettingsController extends GetxController{
+  var isMoreExpanded = false.obs;
   var isSendingEmail = false.obs;
   var isEmailSend = false.obs;
   var isLoading = false.obs;
@@ -27,6 +28,10 @@ class SettingsController extends GetxController{
     } finally {
       isSendingEmail(false);
     }
+  }
+
+  onIsMoreExpanded(){
+    isMoreExpanded.value = !isMoreExpanded.value;
   }
 }
 
