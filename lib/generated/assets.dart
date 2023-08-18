@@ -3,12 +3,16 @@ class Assets {
   Assets._();
 
   static const String assetsImagesSmileFace = 'assets/images/smile_face.svg';
+  static const String imagesAddNewNumber = 'assets/images/add_new_number.svg';
   static const String imagesAddPhoneNumberIndicator = 'assets/images/add_phone_number_indicator.png';
   static const String imagesAddPhoneNumberProgress = 'assets/images/add_phone_number_progress.png';
+  static const String imagesAddYourBusiness = 'assets/images/add_your_business.svg';
   static const String imagesArrowBack = 'assets/images/arrow_back.svg';
   static const String imagesBell = 'assets/images/bell.svg';
+  static const String imagesChangeLoginPin = 'assets/images/change_login_pin.svg';
   static const String imagesCopy = 'assets/images/copy.svg';
   static const String imagesDeposit = 'assets/images/deposit.svg';
+  static const String imagesDownloadMyStatement = 'assets/images/download_my_statement.svg';
   static const String imagesFilter = 'assets/images/filter.svg';
   static const String imagesFrame = 'assets/images/Frame.svg';
   static const String imagesGoogleLogo = 'assets/images/google_logo.png';
@@ -16,9 +20,11 @@ class Assets {
   static const String imagesGroup 303 = 'assets/images/Group 30-3.png';
   static const String imagesGroup 304 = 'assets/images/Group 30-4.png';
   static const String imagesHome = 'assets/images/home.png';
+  static const String imagesLogout = 'assets/images/logout.svg';
   static const String imagesMenu = 'assets/images/menu.png';
   static const String imagesMpesa = 'assets/images/mpesa.svg';
   static const String imagesNotification = 'assets/images/notification.png';
+  static const String imagesQuickLogin = 'assets/images/quick_login.svg';
   static const String imagesSadFace = 'assets/images/sad_face.png';
   static const String imagesSend = 'assets/images/send.svg';
   static const String imagesSettings = 'assets/images/settings.png';

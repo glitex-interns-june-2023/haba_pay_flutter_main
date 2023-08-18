@@ -15,30 +15,36 @@ class SingleSettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: theme.background
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: SvgPicture.asset(
-              icon,
-              color: theme.black,
-              height: 20,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
+        onTap: onClick(),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.background
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: SvgPicture.asset(
+                  icon,
+                  color: theme.black,
+                  height: 20,
+                ),
+              ),
             ),
-          ),
+            const SizedBox(width: 20,),
+            Text(
+                title,
+              style: const TextStyle(
+                fontSize: 18
+              ),
+            )
+          ],
         ),
-        const SizedBox(width: 20,),
-        Text(
-            title,
-          style: const TextStyle(
-            fontSize: 18
-          ),
-        )
-      ],
+      ),
     );
   }
 }

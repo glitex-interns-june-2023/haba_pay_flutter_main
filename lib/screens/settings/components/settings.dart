@@ -34,13 +34,20 @@ class _SettingsState extends State<Settings> {
                           const Text(
                             "Profile settings",
                             style: TextStyle(
+                              fontSize: 14,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.center,
                             child: CircleAvatar(
-                              child: Text("BN"),
+                              backgroundColor: theme.background,
+                              child: Text(
+                                  "BN",
+                                style: TextStyle(
+                                  color: theme.black
+                                ),
+                              ),
                             ),
                           ),
                           const SingleSettingsText(title: "Brian Nakamoto", description: "Number : +254 789 890 890"),
@@ -50,6 +57,7 @@ class _SettingsState extends State<Settings> {
                           const SingleSettingsText(title: "Location", description: "Machakos, kenya"),
                           const Divider(),
                           Obx(() => ExpansionTile(
+                            textColor: theme.black,
                             onExpansionChanged: (expanded){
                               settingsController.onIsMoreExpanded();
                             },
@@ -61,10 +69,23 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ),
                             children: [
-                              SingleSettingsButton(icon: 'assets/images/verify_email.svg', title: "Verify your email", onClick: (){})
+                              SingleSettingsButton(icon: 'assets/images/verify_email.svg', title: "Verify your email", onClick: (){}),
+                              SingleSettingsButton(icon: 'assets/images/add_new_number.svg', title: "Add new number", onClick: (){}),
+                              SingleSettingsButton(icon: 'assets/images/add_your_business.svg', title: "Add your business", onClick: (){}),
+                              SingleSettingsButton(icon: 'assets/images/download_my_statement.svg', title: "Download my statement", onClick: (){})
                             ],
                           ),),
                           const Divider(),
+                          const Text(
+                            "App settings",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Change login PIN", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){}),
                           MaterialButton(onPressed: (){ settingsController.logout();},
                             child: const Text("Logout"),
                           )
