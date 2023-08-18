@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
                   const Spacer(),
                   const Text(
                     "Welcome to the convenience of payment \n"
-                        "By continuing, you agree with our",
+                    "By continuing, you agree with our",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black54),
                   ),
@@ -59,7 +59,8 @@ class _SignInState extends State<SignIn> {
                             children: [
                               if (!signInController.isLoading.value)
                                 const Image(
-                                    image: AssetImage('assets/images/google_logo.png'))
+                                    image: AssetImage(
+                                        'assets/images/google_logo.png'))
                               else
                                 const Icon(
                                   Icons.refresh,
@@ -88,7 +89,7 @@ class _SignInState extends State<SignIn> {
                       InkWell(
                         onTap: () {
                           Get.to(
-                                () => const SignUp(),
+                            () => const SignUp(),
                             transition: Transition.rightToLeft,
                           );
                         },

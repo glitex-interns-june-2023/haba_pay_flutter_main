@@ -85,9 +85,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Change login PIN", onClick: (){}),
                           SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){
-                            settingsController.logout();
-                          }),
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){}),
                           const Divider(),
                           const Text(
                             "About",
@@ -96,6 +94,12 @@ class _SettingsState extends State<Settings> {
                                 fontWeight: FontWeight.bold
                             ),
                           ),
+                          SingleSettingsButton(icon: 'assets/images/call_support.svg', title: "Call support", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/faq.svg', title: "FAQ", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Share app", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Terms and conditions", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Check for updates", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "About developer", onClick: (){}),
                         ],
                       ),
                     ),
