@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
 import 'package:haba_pay_main/screens/home/controller/home_controller.dart';
+import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 
 final HomeController homeController = Get.put(HomeController());
 final CustomTheme theme = CustomTheme();
@@ -71,7 +74,7 @@ class Home extends StatelessWidget {
                                     children: [
                                       MaterialButton(
                                         onPressed: () {
-
+                                          Get.to(()=> const SendMoney(), transition: Transition.rightToLeft);
                                         },
                                         color: theme.white,
                                         child: SvgPicture.asset(
@@ -88,7 +91,9 @@ class Home extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(()=> const WithdrawMoney(), transition: Transition.rightToLeft);
+                                        },
                                         color: theme.white,
                                         child: SvgPicture.asset(
                                             'assets/images/withdraw.svg'),
@@ -104,7 +109,9 @@ class Home extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(()=> const DepositMoney(), transition: Transition.rightToLeft);
+                                        },
                                         color: theme.white,
                                         child: SvgPicture.asset(
                                           'assets/images/deposit.svg',
