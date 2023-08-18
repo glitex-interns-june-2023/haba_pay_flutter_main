@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
+
+import '../../home/components/home.dart';
 
 final WithdrawMoneyController withdrawMoneyController =
     Get.put(WithdrawMoneyController());
@@ -13,6 +17,8 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying withdraw"),
       body: LayoutBuilder(
         builder: (context, constraint) {
           return SingleChildScrollView(
@@ -59,13 +65,13 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
                             if (withdrawMoneyController.isLoading.value)
                               CircularProgressIndicator(color: theme.orange)
                             else if (withdrawMoneyController.isSuccessful.value)
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/smile_face.png'))
+                              SvgPicture.asset(
+                                'assets/images/smile_face.svg'
+                              )
                             else
-                              const Image(
-                                  image:
-                                      AssetImage('assets/images/sad_face.png')),
+                              SvgPicture.asset(
+                                  'assets/images/sad_face.svg'
+                              ),
                             const Spacer(),
                             if (withdrawMoneyController.isLoading.value)
                               const Text(
@@ -147,7 +153,10 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    withdrawMoneyController.verifyTransaction();
+                                    Get.offAll(
+                                          () => const Home(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   minWidth: double.infinity,
