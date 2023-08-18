@@ -31,72 +31,75 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    SvgPicture.asset('assets/images/step_1.svg'),
-                    const SizedBox(height: 20,),
-                    const Text(
-                      "Add phone number",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    const Spacer(),
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(
-                            "Phone",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              fontSize: 18
-                            ),
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          errorText: !isValid ? errorMsg : null,
-                        ),
-                        keyboardType: TextInputType.number,
-                        controller: _phoneNumberController,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset('assets/images/step_1.svg'),
+                      const SizedBox(height: 20,),
+                      const Text(
+                        "Add phone number",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                    ),
-                    const Spacer(),
-                    Visibility(
-                      visible: isLoading,
-                      replacement: const SizedBox(),
-                      child: CircularProgressIndicator(
-                        color: theme.orange,
-                      ),
-                    ),
-                    const Spacer(
-                      flex: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: MaterialButton(
-                          onPressed: () {
-                            sendOtp(_phoneNumberController.text);
-                          },
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: theme.orange,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                      const Spacer(),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
-                              isLoading ? "Sending..." : "Add",
+                              "Phone",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: theme.white,
-                                  fontSize: 20),
-                            ),
-                          )),
-                    ),
-                    const Spacer()
-                  ],
+                                fontSize: 18
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            errorText: !isValid ? errorMsg : null,
+                          ),
+                          keyboardType: TextInputType.number,
+                          controller: _phoneNumberController,
+                        ),
+                      ),
+                      const Spacer(),
+                      Visibility(
+                        visible: isLoading,
+                        replacement: const SizedBox(),
+                        child: CircularProgressIndicator(
+                          color: theme.orange,
+                        ),
+                      ),
+                      const Spacer(
+                        flex: 2,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: MaterialButton(
+                            onPressed: () {
+                              sendOtp(_phoneNumberController.text);
+                            },
+                            height: 50,
+                            minWidth: double.infinity,
+                            color: theme.orange,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: Text(
+                                isLoading ? "Sending..." : "Add",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.white,
+                                    fontSize: 20),
+                              ),
+                            )),
+                      ),
+                      const Spacer()
+                    ],
+                  ),
                 ),
               ),
             ),

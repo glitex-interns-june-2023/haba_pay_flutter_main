@@ -26,91 +26,100 @@ class _SignInState extends State<SignIn> {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
-                child: Column(children: [
-                  const Spacer(),
-                  const Text(
-                    "Sign in to account",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
-                  const SizedBox(height: 20,),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: SvgPicture.asset('assets/images/undraw_sign_in.svg'),
-                  ),
-                  const SizedBox(height: 20,),
-                  const Text(
-                    "Welcome to the convenience of payment \n"
-                    "By continuing, you agree with our",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(children: [
+                    const Spacer(),
+                    const Text(
+                      "Sign in to account",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     ),
-                  ),
-                  Text(
-                    "terms & conditions",
-                    style: TextStyle(color: theme.orange),
-                  ),
-                  const SizedBox(height: 20,),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Obx(() => MaterialButton(
-                          onPressed: () {
-                            signInController.login();
-                          },
-                          height: 50,
-                          color: theme.orange,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (!signInController.isLoading.value)
-                                SvgPicture.asset(
-                                    'assets/images/google_logo.svg')
-                              else
-                                Icon(
-                                  Icons.refresh,
-                                  color: theme.white,
-                                ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Continue with Google",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child:
+                          SvgPicture.asset('assets/images/undraw_sign_in.svg'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Welcome to the convenience of payment \n"
+                      "By continuing, you agree with our",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      "terms & conditions",
+                      style: TextStyle(color: theme.orange),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Obx(() => MaterialButton(
+                            onPressed: () {
+                              signInController.login();
+                            },
+                            height: 50,
+                            color: theme.orange,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (!signInController.isLoading.value)
+                                  SvgPicture.asset(
+                                      'assets/images/google_logo.svg')
+                                else
+                                  Icon(
+                                    Icons.refresh,
                                     color: theme.white,
-                                    fontSize: 18),
-                              )
-                            ],
-                          )))),
-                  const SizedBox(height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
+                                  ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Continue with Google",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.white,
+                                      fontSize: 18),
+                                )
+                              ],
+                            )))),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
                           "Or ",
-                        style: TextStyle(
-                          fontSize: 14
+                          style: TextStyle(fontSize: 14),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.offAll(()=>const SignUp(), transition: Transition.rightToLeft,);
-                        },
-                        child: Text(
-                          "create new account",
-                          style: TextStyle(
-                              color: theme.orange,
-                            fontSize: 14
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.offAll(
+                              () => const SignUp(),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          child: Text(
+                            "create new account",
+                            style: TextStyle(color: theme.orange, fontSize: 14),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const Spacer()
-                ]),
+                        )
+                      ],
+                    ),
+                    const Spacer()
+                  ]),
+                ),
               ),
             ),
           );
