@@ -1,6 +1,14 @@
 import 'package:get/get.dart';
 
+import '../../../model/faq.dart';
+
 class FaqsAndTcsController extends GetxController{
+  var list = [
+    Faq("How do i complete my profile", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    Faq("Do i have to add my business", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    Faq("Can i download all my records", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+  ].obs;
+
   var expandedFaqItems = <bool>[].obs;
   var expandedTcItems = <bool>[].obs;
 
