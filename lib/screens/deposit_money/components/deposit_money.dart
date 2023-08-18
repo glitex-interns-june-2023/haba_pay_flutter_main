@@ -119,22 +119,20 @@ class DepositMoney extends StatelessWidget {
                                         phoneNumber: _phoneNumberController.text,
                                         recipient: "Jane Makena",
                                         amount: _amountController.text,
-                                        newBalance: "800"
+                                        newBalance: "800",
+                                      payBillNumber: "12344 Habapay"
                                     )
                                 );
                               },
                               height: 50,
                               minWidth: double.infinity,
                               color: theme.orange,
-                              child:  Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
-                                child: Text(
-                                  "Proceed with number",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.white,
-                                      fontSize: 20),
-                                ),
+                              child:  Text(
+                                "Proceed with number",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.white,
+                                    fontSize: 18),
                               )),
                           const SizedBox(height: 20,),
                           Row(

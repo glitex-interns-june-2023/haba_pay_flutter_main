@@ -154,7 +154,9 @@ class DepositConfirmPayment extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.back();
+                                  },
                                   child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(

@@ -158,7 +158,7 @@ class DepositDetails extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: theme.white,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
                                 ],
                               )),
