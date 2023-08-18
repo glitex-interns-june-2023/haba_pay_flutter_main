@@ -11,30 +11,6 @@ final TextEditingController _toController = TextEditingController();
 
 final StatementDownloadController statementDownloadController = Get.put(StatementDownloadController());
 
-List<String> transactionType = [
-  "Select",
-  "transaction type1",
-  "transaction type2",
-  "transaction type3",
-  "transaction type4"
-];
-
-List<String> duration = [
-  "Select",
-  "duration type1",
-  "duration type2",
-  "duration type3",
-  "duration type4"
-];
-
-List<String> downloadMethod = [
-  "Select",
-  "method type1",
-  "method type2",
-  "method type3",
-  "method type4"
-];
-
 class StatementDownload extends StatelessWidget {
   const StatementDownload({super.key});
 
@@ -76,7 +52,7 @@ class StatementDownload extends StatelessWidget {
                             ),
                           ),
                           value: statementDownloadController.transactionType.value,
-                          items: transactionType.map((String items){
+                          items: statementDownloadController.transactionTypeList.map((String items){
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
@@ -108,7 +84,7 @@ class StatementDownload extends StatelessWidget {
                                 ),
                               ),
                               value: statementDownloadController.duration.value,
-                              items: duration.map((String items){
+                              items: statementDownloadController.durationList.map((String items){
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),
@@ -208,7 +184,7 @@ class StatementDownload extends StatelessWidget {
                           ),
                         ),
                         value: statementDownloadController.downloadMethod.value,
-                        items: downloadMethod.map((String items){
+                        items: statementDownloadController.downloadMethodList.map((String items){
                           return DropdownMenuItem(
                             value: items,
                             child: Text(items),
