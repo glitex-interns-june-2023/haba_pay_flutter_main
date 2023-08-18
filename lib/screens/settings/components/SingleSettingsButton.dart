@@ -18,7 +18,7 @@ class SingleSettingsButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: onClick(),
+        onTap: (){onClick();},
         child: Row(
           children: [
             Container(
