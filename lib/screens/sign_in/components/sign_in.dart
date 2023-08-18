@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/sign_in/controller/sign_in_screen_controller.dart';
 
@@ -27,25 +28,27 @@ class _SignInState extends State<SignIn> {
                   const Spacer(),
                   const Text(
                     "Sign in to account",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Image.asset('assets/images/undraw_sign_in.png'),
+                    child: SvgPicture.asset('assets/images/undraw_sign_in.svg'),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 20,),
                   const Text(
                     "Welcome to the convenience of payment \n"
                     "By continuing, you agree with our",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
+                    style: TextStyle(
+                      fontSize: 14
+                    ),
                   ),
                   const Text(
                     "terms & conditions",
                     style: TextStyle(color: Colors.orange),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 20,),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Obx(() => MaterialButton(
@@ -58,9 +61,8 @@ class _SignInState extends State<SignIn> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               if (!signInController.isLoading.value)
-                                const Image(
-                                    image: AssetImage(
-                                        'assets/images/google_logo.png'))
+                                SvgPicture.asset(
+                                    'assets/images/google_logo.svg')
                               else
                                 const Icon(
                                   Icons.refresh,
@@ -78,11 +80,16 @@ class _SignInState extends State<SignIn> {
                               )
                             ],
                           )))),
-                  const Spacer(),
+                  const SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Or "),
+                      const Text(
+                          "Or ",
+                        style: TextStyle(
+                          fontSize: 14
+                        ),
+                      ),
                       const SizedBox(
                         width: 5,
                       ),
@@ -95,7 +102,10 @@ class _SignInState extends State<SignIn> {
                         },
                         child: const Text(
                           "create new account",
-                          style: TextStyle(color: Colors.orange),
+                          style: TextStyle(
+                              color: Colors.orange,
+                            fontSize: 14
+                          ),
                         ),
                       )
                     ],
