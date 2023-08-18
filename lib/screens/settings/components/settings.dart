@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/settings/components/SingleSettingsText.dart';
 import 'package:haba_pay_main/screens/settings/controller/settings_controller.dart';
 
 class Settings extends StatefulWidget {
@@ -39,38 +40,11 @@ class _SettingsState extends State<Settings> {
                             alignment: Alignment.center,
                             child: CircleAvatar(),
                           ),
-                          const Text(
-                            "Brian Nakamoto",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
-                          const Text(
-                            "Number : +254 789 890 890",
-                          ),
+                          const SingleSettingsText(title: "Brian Nakamoto", description: "Number : +254 789 890 890"),
                           const Divider(),
-                          const Text(
-                            "Email",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
-                          const Text(
-                            "briannakamoto@gmail.com",
-                          ),
+                          const SingleSettingsText(title: "Email", description: "briannakamoto@gmail.com"),
                           const Divider(),
-                          const Text(
-                            "Location",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
-                          const Text(
-                            "Machakos, kenya",
-                          ),
+                          const SingleSettingsText(title: "Location", description: "Machakos, kenya"),
                           const Divider(),
                           MaterialButton(onPressed: (){ settingsController.logout();},
                             child: const Text("Logout"),
