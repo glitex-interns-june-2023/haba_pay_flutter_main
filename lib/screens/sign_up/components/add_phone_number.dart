@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/routes/app_page.dart';
 import 'package:haba_pay_main/screens/sign_up/components/verify_phone_number.dart';
 import 'package:haba_pay_main/screens/sign_up/controller/otp_controller.dart';
@@ -12,6 +14,7 @@ class AddPhoneNumber extends StatefulWidget {
 }
 
 class _AddPhoneNumberState extends State<AddPhoneNumber> {
+  final CustomTheme theme = CustomTheme();
   final OtpController otpController = Get.put(OtpController());
   final TextEditingController _phoneNumberController = TextEditingController();
 
@@ -31,20 +34,23 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                 child: Column(
                   children: [
                     const Spacer(),
-                    Image.asset('assets/images/add_phone_number_progress.png'),
-                    const Spacer(),
+                    SvgPicture.asset('assets/images/step_1.svg'),
+                    const SizedBox(height: 20,),
                     const Text(
                       "Add phone number",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     const Spacer(),
                     const Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
                           child: Text(
                             "Phone",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              fontSize: 18
+                            ),
                           )),
                     ),
                     Padding(
@@ -62,8 +68,8 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                     Visibility(
                       visible: isLoading,
                       replacement: const SizedBox(),
-                      child: const CircularProgressIndicator(
-                        color: Colors.orange,
+                      child: CircularProgressIndicator(
+                        color: theme.orange,
                       ),
                     ),
                     const Spacer(
@@ -77,14 +83,14 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                           },
                           height: 50,
                           minWidth: double.infinity,
-                          color: Colors.orange,
+                          color: theme.orange,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 50),
                             child: Text(
                               isLoading ? "Sending..." : "Add",
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: theme.white,
                                   fontSize: 20),
                             ),
                           )),
