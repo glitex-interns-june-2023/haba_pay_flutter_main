@@ -15,6 +15,7 @@ class Assets {
   static const String imagesFilter = 'assets/images/filter.svg';
   static const String imagesFrame = 'assets/images/Frame.svg';
   static const String imagesGoogleLogo = 'assets/images/google_logo.svg';
+  static const String imagesHome = 'assets/images/home.svg';
   static const String imagesLogout = 'assets/images/logout.svg';
   static const String imagesMpesa = 'assets/images/mpesa.svg';
   static const String imagesQuickLogin = 'assets/images/quick_login.svg';

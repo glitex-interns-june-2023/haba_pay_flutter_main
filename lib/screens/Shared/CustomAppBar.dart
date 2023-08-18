@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:get/get.dart';
 
 final CustomTheme theme = CustomTheme();
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final Function() onIconClicked;
+
   const CustomAppBar({
     super.key,
     required this.title,
-    required this.onIconClicked,
   });
 
   @override
@@ -19,7 +20,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: theme.white,
       leading: IconButton(
-          onPressed: onIconClicked(),
+          onPressed: (){
+            Get.back();
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             color: theme.black,
@@ -29,12 +32,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(color: theme.black),
       ),
       actions: [
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: theme.black,
-            ))
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: InkWell(
+            onTap: (){},
+            child: SvgPicture.asset(
+              'assets/images/bell.svg'
+            ),
+          ),
+        )
       ],
     );
   }

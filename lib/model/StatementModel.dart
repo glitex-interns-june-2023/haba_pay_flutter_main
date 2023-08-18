@@ -1,5 +1,5 @@
-class StatementModel{
-
+class StatementModel {
+  int id;
   String type;
   String name;
   String amount;
@@ -7,11 +7,5 @@ class StatementModel{
   String time;
 
   StatementModel(
-    this.name,
-    this.type,
-    this.amount,
-    this.phoneNumber,
-    this.time
-  );
-
+      this.id, this.name, this.type, this.amount, this.phoneNumber, this.time);
 }
