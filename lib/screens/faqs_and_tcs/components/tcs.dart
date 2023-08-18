@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:haba_pay_main/model/tcs.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import '../../Shared/title_text.dart';
 import '../controller/faqs_and_tcs_controller.dart';
 import 'package:get/get.dart';
 
-class Tcs extends StatefulWidget {
+final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
+final CustomTheme theme = CustomTheme();
+class Tcs extends StatelessWidget {
   const Tcs({super.key});
-
-  @override
-  State<Tcs> createState() => _TcsState();
-}
-
-class _TcsState extends State<Tcs> {
-  final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +23,18 @@ class _TcsState extends State<Tcs> {
               Expanded(
                   flex: 5,
                   child: ListView.builder(
-                      itemCount: list.length,
+                      itemCount: faqsAndTcsController.tcList.length,
                       itemBuilder: (context, index){
                         return Obx(() =>
                             ExpansionTile(
-                              title: Text(list[index].title),
+                              title: Text(faqsAndTcsController.tcList[index].title),
                               onExpansionChanged: (expanded){
                                 faqsAndTcsController.toggleTcItem(index);
                               },
                               initiallyExpanded: faqsAndTcsController.expandedTcItems[index] ?? false,
                               children: [
                                 ListTile(
-                                  title: Text(list[index].description),
+                                  title: Text(faqsAndTcsController.tcList[index].description),
                                 )
                               ],
                             )
