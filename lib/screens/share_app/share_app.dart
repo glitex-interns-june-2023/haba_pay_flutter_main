@@ -31,9 +31,9 @@ class ShareApp extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        const Spacer(),
+                        const SizedBox(height: 20,),
                         const Divider(),
-                        const Spacer(),
+                        const SizedBox(height: 20,),
                         Text(
                           "Haba pay",
                           style: TextStyle(fontSize: 32, color: theme.orange),
