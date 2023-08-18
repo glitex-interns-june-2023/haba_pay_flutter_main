@@ -15,64 +15,75 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Card(
-          child: Padding(
+      body: LayoutBuilder(
+        builder: (context, constraint){
+          return Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                    "Profile settings",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Profile settings",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const Align(
+                            alignment: Alignment.center,
+                            child: CircleAvatar(),
+                          ),
+                          const Text(
+                            "Brian Nakamoto",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                            ),
+                          ),
+                          const Text(
+                            "Number : +254 789 890 890",
+                          ),
+                          const Divider(),
+                          const Text(
+                            "Email",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                            ),
+                          ),
+                          const Text(
+                            "briannakamoto@gmail.com",
+                          ),
+                          const Divider(),
+                          const Text(
+                            "Location",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                            ),
+                          ),
+                          const Text(
+                            "Machakos, kenya",
+                          ),
+                          const Divider(),
+                          MaterialButton(onPressed: (){ settingsController.logout();},
+                            child: const Text("Logout"),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: CircleAvatar(),
-                ),
-                const Text(
-                    "Brian Nakamoto",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20
-                  ),
-                ),
-                const Text(
-                    "Number : +254 789 890 890",
-                ),
-                const Divider(),
-                const Text(
-                  "Email",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                  ),
-                ),
-                const Text(
-                  "briannakamoto@gmail.com",
-                ),
-                const Divider(),
-                const Text(
-                  "Location",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                  ),
-                ),
-                const Text(
-                  "Machakos, kenya",
-                ),
-                const Divider(),
-                MaterialButton(onPressed: (){ settingsController.logout();},
-                  child: const Text("Logout"),
-                )
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

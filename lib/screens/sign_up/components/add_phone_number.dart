@@ -22,69 +22,80 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Spacer(),
-          Image.asset('assets/images/add_phone_number_progress.png'),
-          const Spacer(),
-          const Text(
-            "Add phone number",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const Spacer(),
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  "Phone",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                errorText: !isValid ? errorMsg : null,
+      body: LayoutBuilder(
+        builder: (context, constraint){
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Image.asset('assets/images/add_phone_number_progress.png'),
+                    const Spacer(),
+                    const Text(
+                      "Add phone number",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    const Spacer(),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            "Phone",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          errorText: !isValid ? errorMsg : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        controller: _phoneNumberController,
+                      ),
+                    ),
+                    const Spacer(),
+                    Visibility(
+                      visible: isLoading,
+                      replacement: const SizedBox(),
+                      child: const CircularProgressIndicator(
+                        color: Colors.orange,
+                      ),
+                    ),
+                    const Spacer(
+                      flex: 2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: MaterialButton(
+                          onPressed: () {
+                            sendOtp(_phoneNumberController.text);
+                          },
+                          height: 50,
+                          minWidth: double.infinity,
+                          color: Colors.orange,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            child: Text(
+                              isLoading ? "Sending..." : "Add",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                          )),
+                    ),
+                    const Spacer()
+                  ],
+                ),
               ),
-              keyboardType: TextInputType.number,
-              controller: _phoneNumberController,
             ),
-          ),
-          const Spacer(),
-          Visibility(
-            visible: isLoading,
-            replacement: const SizedBox(),
-            child: const CircularProgressIndicator(
-              color: Colors.orange,
-            ),
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: MaterialButton(
-                onPressed: () {
-                  sendOtp(_phoneNumberController.text);
-                },
-                height: 50,
-                minWidth: double.infinity,
-                color: Colors.orange,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Text(
-                    isLoading ? "Sending..." : "Add",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20),
-                  ),
-                )),
-          ),
-          const Spacer()
-        ],
+          );
+        },
       ),
     );
   }
