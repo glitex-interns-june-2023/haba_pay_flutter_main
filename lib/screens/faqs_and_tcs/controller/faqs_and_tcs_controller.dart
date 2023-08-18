@@ -1,8 +1,16 @@
 import 'package:get/get.dart';
 
 import '../../../model/faq.dart';
+import '../../../model/tcs.dart';
 
 class FaqsAndTcsController extends GetxController{
+  var tcList = [
+    TcsModel("Term of use", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("Data privacy policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("Cookies policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+    TcsModel("User responsibility", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
+  ].obs;
+
   var list = [
     Faq("How do i complete my profile", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
     Faq("Do i have to add my business", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),

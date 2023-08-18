@@ -13,12 +13,7 @@ class Tcs extends StatefulWidget {
 
 class _TcsState extends State<Tcs> {
   final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
-  final List<TcsModel> list = [
-    TcsModel("Term of use", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-    TcsModel("Data privacy policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-    TcsModel("Cookies policy", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-    TcsModel("User responsibility", "kgwdaueigfuiwefaf uewafiywefguywfegyufweifwe wfygywefeuywfegy feyuwefg"),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
