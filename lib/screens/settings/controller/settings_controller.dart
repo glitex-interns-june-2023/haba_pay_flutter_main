@@ -14,7 +14,7 @@ class SettingsController extends GetxController{
   logout() async {
     isLoading(true);
     try{
-      googleAccount.value = await _googleSignIn.signOut();
+      //googleAccount.value = await _googleSignIn.signOut();
       Get.offAll(()=> const SignUp(), transition: Transition.rightToLeft);
     } finally {
       isLoading(false);

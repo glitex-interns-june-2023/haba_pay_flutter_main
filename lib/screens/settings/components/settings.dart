@@ -85,10 +85,17 @@ class _SettingsState extends State<Settings> {
                           ),
                           SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Change login PIN", onClick: (){}),
                           SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){}),
-                          MaterialButton(onPressed: (){ settingsController.logout();},
-                            child: const Text("Logout"),
-                          )
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){
+                            settingsController.logout();
+                          }),
+                          const Divider(),
+                          const Text(
+                            "About",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
                         ],
                       ),
                     ),
