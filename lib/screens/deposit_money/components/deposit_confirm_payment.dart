@@ -156,7 +156,7 @@ class DepositConfirmPayment extends StatelessWidget {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    Get.until((route) => route.settings.name == "/deposit_money");
+                                    Get.close(3);
                                   },
                                   child: Container(
                                     height: 50,
