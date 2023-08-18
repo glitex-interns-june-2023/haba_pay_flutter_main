@@ -11,7 +11,7 @@ import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
 import 'package:haba_pay_main/screens/settings/components/verify_email.dart';
-import 'package:haba_pay_main/screens/share_app/share_app.dart';
+import 'package:haba_pay_main/screens/share_app/components/share_app.dart';
 import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 import 'package:haba_pay_main/screens/sign_up/components/create_login_pin.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';

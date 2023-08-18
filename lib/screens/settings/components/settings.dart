@@ -11,7 +11,7 @@ import 'package:haba_pay_main/screens/settings/components/add_phone_number_setti
 import 'package:haba_pay_main/screens/settings/components/update_login_pin.dart';
 import 'package:haba_pay_main/screens/settings/components/verify_email.dart';
 import 'package:haba_pay_main/screens/settings/controller/settings_controller.dart';
-import 'package:haba_pay_main/screens/share_app/share_app.dart';
+import 'package:haba_pay_main/screens/share_app/components/share_app.dart';
 import 'package:haba_pay_main/screens/statement_download/components/statement_download.dart';
 import 'package:haba_pay_main/screens/updates/components/updates.dart';
 

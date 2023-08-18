@@ -6,16 +6,11 @@ import 'package:haba_pay_main/screens/pin_login/components/single_button.dart';
 import 'package:haba_pay_main/screens/pin_login/components/single_pin_field.dart';
 import 'package:haba_pay_main/screens/pin_login/controllers/pin_login_controller.dart';
 
-class ConfirmLoginPin extends StatefulWidget {
+final CustomTheme theme = CustomTheme();
+final pinLoginController = Get.put(PinLoginController());
+
+class ConfirmLoginPin extends StatelessWidget {
   const ConfirmLoginPin({super.key});
-
-  @override
-  State<ConfirmLoginPin> createState() => _ConfirmLoginPinState();
-}
-
-class _ConfirmLoginPinState extends State<ConfirmLoginPin> {
-  final CustomTheme theme = CustomTheme();
-  final pinLoginController = Get.put(PinLoginController());
 
   @override
   Widget build(BuildContext context) {

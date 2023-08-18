@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/share_app/controller/share_app_controller.dart';
 
 CustomTheme theme = CustomTheme();
+final ShareAppController shareAppController = ShareAppController();
 
 class ShareApp extends StatelessWidget {
   const ShareApp({super.key});
@@ -31,9 +34,13 @@ class ShareApp extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Divider(),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           "Haba pay",
                           style: TextStyle(fontSize: 32, color: theme.orange),
@@ -52,7 +59,8 @@ class ShareApp extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              decoration: BoxDecoration(color: theme.background),
+                              decoration:
+                                  BoxDecoration(color: theme.background),
                               child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Text(
@@ -64,26 +72,35 @@ class ShareApp extends StatelessWidget {
                             const SizedBox(
                               width: 20,
                             ),
-                            Container(
-                                decoration:
-                                    BoxDecoration(color: theme.background),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child:
-                                      SvgPicture.asset('assets/images/copy.svg'),
-                                ))
+                            InkWell(
+                              onTap: () {
+                                shareAppController
+                                    .copyToClipBoard("https://bit.ly/HabaPay");
+                              },
+                              child: Container(
+                                  decoration:
+                                      BoxDecoration(color: theme.background),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: SvgPicture.asset(
+                                        'assets/images/copy.svg'),
+                                  )),
+                            )
                           ],
                         ),
                         const Spacer(
                           flex: 2,
                         ),
                         MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              shareAppController.shareApp();
+                            },
                             height: 50,
                             minWidth: double.infinity,
                             color: theme.orange,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
                               child: Text(
                                 "Share app",
                                 style: TextStyle(
