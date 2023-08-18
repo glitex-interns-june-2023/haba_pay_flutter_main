@@ -9,19 +9,19 @@ final TextEditingController _fromController = TextEditingController();
 
 final TextEditingController _toController = TextEditingController();
 
-final StatementDownloadController statementDownloadController = Get.put(StatementDownloadController());
+final StatementDownloadController statementDownloadController =
+    Get.put(StatementDownloadController());
 
 class StatementDownload extends StatelessWidget {
   const StatementDownload({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(builder: (context, constraint){
+      body: LayoutBuilder(builder: (context, constraint) {
         return SingleChildScrollView(
           child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
             child: IntrinsicHeight(
               child: Card(
                 child: Padding(
@@ -30,9 +30,13 @@ class StatementDownload extends StatelessWidget {
                     children: [
                       const Spacer(),
                       const TitleText(title: "Statement Download"),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Divider(),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
@@ -40,28 +44,30 @@ class StatementDownload extends StatelessWidget {
                             child: Text(
                               "Transaction Type",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             )),
                       ),
-                      Obx(() => DropdownButtonFormField(
+                      Obx(
+                        () => DropdownButtonFormField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5)
-                            ),
+                                borderRadius: BorderRadius.circular(5)),
                           ),
-                          value: statementDownloadController.transactionType.value,
-                          items: statementDownloadController.transactionTypeList.map((String items){
+                          value:
+                              statementDownloadController.transactionType.value,
+                          items: statementDownloadController.transactionTypeList
+                              .map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
                             );
                           }).toList(),
-                        onChanged: (String? newValue){
-                            statementDownloadController.updateTransactionType(newValue!);
-                        },
-                      ),),
+                          onChanged: (String? newValue) {
+                            statementDownloadController
+                                .updateTransactionType(newValue!);
+                          },
+                        ),
+                      ),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
@@ -69,105 +75,114 @@ class StatementDownload extends StatelessWidget {
                             child: Text(
                               "Duration",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             )),
                       ),
                       Row(
                         children: [
-                          Obx(() => Expanded(
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5)
+                          Obx(
+                            () => Expanded(
+                              child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
                                 ),
+                                value:
+                                    statementDownloadController.duration.value,
+                                items: statementDownloadController.durationList
+                                    .map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  statementDownloadController
+                                      .updateDuration(newValue!);
+                                },
                               ),
-                              value: statementDownloadController.duration.value,
-                              items: statementDownloadController.durationList.map((String items){
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue){
-                                statementDownloadController.updateDuration(newValue!);
-                              },
                             ),
-                          ),),
-                          const SizedBox(width: 10,),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           SizedBox(
                             height: 65,
                             child: OutlinedButton(
-                                onPressed: (){
+                                onPressed: () {
                                   statementDownloadController.onFilterClicked();
                                 },
                                 child: SvgPicture.asset(
-                                  'assets/images/filter.svg'
-                                )
-                            ),
+                                    'assets/images/filter.svg')),
                           )
                         ],
                       ),
-                      Obx(() => AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child: Visibility(
-                          visible: statementDownloadController.isFilterClicked.value,
-                          child: Row(
-                            children: [
-                              Expanded(child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 8),
-                                        child: Text(
-                                          "From",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18
-                                          ),
-                                        )),
-                                  ),
-                                  TextField(
-                                    decoration: const InputDecoration(
-                                      hintText: "mm/dd/yyyy",
-                                      border: OutlineInputBorder(),
+                      Obx(
+                        () => AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: Visibility(
+                            visible: statementDownloadController
+                                .isFilterClicked.value,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 8),
+                                          child: Text(
+                                            "From",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          )),
                                     ),
-                                    keyboardType: TextInputType.datetime,
-                                    controller: _fromController,
-                                  ),
-                                ],
-                              )),
-                              const SizedBox(width: 20,),
-                              Expanded(child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 8),
-                                        child: Text(
-                                          "To",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18
-                                          ),
-                                        )),
-                                  ),
-                                  TextField(
-                                    decoration: const InputDecoration(
-                                      hintText: "dd/mm/yyyy",
-                                      border: OutlineInputBorder(),
+                                    TextField(
+                                      decoration: const InputDecoration(
+                                        hintText: "mm/dd/yyyy",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      keyboardType: TextInputType.datetime,
+                                      controller: _fromController,
                                     ),
-                                    keyboardType: TextInputType.datetime,
-                                    controller: _toController,
-                                  ),
-                                ],
-                              ))
-                            ],
+                                  ],
+                                )),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 8),
+                                          child: Text(
+                                            "To",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          )),
+                                    ),
+                                    TextField(
+                                      decoration: const InputDecoration(
+                                        hintText: "dd/mm/yyyy",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      keyboardType: TextInputType.datetime,
+                                      controller: _toController,
+                                    ),
+                                  ],
+                                ))
+                              ],
+                            ),
                           ),
                         ),
-                      ),),
+                      ),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
@@ -175,30 +190,32 @@ class StatementDownload extends StatelessWidget {
                             child: Text(
                               "Download Method",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             )),
                       ),
-                      Obx(() => DropdownButtonFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5)
+                      Obx(
+                        () => DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5)),
                           ),
+                          value:
+                              statementDownloadController.downloadMethod.value,
+                          items: statementDownloadController.downloadMethodList
+                              .map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(items),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            statementDownloadController
+                                .updateDownload(newValue!);
+                          },
                         ),
-                        value: statementDownloadController.downloadMethod.value,
-                        items: statementDownloadController.downloadMethodList.map((String items){
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue){
-                          statementDownloadController.updateDownload(newValue!);
-                        },
-                      ),),
+                      ),
                       const Spacer(),
-                      CustomButton(title: "confirm", onClick: (){}),
+                      CustomButton(title: "confirm", onClick: () {}),
                       const Spacer()
                     ],
                   ),
