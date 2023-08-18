@@ -187,6 +187,7 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                           padding: const EdgeInsets.all(16),
                           child: MaterialButton(
                             onPressed: () {
+                              pinLoginController.confirmLoginPin();
                               widget.onConfirm();
                             },
                             minWidth: double.infinity,

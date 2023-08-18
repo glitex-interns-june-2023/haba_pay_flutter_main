@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/SendMoneyModel.dart';
+import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/send_money/components/confirm_details.dart';
@@ -114,7 +114,7 @@ class SendMoney extends StatelessWidget {
                               onPressed: () {
                                 Get.to(()=> const ConfirmDetails(),
                                     transition: Transition.rightToLeft,
-                                  arguments: SendMoneyModel(
+                                  arguments: MoneyModel(
                                     _phoneNumberController.text,
                                     "Jane Makena",
                                     _amountController.text,

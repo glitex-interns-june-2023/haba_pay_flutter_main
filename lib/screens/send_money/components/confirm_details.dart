@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/model/SendMoneyModel.dart';
+import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
+import 'package:haba_pay_main/screens/send_money/components/send_money_confirm_identity.dart';
 
 final CustomTheme theme = CustomTheme();
 
@@ -12,7 +12,7 @@ class ConfirmDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sendMoneyModel = Get.arguments as SendMoneyModel;
+    final sendMoneyModel = Get.arguments as MoneyModel;
 
     return Scaffold(
       backgroundColor: theme.background,
@@ -161,7 +161,7 @@ class ConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {
-                                    Get.to(()=> const VerifyingTransaction(), transition: Transition.rightToLeft,);
+                                    Get.to(()=> const SendMoneyConfirmIdentity(), transition: Transition.rightToLeft,);
                                   },
                                   height: 50,
                                   color: theme.orange,

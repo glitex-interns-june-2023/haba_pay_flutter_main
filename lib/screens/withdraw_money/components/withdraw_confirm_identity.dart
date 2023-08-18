@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/screens/Shared/confirm_identity.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_verifying_transaction.dart';
 
-class WithdrawConfirmIdentity extends StatefulWidget {
+class WithdrawConfirmIdentity extends StatelessWidget {
   const WithdrawConfirmIdentity({super.key});
 
   @override
-  State<WithdrawConfirmIdentity> createState() => _WithdrawConfirmIdentityState();
-}
-
-class _WithdrawConfirmIdentityState extends State<WithdrawConfirmIdentity> {
-  @override
   Widget build(BuildContext context) {
     return ConfirmIdentity(
-        onConfirm: (){}
+        onConfirm: (){
+          Get.to(()=> const WithdrawVerifyingTransaction(),
+              transition: Transition.rightToLeft,
+          );
+        }
     );
   }
 }

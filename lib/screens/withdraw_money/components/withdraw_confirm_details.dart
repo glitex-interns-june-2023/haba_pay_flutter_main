@@ -1,174 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_identity.dart';
 
-class WithdrawConfirmDetails extends StatefulWidget {
+import '../../../model/MoneyModel.dart';
+
+final CustomTheme theme = CustomTheme();
+
+class WithdrawConfirmDetails extends StatelessWidget {
   const WithdrawConfirmDetails({super.key});
 
   @override
-  State<WithdrawConfirmDetails> createState() => _WithdrawConfirmDetailsState();
-}
-
-class _WithdrawConfirmDetailsState extends State<WithdrawConfirmDetails> {
-  @override
   Widget build(BuildContext context) {
+    final withdrawMoneyModel = Get.arguments as MoneyModel;
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Confirm withdraw details"),
       body: LayoutBuilder(
-        builder: (context, constraint){
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        const Spacer(),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "New Balance",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 18
-                                ),
-                              )),
-                        ),
-                        const Row(
-                          children: [
-                            Text(
-                              "Ksh 900",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32,
-                              ),
-                            ),
-                            Spacer(),
-                            InkWell(
-                              child: Icon(Icons.visibility_off),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          "Confirm Details",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+        builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          const Spacer(),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "New Balance",
+                                  style: TextStyle(
+                                      color: theme.grey, fontSize: 18),
+                                )),
                           ),
-                        ),
-                        const SizedBox(height: 20,),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "Phone",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "+254 789 895 458",
-                                style: TextStyle(fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "Recipient",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "Briam Nakamoto",
-                                style: TextStyle(fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "Amount",
-                                style:
-                                TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              )),
-                        ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "Ksh. 400",
-                                style: TextStyle(fontSize: 18),
-                              )),
-                        ),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){},
-                                child: Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.orange),
-                                      borderRadius: BorderRadius.circular(8)
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "Cancel",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.orange
+                          Row(
+                            children: [
+                              Text(
+                                withdrawMoneyModel.newBalance,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32,
+                                ),
+                              ),
+                              const Spacer(),
+                              const InkWell(
+                                child: Icon(Icons.visibility_off),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "Confirm Details",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Phone",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  withdrawMoneyModel.phoneNumber,
+                                  style: const TextStyle(fontSize: 18),
+                                )),
+                          ),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Recipient",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  withdrawMoneyModel.recipient,
+                                  style: const TextStyle(fontSize: 18),
+                                )),
+                          ),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Amount",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  withdrawMoneyModel.amount,
+                                  style: const TextStyle(fontSize: 18),
+                                )),
+                          ),
+                          const Spacer(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: theme.orange),
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Center(
+                                      child: Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: theme.orange),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 10,),
-                            Expanded(
-                              child: MaterialButton(
-                                onPressed: () {},
-                                height: 50,
-                                color: Colors.orange,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)
-                                ),
-                                child: const Text(
-                                  "Confirm",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    Get.to(
+                                      () => const WithdrawConfirmIdentity(),
+                                      transition: Transition.rightToLeft,
+                                    );
+                                  },
+                                  height: 50,
+                                  color: theme.orange,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: theme.white,
+                                        fontSize: 20),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Spacer()
-                      ],
+                            ],
+                          ),
+                          const Spacer()
+                        ],
+                      ),
                     ),
                   ),
                 ),
