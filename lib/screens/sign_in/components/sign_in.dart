@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/sign_in/controller/sign_in_screen_controller.dart';
 
 import '../../sign_up/components/sign_up.dart';
@@ -14,6 +15,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final signInController = Get.put(SignInController());
+  final CustomTheme theme = CustomTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +46,9 @@ class _SignInState extends State<SignIn> {
                       fontSize: 14
                     ),
                   ),
-                  const Text(
+                  Text(
                     "terms & conditions",
-                    style: TextStyle(color: Colors.orange),
+                    style: TextStyle(color: theme.orange),
                   ),
                   const SizedBox(height: 20,),
                   Padding(
@@ -56,7 +58,7 @@ class _SignInState extends State<SignIn> {
                             signInController.login();
                           },
                           height: 50,
-                          color: Colors.orange,
+                          color: theme.orange,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -64,19 +66,19 @@ class _SignInState extends State<SignIn> {
                                 SvgPicture.asset(
                                     'assets/images/google_logo.svg')
                               else
-                                const Icon(
+                                Icon(
                                   Icons.refresh,
-                                  color: Colors.white,
+                                  color: theme.white,
                                 ),
                               const SizedBox(
                                 width: 5,
                               ),
-                              const Text(
+                              Text(
                                 "Continue with Google",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 20),
+                                    color: theme.white,
+                                    fontSize: 18),
                               )
                             ],
                           )))),
@@ -95,15 +97,12 @@ class _SignInState extends State<SignIn> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(
-                            () => const SignUp(),
-                            transition: Transition.rightToLeft,
-                          );
+                          Get.offAll(()=>const SignUp(), transition: Transition.rightToLeft,);
                         },
-                        child: const Text(
+                        child: Text(
                           "create new account",
                           style: TextStyle(
-                              color: Colors.orange,
+                              color: theme.orange,
                             fontSize: 14
                           ),
                         ),
