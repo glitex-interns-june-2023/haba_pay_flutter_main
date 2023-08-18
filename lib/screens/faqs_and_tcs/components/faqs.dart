@@ -42,6 +42,8 @@ class Faqs extends StatelessWidget {
                                   itemBuilder: (context, index){
                                     return Obx(() =>
                                         ExpansionTile(
+                                          textColor: theme.black,
+                                            iconColor: theme.black,
                                             title: Text(faqsAndTcsController.list[index].title),
                                           onExpansionChanged: (expanded){
                                               faqsAndTcsController.toggleFaqItem(index);
