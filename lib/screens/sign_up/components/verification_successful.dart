@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 
 import 'create_login_pin.dart';
 
+final CustomTheme theme = CustomTheme();
 class VerificationSuccessful extends StatelessWidget {
   const VerificationSuccessful({super.key});
 
@@ -15,42 +18,45 @@ class VerificationSuccessful extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    Image.asset('assets/images/verification_successful_progress.png'),
-                    const SizedBox(height: 20,),
-                    const Text(
-                      "Verification successful",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset('assets/images/step_2.svg'),
+                      const SizedBox(height: 20,),
+                      const Text(
+                        "Verification successful",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    Image.asset('assets/images/smile_face.png'),
-                    const Spacer(flex: 4,),
-                    Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: MaterialButton(onPressed: (){
-                        Get.to(()=>const CreateLoginPin(), transition: Transition.rightToLeft);
-                      },
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: Colors.orange,
-                          child: const Padding(padding: EdgeInsets.symmetric(horizontal: 50),
-                            child: Text(
-                              "Proceed",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 20
+                      const Spacer(),
+                      SvgPicture.asset('assets/images/smile_face.svg'),
+                      const Spacer(flex: 4,),
+                      Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: MaterialButton(onPressed: (){
+                          Get.to(()=>const CreateLoginPin(), transition: Transition.rightToLeft);
+                        },
+                            height: 50,
+                            minWidth: double.infinity,
+                            color: theme.orange,
+                            child: Padding(padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: Text(
+                                "Proceed",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.white,
+                                    fontSize: 18
+                                ),
                               ),
-                            ),
-                          )
+                            )
+                        ),
                       ),
-                    ),
-                    const Spacer()
-                  ],
+                      const Spacer()
+                    ],
+                  ),
                 ),
               ),
             ),
