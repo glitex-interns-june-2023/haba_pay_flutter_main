@@ -101,6 +101,7 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!withdrawMoneyController.isSuccessful.value)
                               Row(
                                 children: [

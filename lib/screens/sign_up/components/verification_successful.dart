@@ -35,6 +35,7 @@ class VerificationSuccessful extends StatelessWidget {
                       const Spacer(),
                       SvgPicture.asset('assets/images/smile_face.svg'),
                       const Spacer(flex: 4,),
+                      const SizedBox(height: 20,),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: MaterialButton(onPressed: (){
                           Get.to(()=>const CreateLoginPin(), transition: Transition.rightToLeft);

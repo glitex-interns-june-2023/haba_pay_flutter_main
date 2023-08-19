@@ -7,6 +7,9 @@ import '../../dashboard/controller/dashboard_controller.dart';
 import 'package:get/get.dart';
 
 final CustomTheme theme = CustomTheme();
+final TextEditingController _currentPinController = TextEditingController();
+final TextEditingController _newPinController = TextEditingController();
+final TextEditingController _confirmPinController = TextEditingController();
 
 class UpdateLoginPin extends StatelessWidget {
   const UpdateLoginPin({super.key});
@@ -44,11 +47,20 @@ class UpdateLoginPin extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
                       ),
-                      const Padding(
-                          padding: EdgeInsets.all(16),
+                       Padding(
+                          padding: const EdgeInsets.all(16),
                           child: TextField(
+                            cursorColor: theme.orange,
+                            controller: _currentPinController,
                             decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                                InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: theme.orange
+                                      )
+                                  ),
+                                ),
                           )),
                       Align(
                         alignment: Alignment.topLeft,
@@ -75,11 +87,20 @@ class UpdateLoginPin extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
                       ),
-                      const Padding(
-                          padding: EdgeInsets.all(16),
+                       Padding(
+                          padding: const EdgeInsets.all(16),
                           child: TextField(
+                            cursorColor: theme.orange,
+                            controller: _newPinController,
                             decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                                InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: theme.orange
+                                      )
+                                  ),
+                                ),
                           )),
                       const Align(
                         alignment: Alignment.topLeft,
@@ -91,29 +112,35 @@ class UpdateLoginPin extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
                       ),
-                      const Padding(
-                          padding: EdgeInsets.all(16),
+                       Padding(
+                          padding: const EdgeInsets.all(16),
                           child: TextField(
+                            controller: _confirmPinController,
+                            cursorColor: theme.orange,
                             decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                                InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: theme.orange
+                                      )
+                                  ),
+                                ),
                           )),
                       const SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: MaterialButton(
-                          onPressed: () {
-                            Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
-                          },
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: theme.orange,
-                          child: Text(
-                            "Update",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: theme.white),
-                          ),
+                      MaterialButton(
+                        onPressed: () {
+                          Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
+                        },
+                        height: 50,
+                        minWidth: double.infinity,
+                        color: theme.orange,
+                        child: Text(
+                          "Update",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: theme.white),
                         ),
                       ),
                       const Spacer()

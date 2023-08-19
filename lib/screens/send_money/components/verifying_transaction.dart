@@ -97,6 +97,7 @@ class VerifyingTransaction extends StatelessWidget {
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!sendMoneyController.isSuccessful.value)
                               Row(
                                 children: [

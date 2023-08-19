@@ -252,6 +252,7 @@ class StatementDownload extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
+                        const SizedBox(height: 20,),
                         CustomButton(title: "confirm", onClick: () {
                           Get.to(() => const StatementConfirmation(),
                               transition: Transition.rightToLeft,

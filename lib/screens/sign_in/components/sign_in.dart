@@ -60,6 +60,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 20,
                     ),
+                    const SizedBox(height: 20,),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Obx(() => MaterialButton(

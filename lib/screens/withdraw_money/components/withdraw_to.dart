@@ -118,6 +118,7 @@ class WithdrawTo extends StatelessWidget {
                             controller: _amountController,
                           ),
                           const Spacer(),
+                          const SizedBox(height: 20,),
                           MaterialButton(
                               onPressed: () {
                                 Get.to(()=> const WithdrawConfirmDetails(),

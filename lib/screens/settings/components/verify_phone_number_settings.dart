@@ -4,8 +4,10 @@ import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/settings/components/verification_successful_phone_settings.dart';
+
 final CustomTheme theme = CustomTheme();
 final TextEditingController _codeController = TextEditingController();
+
 class VerifyPhoneNumberSettings extends StatelessWidget {
   const VerifyPhoneNumberSettings({super.key});
 
@@ -45,15 +47,18 @@ class VerifyPhoneNumberSettings extends StatelessWidget {
                             child: Text(
                               "Code",
                               style: TextStyle(
-                                fontSize: 18,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                           TextField(
+                            cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: _codeController,
-                            decoration:
-                                const InputDecoration(border: OutlineInputBorder()),
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: theme.orange)),
+                            ),
                           ),
                           const Spacer(
                             flex: 4,
@@ -62,14 +67,18 @@ class VerifyPhoneNumberSettings extends StatelessWidget {
                             "A verification was sent \n"
                             "to your sms",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18
-                            ),
+                            style: TextStyle(fontSize: 18),
                           ),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           MaterialButton(
                             onPressed: () {
-                              Get.to(()=> const VerificationSuccessfulPhoneSettings(), transition: Transition.rightToLeft);},
+                              Get.to(
+                                  () =>
+                                      const VerificationSuccessfulPhoneSettings(),
+                                  transition: Transition.rightToLeft);
+                            },
                             height: 50,
                             minWidth: double.infinity,
                             color: theme.orange,

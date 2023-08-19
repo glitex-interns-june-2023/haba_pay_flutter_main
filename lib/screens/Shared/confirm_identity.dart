@@ -194,20 +194,18 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                             ],
                           ),
                           const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: MaterialButton(
-                              onPressed: () {
-                                pinLoginController.confirmLoginPin();
-                                widget.onConfirm();
-                              },
-                              minWidth: double.infinity,
-                              height: 50,
-                              color: theme.orange,
-                              child: Text("Confirm",
-                                  style: TextStyle(
-                                      color: theme.white, fontSize: 16)),
-                            ),
+                          const SizedBox(height: 20,),
+                          MaterialButton(
+                            onPressed: () {
+                              pinLoginController.confirmLoginPin();
+                              widget.onConfirm();
+                            },
+                            minWidth: double.infinity,
+                            height: 50,
+                            color: theme.orange,
+                            child: Text("Confirm",
+                                style: TextStyle(
+                                    color: theme.white, fontSize: 16)),
                           ),
                           const Spacer()
                         ],

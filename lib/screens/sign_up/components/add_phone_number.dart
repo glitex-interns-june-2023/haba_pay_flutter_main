@@ -83,6 +83,7 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                       const Spacer(
                         flex: 2,
                       ),
+                      const SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: MaterialButton(

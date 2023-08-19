@@ -78,6 +78,7 @@ class StatementPreparingDownload extends StatelessWidget {
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!statementDownloadController.isDownloaded.value)
                               Row(
                                 children: [

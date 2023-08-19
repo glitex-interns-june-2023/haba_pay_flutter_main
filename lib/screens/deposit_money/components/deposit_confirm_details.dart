@@ -164,6 +164,7 @@ class DepositConfirmDetails extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
+                              const SizedBox(height: 20,),
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {

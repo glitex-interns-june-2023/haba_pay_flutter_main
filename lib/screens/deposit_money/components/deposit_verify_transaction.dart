@@ -98,6 +98,7 @@ class DepositVerifyTransaction extends StatelessWidget {
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!depositMoneyController.isSuccessful.value)
                               Row(
                                 children: [

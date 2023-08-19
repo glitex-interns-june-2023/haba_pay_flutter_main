@@ -179,7 +179,7 @@ class DepositConfirmPayment extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                width: 10,
+                                width: 20,
                               ),
                               Expanded(
                                 child: MaterialButton(

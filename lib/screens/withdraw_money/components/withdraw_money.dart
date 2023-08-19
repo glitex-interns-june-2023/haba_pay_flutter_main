@@ -125,6 +125,7 @@ class WithdrawMoney extends StatelessWidget {
                           const Spacer(
                             flex: 2,
                           ),
+                          const SizedBox(height: 20,),
                           MaterialButton(
                               onPressed: () {
                                 Get.to(()=> const WithdrawConfirmDetails(),

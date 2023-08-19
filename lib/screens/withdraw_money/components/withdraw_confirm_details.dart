@@ -138,6 +138,7 @@ class WithdrawConfirmDetails extends StatelessWidget {
                                 )),
                           ),
                           const Spacer(),
+                          const SizedBox(height: 20,),
                           Row(
                             children: [
                               Expanded(

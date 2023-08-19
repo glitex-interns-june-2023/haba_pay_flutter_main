@@ -48,13 +48,22 @@ class AddPhoneNumberSettings extends StatelessWidget {
                             ),
                           ),
                            TextField(
-                             keyboardType: TextInputType.number,
+                             cursorColor: theme.orange,
+                             keyboardType: TextInputType.phone,
                              controller: _phoneNumberController,
-                             decoration: const InputDecoration(border: OutlineInputBorder()),
+                             decoration:  InputDecoration(
+                               border: const OutlineInputBorder(),
+                               focusedBorder: OutlineInputBorder(
+                                   borderSide: BorderSide(
+                                       color: theme.orange
+                                   )
+                               ),
+                             ),
                            ),
                           const Spacer(
                             flex: 4,
                           ),
+                          const SizedBox(height: 10,),
                           MaterialButton(
                             onPressed: () {
                               settingsController.verifyNumber(_phoneNumberController.text);

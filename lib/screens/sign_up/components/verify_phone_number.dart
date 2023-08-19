@@ -97,6 +97,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
                             fontSize: 18
                         ),
                       ),
+                      const SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: MaterialButton(
