@@ -68,7 +68,7 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                             errorText: !isValid ? errorMsg : null,
                           ),
                           cursorColor: theme.orange,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.phone,
                           controller: _phoneNumberController,
                         ),
                       ),
