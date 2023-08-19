@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/settings/components/verify_phone_number_settings.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/settings/controller/settings_controller.dart';
 
+final SettingsController settingsController = Get.put(SettingsController());
+final CustomTheme theme = CustomTheme();
+final TextEditingController _phoneNumberController = TextEditingController();
 class AddPhoneNumberSettings extends StatelessWidget {
   const AddPhoneNumberSettings({super.key});
 
@@ -11,57 +19,61 @@ class AddPhoneNumberSettings extends StatelessWidget {
       appBar: const CustomAppBar(title: "Add new number"),
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Card(
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        const Spacer(),
-                        const Text(
-                          "Add Phone number",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        const Spacer(),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              child: Text(
-                                "Phone",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: TextField(
-                            decoration: InputDecoration(border: OutlineInputBorder()),
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          const Spacer(),
+                          const Text(
+                            "Add Phone number",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                           ),
-                        ),
-                        const Spacer(
-                          flex: 4,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: MaterialButton(
-                            onPressed: () {},
+                          const SizedBox(height: 20,),
+                          const Divider(),
+                          const SizedBox(height: 20,),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Phone",
+                              style: TextStyle(
+                                fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                           TextField(
+                             keyboardType: TextInputType.number,
+                             controller: _phoneNumberController,
+                             decoration: const InputDecoration(border: OutlineInputBorder()),
+                           ),
+                          const Spacer(
+                            flex: 4,
+                          ),
+                          MaterialButton(
+                            onPressed: () {
+                              settingsController.verifyNumber(_phoneNumberController.text);
+                              Get.to(()=> const VerifyPhoneNumberSettings(), transition: Transition.rightToLeft);},
                             height: 50,
                             minWidth: double.infinity,
                             color: theme.orange,
                             child: Text(
                               "Add",
                               style: TextStyle(
+                                fontSize: 18,
                                 color: theme.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ),
-                        const Spacer()
-                      ],
+                          const Spacer()
+                        ],
+                      ),
                     ),
                   ),
                 ),

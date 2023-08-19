@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:get/get.dart';
+
+import '../../dashboard/components/dashboard.dart';
+
+final CustomTheme theme = CustomTheme();
 
 class VerificationSuccessfulPhoneSettings extends StatelessWidget {
   const VerificationSuccessfulPhoneSettings({super.key});
@@ -6,55 +14,72 @@ class VerificationSuccessfulPhoneSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying number"),
       body: LayoutBuilder(
-        builder: (context, constraint){
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Card(
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Spacer(),
-                        const Text(
-                          "Verification successful",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
+        builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Spacer(),
+                          const Text(
+                            "Verification successful",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
-                        ),
-                        const Spacer(),
-                        Image.asset('assets/images/smile_face.png'),
-                        const Spacer(),
-                        const Text(
-                          "You have added 0788787887 \n"
-                              "to your account",
-                          textAlign: TextAlign.center,
-                        ),
-                        const Spacer(flex: 4,),
-                        Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: MaterialButton(onPressed: (){},
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SvgPicture.asset('assets/images/smile_face.svg'),
+                          const Spacer(),
+                          const Text(
+                            "You have added 0788787887 \n"
+                            "to your account",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
+                          ),
+                          const Spacer(
+                            flex: 4,
+                          ),
+                          MaterialButton(
+                              onPressed: () {
+                                Get.offAll(
+                                      () => const Dashboard(), transition: Transition.rightToLeft,
+                                );
+                              },
                               height: 50,
                               minWidth: double.infinity,
-                              color: Colors.orange,
-                              child: const Padding(padding: EdgeInsets.symmetric(horizontal: 50),
+                              color: theme.orange,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50),
                                 child: Text(
-                                  "Start",
+                                  "Go to Home",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20
-                                  ),
+                                      color: theme.white,
+                                      fontSize: 20),
                                 ),
-                              )
-                          ),
-                        ),
-                        const Spacer()
-                      ],
+                              )),
+                          const Spacer()
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:haba_pay_main/screens/sign_up/components/sign_up.dart';
 
 
 class SettingsController extends GetxController{
+  var phoneNumber = "".obs;
   var isMoreExpanded = false.obs;
   var isSendingEmail = false.obs;
   var isEmailSend = false.obs;
@@ -33,5 +34,10 @@ class SettingsController extends GetxController{
   onIsMoreExpanded(){
     isMoreExpanded.value = !isMoreExpanded.value;
   }
+
+  verifyNumber(String number){
+    phoneNumber.value = number;
+  }
+
 }
 
