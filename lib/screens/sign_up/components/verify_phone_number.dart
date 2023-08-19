@@ -62,6 +62,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
                         child: Form(
                           key: _formKey,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             cursorColor: theme.orange,
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
