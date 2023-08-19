@@ -22,129 +22,121 @@ class UpdateLoginPin extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraint) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Card(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(children: [
-                      const Spacer(),
-                      const Text(
-                        "Update login pin",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      const SizedBox(height: 20,),
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "Current pin",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                       Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: TextField(
-                            cursorColor: theme.orange,
-                            controller: _currentPinController,
-                            decoration:
-                                InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: theme.orange
-                                      )
-                                  ),
-                                ),
-                          )),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: InkWell(
-                              onTap: () {},
-                              child: Text(
-                                "Forgot pin",
-                                style: TextStyle(
-                                    color: theme.orange,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )),
-                      ),
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "New pin",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                       Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: TextField(
-                            cursorColor: theme.orange,
-                            controller: _newPinController,
-                            decoration:
-                                InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: theme.orange
-                                      )
-                                  ),
-                                ),
-                          )),
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "Confirm pin",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                       Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: TextField(
-                            controller: _confirmPinController,
-                            cursorColor: theme.orange,
-                            decoration:
-                                InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: theme.orange
-                                      )
-                                  ),
-                                ),
-                          )),
-                      const SizedBox(height: 20,),
-                      MaterialButton(
-                        onPressed: () {
-                          Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
-                        },
-                        height: 50,
-                        minWidth: double.infinity,
-                        color: theme.orange,
-                        child: Text(
-                          "Update",
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(children: [
+                        const Spacer(),
+                        const Text(
+                          "Update login pin",
+                          textAlign: TextAlign.start,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: theme.white),
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
-                      ),
-                      const Spacer()
-                    ]),
+                        const SizedBox(height: 20,),
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Current pin",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                         TextField(
+                           cursorColor: theme.orange,
+                           controller: _currentPinController,
+                           decoration:
+                               InputDecoration(
+                                 border: const OutlineInputBorder(),
+                                 focusedBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(
+                                         color: theme.orange
+                                     )
+                                 ),
+                               ),
+                         ),
+                        const SizedBox(height: 20,),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "Forgot pin",
+                              style: TextStyle(
+                                  color: theme.orange,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "New pin",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                         TextField(
+                           cursorColor: theme.orange,
+                           controller: _newPinController,
+                           decoration:
+                               InputDecoration(
+                                 border: const OutlineInputBorder(),
+                                 focusedBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(
+                                         color: theme.orange
+                                     )
+                                 ),
+                               ),
+                         ),
+                        const SizedBox(height: 20,),
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Confirm pin",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                         TextField(
+                           controller: _confirmPinController,
+                           cursorColor: theme.orange,
+                           decoration:
+                               InputDecoration(
+                                 border: const OutlineInputBorder(),
+                                 focusedBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(
+                                         color: theme.orange
+                                     )
+                                 ),
+                               ),
+                         ),
+                        const SizedBox(height: 20,),
+                        MaterialButton(
+                          onPressed: () {
+                            Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
+                          },
+                          height: 50,
+                          minWidth: double.infinity,
+                          color: theme.orange,
+                          child: Text(
+                            "Update",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: theme.white),
+                          ),
+                        ),
+                        const Spacer()
+                      ]),
+                    ),
                   ),
                 ),
               ),
