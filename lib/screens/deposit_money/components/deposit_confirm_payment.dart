@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:get/get.dart';
 
@@ -144,10 +143,14 @@ class DepositConfirmPayment extends StatelessWidget {
                                 )),
                           ),
                           TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: theme.orange)),
                             ),
-                            keyboardType: TextInputType.number,
+                            cursorColor: theme.orange,
+                            keyboardType: TextInputType.visiblePassword,
                             controller: _passwordController,
                           ),
                           const Spacer(),

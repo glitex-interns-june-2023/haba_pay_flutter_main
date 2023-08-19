@@ -11,16 +11,16 @@ final TextEditingController _phoneNumberController = TextEditingController();
 
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
+
 class DepositMoney extends StatelessWidget {
   const DepositMoney({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.background,
-      appBar: const CustomAppBar(title: "Deposit money"),
-      body: LayoutBuilder(
-        builder: (context, constraint){
+        backgroundColor: theme.background,
+        appBar: const CustomAppBar(title: "Deposit money"),
+        body: LayoutBuilder(builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -39,9 +39,7 @@ class DepositMoney extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
                                   "Balance",
-                                  style: TextStyle(
-                                      fontSize: 18
-                                  ),
+                                  style: TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Row(
@@ -55,15 +53,17 @@ class DepositMoney extends StatelessWidget {
                               ),
                               Spacer(),
                               InkWell(
-                                child: Icon(
-                                    Icons.visibility_off
-                                ),
+                                child: Icon(Icons.visibility_off),
                               )
                             ],
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           const Divider(),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           const Text(
                             "Deposit from",
                             style: TextStyle(
@@ -71,7 +71,9 @@ class DepositMoney extends StatelessWidget {
                               fontSize: 18,
                             ),
                           ),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
@@ -80,15 +82,17 @@ class DepositMoney extends StatelessWidget {
                                   "Phone",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
+                                      fontSize: 18),
                                 )),
                           ),
                           TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: theme.orange)),
                             ),
-                            keyboardType: TextInputType.number,
+                            cursorColor: theme.orange,
+                            keyboardType: TextInputType.phone,
                             controller: _phoneNumberController,
                           ),
                           const Align(
@@ -99,63 +103,65 @@ class DepositMoney extends StatelessWidget {
                                   "Amount",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
+                                      fontSize: 18),
                                 )),
                           ),
                           TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: theme.orange)),
                             ),
+                            cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: _amountController,
                           ),
-                          const Spacer(flex: 2,),
+                          const Spacer(
+                            flex: 2,
+                          ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(()=> const DepositConfirmDetails(),
+                                Get.to(() => const DepositConfirmDetails(),
                                     transition: Transition.rightToLeft,
                                     arguments: MoneyModel(
-                                        phoneNumber: _phoneNumberController.text,
+                                        phoneNumber:
+                                            _phoneNumberController.text,
                                         recipient: "Jane Makena",
                                         amount: _amountController.text,
                                         newBalance: "800",
-                                      payBillNumber: "12344 Habapay"
-                                    )
-                                );
+                                        payBillNumber: "12344 Habapay"));
                               },
                               height: 50,
                               minWidth: double.infinity,
                               color: theme.orange,
-                              child:  Text(
+                              child: Text(
                                 "Proceed with number",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: theme.white,
                                     fontSize: 18),
                               )),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
                                 "Use ",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
+                                style: TextStyle(fontSize: 18),
                               ),
                               InkWell(
-                                onTap: (){
-                                  Get.to(()=> const DepositDetails(),
-                                      transition: Transition.rightToLeft,
+                                onTap: () {
+                                  Get.to(
+                                    () => const DepositDetails(),
+                                    transition: Transition.rightToLeft,
                                   );
                                 },
-                                child:  Text(
+                                child: Text(
                                   "my number",
                                   style: TextStyle(
-                                      color: theme.orange,
-                                      fontSize: 18
-                                  ),
+                                      color: theme.orange, fontSize: 18),
                                 ),
                               )
                             ],
@@ -169,7 +175,6 @@ class DepositMoney extends StatelessWidget {
               ),
             ),
           );
-        })
-    );
+        }));
   }
 }

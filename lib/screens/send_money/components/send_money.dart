@@ -87,10 +87,16 @@ class SendMoney extends StatelessWidget {
                                 )),
                           ),
                           TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration:  InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: theme.orange
+                                  )
+                              ),
                             ),
-                            keyboardType: TextInputType.number,
+                            cursorColor: theme.orange,
+                            keyboardType: TextInputType.phone,
                             controller: _phoneNumberController,
                           ),
                           const Align(
@@ -105,9 +111,15 @@ class SendMoney extends StatelessWidget {
                                 )),
                           ),
                           TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration:  InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: theme.orange
+                                  )
+                              ),
                             ),
+                            cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: _amountController,
                           ),

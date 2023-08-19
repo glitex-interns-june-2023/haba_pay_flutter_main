@@ -5,14 +5,16 @@ import '../../Shared/title_text.dart';
 import '../controller/faqs_and_tcs_controller.dart';
 import 'package:get/get.dart';
 
-final FaqsAndTcsController faqsAndTcsController = Get.put(FaqsAndTcsController());
+final FaqsAndTcsController faqsAndTcsController =
+    Get.put(FaqsAndTcsController());
 final CustomTheme theme = CustomTheme();
+
 class Tcs extends StatelessWidget {
   const Tcs({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: theme.background,
       appBar: const CustomAppBar(title: "Terms and conditions"),
       body: Padding(
@@ -24,31 +26,33 @@ class Tcs extends StatelessWidget {
               children: [
                 const Spacer(),
                 const TitleText(title: "Terms and conditions"),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Expanded(
                     flex: 5,
                     child: ListView.builder(
                         itemCount: faqsAndTcsController.tcList.length,
-                        itemBuilder: (context, index){
-                          return Obx(() =>
-                              ExpansionTile(
+                        itemBuilder: (context, index) {
+                          return Obx(() => ExpansionTile(
                                 iconColor: theme.black,
                                 textColor: theme.black,
-                                title: Text(faqsAndTcsController.tcList[index].title),
-                                onExpansionChanged: (expanded){
+                                title: Text(
+                                    faqsAndTcsController.tcList[index].title),
+                                onExpansionChanged: (expanded) {
                                   faqsAndTcsController.toggleTcItem(index);
                                 },
-                                initiallyExpanded: faqsAndTcsController.expandedTcItems[index] ?? false,
+                                initiallyExpanded: faqsAndTcsController
+                                        .expandedTcItems[index] ??
+                                    false,
                                 children: [
                                   ListTile(
-                                    title: Text(faqsAndTcsController.tcList[index].description),
+                                    title: Text(faqsAndTcsController
+                                        .tcList[index].description),
                                   )
                                 ],
-                              )
-                          );
-                        }
-                    )
-                ),
+                              ));
+                        })),
               ],
             ),
           ),

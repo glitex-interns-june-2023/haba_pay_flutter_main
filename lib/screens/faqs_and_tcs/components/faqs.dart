@@ -6,7 +6,6 @@ import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
 import 'package:haba_pay_main/screens/faqs_and_tcs/controller/faqs_and_tcs_controller.dart';
 
-import '../../../model/faq.dart';
 
 final FaqsAndTcsController faqsAndTcsController =
     Get.put(FaqsAndTcsController());
