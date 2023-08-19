@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/settings/components/pin_updated.dart';
 
 import '../../dashboard/controller/dashboard_controller.dart';
 import 'package:get/get.dart';
@@ -100,7 +101,9 @@ class UpdateLoginPin extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
+                          },
                           height: 50,
                           minWidth: double.infinity,
                           color: theme.orange,
