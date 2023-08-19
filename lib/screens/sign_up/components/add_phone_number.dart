@@ -60,8 +60,14 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                         child: TextField(
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: theme.orange
+                                )
+                            ),
                             errorText: !isValid ? errorMsg : null,
                           ),
+                          cursorColor: theme.orange,
                           keyboardType: TextInputType.number,
                           controller: _phoneNumberController,
                         ),

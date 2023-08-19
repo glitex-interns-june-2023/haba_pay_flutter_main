@@ -62,6 +62,11 @@ class StatementDownload extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: theme.orange
+                                  )
+                              ),
                             ),
                             value:
                                 statementDownloadController.transactionType.value,
@@ -96,6 +101,11 @@ class StatementDownload extends StatelessWidget {
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: theme.orange
+                                        )
+                                    ),
                                   ),
                                   value:
                                       statementDownloadController.duration.value,
@@ -151,10 +161,16 @@ class StatementDownload extends StatelessWidget {
                                             )),
                                       ),
                                       TextField(
-                                        decoration: const InputDecoration(
+                                        decoration: InputDecoration(
                                           hintText: "mm/dd/yyyy",
-                                          border: OutlineInputBorder(),
+                                          border: const OutlineInputBorder(),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: theme.orange
+                                              )
+                                          ),
                                         ),
+                                        cursorColor: theme.orange,
                                         keyboardType: TextInputType.datetime,
                                         controller: _fromController,
                                       ),
@@ -179,10 +195,16 @@ class StatementDownload extends StatelessWidget {
                                             )),
                                       ),
                                       TextField(
-                                        decoration: const InputDecoration(
+                                        decoration:  InputDecoration(
                                           hintText: "dd/mm/yyyy",
-                                          border: OutlineInputBorder(),
+                                          border: const OutlineInputBorder(),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: theme.orange
+                                              )
+                                          ),
                                         ),
+                                        cursorColor: theme.orange,
                                         keyboardType: TextInputType.datetime,
                                         controller: _toController,
                                       ),
@@ -208,6 +230,11 @@ class StatementDownload extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: theme.orange
+                                  )
+                              ),
                             ),
                             value:
                                 statementDownloadController.downloadMethod.value,
