@@ -5,6 +5,7 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
+import '../../dashboard/components/dashboard.dart';
 import '../../home/components/home.dart';
 
 final WithdrawMoneyController withdrawMoneyController =
@@ -154,7 +155,7 @@ class WithdrawVerifyingTransaction extends StatelessWidget {
                               MaterialButton(
                                   onPressed: () {
                                     Get.offAll(
-                                          () => const Home(),
+                                          () => const Dashboard(),
                                       transition: Transition.rightToLeft,
                                     );
                                   },

@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
 
-class StatementConfirmation extends StatefulWidget {
+class StatementConfirmation extends StatelessWidget {
   const StatementConfirmation({super.key});
 
-  @override
-  State<StatementConfirmation> createState() => _StatementConfirmationState();
-}
-
-class _StatementConfirmationState extends State<StatementConfirmation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +20,7 @@ class _StatementConfirmationState extends State<StatementConfirmation> {
                       child: Column(
                         children: [
                           const Spacer(),
-                          TitleText(title: "Statement Download"),
+                          const TitleText(title: "Statement Download"),
                           const SizedBox(height: 20,),
                           const Divider(),
                           const SizedBox(height: 20,),

@@ -8,6 +8,8 @@ import 'package:haba_pay_main/screens/Shared/title_text.dart';
 import 'package:haba_pay_main/screens/updates/controller/updates_controller.dart';
 import 'package:get/get.dart';
 
+import '../../dashboard/components/dashboard.dart';
+
 final UpdatesController updatesController = Get.put(UpdatesController());
 
 CustomTheme theme = CustomTheme();
@@ -65,7 +67,13 @@ class Updates extends StatelessWidget {
                         Obx(
                           () => updatesController.isLoading.value
                               ? CustomButton(
-                                  title: "Return to Home", onClick: () {})
+                                  title: "Return to Home",
+                                  onClick: () {
+                                    Get.offAll(
+                                      () => const Dashboard(),
+                                      transition: Transition.rightToLeft,
+                                    );
+                                  })
                               : CustomButton(
                                   title: "Install updates", onClick: () {}),
                         ),

@@ -8,5 +8,5 @@ class CustomTheme{
   Color white = Colors.white;
   Color black = Colors.black;
   Color grey = Colors.grey;
-  Color linear = const Color(0xFF8437E8);
+  Color linear = Colors.indigo;
 }

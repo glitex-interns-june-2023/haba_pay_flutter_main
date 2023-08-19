@@ -8,6 +8,9 @@ import 'package:haba_pay_main/screens/statement/components/single_statement.dart
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 
+import '../../statement/components/statement.dart';
+import '../../statement/components/transaction_details.dart';
+
 final HomeController homeController = Get.put(HomeController());
 final CustomTheme theme = CustomTheme();
 
@@ -227,7 +230,9 @@ class Home extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.to(()=> const Statement(), transition: Transition.rightToLeft);
+                                  },
                                   child: Text(
                                     "More",
                                     style: TextStyle(
@@ -241,7 +246,12 @@ class Home extends StatelessWidget {
                                     for (var statement in homeController.list)
                                       SingleStatement(
                                           type: statement.type,
-                                          onClick: () {},
+                                          onClick: () {
+                                            Get.to(()=> const TransactionDetails(),
+                                                transition: Transition.rightToLeft,
+                                                arguments: {'statement': statement, 'date': "2 February 2023"}
+                                            );
+                                          },
                                           name: statement.name,
                                           phoneNumber: statement.phoneNumber,
                                           amount: statement.amount,

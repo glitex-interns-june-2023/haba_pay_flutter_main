@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 
-class AddBusinessSuccessful extends StatefulWidget {
+import 'package:get/get.dart';
+
+import '../../dashboard/components/dashboard.dart';
+
+CustomTheme theme = CustomTheme();
+
+class AddBusinessSuccessful extends StatelessWidget {
   const AddBusinessSuccessful({super.key});
 
-  @override
-  State<AddBusinessSuccessful> createState() => _AddBusinessSuccessfulState();
-}
-
-class _AddBusinessSuccessfulState extends State<AddBusinessSuccessful> {
-  CustomTheme theme = CustomTheme();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +71,12 @@ class _AddBusinessSuccessfulState extends State<AddBusinessSuccessful> {
                             flex: 2,
                           ),
                           MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.offAll(
+                                      () => const Dashboard(),
+                                  transition: Transition.rightToLeft,
+                                );
+                              },
                               height: 50,
                               minWidth: double.infinity,
                               color: theme.orange,

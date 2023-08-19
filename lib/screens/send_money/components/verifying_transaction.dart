@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/home/components/home.dart';
 import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
 
@@ -149,7 +150,7 @@ class VerifyingTransaction extends StatelessWidget {
                               MaterialButton(
                                   onPressed: () {
                                     Get.offAll(
-                                          () => const Home(),
+                                          () => const Dashboard(),
                                       transition: Transition.rightToLeft,
                                     );
                                   },

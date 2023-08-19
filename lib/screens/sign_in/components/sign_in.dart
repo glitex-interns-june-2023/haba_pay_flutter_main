@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/sign_in/controller/sign_in_screen_controller.dart';
 
 import '../../sign_up/components/sign_up.dart';
@@ -63,7 +64,10 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Obx(() => MaterialButton(
                             onPressed: () {
-                              signInController.login();
+                              Get.to(
+                                    () => const Dashboard(),
+                                transition: Transition.rightToLeft,
+                              );
                             },
                             height: 50,
                             color: theme.orange,
