@@ -38,7 +38,7 @@ class VerificationSuccessful extends StatelessWidget {
                       const SizedBox(height: 20,),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: MaterialButton(onPressed: (){
-                          Get.to(()=>const CreateLoginPin(), transition: Transition.rightToLeft);
+                          Get.offAll(()=>const CreateLoginPin(), transition: Transition.rightToLeft);
                         },
                             height: 50,
                             minWidth: double.infinity,

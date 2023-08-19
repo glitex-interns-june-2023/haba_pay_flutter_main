@@ -1,13 +1,9 @@
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
-import 'package:haba_pay_main/screens/sign_up/components/confirm_login_pin.dart';
 
-import '../../../services/pin_secure_storage.dart';
+import '../../services/pin_secure_storage.dart';
 
-
-class PinLoginController extends GetxController{
+class SharedPinController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
-  var isAuthenticated = false.obs;
   var pin = [].obs;
 
   onNumberClicked(int number){
@@ -43,22 +39,7 @@ class PinLoginController extends GetxController{
     //compare the pin with local storage pin
   }
 
-  createLoginPin() async{
-    if(pin.length < 4){
-      Get.showSnackbar(
-        const GetSnackBar(
-          message: 'Please enter 4 numbers',
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } else {
-      await _secureStorage.setPin(pin.string);
-      pin = [].obs;
-      Get.offAll(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
-    }
-  }
-
-  confirmLoginPin() async{
+  confirmLoginPin(Function() onConfirm) async{
     var finishPin = await _secureStorage.getPin();
     if(pin.length < 4){
       Get.showSnackbar(
@@ -68,7 +49,7 @@ class PinLoginController extends GetxController{
         ),
       );
     } else if(finishPin == pin.string){
-      Get.offAll(()=>const Dashboard(), transition: Transition.rightToLeft);
+      onConfirm();
     } else {
       Get.showSnackbar(
         const GetSnackBar(

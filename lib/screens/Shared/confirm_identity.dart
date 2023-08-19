@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/Shared/SharedPinController.dart';
 import '../pin_login/components/single_button.dart';
 import '../pin_login/components/single_pin_field.dart';
-import '../pin_login/controllers/pin_login_controller.dart';
 
 final CustomTheme theme = CustomTheme();
 
@@ -20,7 +20,7 @@ class ConfirmIdentity extends StatefulWidget {
 }
 
 class _ConfirmIdentityState extends State<ConfirmIdentity> {
-  final pinLoginController = Get.put(PinLoginController());
+  final pinLoginController = Get.put(SharedPinController());
 
   @override
   Widget build(BuildContext context) {
@@ -197,8 +197,9 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                           const SizedBox(height: 20,),
                           MaterialButton(
                             onPressed: () {
-                              pinLoginController.confirmLoginPin();
-                              widget.onConfirm();
+                              pinLoginController.confirmLoginPin(
+                                  widget.onConfirm()
+                              );
                             },
                             minWidth: double.infinity,
                             height: 50,

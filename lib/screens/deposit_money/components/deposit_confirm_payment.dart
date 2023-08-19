@@ -154,6 +154,7 @@ class DepositConfirmPayment extends StatelessWidget {
                             controller: _passwordController,
                           ),
                           const Spacer(),
+                          const SizedBox(height: 20,),
                           Row(
                             children: [
                               Expanded(
