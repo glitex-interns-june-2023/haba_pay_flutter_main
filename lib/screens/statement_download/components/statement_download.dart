@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/model/StatementDownloadModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
+import 'package:haba_pay_main/screens/statement/components/statement.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_confirmation.dart';
 import 'package:haba_pay_main/screens/statement_download/controller/statement_download_controller.dart';
 import 'package:get/get.dart';
 
@@ -222,7 +225,16 @@ class StatementDownload extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        CustomButton(title: "confirm", onClick: () {}),
+                        CustomButton(title: "confirm", onClick: () {
+                          Get.to(() => const StatementConfirmation(),
+                              transition: Transition.rightToLeft,
+                              arguments: StatementDownloadModel(
+                                statementDownloadController.transactionType.value,
+                                "${statementDownloadController.duration.value} ${_fromController.text} ${_toController.text}",
+                                statementDownloadController.downloadMethod.value
+                              )
+                          );
+                        }),
                         const Spacer()
                       ],
                     ),

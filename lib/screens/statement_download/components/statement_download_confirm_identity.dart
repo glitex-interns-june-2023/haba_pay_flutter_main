@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/screens/Shared/confirm_identity.dart';
+import 'package:haba_pay_main/screens/statement_download/components/statement_preparing_download.dart';
+import 'package:get/get.dart';
 
-class StatementDownloadConfirmIdentity extends StatefulWidget {
+class StatementDownloadConfirmIdentity extends StatelessWidget {
   const StatementDownloadConfirmIdentity({super.key});
 
   @override
-  State<StatementDownloadConfirmIdentity> createState() => _StatementDownloadConfirmIdentityState();
-}
-
-class _StatementDownloadConfirmIdentityState extends State<StatementDownloadConfirmIdentity> {
-  @override
   Widget build(BuildContext context) {
     return ConfirmIdentity(
-        onConfirm: (){}
+        onConfirm: (){
+          Get.to(() => const StatementPreparingDownload(),
+              transition: Transition.rightToLeft,
+          );
+        }
     );
   }
 }
