@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/add_business/components/add_business_successful.dart';
 import 'package:haba_pay_main/screens/add_business/controller/AddBusinessController.dart';
 
 final TextEditingController _businessNameController = TextEditingController();
@@ -133,7 +134,11 @@ class AddBusiness extends StatelessWidget {
                             ),
                             const Spacer(),
                             MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(
+                                        () => const AddBusinessSuccessful(), transition: Transition.rightToLeft,
+                                  );
+                                },
                                 height: 50,
                                 minWidth: double.infinity,
                                 color: theme.orange,

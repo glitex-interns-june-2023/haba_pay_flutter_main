@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 
 import '../../dashboard/components/dashboard.dart';
 
@@ -14,6 +15,8 @@ class AddBusinessSuccessful extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying business"),
       body: LayoutBuilder(
           builder: (context, constraint){
             return SingleChildScrollView(
