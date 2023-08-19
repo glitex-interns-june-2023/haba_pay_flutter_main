@@ -63,9 +63,15 @@ class AddBusiness extends StatelessWidget {
                                   )),
                             ),
                             TextField(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: theme.orange
+                                  )
+                                ),
                               ),
+                              cursorColor: theme.orange,
                               keyboardType: TextInputType.name,
                               controller: _businessNameController,
                             ),
@@ -86,6 +92,12 @@ class AddBusiness extends StatelessWidget {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)
                                   ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: theme.orange
+                                      )
+                                  )
+                                  ,
                                 ),
                                 value: addBusinessController.dropDownValue.value,
                                 items: addBusinessController.items.map((String items){
@@ -111,10 +123,18 @@ class AddBusiness extends StatelessWidget {
                                   )),
                             ),
                             TextField(
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
+                                suffixIconColor: theme.orange,
+                                suffixIcon: const Icon(Icons.add_location_outlined),
                                 hintText: "Pin",
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: theme.orange
+                                    )
+                                ),
                               ),
+                              cursorColor: theme.orange,
                               keyboardType: TextInputType.name,
                               controller: _locationController,
                             ),
