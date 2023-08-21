@@ -3,9 +3,14 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
+
+import '../../Shared/balance.dart';
 
 final TextEditingController _passwordController = TextEditingController();
 final CustomTheme theme = CustomTheme();
+final DepositMoneyController depositMoneyController =
+    Get.put(DepositMoneyController());
 
 class DepositConfirmPayment extends StatelessWidget {
   const DepositConfirmPayment({super.key});
@@ -29,30 +34,15 @@ class DepositConfirmPayment extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "New Balance",
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 18),
-                                )),
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "Ksh 850",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                            () => Balance(
+                                balance:
+                                    depositMoneyController.accountBalance.value,
+                                isVisibilityOn:
+                                    depositMoneyController.isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  depositMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
@@ -154,7 +144,9 @@ class DepositConfirmPayment extends StatelessWidget {
                             controller: _passwordController,
                           ),
                           const Spacer(),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             children: [
                               Expanded(

@@ -3,12 +3,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
 import '../../../model/MoneyModel.dart';
+import '../../Shared/balance.dart';
 import 'deposit_confirm_details.dart';
 
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
+final DepositMoneyController depositMoneyController =
+    Get.put(DepositMoneyController());
 
 class DepositDetails extends StatelessWidget {
   const DepositDetails({super.key});
@@ -32,31 +36,15 @@ class DepositDetails extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Balance",
-                                  style: TextStyle(
-                                      fontSize: 18, color: theme.grey),
-                                )),
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "Ksh 850",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                            () => Balance(
+                                balance:
+                                    depositMoneyController.accountBalance.value,
+                                isVisibilityOn:
+                                    depositMoneyController.isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  depositMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
@@ -86,13 +74,14 @@ class DepositDetails extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "+254 789 895 458",
-                                  style: TextStyle(fontSize: 18),
+                                  depositMoneyController.number.value,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -106,13 +95,14 @@ class DepositDetails extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "234586785",
-                                  style: TextStyle(fontSize: 18),
+                                  depositMoneyController.habaPay.value,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -137,17 +127,21 @@ class DepositDetails extends StatelessWidget {
                             controller: _amountController,
                           ),
                           const Spacer(),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           MaterialButton(
                               onPressed: () {
                                 Get.to(() => const DepositConfirmDetails(),
                                     transition: Transition.rightToLeft,
                                     arguments: MoneyModel(
-                                        phoneNumber: "0789654575",
+                                        phoneNumber:
+                                            depositMoneyController.number.value,
                                         recipient: "Jane Makena",
                                         amount: _amountController.text,
                                         newBalance: "800",
-                                        payBillNumber: "1234567 habapay"));
+                                        payBillNumber:
+                                            "${depositMoneyController.habaPay.value} habapay"));
                               },
                               height: 50,
                               minWidth: double.infinity,

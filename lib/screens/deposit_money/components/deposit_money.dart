@@ -4,11 +4,13 @@ import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_details.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_details.dart';
+import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
 import '../../../model/MoneyModel.dart';
+import '../../Shared/balance.dart';
 
 final TextEditingController _phoneNumberController = TextEditingController();
-
+final DepositMoneyController depositMoneyController = Get.put(DepositMoneyController());
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
@@ -33,29 +35,15 @@ class DepositMoney extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Balance",
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "Ksh 12, 500",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                                () => Balance(
+                                balance: depositMoneyController
+                                    .accountBalance.value,
+                                isVisibilityOn: depositMoneyController
+                                    .isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  depositMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
