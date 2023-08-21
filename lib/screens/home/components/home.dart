@@ -1,7 +1,9 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
+import 'package:haba_pay_main/screens/home/components/home_balance_widget.dart';
 import 'package:haba_pay_main/screens/home/controller/home_controller.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
@@ -168,36 +170,16 @@ class Home extends StatelessWidget {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            Obx(() => Text(
-                                                  "${homeController.accountBalance}",
-                                                  style: TextStyle(
-                                                      fontSize: 25,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: theme.white),
-                                                )),
-                                            const Spacer(),
-                                            InkWell(
-                                              onTap: (){
-                                                homeController.changeVisibility();
-                                              },
-                                              child: Obx(() => homeController
-                                                  .isVisibilityOn.value
-                                                  ? InkWell(
-                                                onTap: (){},
-                                                    child: Icon(
-                                                Icons.visibility,
-                                                color: theme.white,
-                                              ),
-                                                  )
-                                                  : Icon(
-                                                Icons.visibility_off,
-                                                color: theme.white,
-                                              )),
-                                            )
-                                          ],
+                                        Obx(
+                                          () => HomeBalanceWidget(
+                                              balance: homeController
+                                                  .accountBalance.value,
+                                              isVisibilityOn: homeController
+                                                  .isVisibilityOn.value,
+                                              onVisibilityChanged: () {
+                                                homeController
+                                                    .onVisibilityChanged();
+                                              }),
                                         ),
                                         const Spacer(),
                                         Row(

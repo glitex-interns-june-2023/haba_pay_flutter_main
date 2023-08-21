@@ -19,9 +19,8 @@ class HomeController extends GetxController{
   var accountBalance = "Ksh 90,000".obs;
   var isVisibilityOn = false.obs;
 
-  changeVisibility(){
+  onVisibilityChanged(){
     isVisibilityOn.value = !isVisibilityOn.value;
-    print("-----------------${isVisibilityOn.value}");
   }
 
 }
