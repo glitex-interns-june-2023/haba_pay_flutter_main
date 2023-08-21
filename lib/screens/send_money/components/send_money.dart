@@ -3,7 +3,9 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/balance.dart';
 import 'package:haba_pay_main/screens/send_money/components/confirm_details.dart';
+import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
 
 final TextEditingController _phoneNumberController = TextEditingController();
 
@@ -32,32 +34,11 @@ class SendMoney extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Balance",
-                                  style: TextStyle(
-                                      color: theme.grey, fontSize: 18),
-                                )),
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "Ksh 12, 500",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
-                          ),
+                          Obx(() => Balance(
+                              balance: sendMoneyController.accountBalance.value,
+                              isVisibilityOn: sendMoneyController.isVisibilityOn.value,
+                              onVisibilityChanged: (){ sendMoneyController.onVisibilityChanged(); }
+                          ),),
                           const SizedBox(
                             height: 10,
                           ),

@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: CustomTheme().background,
+      backgroundColor: theme.background,
       body: LayoutBuilder(builder: (context, constraint) {
         return SingleChildScrollView(
           child: ConstrainedBox(
@@ -77,7 +77,9 @@ class Home extends StatelessWidget {
                                     children: [
                                       MaterialButton(
                                         onPressed: () {
-                                          Get.to(()=> const SendMoney(), transition: Transition.rightToLeft);
+                                          Get.to(() => const SendMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
                                         },
                                         color: theme.white,
                                         child: SvgPicture.asset(
@@ -95,7 +97,9 @@ class Home extends StatelessWidget {
                                     children: [
                                       MaterialButton(
                                         onPressed: () {
-                                          Get.to(()=> const WithdrawMoney(), transition: Transition.rightToLeft);
+                                          Get.to(() => const WithdrawMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
                                         },
                                         color: theme.white,
                                         child: SvgPicture.asset(
@@ -113,7 +117,9 @@ class Home extends StatelessWidget {
                                     children: [
                                       MaterialButton(
                                         onPressed: () {
-                                          Get.to(()=> const DepositMoney(), transition: Transition.rightToLeft);
+                                          Get.to(() => const DepositMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
                                         },
                                         color: theme.white,
                                         child: SvgPicture.asset(
@@ -164,18 +170,32 @@ class Home extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            Text(
-                                              "KSH 90,000",
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: theme.white),
-                                            ),
+                                            Obx(() => Text(
+                                                  "${homeController.accountBalance}",
+                                                  style: TextStyle(
+                                                      fontSize: 25,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: theme.white),
+                                                )),
                                             const Spacer(),
                                             InkWell(
-                                              onTap: () {},
-                                              child: SvgPicture.asset(
-                                                  'assets/images/visibility_off.svg'),
+                                              onTap: (){
+                                                homeController.changeVisibility();
+                                              },
+                                              child: Obx(() => homeController
+                                                  .isVisibilityOn.value
+                                                  ? InkWell(
+                                                onTap: (){},
+                                                    child: Icon(
+                                                Icons.visibility,
+                                                color: theme.white,
+                                              ),
+                                                  )
+                                                  : Icon(
+                                                Icons.visibility_off,
+                                                color: theme.white,
+                                              )),
                                             )
                                           ],
                                         ),
@@ -231,7 +251,8 @@ class Home extends StatelessWidget {
                                 const Spacer(),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(()=> const Statement(), transition: Transition.rightToLeft);
+                                    Get.to(() => const Statement(),
+                                        transition: Transition.rightToLeft);
                                   },
                                   child: Text(
                                     "More",
@@ -247,10 +268,15 @@ class Home extends StatelessWidget {
                                       SingleStatement(
                                           type: statement.type,
                                           onClick: () {
-                                            Get.to(()=> const TransactionDetails(),
-                                                transition: Transition.rightToLeft,
-                                                arguments: {'statement': statement, 'date': "2 February 2023"}
-                                            );
+                                            Get.to(
+                                                () =>
+                                                    const TransactionDetails(),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                arguments: {
+                                                  'statement': statement,
+                                                  'date': "2 February 2023"
+                                                });
                                           },
                                           name: statement.name,
                                           phoneNumber: statement.phoneNumber,

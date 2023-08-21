@@ -16,4 +16,12 @@ class HomeController extends GetxController{
         "+254 787 787 879", "12:45 pm"),
   ].obs;
 
+  var accountBalance = "Ksh 90,000".obs;
+  var isVisibilityOn = false.obs;
+
+  changeVisibility(){
+    isVisibilityOn.value = !isVisibilityOn.value;
+    print("-----------------${isVisibilityOn.value}");
+  }
+
 }
