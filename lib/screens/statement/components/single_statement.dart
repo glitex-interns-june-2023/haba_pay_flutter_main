@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SingleStatement extends StatefulWidget {
-  final String icon;
+  final String type;
   final String name;
   final String phoneNumber;
   final String amount;
@@ -11,7 +11,7 @@ class SingleStatement extends StatefulWidget {
   final Function() onClick;
   const SingleStatement({
     super.key,
-    required this.icon,
+    required this.type,
     required this.onClick,
     required this.name,
     required this.phoneNumber,
@@ -38,10 +38,21 @@ class _SingleStatementState extends State<SingleStatement> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      widget.icon,
-                      color: Colors.orange,
-                    ),
+                    if(widget.type == "send")
+                      SvgPicture.asset(
+                        'assets/images/send.svg',
+                        color: Colors.orange,
+                      )
+                    else if(widget.type == "deposit")
+                      SvgPicture.asset(
+                        'assets/images/deposit.svg',
+                        color: Colors.orange,
+                      )
+                     else
+                      SvgPicture.asset(
+                        'assets/images/withdraw.svg',
+                        color: Colors.orange,
+                      )
                   ],
                 ),
                 const SizedBox(width: 20,),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/sign_in/controller/sign_in_screen_controller.dart';
 
 import '../../sign_up/components/sign_up.dart';
@@ -13,94 +16,115 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final signInController = Get.put(SignInController());
+  final CustomTheme theme = CustomTheme();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
-                child: Column(children: [
-                  const Spacer(),
-                  const Text(
-                    "Sign in to account",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Image.asset('assets/images/undraw_sign_in.png'),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "Welcome to the convenience of payment \n"
-                        "By continuing, you agree with our",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  const Text(
-                    "terms & conditions",
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                  const Spacer(),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Obx(() => MaterialButton(
-                          onPressed: () {
-                            signInController.login();
-                          },
-                          height: 50,
-                          color: Colors.orange,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (!signInController.isLoading.value)
-                                const Image(
-                                    image: AssetImage('assets/images/google_logo.png'))
-                              else
-                                const Icon(
-                                  Icons.refresh,
-                                  color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(children: [
+                    const Spacer(),
+                    const Text(
+                      "Sign in to account",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child:
+                          SvgPicture.asset('assets/images/undraw_sign_in.svg'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Welcome to the convenience of payment \n"
+                      "By continuing, you agree with our",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      "terms & conditions",
+                      style: TextStyle(color: theme.orange),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(height: 20,),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Obx(() => MaterialButton(
+                            onPressed: () {
+                              Get.to(
+                                    () => const Dashboard(),
+                                transition: Transition.rightToLeft,
+                              );
+                            },
+                            height: 50,
+                            color: theme.orange,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (!signInController.isLoading.value)
+                                  SvgPicture.asset(
+                                      'assets/images/google_logo.svg')
+                                else
+                                  Icon(
+                                    Icons.refresh,
+                                    color: theme.white,
+                                  ),
+                                const SizedBox(
+                                  width: 5,
                                 ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "Continue with Google",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 20),
-                              )
-                            ],
-                          )))),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Or "),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(
-                                () => const SignUp(),
-                            transition: Transition.rightToLeft,
-                          );
-                        },
-                        child: const Text(
-                          "create new account",
-                          style: TextStyle(color: Colors.orange),
+                                Text(
+                                  "Continue with Google",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.white,
+                                      fontSize: 18),
+                                )
+                              ],
+                            )))),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Or ",
+                          style: TextStyle(fontSize: 14),
                         ),
-                      )
-                    ],
-                  ),
-                  const Spacer()
-                ]),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.offAll(
+                              () => const SignUp(),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          child: Text(
+                            "create new account",
+                            style: TextStyle(color: theme.orange, fontSize: 14),
+                          ),
+                        )
+                      ],
+                    ),
+                    const Spacer()
+                  ]),
+                ),
               ),
             ),
           );

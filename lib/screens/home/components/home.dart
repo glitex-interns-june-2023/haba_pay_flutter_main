@@ -1,29 +1,54 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/StatementModel.dart';
+import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
+import 'package:haba_pay_main/screens/home/components/home_balance_widget.dart';
+import 'package:haba_pay_main/screens/home/controller/home_controller.dart';
+import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
+
+import '../../statement/components/statement.dart';
+import '../../statement/components/transaction_details.dart';
+
+final HomeController homeController = Get.put(HomeController());
+final CustomTheme theme = CustomTheme();
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<StatementModel> list = [
-      StatementModel("Jane Mukenya", 'assets/images/deposit.svg', "Ksh 400",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane jashas", 'assets/images/deposit.svg', "Ksh 7568",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane Mukenya", 'assets/images/send.svg', "Ksh 653",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',
-          "Ksh 4535", "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane dhladk", 'assets/images/withdraw.svg', "Ksh 5667",
-          "+254 787 787 879", "12:45 pm"),
-    ];
-
     return Scaffold(
-      backgroundColor: CustomTheme().background,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: theme.white,
+        leading: InkWell(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: SvgPicture.asset(
+              'assets/images/bell.svg',
+              color: theme.black,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CircleAvatar(
+              backgroundColor: theme.background,
+              child: Text(
+                "BN",
+                style: TextStyle(color: theme.black),
+              ),
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: theme.background,
       body: LayoutBuilder(builder: (context, constraint) {
         return SingleChildScrollView(
           child: ConstrainedBox(
@@ -38,7 +63,7 @@ class Home extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: theme.white,
                                 borderRadius: BorderRadius.circular(5)),
                             height: 200,
                             width: double.infinity,
@@ -53,15 +78,19 @@ class Home extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       MaterialButton(
-                                        onPressed: () {},
-                                        color: Colors.white,
+                                        onPressed: () {
+                                          Get.to(() => const SendMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        color: theme.white,
                                         child: SvgPicture.asset(
                                             'assets/images/send.svg'),
                                       ),
-                                      const Text(
+                                      Text(
                                         "Send",
                                         style: TextStyle(
-                                            fontSize: 14, color: Colors.orange),
+                                            fontSize: 14, color: theme.orange),
                                       )
                                     ],
                                   ),
@@ -69,15 +98,19 @@ class Home extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       MaterialButton(
-                                        onPressed: () {},
-                                        color: Colors.white,
+                                        onPressed: () {
+                                          Get.to(() => const WithdrawMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        color: theme.white,
                                         child: SvgPicture.asset(
                                             'assets/images/withdraw.svg'),
                                       ),
-                                      const Text(
+                                      Text(
                                         "Withdraw",
                                         style: TextStyle(
-                                            fontSize: 14, color: Colors.orange),
+                                            fontSize: 14, color: theme.orange),
                                       )
                                     ],
                                   ),
@@ -85,17 +118,21 @@ class Home extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       MaterialButton(
-                                        onPressed: () {},
-                                        color: Colors.white,
+                                        onPressed: () {
+                                          Get.to(() => const DepositMoney(),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        color: theme.white,
                                         child: SvgPicture.asset(
                                           'assets/images/deposit.svg',
-                                          color: Colors.orange,
+                                          color: theme.orange,
                                         ),
                                       ),
-                                      const Text(
+                                      Text(
                                         "Deposit",
                                         style: TextStyle(
-                                            fontSize: 14, color: Colors.orange),
+                                            fontSize: 14, color: theme.orange),
                                       )
                                     ],
                                   ),
@@ -112,11 +149,12 @@ class Home extends StatelessWidget {
                             Container(
                               height: 200,
                               decoration: BoxDecoration(
-                                  color: CustomTheme().linear,
+                                  color: theme.linear,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
+                                  SvgPicture.asset('assets/images/Frame.svg'),
                                   Padding(
                                     padding: const EdgeInsets.all(16),
                                     child: Column(
@@ -125,53 +163,46 @@ class Home extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Account balance",
                                           style: TextStyle(
-                                              fontSize: 12, color: Colors.grey),
+                                              fontSize: 12, color: theme.grey),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            const Text(
-                                              "KSH 90,000",
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                            const Spacer(),
-                                            InkWell(
-                                              onTap: () {},
-                                              child: SvgPicture.asset(
-                                                  'assets/images/visibility_off.svg'),
-                                            )
-                                          ],
+                                        Obx(
+                                          () => HomeBalanceWidget(
+                                              balance: homeController
+                                                  .accountBalance.value,
+                                              isVisibilityOn: homeController
+                                                  .isVisibilityOn.value,
+                                              onVisibilityChanged: () {
+                                                homeController
+                                                    .onVisibilityChanged();
+                                              }),
                                         ),
                                         const Spacer(),
-                                        const Row(
+                                        Row(
                                           children: [
                                             Text(
-                                              "+254 789 787",
+                                              homeController.phoneNumber.value,
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Colors.grey),
+                                                  color: theme.grey),
                                             ),
-                                            Spacer(),
+                                            const Spacer(),
                                             Text(
                                               "Haba pay",
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Colors.white),
+                                                  color: theme.white),
                                             )
                                           ],
                                         )
                                       ],
                                     ),
                                   ),
-                                  SvgPicture.asset('assets/images/Frame.svg')
                                 ],
                               ),
                             ),
@@ -186,47 +217,56 @@ class Home extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Card(
-                      child: SizedBox(
-                        height: 500,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Transactions",
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Transactions",
+                                  style: TextStyle(
+                                      fontSize: 18, color: theme.grey),
+                                ),
+                                const Spacer(),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => const Statement(),
+                                        transition: Transition.rightToLeft);
+                                  },
+                                  child: Text(
+                                    "More",
                                     style: TextStyle(
-                                        fontSize: 18, color: Colors.grey),
+                                        color: theme.orange, fontSize: 14),
                                   ),
-                                  const Spacer(),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Text(
-                                      "More",
-                                      style: TextStyle(
-                                          color: Colors.orange, fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Expanded(
-                                  child: ListView.builder(
-                                      itemCount: list.length,
-                                      itemBuilder: (context, index) {
-                                        return SingleStatement(
-                                            icon: list[index].icon,
-                                            onClick: () {},
-                                            name: list[index].name,
-                                            phoneNumber:
-                                                list[index].phoneNumber,
-                                            amount: list[index].amount,
-                                            time: list[index].time);
-                                      }))
-                            ],
-                          ),
+                                )
+                              ],
+                            ),
+                            Obx(() => Column(
+                                  children: [
+                                    for (var statement in homeController.list)
+                                      SingleStatement(
+                                          type: statement.type,
+                                          onClick: () {
+                                            Get.to(
+                                                () =>
+                                                    const TransactionDetails(),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                arguments: {
+                                                  'statement': statement,
+                                                  'date': "2 February 2023"
+                                                });
+                                          },
+                                          name: statement.name,
+                                          phoneNumber: statement.phoneNumber,
+                                          amount: statement.amount,
+                                          time: statement.time)
+                                  ],
+                                ))
+                          ],
                         ),
                       ),
                     ),

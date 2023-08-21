@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
+import 'package:haba_pay_main/screens/home/components/home.dart';
 import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
 
-class VerifyingTransaction extends StatefulWidget {
+final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
+final CustomTheme theme = CustomTheme();
+
+class VerifyingTransaction extends StatelessWidget {
   const VerifyingTransaction({super.key});
-
-  @override
-  State<VerifyingTransaction> createState() => _VerifyingTransactionState();
-}
-
-class _VerifyingTransactionState extends State<VerifyingTransaction> {
-  final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying transaction"),
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Obx(
                         () => Column(
                           children: [
-                            const Spacer(
-                              flex: 2,
-                            ),
+                            const Spacer(),
                             if (sendMoneyController.isLoading.value)
                               const Text(
                                 "Verifying transaction",
@@ -57,16 +60,15 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                               height: 20,
                             ),
                             if (sendMoneyController.isLoading.value)
-                              const CircularProgressIndicator(
-                                  color: Colors.orange)
+                              CircularProgressIndicator(color: theme.orange)
                             else if (sendMoneyController.isSuccessful.value)
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/smile_face.png'))
+                              SvgPicture.asset(
+                                'assets/images/smile_face.svg'
+                              )
                             else
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/sad_face.png')),
+                              SvgPicture.asset(
+                                  'assets/images/sad_face.svg'
+                              ),
                             const Spacer(),
                             if (sendMoneyController.isLoading.value)
                               const Text(
@@ -95,6 +97,7 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!sendMoneyController.isSuccessful.value)
                               Row(
                                 children: [
@@ -104,17 +107,17 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                                       child: Container(
                                         height: 50,
                                         decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.orange),
+                                            border:
+                                                Border.all(color: theme.orange),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
                                             "Call support",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
+                                                color: theme.orange),
                                           ),
                                         ),
                                       ),
@@ -129,15 +132,15 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                                         sendMoneyController.verifyTransaction();
                                       },
                                       height: 50,
-                                      color: Colors.orange,
+                                      color: theme.orange,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      child: const Text(
+                                      child: Text(
                                         "Retry",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: theme.white,
                                             fontSize: 20),
                                       ),
                                     ),
@@ -147,19 +150,22 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    sendMoneyController.verifyTransaction();
+                                    Get.offAll(
+                                          () => const Dashboard(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   minWidth: double.infinity,
-                                  color: Colors.orange,
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 50),
+                                  color: theme.orange,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 50),
                                     child: Text(
                                       "Return to Home",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: theme.white,
                                           fontSize: 20),
                                     ),
                                   )),
@@ -169,7 +175,9 @@ class _VerifyingTransactionState extends State<VerifyingTransaction> {
                       ),
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),

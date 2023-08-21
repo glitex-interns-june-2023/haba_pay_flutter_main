@@ -54,7 +54,7 @@ class PinLoginController extends GetxController{
     } else {
       await _secureStorage.setPin(pin.string);
       pin = [].obs;
-      Get.to(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
+      Get.offAll(()=>const ConfirmLoginPin(), transition: Transition.rightToLeft);
     }
   }
 

@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/description.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/statement_download/controller/statement_download_controller.dart';
 
-class StatementPreparingDownload extends StatefulWidget {
+final StatementDownloadController statementDownloadController =
+Get.put(StatementDownloadController());
+
+final CustomTheme theme = CustomTheme();
+class StatementPreparingDownload extends StatelessWidget {
   const StatementPreparingDownload({super.key});
-
-  @override
-  State<StatementPreparingDownload> createState() =>
-      _StatementPreparingDownloadState();
-}
-
-class _StatementPreparingDownloadState
-    extends State<StatementPreparingDownload> {
-  final StatementDownloadController statementDownloadController =
-      Get.put(StatementDownloadController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Download statement"),
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Obx(
                         () => Column(
                           children: [
-                            const Spacer(
-                              flex: 2,
-                            ),
+                            const Spacer(),
                             if (statementDownloadController.isLoading.value)
                               const TitleText(title: "Preparing your Download")
                             else if (statementDownloadController
@@ -44,24 +44,24 @@ class _StatementPreparingDownloadState
                             else
                               const TitleText(title: "Download failed"),
                             const SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             const Divider(),
                             const SizedBox(
                               height: 20,
                             ),
                             if (statementDownloadController.isLoading.value)
-                              const CircularProgressIndicator(
-                                  color: Colors.orange)
+                               CircularProgressIndicator(
+                                  color: theme.orange)
                             else if (statementDownloadController
                                 .isDownloaded.value)
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/smile_face.png'))
+                              SvgPicture.asset(
+                                'assets/images/smile_face.svg'
+                              )
                             else
-                              const Image(
-                                  image:
-                                      AssetImage('assets/images/sad_face.png')),
+                              SvgPicture.asset(
+                                  'assets/images/sad_face.svg'
+                              ),
                             const Spacer(),
                             if (statementDownloadController.isLoading.value)
                               const Description(
@@ -78,6 +78,7 @@ class _StatementPreparingDownloadState
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!statementDownloadController.isDownloaded.value)
                               Row(
                                 children: [
@@ -88,16 +89,16 @@ class _StatementPreparingDownloadState
                                         height: 50,
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: Colors.orange),
+                                                color: theme.orange),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
-                                        child: const Center(
+                                        child:  Center(
                                           child: Text(
                                             "Call support",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
+                                                color: theme.orange),
                                           ),
                                         ),
                                       ),
@@ -113,15 +114,15 @@ class _StatementPreparingDownloadState
                                             .downloadingStatement();
                                       },
                                       height: 50,
-                                      color: Colors.orange,
+                                      color: theme.orange,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      child: const Text(
+                                      child:  Text(
                                         "Retry",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: theme.white,
                                             fontSize: 20),
                                       ),
                                     ),
@@ -131,21 +132,22 @@ class _StatementPreparingDownloadState
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    statementDownloadController
-                                        .downloadingStatement();
+                                    Get.offAll(() => const Dashboard(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   minWidth: double.infinity,
-                                  color: Colors.orange,
-                                  child: const Padding(
+                                  color: theme.orange,
+                                  child:  Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 50),
+                                        const EdgeInsets.symmetric(horizontal: 50),
                                     child: Text(
                                       "Return to Home",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 20),
+                                          color: theme.white,
+                                          fontSize: 18),
                                     ),
                                   )),
                             const Spacer(),
@@ -154,7 +156,9 @@ class _StatementPreparingDownloadState
                       ),
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),

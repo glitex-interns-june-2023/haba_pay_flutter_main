@@ -1,17 +1,11 @@
-class StatementModel{
-
-  String icon;
+class StatementModel {
+  int id;
+  String type;
   String name;
   String amount;
   String phoneNumber;
   String time;
 
   StatementModel(
-    this.name,
-    this.icon,
-    this.amount,
-    this.phoneNumber,
-    this.time
-  );
-
+      this.id, this.name, this.type, this.amount, this.phoneNumber, this.time);
 }

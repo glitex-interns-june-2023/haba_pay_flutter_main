@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 
+import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
+
+final CustomTheme theme = CustomTheme();
 class PinUpdated extends StatelessWidget {
   const PinUpdated({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Updating pin"),
       body: LayoutBuilder(
         builder: (context, constraint){
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Card(
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                  child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -27,10 +36,10 @@ class PinUpdated extends StatelessWidget {
                                 fontWeight: FontWeight.bold
                             ),
                           ),
-                          const Spacer(),
+                          const SizedBox(height: 20,),
                           const Divider(),
-                          const Spacer(),
-                          Image.asset('assets/images/smile_face.png'),
+                          const SizedBox(height: 20,),
+                          SvgPicture.asset('assets/images/smile_face.svg'),
                           const Spacer(),
                           const Text(
                             "Cheers!! To being safe \n"
@@ -42,17 +51,17 @@ class PinUpdated extends StatelessWidget {
                           ),
                           const Spacer(flex: 4,),
                           MaterialButton(onPressed: (){
-
+                            Get.offAll(()=> const Dashboard(), transition: Transition.rightToLeft);
                           },
                             height: 50,
-                            color: Colors.orange,
+                            color: theme.orange,
                             minWidth: double.infinity,
-                            child: const Text(
+                            child:  Text(
                               "Return to home",
                               style: TextStyle(
                                 fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white
+                                  color: theme.white
                               ),
                             ),
                           ),

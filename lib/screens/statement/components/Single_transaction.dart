@@ -39,7 +39,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                   itemCount: widget.statementList.length,
                     itemBuilder: (context, index){
                       return SingleStatement(
-                          icon: widget.statementList[index].icon,
+                          type: widget.statementList[index].type,
                           onClick: (){},
                           name: widget.statementList[index].name,
                           phoneNumber: widget.statementList[index].phoneNumber,

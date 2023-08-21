@@ -19,21 +19,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: InkWell(
-            child: Image.asset('assets/images/menu.png'),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: InkWell(
-                child: Image.asset('assets/images/notification.png'),
-              ),
-            )
-          ],
-        ),
         body: Obx(
           () => IndexedStack(
             index: bottomNavController.tabIndex.value,

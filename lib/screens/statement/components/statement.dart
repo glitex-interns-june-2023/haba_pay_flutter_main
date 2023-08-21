@@ -1,88 +1,174 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/StatementModel.dart';
-import 'package:haba_pay_main/model/TransactionModel.dart';
-import 'package:haba_pay_main/screens/statement/components/Single_transaction.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
+import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
 import 'package:get/get.dart';
 
-class Statement extends StatefulWidget {
+final CustomTheme theme = CustomTheme();
+final StatementController statementController = Get.put(StatementController());
+class Statement extends StatelessWidget {
   const Statement({super.key});
-
-  @override
-  State<Statement> createState() => _StatementState();
-}
-
-class _StatementState extends State<Statement> {
-  final CustomTheme theme = CustomTheme();
-  List<TransactionModel> list = [
-    TransactionModel("2 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/deposit.svg', "Ksh 400",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane jashas", 'assets/images/deposit.svg', "Ksh 7568",
-          "+254 787 787 879", "12:45 pm")
-    ]),
-    TransactionModel("1 February 2023", [
-      StatementModel("Jane Mukenya", 'assets/images/send.svg', "Ksh 653",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("liadhjld Mukenya", 'assets/images/deposit.svg',
-          "Ksh 4535", "+254 787 787 879", "12:45 pm"),
-      StatementModel("Jane dhladk", 'assets/images/withdraw.svg', "Ksh 5667",
-          "+254 787 787 879", "12:45 pm"),
-    ])
-  ];
-  final StatementController statementController =
-      Get.put(StatementController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.background,
-      body: Column(
-        children: [
-          Row(
-            children: [
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
-              MaterialButton(onPressed: () {}),
-            ],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: theme.white,
+        title: Text(
+            "Statement",
+          style: TextStyle(
+            color: theme.black
           ),
-          Expanded(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final transaction = list[index];
-                        return Column(
-                          children: [
-                            Text(transaction.date),
-                            const Divider(),
-                            for (var statement in transaction.statementList)
-                              SingleStatement(
-                                  icon: statement.icon,
-                                  onClick: () {},
-                                  name: statement.name,
-                                  phoneNumber: statement.phoneNumber,
-                                  amount: statement.amount,
-                                  time: statement.time),
-                          ],
-                        );
-                      },
-                      childCount: list.length,
-                    ))
-                  ],
-                ),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SvgPicture.asset(
+                'assets/images/bell.svg',
+                color: theme.black,
               ),
             ),
-          )
+          ),
         ],
+      ),
+      backgroundColor: theme.background,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onAllClicked();
+                      },
+                      child: Text(
+                        "All",
+                        style: TextStyle(color: theme.orange),
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onSentClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/send.svg'),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Send",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onWithdrawClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/withdraw.svg'),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Withdraw",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onDepositClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/deposit.svg',
+                            color: theme.orange,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Deposit",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: CustomScrollView(
+                      slivers: [
+                        Obx(() => SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                final transaction = statementController.updatedList[index];
+                                return Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                        child: Text(transaction.date)),
+                                    const Divider(),
+                                    for (var statement
+                                        in transaction.statementList)
+                                      SingleStatement(
+                                          type: statement.type,
+                                          onClick: () {
+                                            Get.to(()=> const TransactionDetails(),
+                                                transition: Transition.rightToLeft,
+                                              arguments: {'statement': statement, 'date': transaction.date}
+                                            );
+                                          },
+                                          name: statement.name,
+                                          phoneNumber: statement.phoneNumber,
+                                          amount: statement.amount,
+                                          time: statement.time),
+                                  ],
+                                );
+                              },
+                              childCount:
+                                  statementController.updatedList.length,
+                            )))
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

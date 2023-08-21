@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/pin_login/components/single_button.dart';
 import 'package:haba_pay_main/screens/pin_login/components/single_pin_field.dart';
 import 'package:haba_pay_main/screens/pin_login/controllers/pin_login_controller.dart';
 
-class PinLogin extends StatefulWidget {
+final pinLoginController = Get.put(PinLoginController());
+final CustomTheme theme = CustomTheme();
+class PinLogin extends StatelessWidget {
   const PinLogin({super.key});
-
-  @override
-  State<PinLogin> createState() => _PinLoginState();
-}
-
-class _PinLoginState extends State<PinLogin> {
-  final pinLoginController = Get.put(PinLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +35,27 @@ class _PinLoginState extends State<PinLogin> {
                           children: [
                             const Spacer(),
                             if (pinLoginController.pin.isNotEmpty)
-                              const SinglePinField(color: Colors.orange)
+                               SinglePinField(color: theme.orange)
                             else
-                              const SinglePinField(color: Colors.grey),
+                               SinglePinField(color: theme.grey),
                             const Spacer(),
                             if (pinLoginController.pin.isNotEmpty &&
                                 pinLoginController.pin.length > 1)
-                              const SinglePinField(color: Colors.orange)
+                               SinglePinField(color: theme.orange)
                             else
-                              const SinglePinField(color: Colors.grey),
+                               SinglePinField(color: theme.grey),
                             const Spacer(),
                             if (pinLoginController.pin.isNotEmpty &&
                                 pinLoginController.pin.length > 2)
-                              const SinglePinField(color: Colors.orange)
+                               SinglePinField(color: theme.orange)
                             else
-                              const SinglePinField(color: Colors.grey),
+                               SinglePinField(color: theme.grey),
                             const Spacer(),
                             if (pinLoginController.pin.isNotEmpty &&
                                 pinLoginController.pin.length > 3)
-                              const SinglePinField(color: Colors.orange)
+                               SinglePinField(color: theme.orange)
                             else
-                              const SinglePinField(color: Colors.grey),
+                               SinglePinField(color: theme.grey),
                             const Spacer(),
                           ],
                         )),
@@ -170,7 +166,7 @@ class _PinLoginState extends State<PinLogin> {
                               pinLoginController.onClearLast();
                             },
                             elevation: 0,
-                            color: const Color(0xFFfff7e8),
+                            color: theme.background,
                             child: const Padding(
                                 padding: EdgeInsets.all(16),
                                 child: Icon(Icons.clear))),
@@ -178,15 +174,16 @@ class _PinLoginState extends State<PinLogin> {
                       ],
                     ),
                     const Spacer(),
+                    const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: MaterialButton(
                         onPressed: () {},
                         minWidth: double.infinity,
                         height: 50,
-                        color: Colors.orange,
-                        child: const Text("Log in",
-                            style: TextStyle(color: Colors.white, fontSize: 16)),
+                        color: theme.orange,
+                        child:  Text("Log in",
+                            style: TextStyle(color: theme.white, fontSize: 16)),
                       ),
                     ),
                     const Spacer()

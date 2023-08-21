@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
-class WithdrawVerifyingTransaction extends StatefulWidget {
+import '../../dashboard/components/dashboard.dart';
+import '../../home/components/home.dart';
+
+final WithdrawMoneyController withdrawMoneyController =
+    Get.put(WithdrawMoneyController());
+final CustomTheme theme = CustomTheme();
+
+class WithdrawVerifyingTransaction extends StatelessWidget {
   const WithdrawVerifyingTransaction({super.key});
-
-  @override
-  State<WithdrawVerifyingTransaction> createState() => _WithdrawVerifyingTransactionState();
-}
-
-class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransaction> {
-  final WithdrawMoneyController withdrawMoneyController = Get.put(WithdrawMoneyController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: const CustomAppBar(title: "Verifying withdraw"),
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                    BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Obx(
-                            () => Column(
+                        () => Column(
                           children: [
                             const Spacer(
                               flex: 2,
@@ -57,16 +64,15 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                               height: 20,
                             ),
                             if (withdrawMoneyController.isLoading.value)
-                              const CircularProgressIndicator(
-                                  color: Colors.orange)
+                              CircularProgressIndicator(color: theme.orange)
                             else if (withdrawMoneyController.isSuccessful.value)
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/smile_face.png'))
+                              SvgPicture.asset(
+                                'assets/images/smile_face.svg'
+                              )
                             else
-                              const Image(
-                                  image: AssetImage(
-                                      'assets/images/sad_face.png')),
+                              SvgPicture.asset(
+                                  'assets/images/sad_face.svg'
+                              ),
                             const Spacer(),
                             if (withdrawMoneyController.isLoading.value)
                               const Text(
@@ -95,6 +101,7 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                             const Spacer(
                               flex: 4,
                             ),
+                            const SizedBox(height: 20,),
                             if (!withdrawMoneyController.isSuccessful.value)
                               Row(
                                 children: [
@@ -104,17 +111,17 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                                       child: Container(
                                         height: 50,
                                         decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.orange),
+                                            border:
+                                                Border.all(color: theme.orange),
                                             borderRadius:
-                                            BorderRadius.circular(8)),
-                                        child: const Center(
+                                                BorderRadius.circular(8)),
+                                        child: Center(
                                           child: Text(
                                             "Call support",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
+                                                color: theme.orange),
                                           ),
                                         ),
                                       ),
@@ -126,18 +133,19 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                                   Expanded(
                                     child: MaterialButton(
                                       onPressed: () {
-                                        withdrawMoneyController.verifyTransaction();
+                                        withdrawMoneyController
+                                            .verifyTransaction();
                                       },
                                       height: 50,
-                                      color: Colors.orange,
+                                      color: theme.orange,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(8)),
-                                      child: const Text(
+                                              BorderRadius.circular(8)),
+                                      child: Text(
                                         "Retry",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: theme.white,
                                             fontSize: 20),
                                       ),
                                     ),
@@ -147,19 +155,22 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    withdrawMoneyController.verifyTransaction();
+                                    Get.offAll(
+                                          () => const Dashboard(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   minWidth: double.infinity,
-                                  color: Colors.orange,
-                                  child: const Padding(
-                                    padding:
-                                    EdgeInsets.symmetric(horizontal: 50),
+                                  color: theme.orange,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 50),
                                     child: Text(
                                       "Return to Home",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: theme.white,
                                           fontSize: 20),
                                     ),
                                   )),
@@ -169,7 +180,9 @@ class _WithdrawVerifyingTransactionState extends State<WithdrawVerifyingTransact
                       ),
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),
