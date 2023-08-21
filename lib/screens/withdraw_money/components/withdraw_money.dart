@@ -6,9 +6,13 @@ import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_to.dart';
+import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
+
+import '../../Shared/balance.dart';
 
 final TextEditingController _phoneNumberController = TextEditingController();
-
+final WithdrawMoneyController withdrawMoneyController =
+    Get.put(WithdrawMoneyController());
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
@@ -33,29 +37,15 @@ class WithdrawMoney extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "Balance",
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "Ksh 12, 500",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                            () => Balance(
+                                balance: withdrawMoneyController
+                                    .accountBalance.value,
+                                isVisibilityOn: withdrawMoneyController
+                                    .isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  withdrawMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
@@ -86,13 +76,10 @@ class WithdrawMoney extends StatelessWidget {
                                 )),
                           ),
                           TextField(
-                            decoration:  InputDecoration(
+                            decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: theme.orange
-                                  )
-                              ),
+                                  borderSide: BorderSide(color: theme.orange)),
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.phone,
@@ -113,10 +100,7 @@ class WithdrawMoney extends StatelessWidget {
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: theme.orange
-                                  )
-                              ),
+                                  borderSide: BorderSide(color: theme.orange)),
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
@@ -125,18 +109,19 @@ class WithdrawMoney extends StatelessWidget {
                           const Spacer(
                             flex: 2,
                           ),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(()=> const WithdrawConfirmDetails(),
+                                Get.to(() => const WithdrawConfirmDetails(),
                                     transition: Transition.rightToLeft,
                                     arguments: MoneyModel(
-                                        phoneNumber: _phoneNumberController.text,
+                                        phoneNumber:
+                                            _phoneNumberController.text,
                                         recipient: "Jane Makena",
                                         amount: _amountController.text,
-                                        newBalance: "800"
-                                    )
-                                );
+                                        newBalance: "800"));
                               },
                               height: 50,
                               minWidth: double.infinity,
@@ -160,7 +145,8 @@ class WithdrawMoney extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.to(()=> const WithdrawTo(), transition: Transition.rightToLeft);
+                                  Get.to(() => const WithdrawTo(),
+                                      transition: Transition.rightToLeft);
                                 },
                                 child: Text(
                                   "my number",

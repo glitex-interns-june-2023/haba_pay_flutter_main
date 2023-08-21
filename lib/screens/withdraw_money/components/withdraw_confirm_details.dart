@@ -3,10 +3,14 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_identity.dart';
+import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
 import '../../../model/MoneyModel.dart';
+import '../../Shared/balance.dart';
 
 final CustomTheme theme = CustomTheme();
+final WithdrawMoneyController withdrawMoneyController =
+    Get.put(WithdrawMoneyController());
 
 class WithdrawConfirmDetails extends StatelessWidget {
   const WithdrawConfirmDetails({super.key});
@@ -31,31 +35,14 @@ class WithdrawConfirmDetails extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "New Balance",
-                                  style: TextStyle(
-                                      color: theme.grey, fontSize: 18),
-                                )),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                withdrawMoneyModel.newBalance,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              const Spacer(),
-                              const InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                            () => Balance(
+                                balance: withdrawMoneyModel.newBalance,
+                                isVisibilityOn: withdrawMoneyController
+                                    .isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  withdrawMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
@@ -138,7 +125,9 @@ class WithdrawConfirmDetails extends StatelessWidget {
                                 )),
                           ),
                           const Spacer(),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             children: [
                               Expanded(
