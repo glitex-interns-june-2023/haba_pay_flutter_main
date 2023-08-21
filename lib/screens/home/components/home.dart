@@ -154,6 +154,7 @@ class Home extends StatelessWidget {
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
+                                  SvgPicture.asset('assets/images/Frame.svg'),
                                   Padding(
                                     padding: const EdgeInsets.all(16),
                                     child: Column(
@@ -202,7 +203,6 @@ class Home extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SvgPicture.asset('assets/images/Frame.svg')
                                 ],
                               ),
                             ),

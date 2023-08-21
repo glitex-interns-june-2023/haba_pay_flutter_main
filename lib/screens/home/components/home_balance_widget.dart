@@ -34,15 +34,10 @@ class HomeBalanceWidget extends StatelessWidget {
           onPressed: () {
             onVisibilityChanged();
           },
-          icon: isVisibilityOn
-              ? Icon(
-                  Icons.visibility,
-                  color: theme.white,
-                )
-              : Icon(
-                  Icons.visibility_off,
-                  color: theme.white,
-                ),
+          icon: Icon(
+            isVisibilityOn ? Icons.visibility : Icons.visibility_off,
+            color: theme.white,
+          ),
         )
       ],
     );

@@ -46,9 +46,9 @@ class Balance extends StatelessWidget {
               onPressed: () {
                 onVisibilityChanged();
               },
-              icon: isVisibilityOn
-                  ? const Icon(Icons.visibility)
-                  : const Icon(Icons.visibility_off),
+              icon: Icon(
+                isVisibilityOn ? Icons.visibility : Icons.visibility_off,
+              ),
             )
           ],
         ),
