@@ -126,7 +126,9 @@ class Settings extends StatelessWidget {
                             Get.to(()=> const UpdateLoginPin(), transition: Transition.rightToLeft);
                           }),
                           SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){}),
+                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){
+                            settingsController.logout();
+                          }),
                           const Divider(),
                           const Text(
                             "About",

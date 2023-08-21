@@ -80,6 +80,7 @@ class Updates extends StatelessWidget {
                         Row(
                           children: [
                             Obx(() => Checkbox(
+                              activeColor: theme.orange,
                                 value: updatesController.isChecked.value,
                                 onChanged: (value) {
                                   updatesController.onChanged(value!);
