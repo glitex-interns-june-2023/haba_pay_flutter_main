@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money_confirm_identity.dart';
+import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
+
+import '../../Shared/balance.dart';
 
 final CustomTheme theme = CustomTheme();
+final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
 
 class ConfirmDetails extends StatelessWidget {
   const ConfirmDetails({super.key});
@@ -31,30 +35,14 @@ class ConfirmDetails extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  "New Balance",
-                                  style:
-                                      TextStyle(color: theme.grey, fontSize: 18),
-                                )),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                sendMoneyModel.newBalance,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              const Spacer(),
-                              const InkWell(
-                                child: Icon(Icons.visibility_off),
-                              )
-                            ],
+                          Obx(
+                            () => Balance(
+                                balance: sendMoneyModel.newBalance,
+                                isVisibilityOn:
+                                    sendMoneyController.isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  sendMoneyController.onVisibilityChanged();
+                                }),
                           ),
                           const SizedBox(
                             height: 10,
@@ -80,13 +68,15 @@ class ConfirmDetails extends StatelessWidget {
                                 child: Text(
                                   "Phone",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 )),
                           ),
                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
                                   sendMoneyModel.phoneNumber,
                                   style: const TextStyle(fontSize: 18),
@@ -99,13 +89,15 @@ class ConfirmDetails extends StatelessWidget {
                                 child: Text(
                                   "Recipient",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 )),
                           ),
                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
                                   sendMoneyModel.recipient,
                                   style: const TextStyle(fontSize: 18),
@@ -118,13 +110,15 @@ class ConfirmDetails extends StatelessWidget {
                                 child: Text(
                                   "Amount",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 )),
                           ),
                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
                                   sendMoneyModel.amount,
                                   style: const TextStyle(fontSize: 18),
@@ -158,11 +152,16 @@ class ConfirmDetails extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const SizedBox(height: 20,),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {
-                                    Get.to(()=> const SendMoneyConfirmIdentity(), transition: Transition.rightToLeft,);
+                                    Get.to(
+                                      () => const SendMoneyConfirmIdentity(),
+                                      transition: Transition.rightToLeft,
+                                    );
                                   },
                                   height: 50,
                                   color: theme.orange,

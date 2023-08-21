@@ -5,10 +5,10 @@ import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/Shared/balance.dart';
 import 'package:haba_pay_main/screens/send_money/components/confirm_details.dart';
-import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
+import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
 
 final TextEditingController _phoneNumberController = TextEditingController();
-
+final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
 final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
