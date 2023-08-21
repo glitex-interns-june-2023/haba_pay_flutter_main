@@ -186,7 +186,7 @@ class Home extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "+254 789 787",
+                                              homeController.phoneNumber.value,
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: theme.grey),

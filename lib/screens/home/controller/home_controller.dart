@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../model/StatementModel.dart';
 
 class HomeController extends GetxController{
+  var phoneNumber = "+254 767 784 774".obs;
   var list = [
     StatementModel(22,"Jane Mukenya", 'deposit', "Ksh 400",
         "+254 787 787 879", "12:45 pm"),
