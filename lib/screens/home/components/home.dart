@@ -11,7 +11,6 @@ import 'package:haba_pay_main/screens/statement/components/single_statement.dart
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 
-import '../../statement/components/statement.dart';
 import '../../statement/components/transaction_details.dart';
 
 final BottomNavBarController bottomNavBarController = Get.put(BottomNavBarController());
