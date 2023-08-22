@@ -2,6 +2,7 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/dashboard/controller/dashboard_controller.dart';
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dart';
 import 'package:haba_pay_main/screens/home/components/home_balance_widget.dart';
 import 'package:haba_pay_main/screens/home/controller/home_controller.dart';
@@ -13,6 +14,7 @@ import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.d
 import '../../statement/components/statement.dart';
 import '../../statement/components/transaction_details.dart';
 
+final BottomNavBarController bottomNavBarController = Get.put(BottomNavBarController());
 final HomeController homeController = Get.put(HomeController());
 final CustomTheme theme = CustomTheme();
 
@@ -233,17 +235,17 @@ class Home extends StatelessWidget {
                                 const Spacer(),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const Statement(),
-                                        transition: Transition.rightToLeft);
+                                    bottomNavBarController.changeTabIndex(0);
                                   },
                                   child: Text(
                                     "More",
                                     style: TextStyle(
-                                        color: theme.orange, fontSize: 14),
+                                        color: theme.orange, fontSize: 18),
                                   ),
                                 )
                               ],
                             ),
+                            const SizedBox(height: 20,),
                             Obx(() => Column(
                                   children: [
                                     for (var statement in homeController.list)
