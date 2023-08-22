@@ -22,15 +22,12 @@ class _CustomButtonState extends State<CustomButton> {
         height: 50,
         minWidth: double.infinity,
         color: theme.orange,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
-          child: Text(
-            widget.title,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: theme.white,
-                fontSize: 20),
-          ),
+        child: Text(
+          widget.title,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: theme.white,
+              fontSize: 20),
         )
     );
   }
