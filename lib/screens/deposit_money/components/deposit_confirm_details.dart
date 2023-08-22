@@ -3,7 +3,6 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_identity.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
 import '../../Shared/balance.dart';
@@ -131,7 +130,7 @@ class DepositConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    Get.back();
+                                    depositMoneyController.popBackStack();
                                   },
                                   child: Container(
                                     height: 50,
@@ -156,10 +155,7 @@ class DepositConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {
-                                    Get.to(
-                                      () => const DepositConfirmIdentity(),
-                                      transition: Transition.rightToLeft,
-                                    );
+                                    depositMoneyController.send();
                                   },
                                   height: 50,
                                   color: theme.orange,

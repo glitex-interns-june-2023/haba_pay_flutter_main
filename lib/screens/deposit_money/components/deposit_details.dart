@@ -4,12 +4,8 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
-
-import '../../../model/MoneyModel.dart';
 import '../../Shared/balance.dart';
-import 'deposit_confirm_details.dart';
 
-final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 final DepositMoneyController depositMoneyController =
     Get.put(DepositMoneyController());
@@ -118,13 +114,19 @@ class DepositDetails extends StatelessWidget {
                           ),
                           TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
-                            ),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: theme.orange)),
+                                errorText: depositMoneyController
+                                        .depositDetailsAmountError.isNotEmpty
+                                    ? depositMoneyController
+                                        .depositDetailsAmountError.value
+                                    : null),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _amountController,
+                            controller: depositMoneyController
+                                .depositDetailsAmountController,
                           ),
                           const Spacer(),
                           const SizedBox(
@@ -132,16 +134,7 @@ class DepositDetails extends StatelessWidget {
                           ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(() => const DepositConfirmDetails(),
-                                    transition: Transition.rightToLeft,
-                                    arguments: MoneyModel(
-                                        phoneNumber:
-                                            depositMoneyController.number.value,
-                                        recipient: "Jane Makena",
-                                        amount: _amountController.text,
-                                        newBalance: "800",
-                                        payBillNumber:
-                                            "${depositMoneyController.habaPay.value} habapay"));
+                                depositMoneyController.depositFromMpesa();
                               },
                               height: 50,
                               minWidth: double.infinity,
@@ -175,7 +168,7 @@ class DepositDetails extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.back();
+                                  depositMoneyController.popBackStack();
                                 },
                                 child: Text(
                                   "new number",
