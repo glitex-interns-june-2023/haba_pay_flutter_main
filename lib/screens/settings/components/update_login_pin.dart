@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/settings/components/pin_updated.dart';
-
-import '../../dashboard/controller/dashboard_controller.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:get/get.dart';
 
+import 'add_phone_number_settings.dart';
+
 final CustomTheme theme = CustomTheme();
-final TextEditingController _currentPinController = TextEditingController();
-final TextEditingController _newPinController = TextEditingController();
-final TextEditingController _confirmPinController = TextEditingController();
 
 class UpdateLoginPin extends StatelessWidget {
   const UpdateLoginPin({super.key});
@@ -38,7 +35,9 @@ class UpdateLoginPin extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -47,20 +46,24 @@ class UpdateLoginPin extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
-                         TextField(
-                           cursorColor: theme.orange,
-                           controller: _currentPinController,
-                           decoration:
-                               InputDecoration(
-                                 border: const OutlineInputBorder(),
-                                 focusedBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(
-                                         color: theme.orange
-                                     )
-                                 ),
-                               ),
-                         ),
-                        const SizedBox(height: 20,),
+                        Obx(
+                          () => TextField(
+                            cursorColor: theme.orange,
+                            controller: settingsController.currentPinController,
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: theme.orange)),
+                                errorText: settingsController
+                                        .currentPinError.isNotEmpty
+                                    ? settingsController.currentPinError.value
+                                    : null),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Align(
                           alignment: Alignment.topLeft,
                           child: InkWell(
@@ -74,7 +77,9 @@ class UpdateLoginPin extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -83,20 +88,24 @@ class UpdateLoginPin extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
-                         TextField(
-                           cursorColor: theme.orange,
-                           controller: _newPinController,
-                           decoration:
-                               InputDecoration(
-                                 border: const OutlineInputBorder(),
-                                 focusedBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(
-                                         color: theme.orange
-                                     )
-                                 ),
-                               ),
-                         ),
-                        const SizedBox(height: 20,),
+                        Obx(
+                          () => TextField(
+                            cursorColor: theme.orange,
+                            controller: settingsController.newPinController,
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: theme.orange)),
+                                errorText:
+                                    settingsController.newPinError.isNotEmpty
+                                        ? settingsController.newPinError.value
+                                        : null),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -105,35 +114,29 @@ class UpdateLoginPin extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
-                         TextField(
-                           controller: _confirmPinController,
-                           cursorColor: theme.orange,
-                           decoration:
-                               InputDecoration(
-                                 border: const OutlineInputBorder(),
-                                 focusedBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(
-                                         color: theme.orange
-                                     )
-                                 ),
-                               ),
-                         ),
-                        const SizedBox(height: 20,),
-                        MaterialButton(
-                          onPressed: () {
-                            Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
-                          },
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: theme.orange,
-                          child: Text(
-                            "Update",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: theme.white),
+                        Obx(
+                          () => TextField(
+                            controller: settingsController.confirmPinController,
+                            cursorColor: theme.orange,
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: theme.orange)),
+                                errorText: settingsController
+                                        .confirmPinError.isNotEmpty
+                                    ? settingsController.confirmPinError.value
+                                    : null),
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomButton(
+                            title: "Update",
+                            onClick: () {
+                              settingsController.onUpdatePinClicked();
+                            }),
                         const Spacer()
                       ]),
                     ),
