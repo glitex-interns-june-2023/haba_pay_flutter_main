@@ -57,7 +57,7 @@ class DepositMoneyController extends GetxController {
   }
 
   confirmIdentity(){
-    Get.to(()=> const DepositConfirmPayment(),
+    Get.to(()=> const DepositVerifyTransaction(),
       transition: Transition.rightToLeft,
     );
   }

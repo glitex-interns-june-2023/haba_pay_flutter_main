@@ -3,24 +3,20 @@ import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/SharedPinController.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import '../pin_login/components/single_button.dart';
 import '../pin_login/components/single_pin_field.dart';
 
 final CustomTheme theme = CustomTheme();
 
-class ConfirmIdentity extends StatefulWidget {
+final pinLoginController = Get.put(SharedPinController());
+
+class ConfirmIdentity extends StatelessWidget {
   final Function() onConfirm;
   const ConfirmIdentity({
     super.key,
     required this.onConfirm,
   });
-
-  @override
-  State<ConfirmIdentity> createState() => _ConfirmIdentityState();
-}
-
-class _ConfirmIdentityState extends State<ConfirmIdentity> {
-  final pinLoginController = Get.put(SharedPinController());
 
   @override
   Widget build(BuildContext context) {
@@ -195,19 +191,11 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                           ),
                           const Spacer(),
                           const SizedBox(height: 20,),
-                          MaterialButton(
-                            onPressed: () {
-                              pinLoginController.confirmLoginPin(
-                                  widget.onConfirm()
-                              );
-                            },
-                            minWidth: double.infinity,
-                            height: 50,
-                            color: theme.orange,
-                            child: Text("Confirm",
-                                style: TextStyle(
-                                    color: theme.white, fontSize: 16)),
-                          ),
+                          CustomButton(title: "Confirm", onClick: (){
+                            pinLoginController.confirmLoginPin(
+                                (){ onConfirm(); }
+                            );
+                          }),
                           const Spacer()
                         ],
                       ),

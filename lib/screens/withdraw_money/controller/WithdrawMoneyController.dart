@@ -24,9 +24,9 @@ class WithdrawMoneyController extends GetxController{
   var isVisibilityOn = false.obs;
 
   onProceedWithNumberClicked(){
-    if(phoneNumberController.text.isNotEmpty){
+    if(phoneNumberController.text.isEmpty){
       phoneNumberError.value = "Enter a valid number";
-    } else if (amountController.text.isNotEmpty){
+    } else if (amountController.text.isEmpty){
       amountError.value = "Enter a valid amount";
     } else {
       Get.to(() => const WithdrawConfirmDetails(),

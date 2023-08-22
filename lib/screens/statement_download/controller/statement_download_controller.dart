@@ -63,9 +63,9 @@ class StatementDownloadController extends GetxController {
           transition: Transition.rightToLeft,
           arguments: StatementDownloadModel(
               transactionType.value,
-              duration.value.isNotEmpty
-                  ? duration.value
-                  : " ${fromController.text} ${toController.text}",
+              duration.value == "Select"
+                  ? " ${fromController.text} ${toController.text}"
+                  : duration.value,
               downloadMethod.value
           )
       );
