@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 
 final CustomTheme theme = CustomTheme();
@@ -30,18 +31,6 @@ class VerifyPhoneNumber extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       const Spacer(),
-                      const Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "Code",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                fontSize: 18
-                              ),
-                            )),
-                      ),
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -75,24 +64,9 @@ class VerifyPhoneNumber extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: MaterialButton(
-                          onPressed: () {
-                            signUpController.onVerifyClicked();
-                          },
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: theme.orange,
-                          child: Text(
-                            "Verify",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: theme.white,
-                                fontSize: 18),
-                          ),
-                        ),
-                      ),
+                      CustomButton(title: "Verify", onClick: (){
+                        signUpController.onVerifyClicked();
+                      }),
                       const Spacer()
                     ],
                   ),

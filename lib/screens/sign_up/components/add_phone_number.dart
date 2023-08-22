@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/sign_up/controller/sign_up_controller.dart';
 
 final CustomTheme theme = CustomTheme();
@@ -59,26 +60,9 @@ class AddPhoneNumber extends StatelessWidget {
                         flex: 2,
                       ),
                       const SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: MaterialButton(
-                            onPressed: () {
-                              signUpController.onAddClicked();
-                            },
-                            height: 50,
-                            minWidth: double.infinity,
-                            color: theme.orange,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50),
-                              child: Text(
-                                "Add",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.white,
-                                    fontSize: 20),
-                              ),
-                            )),
-                      ),
+                      CustomButton(title: "Add", onClick: (){
+                        signUpController.onAddClicked();
+                      }),
                       const Spacer()
                     ],
                   ),
