@@ -152,10 +152,7 @@ class DepositVerifyTransaction extends StatelessWidget {
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    Get.offAll(
-                                      () => const Dashboard(),
-                                      transition: Transition.rightToLeft,
-                                    );
+                                    depositMoneyController.onReturnHomeCLicked();
                                   },
                                   height: 50,
                                   minWidth: double.infinity,

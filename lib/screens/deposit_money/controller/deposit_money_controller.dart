@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../model/MoneyModel.dart';
+import '../../dashboard/components/dashboard.dart';
 import '../components/deposit_confirm_details.dart';
 import '../components/deposit_confirm_identity.dart';
 import '../components/deposit_confirm_payment.dart';
@@ -90,6 +91,13 @@ class DepositMoneyController extends GetxController {
   useMyNumber() {
     Get.to(
       () => const DepositDetails(),
+      transition: Transition.rightToLeft,
+    );
+  }
+
+  onReturnHomeCLicked(){
+    Get.offAll(
+          () => const Dashboard(),
       transition: Transition.rightToLeft,
     );
   }

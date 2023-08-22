@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
-import 'package:haba_pay_main/screens/home/components/home.dart';
 import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
 
 final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
@@ -150,10 +149,7 @@ class VerifyingTransaction extends StatelessWidget {
                             else
                               MaterialButton(
                                   onPressed: () {
-                                    Get.offAll(
-                                          () => const Dashboard(),
-                                      transition: Transition.rightToLeft,
-                                    );
+                                    sendMoneyController.onReturnHomeCLicked();
                                   },
                                   height: 50,
                                   minWidth: double.infinity,

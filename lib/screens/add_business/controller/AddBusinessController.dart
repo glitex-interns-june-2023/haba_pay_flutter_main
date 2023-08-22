@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../dashboard/components/dashboard.dart';
 import '../components/add_business_successful.dart';
 
 class AddBusinessController extends GetxController {
@@ -31,6 +32,13 @@ class AddBusinessController extends GetxController {
         transition: Transition.rightToLeft,
       );
     }
+  }
+
+  onReturnHomeClicked(){
+    Get.offAll(
+          () => const Dashboard(),
+      transition: Transition.rightToLeft,
+    );
   }
 
   @override
