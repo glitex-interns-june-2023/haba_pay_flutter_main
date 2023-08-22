@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
 import '../../../model/MoneyModel.dart';
@@ -132,12 +133,12 @@ class DepositConfirmPayment extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             obscureText: true,
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
                                 errorText: depositMoneyController
                                     .passwordError.isNotEmpty
                                     ? depositMoneyController
@@ -147,7 +148,7 @@ class DepositConfirmPayment extends StatelessWidget {
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.visiblePassword,
                             controller: depositMoneyController.passwordController,
-                          ),
+                          ),),
                           const Spacer(),
                           const SizedBox(
                             height: 20,
@@ -180,22 +181,9 @@ class DepositConfirmPayment extends StatelessWidget {
                                 width: 20,
                               ),
                               Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    depositMoneyController.confirm();
-                                  },
-                                  height: 50,
-                                  color: theme.orange,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    "Confirm",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: theme.white,
-                                        fontSize: 20),
-                                  ),
-                                ),
+                                child: CustomButton(title: "Confirm", onClick: (){
+                                  depositMoneyController.confirm();
+                                })
                               ),
                             ],
                           ),

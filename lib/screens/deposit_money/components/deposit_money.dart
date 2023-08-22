@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 import '../../Shared/balance.dart';
 
@@ -67,11 +68,11 @@ class DepositMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
                                 errorText: depositMoneyController.phoneNumberError.isNotEmpty
                                     ? depositMoneyController.phoneNumberError.value
                                     : null
@@ -79,7 +80,7 @@ class DepositMoney extends StatelessWidget {
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.phone,
                             controller: depositMoneyController.phoneNumberController,
-                          ),
+                          ),),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
@@ -91,11 +92,11 @@ class DepositMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
                                 errorText: depositMoneyController.amountError.isNotEmpty
                                     ? depositMoneyController.amountError.value
                                     : null
@@ -103,25 +104,14 @@ class DepositMoney extends StatelessWidget {
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: depositMoneyController.amountController,
-                          ),
+                          ),),
                           const Spacer(
                             flex: 2,
                           ),
                           const SizedBox(height: 20,),
-                          MaterialButton(
-                              onPressed: () {
-                                depositMoneyController.proceedWithNumber();
-                              },
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: theme.orange,
-                              child: Text(
-                                "Proceed with number",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.white,
-                                    fontSize: 18),
-                              )),
+                          CustomButton(title: "Proceed with number", onClick: (){
+                            depositMoneyController.proceedWithNumber();
+                          }),
                           const SizedBox(
                             height: 20,
                           ),

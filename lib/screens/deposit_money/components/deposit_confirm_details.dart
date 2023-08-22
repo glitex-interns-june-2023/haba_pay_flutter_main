@@ -3,6 +3,7 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
 import '../../Shared/balance.dart';
@@ -153,22 +154,9 @@ class DepositConfirmDetails extends StatelessWidget {
                                 width: 10,
                               ),
                               Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    depositMoneyController.send();
-                                  },
-                                  height: 50,
-                                  color: theme.orange,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    "send",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: theme.white,
-                                        fontSize: 20),
-                                  ),
-                                ),
+                                child: CustomButton(title: "Send", onClick: (){
+                                  depositMoneyController.send();
+                                })
                               ),
                             ],
                           ),
