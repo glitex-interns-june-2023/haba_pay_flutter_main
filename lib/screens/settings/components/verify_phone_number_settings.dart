@@ -49,19 +49,19 @@ class VerifyPhoneNumberSettings extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: settingsController.codeController,
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
                                 errorText: settingsController.codeError.isNotEmpty
                                     ? settingsController.codeError.value
                                     : null
                             ),
-                          ),
+                          ),),
                           const Spacer(
                             flex: 4,
                           ),
