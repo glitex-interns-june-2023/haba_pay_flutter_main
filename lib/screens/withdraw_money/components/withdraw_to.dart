@@ -90,11 +90,11 @@ class WithdrawTo extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
                                 errorText: withdrawMoneyController.withdrawToAmountError.isNotEmpty
                                     ? withdrawMoneyController.withdrawToAmountError.value
                                     : null
@@ -102,7 +102,7 @@ class WithdrawTo extends StatelessWidget {
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
                             controller: withdrawMoneyController.withdrawToAmountController,
-                          ),
+                          ),),
                           const Spacer(),
                           const SizedBox(
                             height: 20,

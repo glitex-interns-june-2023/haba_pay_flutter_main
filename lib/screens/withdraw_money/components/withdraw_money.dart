@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
 import '../../Shared/balance.dart';
@@ -69,18 +70,23 @@ class WithdrawMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
-                                errorText: withdrawMoneyController.phoneNumberError.isNotEmpty
-                                    ? withdrawMoneyController.phoneNumberError.value
-                                    : null
+                          Obx(
+                            () => TextField(
+                              decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: theme.orange)),
+                                  errorText: withdrawMoneyController
+                                          .phoneNumberError.isNotEmpty
+                                      ? withdrawMoneyController
+                                          .phoneNumberError.value
+                                      : null),
+                              cursorColor: theme.orange,
+                              keyboardType: TextInputType.phone,
+                              controller:
+                                  withdrawMoneyController.phoneNumberController,
                             ),
-                            cursorColor: theme.orange,
-                            keyboardType: TextInputType.phone,
-                            controller: withdrawMoneyController.phoneNumberController,
                           ),
                           const Align(
                             alignment: Alignment.topLeft,
@@ -93,18 +99,23 @@ class WithdrawMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
-                                errorText: withdrawMoneyController.amountError.isNotEmpty
-                                    ? withdrawMoneyController.amountError.value
-                                    : null
+                          Obx(
+                            () => TextField(
+                              decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: theme.orange)),
+                                  errorText: withdrawMoneyController
+                                          .amountError.isNotEmpty
+                                      ? withdrawMoneyController
+                                          .amountError.value
+                                      : null),
+                              cursorColor: theme.orange,
+                              keyboardType: TextInputType.number,
+                              controller:
+                                  withdrawMoneyController.amountController,
                             ),
-                            cursorColor: theme.orange,
-                            keyboardType: TextInputType.number,
-                            controller: withdrawMoneyController.amountController,
                           ),
                           const Spacer(
                             flex: 2,
@@ -112,20 +123,12 @@ class WithdrawMoney extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          MaterialButton(
-                              onPressed: () {
-                                withdrawMoneyController.onProceedWithNumberClicked();
-                              },
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: theme.orange,
-                              child: Text(
-                                "Proceed with number",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.white,
-                                    fontSize: 18),
-                              )),
+                          CustomButton(
+                              title: "Proceed with number",
+                              onClick: () {
+                                withdrawMoneyController
+                                    .onProceedWithNumberClicked();
+                              }),
                           const SizedBox(
                             height: 20,
                           ),
