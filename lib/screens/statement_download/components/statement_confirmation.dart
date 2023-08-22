@@ -99,9 +99,7 @@ class StatementConfirmation extends StatelessWidget {
                             const Spacer(),
                             const SizedBox(height: 20,),
                             CustomButton(title: "Download", onClick: (){
-                              Get.to(() => const StatementDownloadConfirmIdentity(),
-                                  transition: Transition.rightToLeft,
-                              );
+                              statementDownloadController.onDownloadClicked();
                             }),
                             const Spacer()
                           ],

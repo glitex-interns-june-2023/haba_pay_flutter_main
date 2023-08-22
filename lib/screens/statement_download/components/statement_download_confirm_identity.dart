@@ -10,9 +10,7 @@ class StatementDownloadConfirmIdentity extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConfirmIdentity(
         onConfirm: (){
-          Get.to(() => const StatementPreparingDownload(),
-              transition: Transition.rightToLeft,
-          );
+          statementDownloadController.onConfirmIdentityClicked();
         }
     );
   }

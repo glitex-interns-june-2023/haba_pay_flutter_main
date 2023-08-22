@@ -2,27 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/routes/app_page.dart';
-import 'package:haba_pay_main/screens/sign_up/components/verification_successful.dart';
-import 'package:haba_pay_main/screens/sign_up/controller/otp_controller.dart';
+import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 
-import '../../dashboard/components/dashboard.dart';
+final CustomTheme theme = CustomTheme();
 
-class VerifyPhoneNumber extends StatefulWidget {
+class VerifyPhoneNumber extends StatelessWidget {
   const VerifyPhoneNumber({super.key});
-
-  @override
-  State<VerifyPhoneNumber> createState() => _VerifyPhoneNumberState();
-}
-
-class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
-  final CustomTheme theme = CustomTheme();
-  final OtpController otpController = Get.put(OtpController());
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool isLoading = false;
-  bool hasError = false;
-  String errorMsg = "";
-  String otp = "";
 
   @override
   Widget build(BuildContext context) {
@@ -57,40 +42,25 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
                               ),
                             )),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            cursorColor: theme.orange,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: theme.orange
-                                  )
-                              ),
-                              errorText: hasError ? errorMsg : null,
-                            ),
-                            validator: (String? value) {
-                              if (value == null) {
-                                return "Please enter code";
-                              }
-                              return null;
-                            },
-                            onSaved: ((value) => {otp = value ?? ""}),
-                          ),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Code",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const Spacer(),
-                      Visibility(
-                        visible: isLoading,
-                        replacement: const SizedBox(),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: theme.orange,
-                          ),
+                      TextField(
+                        cursorColor: theme.orange,
+                        keyboardType: TextInputType.number,
+                        controller: signUpController.codeController,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: theme.orange)),
+                            errorText: signUpController.codeError.isNotEmpty
+                                ? signUpController.codeError.value
+                                : null
                         ),
                       ),
                       const Spacer(
@@ -109,11 +79,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
                         padding: const EdgeInsets.all(16),
                         child: MaterialButton(
                           onPressed: () {
-                            Get.to(
-                                  () => const VerificationSuccessful(),
-                              transition: Transition.rightToLeft,
-                            );
-                            //verifyOTP();
+                            signUpController.onVerifyClicked();
                           },
                           height: 50,
                           minWidth: double.infinity,
@@ -137,36 +103,5 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
         },
       ),
     );
-  }
-
-  /// verify otp
-  void verifyOTP() async {
-    // validate form input
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _formKey.currentState!.save();
-
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      final response = otpController.verifyOTP(otp);
-      debugPrint(response.toString());
-
-      Get.to(
-        () => const VerificationSuccessful(),
-        routeName: AppPage.getVerificationSuccessful(),
-        transition: Transition.rightToLeft,
-      );
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-        hasError = true;
-        errorMsg = e.toString();
-      });
-    }
   }
 }

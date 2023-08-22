@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/description.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
@@ -84,7 +85,9 @@ class StatementPreparingDownload extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        statementDownloadController.onCallSupportClicked();
+                                      },
                                       child: Container(
                                         height: 50,
                                         decoration: BoxDecoration(
@@ -108,48 +111,16 @@ class StatementPreparingDownload extends StatelessWidget {
                                     width: 10,
                                   ),
                                   Expanded(
-                                    child: MaterialButton(
-                                      onPressed: () {
-                                        statementDownloadController
-                                            .downloadingStatement();
-                                      },
-                                      height: 50,
-                                      color: theme.orange,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child:  Text(
-                                        "Retry",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: theme.white,
-                                            fontSize: 20),
-                                      ),
-                                    ),
+                                    child: CustomButton(title: "Retry", onClick: (){
+                                      statementDownloadController.downloadingStatement();
+                                    })
                                   ),
                                 ],
                               )
                             else
-                              MaterialButton(
-                                  onPressed: () {
-                                    Get.offAll(() => const Dashboard(),
-                                      transition: Transition.rightToLeft,
-                                    );
-                                  },
-                                  height: 50,
-                                  minWidth: double.infinity,
-                                  color: theme.orange,
-                                  child:  Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 50),
-                                    child: Text(
-                                      "Return to Home",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: theme.white,
-                                          fontSize: 18),
-                                    ),
-                                  )),
+                              CustomButton(title: "Return to Home", onClick: (){
+                                statementDownloadController.onReturnHomeClicked();
+                              }),
                             const Spacer(),
                           ],
                         ),

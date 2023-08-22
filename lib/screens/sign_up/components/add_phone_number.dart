@@ -2,25 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/routes/app_page.dart';
-import 'package:haba_pay_main/screens/sign_up/components/verify_phone_number.dart';
-import 'package:haba_pay_main/screens/sign_up/controller/otp_controller.dart';
+import 'package:haba_pay_main/screens/sign_up/controller/sign_up_controller.dart';
 
-class AddPhoneNumber extends StatefulWidget {
+final CustomTheme theme = CustomTheme();
+final SignUpController signUpController = Get.put(SignUpController());
+class AddPhoneNumber extends StatelessWidget {
   const AddPhoneNumber({super.key});
-
-  @override
-  State<AddPhoneNumber> createState() => _AddPhoneNumberState();
-}
-
-class _AddPhoneNumberState extends State<AddPhoneNumber> {
-  final CustomTheme theme = CustomTheme();
-  final OtpController otpController = Get.put(OtpController());
-  final TextEditingController _phoneNumberController = TextEditingController();
-
-  bool isLoading = false;
-  bool isValid = true;
-  String errorMsg = "Please enter your phone";
 
   @override
   Widget build(BuildContext context) {
@@ -45,39 +32,27 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                       const Spacer(),
                       const Align(
                         alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "Phone",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                fontSize: 18
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: theme.orange
-                                )
-                            ),
-                            errorText: !isValid ? errorMsg : null,
-                          ),
-                          cursorColor: theme.orange,
-                          keyboardType: TextInputType.phone,
-                          controller: _phoneNumberController,
+                        child: Text(
+                          "Phone",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const Spacer(),
-                      Visibility(
-                        visible: isLoading,
-                        replacement: const SizedBox(),
-                        child: CircularProgressIndicator(
-                          color: theme.orange,
+                      TextField(
+                        cursorColor: theme.orange,
+                        keyboardType: TextInputType.phone,
+                        controller: signUpController.phoneNumberController,
+                        decoration:  InputDecoration(
+                          border: const OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: theme.orange
+                              ),
+                          ),
+                            errorText: signUpController.phoneNumberError.isNotEmpty
+                                ? signUpController.phoneNumberError.value
+                                : null
                         ),
                       ),
                       const Spacer(
@@ -88,11 +63,7 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: MaterialButton(
                             onPressed: () {
-                              Get.to(
-                                    () => const VerifyPhoneNumber(),
-                                transition: Transition.rightToLeft,
-                              );
-                              //sendOtp(_phoneNumberController.text);
+                              signUpController.onAddClicked();
                             },
                             height: 50,
                             minWidth: double.infinity,
@@ -100,7 +71,7 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50),
                               child: Text(
-                                isLoading ? "Sending..." : "Add",
+                                "Add",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: theme.white,
@@ -118,64 +89,5 @@ class _AddPhoneNumberState extends State<AddPhoneNumber> {
         },
       ),
     );
-  }
-
-  /// sends OTP
-  void sendOtp(phoneNumber) async {
-    if (!validateInput()) return;
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      // OTP sent success.
-      await otpController.sendOTP(phoneNumber);
-
-      setState(() {
-        isLoading = false;
-      });
-
-      // Next page to verify OTP
-      Get.to(
-        () => const VerifyPhoneNumber(),
-        routeName: AppPage.getVerifyPhoneNumber(),
-        transition: Transition.rightToLeft,
-        duration: const Duration(milliseconds: 500),
-      );
-
-      debugPrint("OTP sent successfully");
-    } catch (e) {
-      debugPrint("Error trying to send OTP: $e");
-
-      setState(() {
-        isLoading = false;
-        isValid = false;
-        errorMsg = e.toString() == ""
-            ? "Error sending verification code"
-            : e.toString();
-      });
-    }
-  }
-
-  /// validate empty phone number
-  bool validateInput() {
-    final String phoneNumber = _phoneNumberController.text;
-    bool valid = true;
-    String error = "";
-    if (phoneNumber.isEmpty) {
-      error = "Please enter your phone";
-      valid = false;
-    } else if (phoneNumber.length < 10) {
-      error = "Phone should be at least 10 digits";
-      valid = false;
-    }
-
-    setState(() {
-      errorMsg = error;
-      isValid = valid;
-    });
-
-    return valid;
   }
 }

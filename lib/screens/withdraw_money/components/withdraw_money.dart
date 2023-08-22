@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
-import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_to.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
 import '../../Shared/balance.dart';
 
-final TextEditingController _phoneNumberController = TextEditingController();
 final WithdrawMoneyController withdrawMoneyController =
     Get.put(WithdrawMoneyController());
-final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
 class WithdrawMoney extends StatelessWidget {
@@ -80,10 +74,13 @@ class WithdrawMoney extends StatelessWidget {
                               border: const OutlineInputBorder(),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: theme.orange)),
+                                errorText: withdrawMoneyController.phoneNumberError.isNotEmpty
+                                    ? withdrawMoneyController.phoneNumberError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.phone,
-                            controller: _phoneNumberController,
+                            controller: withdrawMoneyController.phoneNumberController,
                           ),
                           const Align(
                             alignment: Alignment.topLeft,
@@ -101,10 +98,13 @@ class WithdrawMoney extends StatelessWidget {
                               border: const OutlineInputBorder(),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: theme.orange)),
+                                errorText: withdrawMoneyController.amountError.isNotEmpty
+                                    ? withdrawMoneyController.amountError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _amountController,
+                            controller: withdrawMoneyController.amountController,
                           ),
                           const Spacer(
                             flex: 2,
@@ -114,14 +114,7 @@ class WithdrawMoney extends StatelessWidget {
                           ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(() => const WithdrawConfirmDetails(),
-                                    transition: Transition.rightToLeft,
-                                    arguments: MoneyModel(
-                                        phoneNumber:
-                                            _phoneNumberController.text,
-                                        recipient: "Jane Makena",
-                                        amount: _amountController.text,
-                                        newBalance: "800"));
+                                withdrawMoneyController.onProceedWithNumberClicked();
                               },
                               height: 50,
                               minWidth: double.infinity,
@@ -145,8 +138,7 @@ class WithdrawMoney extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.to(() => const WithdrawTo(),
-                                      transition: Transition.rightToLeft);
+                                  withdrawMoneyController.onUseNumber();
                                 },
                                 child: Text(
                                   "my number",
