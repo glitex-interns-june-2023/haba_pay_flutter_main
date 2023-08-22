@@ -7,8 +7,7 @@ import '../components/pin_updated.dart';
 import '../components/verification_successful_phone_settings.dart';
 import '../components/verify_phone_number_settings.dart';
 
-
-class SettingsController extends GetxController{
+class SettingsController extends GetxController {
   var codeError = "".obs;
   var phoneNumberError = "".obs;
   var currentPinError = "".obs;
@@ -27,63 +26,60 @@ class SettingsController extends GetxController{
   final _googleSignIn = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
-
-  onAddPhoneNumberClicked(){
-    if(phoneNumberController.text.isEmpty){
+  onAddPhoneNumberClicked() {
+    if (phoneNumberController.text.isEmpty) {
       phoneNumberError.value = "Enter a valid value";
     } else {
-      Get.to(()=> const VerifyPhoneNumberSettings(), transition: Transition.rightToLeft);
-    }
-  }
-
-  onVerifyCodeClicked(){
-    if(codeController.text.isEmpty){
-      codeError.value = "Enter a valid value";
-    } else {
-      Get.to(
-              () =>
-          const VerificationSuccessfulPhoneSettings(),
+      Get.to(() => const VerifyPhoneNumberSettings(),
           transition: Transition.rightToLeft);
     }
   }
 
-  onUpdatePinClicked(){
-    if(currentPinController.text.isEmpty){
-      currentPinError.value = "Enter a valid value";
-    } else if(newPinController.text.isEmpty){
-      newPinError.value = "Enter a valid value";
-    } else if(confirmPinController.text.isEmpty){
-      confirmPinError.value = "Enter a valid value";
+  onVerifyCodeClicked() {
+    if (codeController.text.isEmpty) {
+      codeError.value = "Enter a valid value";
     } else {
-      Get.to(()=> const PinUpdated(), transition: Transition.rightToLeft);
+      Get.to(() => const VerificationSuccessfulPhoneSettings(),
+          transition: Transition.rightToLeft);
     }
   }
+
+  onUpdatePinClicked() {
+    if (currentPinController.text.isEmpty) {
+      currentPinError.value = "Enter a valid value";
+    } else if (newPinController.text.isEmpty) {
+      newPinError.value = "Enter a valid value";
+    } else if (confirmPinController.text.isEmpty) {
+      confirmPinError.value = "Enter a valid value";
+    } else {
+      Get.to(() => const PinUpdated(), transition: Transition.rightToLeft);
+    }
+  }
+
   logout() async {
     isLoading(true);
-    try{
+    try {
       googleAccount.value = await _googleSignIn.signOut();
-      Get.offAll(()=> const SignUp(), transition: Transition.rightToLeft);
+      Get.offAll(() => const SignUp(), transition: Transition.rightToLeft);
     } finally {
       isLoading(false);
     }
   }
 
-  sendEmail(){
+  sendEmail() {
     isSendingEmail(true);
-    try{
+    try {
       isEmailSend(true);
     } finally {
       isSendingEmail(false);
     }
   }
 
-  onIsMoreExpanded(){
+  onIsMoreExpanded() {
     isMoreExpanded.value = !isMoreExpanded.value;
   }
 
-  verifyNumber(String number){
+  verifyNumber(String number) {
     phoneNumber.value = number;
   }
-
 }
-
