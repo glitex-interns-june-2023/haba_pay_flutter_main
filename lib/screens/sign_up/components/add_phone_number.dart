@@ -39,22 +39,22 @@ class AddPhoneNumber extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      TextField(
+                      Obx(() => TextField(
                         cursorColor: theme.orange,
                         keyboardType: TextInputType.phone,
                         controller: signUpController.phoneNumberController,
                         decoration:  InputDecoration(
-                          border: const OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
+                            border: const OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: theme.orange
                               ),
-                          ),
+                            ),
                             errorText: signUpController.phoneNumberError.isNotEmpty
                                 ? signUpController.phoneNumberError.value
                                 : null
                         ),
-                      ),
+                      ),),
                       const Spacer(
                         flex: 2,
                       ),
