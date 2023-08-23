@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_details.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
-
-import '../../../model/MoneyModel.dart';
 import '../../Shared/balance.dart';
 
 final CustomTheme theme = CustomTheme();
-final TextEditingController _amountController = TextEditingController();
 final WithdrawMoneyController withdrawMoneyController =
     Get.put(WithdrawMoneyController());
 
@@ -75,13 +70,13 @@ class WithdrawTo extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "+254 789 895 458",
-                                  style: TextStyle(fontSize: 18),
+                                  withdrawMoneyController.withdrawToPhoneNumber.value,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -95,29 +90,26 @@ class WithdrawTo extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
+                                errorText: withdrawMoneyController.withdrawToAmountError.isNotEmpty
+                                    ? withdrawMoneyController.withdrawToAmountError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _amountController,
-                          ),
+                            controller: withdrawMoneyController.withdrawToAmountController,
+                          ),),
                           const Spacer(),
                           const SizedBox(
                             height: 20,
                           ),
                           MaterialButton(
                               onPressed: () {
-                                Get.to(() => const WithdrawConfirmDetails(),
-                                    transition: Transition.rightToLeft,
-                                    arguments: MoneyModel(
-                                        phoneNumber: "0768823983",
-                                        recipient: "Jane Makena",
-                                        amount: _amountController.text,
-                                        newBalance: "800"));
+                                withdrawMoneyController.onDepositFromMpesaClicked();
                               },
                               height: 50,
                               minWidth: double.infinity,
@@ -151,10 +143,7 @@ class WithdrawTo extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.to(
-                                    () => const WithdrawMoney(),
-                                    transition: Transition.rightToLeft,
-                                  );
+                                  withdrawMoneyController.onNewNumberClicked();
                                 },
                                 child: Text(
                                   "new number",

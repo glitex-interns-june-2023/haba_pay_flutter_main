@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
+import '../../../model/MoneyModel.dart';
 import '../../Shared/balance.dart';
 
-final TextEditingController _passwordController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 final DepositMoneyController depositMoneyController =
     Get.put(DepositMoneyController());
@@ -17,6 +17,7 @@ class DepositConfirmPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final depositMoneyModel = Get.arguments as MoneyModel;
     return Scaffold(
       backgroundColor: theme.background,
       appBar: const CustomAppBar(title: "Confirm deposit"),
@@ -72,13 +73,13 @@ class DepositConfirmPayment extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "+254 789 895 458",
-                                  style: TextStyle(fontSize: 18),
+                                  depositMoneyModel.phoneNumber,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -92,13 +93,13 @@ class DepositConfirmPayment extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "2345678 - Habapay",
-                                  style: TextStyle(fontSize: 18),
+                                  depositMoneyModel.payBillNumber!,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -112,13 +113,13 @@ class DepositConfirmPayment extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "Ksh. 400",
-                                  style: TextStyle(fontSize: 18),
+                                  depositMoneyModel.amount,
+                                  style: const TextStyle(fontSize: 18),
                                 )),
                           ),
                           const Align(
@@ -132,17 +133,22 @@ class DepositConfirmPayment extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             obscureText: true,
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
+                                errorText: depositMoneyController
+                                    .passwordError.isNotEmpty
+                                    ? depositMoneyController
+                                    .passwordError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.visiblePassword,
-                            controller: _passwordController,
-                          ),
+                            controller: depositMoneyController.passwordController,
+                          ),),
                           const Spacer(),
                           const SizedBox(
                             height: 20,
@@ -152,7 +158,7 @@ class DepositConfirmPayment extends StatelessWidget {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    Get.close(3);
+                                    depositMoneyController.cancel();
                                   },
                                   child: Container(
                                     height: 50,
@@ -175,25 +181,9 @@ class DepositConfirmPayment extends StatelessWidget {
                                 width: 20,
                               ),
                               Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    Get.to(
-                                      () => const DepositVerifyTransaction(),
-                                      transition: Transition.rightToLeft,
-                                    );
-                                  },
-                                  height: 50,
-                                  color: theme.orange,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    "Confirm",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: theme.white,
-                                        fontSize: 20),
-                                  ),
-                                ),
+                                child: CustomButton(title: "Confirm", onClick: (){
+                                  depositMoneyController.confirm();
+                                })
                               ),
                             ],
                           ),

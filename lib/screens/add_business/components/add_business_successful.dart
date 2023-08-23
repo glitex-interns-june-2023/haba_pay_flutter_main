@@ -4,6 +4,7 @@ import 'package:haba_pay_main/Theme/custom_theme.dart';
 
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/add_business/components/add_business.dart';
 
 import '../../dashboard/components/dashboard.dart';
 
@@ -77,10 +78,7 @@ class AddBusinessSuccessful extends StatelessWidget {
                             ),
                             MaterialButton(
                                 onPressed: () {
-                                  Get.offAll(
-                                        () => const Dashboard(),
-                                    transition: Transition.rightToLeft,
-                                  );
+                                  addBusinessController.onReturnHomeClicked();
                                 },
                                 height: 50,
                                 minWidth: double.infinity,

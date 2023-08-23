@@ -4,7 +4,6 @@ import 'package:haba_pay_main/model/StatementDownloadModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
-import 'package:haba_pay_main/screens/statement_download/components/statement_download_confirm_identity.dart';
 import 'package:haba_pay_main/screens/statement_download/controller/statement_download_controller.dart';
 import 'package:get/get.dart';
 
@@ -99,9 +98,7 @@ class StatementConfirmation extends StatelessWidget {
                             const Spacer(),
                             const SizedBox(height: 20,),
                             CustomButton(title: "Download", onClick: (){
-                              Get.to(() => const StatementDownloadConfirmIdentity(),
-                                  transition: Transition.rightToLeft,
-                              );
+                              statementDownloadController.onDownloadClicked();
                             }),
                             const Spacer()
                           ],

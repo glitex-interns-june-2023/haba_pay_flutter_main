@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/MoneyModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/Shared/balance.dart';
-import 'package:haba_pay_main/screens/send_money/components/confirm_details.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/send_money/controller/send_money_controller.dart';
 
-final TextEditingController _phoneNumberController = TextEditingController();
 final SendMoneyController sendMoneyController = Get.put(SendMoneyController());
-final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
 class SendMoney extends StatelessWidget {
@@ -34,11 +31,16 @@ class SendMoney extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Obx(() => Balance(
-                              balance: sendMoneyController.accountBalance.value,
-                              isVisibilityOn: sendMoneyController.isVisibilityOn.value,
-                              onVisibilityChanged: (){ sendMoneyController.onVisibilityChanged(); }
-                          ),),
+                          Obx(
+                            () => Balance(
+                                balance:
+                                    sendMoneyController.accountBalance.value,
+                                isVisibilityOn:
+                                    sendMoneyController.isVisibilityOn.value,
+                                onVisibilityChanged: () {
+                                  sendMoneyController.onVisibilityChanged();
+                                }),
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -67,19 +69,21 @@ class SendMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
-                            decoration:  InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: theme.orange
-                                  )
-                              ),
-                            ),
+                          Obx(() => TextField(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: theme.orange)),
+                                errorText: sendMoneyController
+                                    .phoneNumberError.isNotEmpty
+                                    ? sendMoneyController.phoneNumberError.value
+                                    : null),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.phone,
-                            controller: _phoneNumberController,
-                          ),
+                            controller:
+                            sendMoneyController.phoneNumberController,
+                          ),),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
@@ -91,48 +95,29 @@ class SendMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
-                            decoration:  InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: theme.orange
-                                  )
-                              ),
-                            ),
+                          Obx(() => TextField(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: theme.orange)),
+                                errorText:
+                                sendMoneyController.amountError.isNotEmpty
+                                    ? sendMoneyController.amountError.value
+                                    : null),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _amountController,
-                          ),
+                            controller: sendMoneyController.amountController,
+                          ),),
                           const Spacer(
                             flex: 2,
                           ),
-                          const SizedBox(height: 20,),
-                          MaterialButton(
-                              onPressed: () {
-                                Get.to(() => const ConfirmDetails(),
-                                    transition: Transition.rightToLeft,
-                                    arguments: MoneyModel(
-                                        phoneNumber:
-                                            _phoneNumberController.text,
-                                        recipient: "Jane Makena",
-                                        amount: _amountController.text,
-                                        newBalance: "800"));
-                              },
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: theme.orange,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 50),
-                                child: Text(
-                                  "send",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.white,
-                                      fontSize: 20),
-                                ),
-                              )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          CustomButton(title: "Send", onClick: (){
+                            sendMoneyController.onSendClicked();
+                          }),
                           const Spacer()
                         ],
                       ),

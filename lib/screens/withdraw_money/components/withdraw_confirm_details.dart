@@ -133,7 +133,7 @@ class WithdrawConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    Get.back();
+                                    withdrawMoneyController.onPopBackStack();
                                   },
                                   child: Container(
                                     height: 50,
@@ -158,10 +158,7 @@ class WithdrawConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {
-                                    Get.to(
-                                      () => const WithdrawConfirmIdentity(),
-                                      transition: Transition.rightToLeft,
-                                    );
+                                    withdrawMoneyController.onConfirmDetailsClicked();
                                   },
                                   height: 50,
                                   color: theme.orange,

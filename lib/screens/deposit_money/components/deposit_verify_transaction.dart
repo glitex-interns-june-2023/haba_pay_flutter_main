@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
@@ -150,27 +151,9 @@ class DepositVerifyTransaction extends StatelessWidget {
                                 ],
                               )
                             else
-                              MaterialButton(
-                                  onPressed: () {
-                                    Get.offAll(
-                                      () => const Dashboard(),
-                                      transition: Transition.rightToLeft,
-                                    );
-                                  },
-                                  height: 50,
-                                  minWidth: double.infinity,
-                                  color: theme.orange,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50),
-                                    child: Text(
-                                      "Return to Home",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: theme.white,
-                                          fontSize: 20),
-                                    ),
-                                  )),
+                              CustomButton(title: "Return to home", onClick: (){
+                                depositMoneyController.onReturnHomeCLicked();
+                              }),
                             const Spacer(),
                           ],
                         ),

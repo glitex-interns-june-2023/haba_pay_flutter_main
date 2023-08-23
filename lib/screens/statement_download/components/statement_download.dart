@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
-import 'package:haba_pay_main/model/StatementDownloadModel.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/Shared/title_text.dart';
-import 'package:haba_pay_main/screens/statement/components/statement.dart';
-import 'package:haba_pay_main/screens/statement_download/components/statement_confirmation.dart';
 import 'package:haba_pay_main/screens/statement_download/controller/statement_download_controller.dart';
 import 'package:get/get.dart';
 
 final CustomTheme theme = CustomTheme();
-final TextEditingController _fromController = TextEditingController();
-
-final TextEditingController _toController = TextEditingController();
-
 final StatementDownloadController statementDownloadController =
     Get.put(StatementDownloadController());
 
@@ -67,6 +60,9 @@ class StatementDownload extends StatelessWidget {
                                       color: theme.orange
                                   )
                               ),
+                                errorText: statementDownloadController.transactionTypeError.isNotEmpty
+                                    ? statementDownloadController.transactionTypeError.value
+                                    : null
                             ),
                             value:
                                 statementDownloadController.transactionType.value,
@@ -106,6 +102,9 @@ class StatementDownload extends StatelessWidget {
                                             color: theme.orange
                                         )
                                     ),
+                                      errorText: statementDownloadController.durationError.isNotEmpty
+                                          ? statementDownloadController.durationError.value
+                                          : null
                                   ),
                                   value:
                                       statementDownloadController.duration.value,
@@ -160,20 +159,23 @@ class StatementDownload extends StatelessWidget {
                                                   fontSize: 18),
                                             )),
                                       ),
-                                      TextField(
+                                      Obx(() => TextField(
                                         decoration: InputDecoration(
-                                          hintText: "mm/dd/yyyy",
-                                          border: const OutlineInputBorder(),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: theme.orange
-                                              )
-                                          ),
+                                            hintText: "mm/dd/yyyy",
+                                            border: const OutlineInputBorder(),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: theme.orange
+                                                )
+                                            ),
+                                            errorText: statementDownloadController.fromError.isNotEmpty
+                                                ? statementDownloadController.fromError.value
+                                                : null
                                         ),
                                         cursorColor: theme.orange,
                                         keyboardType: TextInputType.datetime,
-                                        controller: _fromController,
-                                      ),
+                                        controller: statementDownloadController.fromController,
+                                      ),),
                                     ],
                                   )),
                                   const SizedBox(
@@ -194,20 +196,23 @@ class StatementDownload extends StatelessWidget {
                                                   fontSize: 18),
                                             )),
                                       ),
-                                      TextField(
+                                      Obx(() => TextField(
                                         decoration:  InputDecoration(
-                                          hintText: "dd/mm/yyyy",
-                                          border: const OutlineInputBorder(),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: theme.orange
-                                              )
-                                          ),
+                                            hintText: "dd/mm/yyyy",
+                                            border: const OutlineInputBorder(),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: theme.orange
+                                                )
+                                            ),
+                                            errorText: statementDownloadController.toError.isNotEmpty
+                                                ? statementDownloadController.toError.value
+                                                : null
                                         ),
                                         cursorColor: theme.orange,
                                         keyboardType: TextInputType.datetime,
-                                        controller: _toController,
-                                      ),
+                                        controller: statementDownloadController.toController,
+                                      ),),
                                     ],
                                   ))
                                 ],
@@ -235,6 +240,9 @@ class StatementDownload extends StatelessWidget {
                                       color: theme.orange
                                   )
                               ),
+                                errorText: statementDownloadController.downloadMethodError.isNotEmpty
+                                    ? statementDownloadController.downloadMethodError.value
+                                    : null
                             ),
                             value:
                                 statementDownloadController.downloadMethod.value,
@@ -254,14 +262,7 @@ class StatementDownload extends StatelessWidget {
                         const Spacer(),
                         const SizedBox(height: 20,),
                         CustomButton(title: "confirm", onClick: () {
-                          Get.to(() => const StatementConfirmation(),
-                              transition: Transition.rightToLeft,
-                              arguments: StatementDownloadModel(
-                                statementDownloadController.transactionType.value,
-                                "${statementDownloadController.duration.value} ${_fromController.text} ${_toController.text}",
-                                statementDownloadController.downloadMethod.value
-                              )
-                          );
+                          statementDownloadController.onConfirmClicked();
                         }),
                         const Spacer()
                       ],

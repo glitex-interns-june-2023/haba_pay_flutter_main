@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 final CustomTheme theme = CustomTheme();
 final StatementController statementController = Get.put(StatementController());
+
 class Statement extends StatelessWidget {
   const Statement({super.key});
 
@@ -18,10 +19,8 @@ class Statement extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.white,
         title: Text(
-            "Statement",
-          style: TextStyle(
-            color: theme.black
-          ),
+          "Statement",
+          style: TextStyle(color: theme.black),
         ),
         actions: [
           InkWell(
@@ -134,11 +133,12 @@ class Statement extends StatelessWidget {
                         Obx(() => SliverList(
                                 delegate: SliverChildBuilderDelegate(
                               (context, index) {
-                                final transaction = statementController.updatedList[index];
+                                final transaction =
+                                    statementController.updatedList[index];
                                 return Column(
                                   children: [
                                     Align(
-                                      alignment: Alignment.topLeft,
+                                        alignment: Alignment.topLeft,
                                         child: Text(transaction.date)),
                                     const Divider(),
                                     for (var statement
@@ -146,10 +146,15 @@ class Statement extends StatelessWidget {
                                       SingleStatement(
                                           type: statement.type,
                                           onClick: () {
-                                            Get.to(()=> const TransactionDetails(),
-                                                transition: Transition.rightToLeft,
-                                              arguments: {'statement': statement, 'date': transaction.date}
-                                            );
+                                            Get.to(
+                                                () =>
+                                                    const TransactionDetails(),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                arguments: {
+                                                  'statement': statement,
+                                                  'date': transaction.date
+                                                });
                                           },
                                           name: statement.name,
                                           phoneNumber: statement.phoneNumber,

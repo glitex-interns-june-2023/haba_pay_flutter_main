@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/settings/components/verification_successful_phone_settings.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
+import 'add_phone_number_settings.dart';
 
 final CustomTheme theme = CustomTheme();
-final TextEditingController _codeController = TextEditingController();
 
 class VerifyPhoneNumberSettings extends StatelessWidget {
   const VerifyPhoneNumberSettings({super.key});
@@ -50,16 +49,19 @@ class VerifyPhoneNumberSettings extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _codeController,
+                            controller: settingsController.codeController,
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
+                                errorText: settingsController.codeError.isNotEmpty
+                                    ? settingsController.codeError.value
+                                    : null
                             ),
-                          ),
+                          ),),
                           const Spacer(
                             flex: 4,
                           ),
@@ -72,25 +74,9 @@ class VerifyPhoneNumberSettings extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          MaterialButton(
-                            onPressed: () {
-                              Get.to(
-                                  () =>
-                                      const VerificationSuccessfulPhoneSettings(),
-                                  transition: Transition.rightToLeft);
-                            },
-                            height: 50,
-                            minWidth: double.infinity,
-                            color: theme.orange,
-                            child: Text(
-                              "Verify",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: theme.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          CustomButton(title: "Verify", onClick: (){
+                            settingsController.onVerifyCodeClicked();
+                          }),
                           const Spacer()
                         ],
                       ),

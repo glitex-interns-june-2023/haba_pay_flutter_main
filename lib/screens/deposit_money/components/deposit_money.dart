@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/deposit_money/components/deposit_confirm_details.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/screens/deposit_money/components/deposit_details.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
-
-import '../../../model/MoneyModel.dart';
 import '../../Shared/balance.dart';
 
-final TextEditingController _phoneNumberController = TextEditingController();
 final DepositMoneyController depositMoneyController = Get.put(DepositMoneyController());
-final TextEditingController _amountController = TextEditingController();
 final CustomTheme theme = CustomTheme();
 
 class DepositMoney extends StatelessWidget {
@@ -73,16 +68,19 @@ class DepositMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
+                                errorText: depositMoneyController.phoneNumberError.isNotEmpty
+                                    ? depositMoneyController.phoneNumberError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.phone,
-                            controller: _phoneNumberController,
-                          ),
+                            controller: depositMoneyController.phoneNumberController,
+                          ),),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
@@ -94,42 +92,26 @@ class DepositMoney extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          TextField(
+                          Obx(() => TextField(
                             decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: theme.orange)),
+                                errorText: depositMoneyController.amountError.isNotEmpty
+                                    ? depositMoneyController.amountError.value
+                                    : null
                             ),
                             cursorColor: theme.orange,
                             keyboardType: TextInputType.number,
-                            controller: _amountController,
-                          ),
+                            controller: depositMoneyController.amountController,
+                          ),),
                           const Spacer(
                             flex: 2,
                           ),
                           const SizedBox(height: 20,),
-                          MaterialButton(
-                              onPressed: () {
-                                Get.to(() => const DepositConfirmDetails(),
-                                    transition: Transition.rightToLeft,
-                                    arguments: MoneyModel(
-                                        phoneNumber:
-                                            _phoneNumberController.text,
-                                        recipient: "Jane Makena",
-                                        amount: _amountController.text,
-                                        newBalance: "800",
-                                        payBillNumber: "12344 Habapay"));
-                              },
-                              height: 50,
-                              minWidth: double.infinity,
-                              color: theme.orange,
-                              child: Text(
-                                "Proceed with number",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.white,
-                                    fontSize: 18),
-                              )),
+                          CustomButton(title: "Proceed with number", onClick: (){
+                            depositMoneyController.proceedWithNumber();
+                          }),
                           const SizedBox(
                             height: 20,
                           ),
@@ -142,10 +124,7 @@ class DepositMoney extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.to(
-                                    () => const DepositDetails(),
-                                    transition: Transition.rightToLeft,
-                                  );
+                                  depositMoneyController.useMyNumber();
                                 },
                                 child: Text(
                                   "my number",

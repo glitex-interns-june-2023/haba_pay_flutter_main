@@ -32,13 +32,6 @@ class SharedPinController extends GetxController{
     }
   }
 
-  login() async{
-    if(pin.length < 4){
-      //enter four characters
-    }
-    //compare the pin with local storage pin
-  }
-
   confirmLoginPin(Function() onConfirm) async{
     var finishPin = await _secureStorage.getPin();
     if(pin.length < 4){

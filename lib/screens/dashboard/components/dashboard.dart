@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/Theme/custom_theme.dart';
 import '../../home/components/home.dart';
 import '../../settings/components/settings.dart';
 import '../../settings/components/update_login_pin.dart';
 import '../../statement/components/statement.dart';
 import '../controller/dashboard_controller.dart';
 
+final CustomTheme theme = CustomTheme();
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
@@ -22,14 +24,14 @@ class _DashboardState extends State<Dashboard> {
         body: Obx(
           () => IndexedStack(
             index: bottomNavController.tabIndex.value,
-            children: const [Statement(), Home(), Settings(), UpdateLoginPin()],
+            children: const [Statement(), Home(), Settings()],
           ),
         ),
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
               elevation: 0,
-              unselectedItemColor: Colors.black,
-              selectedItemColor: Colors.orange,
+              unselectedItemColor: theme.black,
+              selectedItemColor: theme.orange,
               currentIndex: bottomNavController.tabIndex.value,
               type: BottomNavigationBarType.fixed,
               onTap: bottomNavController.changeTabIndex,
