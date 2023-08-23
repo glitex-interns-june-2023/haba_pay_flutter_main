@@ -52,8 +52,9 @@ class SettingsController extends GetxController {
     }
   }
 
-  onQuickLoginChanged(bool isQuickLoginChecked) async {
-    await _secureStorage.setQuickLogin(isQuickLoginChecked.toString());
+  onQuickLoginChanged(bool isSwitched) async {
+    isQuickLoginChecked.value = isSwitched;
+    await _secureStorage.setQuickLogin(isSwitched.toString());
   }
 
   onUpdatePinClicked() {

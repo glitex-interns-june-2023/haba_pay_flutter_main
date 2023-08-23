@@ -132,13 +132,13 @@ class Settings extends StatelessWidget {
                                 child: SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
                               ),
                               Expanded(
-                                child: Switch(
-                                  activeColor: theme.orange,
+                                child: Obx(() => Switch(
+                                    activeColor: theme.orange,
                                     value: settingsController.isQuickLoginChecked.value,
-                                    onChanged: (bool isChecked){
-                                      settingsController.onQuickLoginChanged(isChecked);
+                                    onChanged: (bool newValue){
+                                      settingsController.onQuickLoginChanged(newValue);
                                     }
-                                ),
+                                ),),
                               )
                             ],
                           ),
