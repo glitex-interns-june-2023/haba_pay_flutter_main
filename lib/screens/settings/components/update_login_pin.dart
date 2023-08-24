@@ -72,9 +72,6 @@ class UpdateLoginPin extends StatelessWidget {
                                     : null),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
                         Align(
                           alignment: Alignment.topLeft,
                           child: InkWell(

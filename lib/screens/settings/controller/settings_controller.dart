@@ -9,7 +9,7 @@ import '../components/verify_phone_number_settings.dart';
 
 class SettingsController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
-  var obscurePin = [false,false,false].obs;
+  var obscurePin = [true,true,true].obs;
 
   var isQuickLoginChecked = false.obs;
   var codeError = "".obs;
