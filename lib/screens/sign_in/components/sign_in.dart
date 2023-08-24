@@ -65,7 +65,7 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Obx(() => MaterialButton(
                             onPressed: () {
-                              Get.to(
+                              Get.offAll(
                                     () => const Dashboard(),
                                 transition: Transition.rightToLeft,
                               );
