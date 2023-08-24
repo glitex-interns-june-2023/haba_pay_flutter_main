@@ -9,7 +9,6 @@ class LoadingController extends GetxController{
   Future<void> onInit() async {
     super.onInit();
     var quickLogin = await _secureStorage.getQuickLogin();
-    print("[[[[[[[[[[[[[[[[[[[[[[[[[[$quickLogin}");
     if(quickLogin == "true"){
       Get.to(() => const PinLogin(),
           transition: Transition.rightToLeft);
