@@ -33,8 +33,8 @@ class SettingsController extends GetxController {
   @override
   Future<void> onInit()  async {
     super.onInit();
-    isQuickLoginChecked.value = (await _secureStorage.getQuickLogin()) as bool;
-    print("${isQuickLoginChecked.value}");
+    var quickLogin = await _secureStorage.getQuickLogin();
+    print("-----------------------$quickLogin");
   }
 
 
