@@ -68,10 +68,16 @@ class SettingsController extends GetxController {
   onUpdatePinClicked() async{
     if (currentPinController.text.isEmpty) {
       currentPinError.value = "Enter a valid value";
+    } else if (currentPinController.text.length < 4) {
+      currentPinError.value = "Enter 4 numbers";
     } else if (newPinController.text.isEmpty) {
       newPinError.value = "Enter a valid value";
+    } else if (newPinController.text.length < 4) {
+      newPinError.value = "Enter 4 number";
     } else if (confirmPinController.text.isEmpty) {
       confirmPinError.value = "Enter a valid value";
+    } else if (confirmPinController.text.length < 4) {
+      confirmPinError.value = "Enter 4 numbers";
     } else {
       var currentPin = await _secureStorage.getPin();
       currentPin = currentPin?.replaceAll('[', '').replaceAll(']', '').replaceAll(',', '').removeAllWhitespace;
