@@ -10,10 +10,10 @@ class LoadingController extends GetxController{
     super.onInit();
     var quickLogin = await _secureStorage.getQuickLogin();
     if(quickLogin == "true"){
-      Get.to(() => const PinLogin(),
+      Get.offAll(() => const PinLogin(),
           transition: Transition.rightToLeft);
     } else {
-      Get.to(() => const SignUp(),
+      Get.offAll(() => const SignUp(),
           transition: Transition.rightToLeft);
     }
   }

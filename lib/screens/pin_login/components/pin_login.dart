@@ -24,16 +24,13 @@ class PinLogin extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      const Spacer(
-                        flex: 2,
-                      ),
+                      const Spacer(),
                       const Text(
                         "Good afternoon, Brian",
                         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                      const Spacer(
-                        flex: 2,
-                      ),
+                      const SizedBox(height: 20,),
+                      const Spacer(),
                       Obx(() => Row(
                             children: [
                               const Spacer(),
@@ -62,9 +59,8 @@ class PinLogin extends StatelessWidget {
                               const Spacer(),
                             ],
                           )),
-                      const Spacer(
-                        flex: 2,
-                      ),
+                      const SizedBox(height: 20,),
+                      const Spacer(),
                       Row(
                         children: [
                           const Spacer(),
@@ -91,7 +87,7 @@ class PinLogin extends StatelessWidget {
                           const Spacer()
                         ],
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 20,),
                       Row(
                         children: [
                           const Spacer(),
@@ -118,7 +114,7 @@ class PinLogin extends StatelessWidget {
                           const Spacer()
                         ],
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 20,),
                       Row(
                         children: [
                           const Spacer(),
@@ -145,7 +141,7 @@ class PinLogin extends StatelessWidget {
                           const Spacer()
                         ],
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 20,),
                       Row(
                         children: [
                           const Spacer(),
@@ -176,6 +172,7 @@ class PinLogin extends StatelessWidget {
                           const Spacer()
                         ],
                       ),
+                      const Spacer(),
                       const SizedBox(height: 20,),
                       CustomButton(title: "Log in", onClick: (){
                         pinLoginController.confirmLoginPin();
