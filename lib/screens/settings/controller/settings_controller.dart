@@ -61,8 +61,18 @@ class SettingsController extends GetxController {
 
   onQuickLoginChanged(bool isSwitched) async {
     isQuickLoginChecked.value = isSwitched;
-    await _secureStorage.setQuickLogin("${isQuickLoginChecked.value}");
-    var quickLogin = await _secureStorage.getQuickLogin();
+    var pin = await _secureStorage.getPin();
+    if(pin!.isEmpty){
+      Get.showSnackbar(
+        const GetSnackBar(
+          isDismissible: true,
+          message: 'Set a pin first',
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      await _secureStorage.setQuickLogin("${isQuickLoginChecked.value}");
+    }
   }
 
   onUpdatePinClicked() async {
