@@ -45,6 +45,7 @@ import '../screens/statement/components/statement.dart';
 import '../services/pin_secure_storage.dart';
 
 class AppPage{
+  static String loading = "/";
   static String dashboard = "/dashboard";
   static String home = "/home";
   static String settings = "/settings";
