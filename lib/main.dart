@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getSettings(),
+      initialRoute: AppPage.getUpdateLoginPin(),
       getPages: AppPage.routes,
     ),
   );

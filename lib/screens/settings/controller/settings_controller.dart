@@ -29,10 +29,12 @@ class SettingsController extends GetxController {
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   @override
-  void onInit() async{
+  Future<void> onInit()  async {
     super.onInit();
     isQuickLoginChecked.value = (await _secureStorage.getQuickLogin()) as bool;
+    print("${isQuickLoginChecked.value}");
   }
+
 
   onAddPhoneNumberClicked() {
     if (phoneNumberController.text.isEmpty) {
@@ -54,10 +56,10 @@ class SettingsController extends GetxController {
 
   onQuickLoginChanged(bool isSwitched) async {
     isQuickLoginChecked.value = isSwitched;
-    await _secureStorage.setQuickLogin(isSwitched.toString());
+    await _secureStorage.setQuickLogin(isQuickLoginChecked.value as String);
   }
 
-  onUpdatePinClicked() {
+  onUpdatePinClicked() async{
     if (currentPinController.text.isEmpty) {
       currentPinError.value = "Enter a valid value";
     } else if (newPinController.text.isEmpty) {
@@ -65,7 +67,16 @@ class SettingsController extends GetxController {
     } else if (confirmPinController.text.isEmpty) {
       confirmPinError.value = "Enter a valid value";
     } else {
-      Get.to(() => const PinUpdated(), transition: Transition.rightToLeft);
+      var currentPin = await _secureStorage.getPin();
+      currentPin = currentPin?.replaceAll('[', '').replaceAll(']', '').replaceAll(',', '').removeAllWhitespace;
+      if(currentPinController.text != currentPin){
+        currentPinError.value = "Wrong pin";
+      } else if(newPinController.text != confirmPinController.text){
+        confirmPinError.value = "Pin does not match";
+      } else {
+        await _secureStorage.setPin(confirmPinController.text);
+        Get.to(() => const PinUpdated(), transition: Transition.rightToLeft);
+      }
     }
   }
 
