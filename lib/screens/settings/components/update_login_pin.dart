@@ -151,6 +151,7 @@ class UpdateLoginPin extends StatelessWidget {
                                     icon: !settingsController.obscurePin[2]
                                         ? const Icon(Icons.visibility)
                                         : const Icon(Icons.visibility_off)),
+                                suffixIconColor: theme.orange,
                                 border: const OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
