@@ -176,7 +176,6 @@ class PinLogin extends StatelessWidget {
                           const Spacer()
                         ],
                       ),
-                      const Spacer(),
                       const SizedBox(height: 20,),
                       CustomButton(title: "Log in", onClick: (){
                         pinLoginController.confirmLoginPin();
