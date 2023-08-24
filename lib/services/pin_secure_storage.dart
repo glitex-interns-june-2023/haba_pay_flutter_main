@@ -4,12 +4,21 @@ class SecureStorage {
 
   final storage = const FlutterSecureStorage();
 
+  final String _quickLogin = "quick_login";
   final String _keyPin = "pin";
   final String _keyUserName = "username";
   final String _keyClientId = "client_id";
   final String _keyEmail = "email";
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
+
+  Future setQuickLogin(String quickLogin) async {
+    await storage.write(key: _quickLogin, value: quickLogin);
+  }
+
+  Future<String?> getQuickLogin() async {
+    return await storage.read(key: _quickLogin);
+  }
 
   Future setPin(String pin) async {
     await storage.write(key: _keyPin, value: pin);

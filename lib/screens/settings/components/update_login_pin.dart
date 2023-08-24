@@ -48,9 +48,20 @@ class UpdateLoginPin extends StatelessWidget {
                         ),
                         Obx(
                           () => TextField(
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            obscureText: settingsController.obscurePin[0],
                             cursorColor: theme.orange,
                             controller: settingsController.currentPinController,
                             decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      settingsController.onObscurePin(0);
+                                    },
+                                    icon: !settingsController.obscurePin[0]
+                                        ? const Icon(Icons.visibility)
+                                        : const Icon(Icons.visibility_off)),
+                                suffixIconColor: theme.orange,
                                 border: const OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -60,9 +71,6 @@ class UpdateLoginPin extends StatelessWidget {
                                     ? settingsController.currentPinError.value
                                     : null),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
                         ),
                         Align(
                           alignment: Alignment.topLeft,
@@ -90,9 +98,20 @@ class UpdateLoginPin extends StatelessWidget {
                         ),
                         Obx(
                           () => TextField(
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            obscureText: settingsController.obscurePin[1],
                             cursorColor: theme.orange,
                             controller: settingsController.newPinController,
                             decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      settingsController.onObscurePin(1);
+                                    },
+                                    icon: !settingsController.obscurePin[1]
+                                        ? const Icon(Icons.visibility)
+                                        : const Icon(Icons.visibility_off)),
+                                suffixIconColor: theme.orange,
                                 border: const OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -116,9 +135,20 @@ class UpdateLoginPin extends StatelessWidget {
                         ),
                         Obx(
                           () => TextField(
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            obscureText: settingsController.obscurePin[2],
                             controller: settingsController.confirmPinController,
                             cursorColor: theme.orange,
                             decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      settingsController.onObscurePin(2);
+                                    },
+                                    icon: !settingsController.obscurePin[2]
+                                        ? const Icon(Icons.visibility)
+                                        : const Icon(Icons.visibility_off)),
+                                suffixIconColor: theme.orange,
                                 border: const OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:

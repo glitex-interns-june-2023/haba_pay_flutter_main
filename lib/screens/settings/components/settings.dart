@@ -125,7 +125,23 @@ class Settings extends StatelessWidget {
                           SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Change login PIN", onClick: (){
                             Get.to(()=> const UpdateLoginPin(), transition: Transition.rightToLeft);
                           }),
-                          SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
+                              ),
+                              Expanded(
+                                child: Obx(() => Switch(
+                                    activeColor: theme.orange,
+                                    value: settingsController.isQuickLoginChecked.value,
+                                    onChanged: (bool newValue){
+                                      settingsController.onQuickLoginChanged(newValue);
+                                    }
+                                ),),
+                              )
+                            ],
+                          ),
                           SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){
                             settingsController.logout();
                           }),
