@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 
 final CustomTheme theme = CustomTheme();
@@ -9,9 +8,9 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => CircularProgressIndicator(
+      body: CircularProgressIndicator(
         color: theme.orange,
-      )),
+      ),
     );
   }
 }
