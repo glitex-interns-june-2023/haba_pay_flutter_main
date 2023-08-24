@@ -60,7 +60,6 @@ class SettingsController extends GetxController {
   }
 
   onQuickLoginChanged(bool isSwitched) async {
-    isQuickLoginChecked.value = isSwitched;
     var pin = await _secureStorage.getPin();
     if(pin!.isEmpty){
       Get.showSnackbar(
@@ -71,6 +70,7 @@ class SettingsController extends GetxController {
         ),
       );
     } else {
+      isQuickLoginChecked.value = isSwitched;
       await _secureStorage.setQuickLogin("${isQuickLoginChecked.value}");
     }
   }
