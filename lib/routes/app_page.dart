@@ -7,6 +7,7 @@ import 'package:haba_pay_main/screens/deposit_money/components/deposit_money.dar
 import 'package:haba_pay_main/screens/deposit_money/components/deposit_verify_transaction.dart';
 import 'package:haba_pay_main/screens/faqs_and_tcs/components/faqs.dart';
 import 'package:haba_pay_main/screens/faqs_and_tcs/components/tcs.dart';
+import 'package:haba_pay_main/screens/loading/Loading.dart';
 import 'package:haba_pay_main/screens/pin_login/components/pin_login.dart';
 import 'package:haba_pay_main/screens/send_money/components/send_money.dart';
 import 'package:haba_pay_main/screens/send_money/components/verifying_transaction.dart';
@@ -90,6 +91,7 @@ class AppPage{
   static String statementDownloadConfirmIdentity = "/statement_download_confirm_identity";
   static String statementPreparingDownload = "/statement_preparing_download";
 
+  static getLoading() => loading;
   static getDashboard() => dashboard;
   static getHome() => home;
   static getSettings() => settings;
@@ -135,6 +137,7 @@ class AppPage{
   static getStatementPreparingDownload() => statementPreparingDownload;
 
   static List<GetPage> routes = [
+    GetPage(name: loading, page: () => const Loading()),
     GetPage(name: dashboard, page: () => const Dashboard()),
     GetPage(name: home, page: () => const Home()),
     GetPage(name: settings, page: () => const Settings()),
