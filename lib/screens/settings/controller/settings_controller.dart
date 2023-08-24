@@ -9,7 +9,7 @@ import '../components/verify_phone_number_settings.dart';
 
 class SettingsController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
-  var obscurePin = [true,true,true].obs;
+  var obscurePin = [true, true, true].obs;
 
   var isQuickLoginChecked = false.obs;
   var codeError = "".obs;
@@ -31,15 +31,13 @@ class SettingsController extends GetxController {
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   @override
-  Future<void> onInit()  async {
+  Future<void> onInit() async {
     super.onInit();
     var quickLogin = await _secureStorage.getQuickLogin();
     isQuickLoginChecked.value = quickLogin == "true" ? true : false;
-    print("==============${isQuickLoginChecked.value}");
   }
 
-
-  onObscurePin(int index){
+  onObscurePin(int index) {
     obscurePin[index] = !obscurePin[index];
   }
 
@@ -66,7 +64,7 @@ class SettingsController extends GetxController {
     await _secureStorage.setQuickLogin(isQuickLoginChecked.value as String);
   }
 
-  onUpdatePinClicked() async{
+  onUpdatePinClicked() async {
     if (currentPinController.text.isEmpty) {
       currentPinError.value = "Enter a valid value";
     } else if (currentPinController.text.length < 4) {
@@ -81,10 +79,14 @@ class SettingsController extends GetxController {
       confirmPinError.value = "Enter 4 numbers";
     } else {
       var currentPin = await _secureStorage.getPin();
-      currentPin = currentPin?.replaceAll('[', '').replaceAll(']', '').replaceAll(',', '').removeAllWhitespace;
-      if(currentPinController.text != currentPin){
+      currentPin = currentPin
+          ?.replaceAll('[', '')
+          .replaceAll(']', '')
+          .replaceAll(',', '')
+          .removeAllWhitespace;
+      if (currentPinController.text != currentPin) {
         currentPinError.value = "Wrong pin";
-      } else if(newPinController.text != confirmPinController.text){
+      } else if (newPinController.text != confirmPinController.text) {
         confirmPinError.value = "Pin does not match";
       } else {
         await _secureStorage.setPin(confirmPinController.text);
