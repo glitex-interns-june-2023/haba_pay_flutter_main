@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:haba_pay_main/model/GoogleToken.dart';
 import 'package:haba_pay_main/model/User.dart';
+import 'package:haba_pay_main/model/UserModel.dart';
 import 'package:haba_pay_main/model/sign_in_entity.dart';
 import 'package:haba_pay_main/routes/app_page.dart';
+import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 import '../components/add_phone_number.dart';
@@ -46,27 +49,31 @@ class SignUpController extends GetxController {
     }
   }
   signUp() async {
-    // mydebug - Move to next screen for testing purposes
     Get.toNamed(AppPage.getAddPhoneNumber());
-    return;
     isLoading(true);
-    try {
-      googleAccount.value = await _googleSignIn.signIn();
-      if (googleAccount.value == null) {
-        Get.showSnackbar(
-          const GetSnackBar(
-            message: 'Unknown error occurred',
-            duration: Duration(seconds: 2),
-          ),
-        );
+    try{
+      var response = await BaseClient.post(
+        "/api/v1/auth/google",
+        GoogleToken(token : await _secureStorage.getClientId())
+      ).catchError((onError){
+        
+      });
+      
+      if(response != null){
+        var user = userModelFromJson(response);
+        if(user.success != false){
+          await _secureStorage.setEmail(user.data!.email);
+          await _secureStorage.setUserName(user.data!.username);
+          await _secureStorage.setPhoneNumber(user.data!.phone);
+          await _secureStorage.setAuthToken(user.data!.accessToken);
+          await _secureStorage.setRefreshToken(user.data!.refreshToken);
+        } else {
+
+        }
       } else {
-        await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
-        await _secureStorage
-            .setUserName(googleAccount.value?.displayName ?? "no name");
-        await _secureStorage.setEmail(googleAccount.value?.email ?? "no email");
-        Get.to(() => const AddPhoneNumber(),
-            transition: Transition.rightToLeft);
+
       }
+      
     } finally {
       isLoading(false);
     }

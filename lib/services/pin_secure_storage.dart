@@ -11,6 +11,15 @@ class SecureStorage {
   final String _keyEmail = "email";
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
+  final String _keyRefreshToken = "refresh_token";
+
+  Future setRefreshToken(String refreshToken) async {
+    await storage.write(key: _keyRefreshToken, value: refreshToken);
+  }
+
+  Future<String?> getRefreshToken() async {
+    return await storage.read(key: _keyRefreshToken);
+  }
 
   Future setQuickLogin(String quickLogin) async {
     await storage.write(key: _quickLogin, value: quickLogin);
