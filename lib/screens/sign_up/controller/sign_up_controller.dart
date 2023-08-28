@@ -47,6 +47,7 @@ class SignUpController extends GetxController {
     Get.toNamed(AppPage.getAddPhoneNumber());
     isLoading(true);
     try{
+
       var response = await BaseClient.post(
         "/api/v1/auth/google",
         GoogleToken(token : await _secureStorage.getClientId())
