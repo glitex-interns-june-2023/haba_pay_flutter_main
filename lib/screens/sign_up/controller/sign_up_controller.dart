@@ -6,7 +6,6 @@ import 'package:haba_pay_main/model/UserModel.dart';
 import 'package:haba_pay_main/routes/app_page.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
-
 import '../components/verification_successful.dart';
 import '../components/verify_phone_number.dart';
 
@@ -47,6 +46,7 @@ class SignUpController extends GetxController {
     Get.toNamed(AppPage.getAddPhoneNumber());
     isLoading(true);
     try{
+      googleAccount.value = await _googleSignIn.signIn();
 
       var response = await BaseClient.post(
         "/api/v1/auth/google",
