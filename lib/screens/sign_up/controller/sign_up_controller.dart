@@ -43,18 +43,18 @@ class SignUpController extends GetxController {
     }
   }
   signUp() async {
-    Get.toNamed(AppPage.getAddPhoneNumber());
+    //Get.toNamed(AppPage.getAddPhoneNumber());
     isLoading(true);
     try{
       googleAccount.value = await _googleSignIn.signIn();
-
+      var credential = await _googleSignIn.currentUser!.authentication;
       var response = await BaseClient.post(
         "/api/v1/auth/google",
         GoogleToken(token : await _secureStorage.getClientId())
       ).catchError((onError){
         Get.showSnackbar(
           GetSnackBar(
-            message: onError,
+            message: onError.toString(),
             duration: const Duration(seconds: 3),
           )
         );

@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:haba_pay_main/model/sign_in_entity.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 
 class SignInController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
-  var user = SignInEntity().obs;
   var isLoading = false.obs;
   final _googleSignIn = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
