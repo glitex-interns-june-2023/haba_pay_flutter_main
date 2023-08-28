@@ -9,7 +9,6 @@ import 'package:haba_pay_main/routes/app_page.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
-import '../components/add_phone_number.dart';
 import '../components/verification_successful.dart';
 import '../components/verify_phone_number.dart';
 
@@ -18,8 +17,6 @@ class SignUpController extends GetxController {
   var codeError = "".obs;
   var phoneNumberController = TextEditingController();
   var codeController = TextEditingController();
-  var userInfo = User().obs;
-  var user = SignInEntity().obs;
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
   final _googleSignIn = GoogleSignIn();
@@ -56,11 +53,17 @@ class SignUpController extends GetxController {
         "/api/v1/auth/google",
         GoogleToken(token : await _secureStorage.getClientId())
       ).catchError((onError){
-        
+        Get.showSnackbar(
+          GetSnackBar(
+            message: onError,
+            duration: const Duration(seconds: 3),
+          )
+        );
       });
-      
+
+      var user = userModelFromJson(response);
+
       if(response != null){
-        var user = userModelFromJson(response);
         if(user.success != false){
           await _secureStorage.setEmail(user.data!.email);
           await _secureStorage.setUserName(user.data!.username);
@@ -68,10 +71,20 @@ class SignUpController extends GetxController {
           await _secureStorage.setAuthToken(user.data!.accessToken);
           await _secureStorage.setRefreshToken(user.data!.refreshToken);
         } else {
-
+          Get.showSnackbar(
+              GetSnackBar(
+                message: user.message,
+                duration: const Duration(seconds: 3),
+              )
+          );
         }
       } else {
-
+        Get.showSnackbar(
+            GetSnackBar(
+              message: user.message,
+              duration: const Duration(seconds: 3),
+            )
+        );
       }
       
     } finally {
