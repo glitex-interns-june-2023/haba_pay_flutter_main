@@ -59,6 +59,7 @@ class AddPhoneNumber extends StatelessWidget {
                       const Spacer(
                         flex: 2,
                       ),
+                      if(signUpController.isLoading.isTrue) const CircularProgressIndicator() else const SizedBox(height: 20,),
                       const SizedBox(height: 20,),
                       CustomButton(title: "Add", onClick: (){
                         signUpController.onAddClicked();
