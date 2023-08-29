@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:haba_pay_main/model/AccountBalanceModel.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 import '../../../model/StatementModel.dart';
+import '../../../services/base_client.dart';
 
 class HomeController extends GetxController{
+  final SecureStorage _secureStorage = SecureStorage();
+  var isLoading = false.obs;
   var phoneNumber = "+254 767 784 774".obs;
   var list = [
     StatementModel(22,"Jane Mukenya", 'deposit', "Ksh 400",
@@ -17,7 +22,36 @@ class HomeController extends GetxController{
         "+254 787 787 879", "12:45 pm"),
   ].obs;
 
-  var accountBalance = "Ksh 90,000".obs;
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    isLoading(true);
+    try {
+      var response = await BaseClient.get(
+          "/api/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
+          .catchError((onError) {
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      });
+
+      var success = AccountBalanceModel.fromJson(response);
+
+      if (success.success == true) {
+        accountBalance.value = "${success.data.currency} ${success.data.balance}";
+      } else {
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  var accountBalance = "".obs;
   var isVisibilityOn = false.obs;
 
   onVisibilityChanged(){
