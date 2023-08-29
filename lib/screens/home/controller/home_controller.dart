@@ -9,6 +9,7 @@ class HomeController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
   var phoneNumber = "+254 767 784 774".obs;
+  var accountBalance = "Refresh".obs;
   var list = [
     StatementModel(22,"Jane Mukenya", 'deposit', "Ksh 400",
         "+254 787 787 879", "12:45 pm"),
@@ -27,6 +28,8 @@ class HomeController extends GetxController{
     super.onInit();
     isLoading(true);
     try {
+      phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
+      accountBalance.value = (await _secureStorage.getAccountBalance())!;
       var response = await BaseClient.get(
           "/api/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
           .catchError((onError) {
@@ -40,6 +43,7 @@ class HomeController extends GetxController{
 
       if (success.success == true) {
         accountBalance.value = "${success.data.currency} ${success.data.balance}";
+        await _secureStorage.setAccountBalance("${success.data.currency} ${success.data.balance}");
       } else {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
@@ -51,7 +55,6 @@ class HomeController extends GetxController{
     }
   }
 
-  var accountBalance = "".obs;
   var isVisibilityOn = false.obs;
 
   onVisibilityChanged(){

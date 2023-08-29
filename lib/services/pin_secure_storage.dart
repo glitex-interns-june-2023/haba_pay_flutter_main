@@ -4,6 +4,7 @@ class SecureStorage {
 
   final storage = const FlutterSecureStorage();
 
+  final String _keyAccountBalance = "account_balance";
   final String _keyFirstName = "first_name";
   final String _keyLastName = "last_name";
   final String _keyQuickLogin = "quick_login";
@@ -14,6 +15,14 @@ class SecureStorage {
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
   final String _keyRefreshToken = "refresh_token";
+
+  Future setAccountBalance(String accountBalance) async {
+    await storage.write(key: _keyAccountBalance, value: accountBalance);
+  }
+
+  Future<String?> getAccountBalance() async {
+    return await storage.read(key: _keyAccountBalance);
+  }
 
   Future setFirstName(String firstName) async {
     await storage.write(key: _keyFirstName, value: firstName);
