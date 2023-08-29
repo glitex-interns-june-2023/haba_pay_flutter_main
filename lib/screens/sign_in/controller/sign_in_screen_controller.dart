@@ -43,7 +43,10 @@ class SignInController extends GetxController{
           await _secureStorage.setPhoneNumber(user.data!.phone);
           await _secureStorage.setAuthToken(user.data!.accessToken);
           await _secureStorage.setRefreshToken(user.data!.refreshToken);
-          Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
+          Get.offAll(
+                () => const Dashboard(),
+            transition: Transition.rightToLeft,
+          );
         } else {
           Get.showSnackbar(GetSnackBar(
             message: user.message,

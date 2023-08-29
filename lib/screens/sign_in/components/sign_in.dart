@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/sign_in/controller/sign_in_screen_controller.dart';
 
@@ -63,38 +64,15 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(height: 20,),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Obx(() => MaterialButton(
-                            onPressed: () {
-                              Get.offAll(
-                                    () => const Dashboard(),
-                                transition: Transition.rightToLeft,
-                              );
-                            },
-                            height: 50,
-                            color: theme.orange,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (!signInController.isLoading.value)
-                                  SvgPicture.asset(
-                                      'assets/images/google_logo.svg')
-                                else
-                                  Icon(
-                                    Icons.refresh,
-                                    color: theme.white,
-                                  ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Continue with Google",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.white,
-                                      fontSize: 18),
-                                )
-                              ],
-                            )))),
+                        child: Obx(() =>
+                            CustomButton(
+                              isSvgVector: true,
+                                svgVector: "assets/images/google_logo.svg",
+                                isLoading: signInController.isLoading.value,
+                                title: "Continue with Google", onClick: (){
+                              signInController.login();
+                            }),
+                        )),
                     const SizedBox(
                       height: 20,
                     ),
