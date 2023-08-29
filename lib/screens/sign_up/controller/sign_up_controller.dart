@@ -47,7 +47,12 @@ class SignUpController extends GetxController {
     isLoading(true);
     try {
       googleAccount.value = await _googleSignIn.signIn();
-      var credential = await _googleSignIn.currentUser!.authentication;
+      var credential = await _googleSignIn.currentUser!.authentication.catchError((onError){
+        Get.showSnackbar(GetSnackBar(
+          message: "----------------auth error ======================${onError.toString()}",
+          duration: const Duration(seconds: 3),
+        ));
+      });
       var response = await BaseClient.post("/api/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
