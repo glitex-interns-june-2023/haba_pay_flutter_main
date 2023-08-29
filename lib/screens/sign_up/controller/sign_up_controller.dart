@@ -19,99 +19,69 @@ class SignUpController extends GetxController {
   final _googleSignIn = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
-  onVerifyClicked(){
-    if(codeController.text.isEmpty){
+  onVerifyClicked() {
+    if (codeController.text.isEmpty) {
       codeError.value = "Enter a valid code";
     } else {
       Get.to(
-            () => const VerificationSuccessful(),
+        () => const VerificationSuccessful(),
         transition: Transition.rightToLeft,
       );
     }
   }
 
-  onAddClicked() async{
-    if(phoneNumberController.text.isEmpty){
+  onAddClicked() async {
+    if (phoneNumberController.text.isEmpty) {
       phoneNumberError.value = "Enter a valid number";
-    } else if(phoneNumberController.text.length < 10) {
+    } else if (phoneNumberController.text.length < 10) {
       phoneNumberError.value = "Phone should be at least 10 digits";
     } else {
       Get.to(
-            () => const VerifyPhoneNumber(),
+        () => const VerifyPhoneNumber(),
         transition: Transition.rightToLeft,
       );
     }
   }
+
   signUp() async {
-    //Get.toNamed(AppPage.getAddPhoneNumber());
     isLoading(true);
-    try{
+    try {
       googleAccount.value = await _googleSignIn.signIn();
       var credential = await _googleSignIn.currentUser!.authentication;
-      var response = await BaseClient.post(
-        "/api/v1/auth/google",
-        GoogleTokenModel(token: await _secureStorage.getClientId())
-      ).catchError((onError){
-        Get.showSnackbar(
-          GetSnackBar(
-            message: onError.toString(),
-            duration: const Duration(seconds: 3),
-          )
-        );
+      var response = await BaseClient.post("/api/v1/auth/google",
+              GoogleTokenModel(token: credential.idToken))
+          .catchError((onError) {
+        Get.showSnackbar(GetSnackBar(
+          message: onError.toString(),
+          duration: const Duration(seconds: 3),
+        ));
       });
 
       var user = userModelFromJson(response);
 
-      if(response != null){
-        if(user.success != false){
+      if (response != null) {
+        if (user.success != false) {
           await _secureStorage.setEmail(user.data!.email);
           await _secureStorage.setUserName(user.data!.username);
           await _secureStorage.setPhoneNumber(user.data!.phone);
           await _secureStorage.setAuthToken(user.data!.accessToken);
           await _secureStorage.setRefreshToken(user.data!.refreshToken);
-          Get.to(()=> const AddPhoneNumber(), transition: Transition.rightToLeft);
+          Get.to(() => const AddPhoneNumber(),
+              transition: Transition.rightToLeft);
         } else {
-          Get.showSnackbar(
-              GetSnackBar(
-                message: user.message,
-                duration: const Duration(seconds: 3),
-              )
-          );
+          Get.showSnackbar(GetSnackBar(
+            message: user.message,
+            duration: const Duration(seconds: 3),
+          ));
         }
       } else {
-        Get.showSnackbar(
-            GetSnackBar(
-              message: user.message,
-              duration: const Duration(seconds: 3),
-            )
-        );
+        Get.showSnackbar(GetSnackBar(
+          message: user.message,
+          duration: const Duration(seconds: 3),
+        ));
       }
-      
     } finally {
       isLoading(false);
     }
   }
-
-  // sendUserInfo() async{
-  //   isLoading(true);
-  //   try{
-  //     userInfo(
-  //      User(
-  //        username: await _secureStorage.getUserName(),
-  //        clientId: await _secureStorage.getClientId(),
-  //        email: await _secureStorage.getEmail(),
-  //        phoneNumber: await _secureStorage.getPhoneNumber()
-  //      )
-  //     );
-  //     // var response = await BaseClient.post(
-  //     //     "/sign_up",
-  //     //     userInfo
-  //     // );
-  //     // user(SignInEntity.fromJson(response));
-  //     await _secureStorage.setAuthToken(user.value.accessToken);
-  //     Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 }
