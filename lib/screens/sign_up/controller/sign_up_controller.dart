@@ -18,6 +18,7 @@ class SignUpController extends GetxController {
   var codeController = TextEditingController();
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
+  var isPhoneNumberLoading = false.obs;
   final _googleSignIn = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
@@ -38,7 +39,7 @@ class SignUpController extends GetxController {
     } else if (phoneNumberController.text.length < 10) {
       phoneNumberError.value = "Phone should be at least 10 digits";
     } else {
-      isLoading(true);
+      isPhoneNumberLoading(true);
       try {
         var response = await BaseClient.post("/api/v1/auth/send-otp",
             SendOtpModel(phoneNumber: phoneNumberController.text, email: await _secureStorage.getEmail())
@@ -63,7 +64,7 @@ class SignUpController extends GetxController {
           ));
         }
       } finally {
-        isLoading(false);
+        isPhoneNumberLoading(false);
       }
     }
   }
