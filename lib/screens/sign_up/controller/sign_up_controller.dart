@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:haba_pay_main/model/GoogleToken.dart';
+import 'package:haba_pay_main/model/GoogleTokenModel.dart';
 import 'package:haba_pay_main/model/UserModel.dart';
-import 'package:haba_pay_main/routes/app_page.dart';
+import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../components/verification_successful.dart';
@@ -50,7 +50,7 @@ class SignUpController extends GetxController {
       var credential = await _googleSignIn.currentUser!.authentication;
       var response = await BaseClient.post(
         "/api/v1/auth/google",
-        GoogleToken(token : await _secureStorage.getClientId())
+        GoogleTokenModel(token: await _secureStorage.getClientId())
       ).catchError((onError){
         Get.showSnackbar(
           GetSnackBar(
@@ -69,6 +69,7 @@ class SignUpController extends GetxController {
           await _secureStorage.setPhoneNumber(user.data!.phone);
           await _secureStorage.setAuthToken(user.data!.accessToken);
           await _secureStorage.setRefreshToken(user.data!.refreshToken);
+          Get.to(()=> const AddPhoneNumber(), transition: Transition.rightToLeft);
         } else {
           Get.showSnackbar(
               GetSnackBar(

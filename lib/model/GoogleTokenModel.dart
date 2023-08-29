@@ -9,7 +9,7 @@ GoogleTokenModel googleTokenModelFromJson(String str) => GoogleTokenModel.fromJs
 String googleTokenModelToJson(GoogleTokenModel data) => json.encode(data.toJson());
 
 class GoogleTokenModel {
-  String token;
+  String? token;
 
   GoogleTokenModel({
     required this.token,
