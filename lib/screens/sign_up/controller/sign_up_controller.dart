@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/model/GoogleTokenModel.dart';
+import 'package:haba_pay_main/model/SendOtpModel.dart';
 import 'package:haba_pay_main/model/UserModel.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
@@ -36,6 +37,16 @@ class SignUpController extends GetxController {
     } else if (phoneNumberController.text.length < 10) {
       phoneNumberError.value = "Phone should be at least 10 digits";
     } else {
+      var response = await BaseClient.post("/api/v1/auth/send-otp",
+        SendOtpModel(phoneNumber: phoneNumberController.text, email: await _secureStorage.getEmail())
+      ).catchError((onError){
+        Get.showSnackbar( const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      });
+
+      var message =
       Get.to(
         () => const VerifyPhoneNumber(),
         transition: Transition.rightToLeft,

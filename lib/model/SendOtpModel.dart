@@ -6,7 +6,7 @@ String sendOtpModelToJson(SendOtpModel data) => json.encode(data.toJson());
 
 class SendOtpModel {
   String phoneNumber;
-  String email;
+  String? email;
 
   SendOtpModel({
     required this.phoneNumber,
