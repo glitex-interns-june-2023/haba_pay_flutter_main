@@ -115,9 +115,11 @@ class SendMoney extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          CustomButton(title: "Send", onClick: (){
+                          Obx(() => CustomButton(
+                            isLoading: sendMoneyController.isLoading.value,
+                              title: "Send", onClick: (){
                             sendMoneyController.onSendClicked();
-                          }),
+                          })),
                           const Spacer()
                         ],
                       ),

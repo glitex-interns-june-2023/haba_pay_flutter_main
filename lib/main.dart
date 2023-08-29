@@ -6,7 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.dashboard,
+      initialRoute: AppPage.sendMoney,
       getPages: AppPage.routes,
     ),
   );
