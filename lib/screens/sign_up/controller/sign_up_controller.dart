@@ -5,6 +5,7 @@ import 'package:haba_pay_main/model/GoogleTokenModel.dart';
 import 'package:haba_pay_main/model/OtpResponse.dart';
 import 'package:haba_pay_main/model/SendOtpModel.dart';
 import 'package:haba_pay_main/model/UserModel.dart';
+import 'package:haba_pay_main/model/VerifyOtpModel.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -21,14 +22,40 @@ class SignUpController extends GetxController {
   final _googleSignIn = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
-  onVerifyClicked() {
+  onVerifyClicked() async {
     if (codeController.text.isEmpty) {
       codeError.value = "Enter a valid code";
     } else {
-      Get.to(
-        () => const VerificationSuccessful(),
-        transition: Transition.rightToLeft,
-      );
+      isLoading(true);
+      try {
+        var response = await BaseClient.post(
+                "/api/v1/auth/verify-otp",
+                VerifyOtpModel(
+                    phoneNumber: phoneNumberController.text,
+                    otp: codeController.text))
+            .catchError((onError) {
+          Get.showSnackbar(const GetSnackBar(
+            message: "Unknown error occurred",
+            duration: Duration(seconds: 3),
+          ));
+        });
+
+        var success = OtpResponseModel.fromJson(response);
+
+        if (success.success == true) {
+          Get.to(
+            () => const VerificationSuccessful(),
+            transition: Transition.rightToLeft,
+          );
+        } else {
+          Get.showSnackbar(const GetSnackBar(
+            message: "Unknown error occurred",
+            duration: Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
     }
   }
 
@@ -40,10 +67,13 @@ class SignUpController extends GetxController {
     } else {
       isLoading(true);
       try {
-        var response = await BaseClient.post("/api/v1/auth/send-otp",
-            SendOtpModel(phoneNumber: phoneNumberController.text, email: await _secureStorage.getEmail())
-        ).catchError((onError){
-          Get.showSnackbar( const GetSnackBar(
+        var response = await BaseClient.post(
+                "/api/v1/auth/send-otp",
+                SendOtpModel(
+                    phoneNumber: phoneNumberController.text,
+                    email: await _secureStorage.getEmail()))
+            .catchError((onError) {
+          Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
             duration: Duration(seconds: 3),
           ));
@@ -51,13 +81,13 @@ class SignUpController extends GetxController {
 
         var success = OtpResponseModel.fromJson(response);
 
-        if(success.success == true){
+        if (success.success == true) {
           Get.to(
-                () => const VerifyPhoneNumber(),
+            () => const VerifyPhoneNumber(),
             transition: Transition.rightToLeft,
           );
         } else {
-          Get.showSnackbar( const GetSnackBar(
+          Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
             duration: Duration(seconds: 3),
           ));
@@ -72,7 +102,8 @@ class SignUpController extends GetxController {
     isLoading(true);
     try {
       googleAccount.value = await _googleSignIn.signIn();
-      var credential = await _googleSignIn.currentUser!.authentication.catchError((onError){
+      var credential =
+          await _googleSignIn.currentUser!.authentication.catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
           duration: Duration(seconds: 3),
@@ -81,7 +112,7 @@ class SignUpController extends GetxController {
       var response = await BaseClient.post("/api/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
-        Get.showSnackbar( const GetSnackBar(
+        Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
           duration: Duration(seconds: 3),
         ));
@@ -115,5 +146,12 @@ class SignUpController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    phoneNumberController.clear();
+    codeController.clear();
   }
 }
