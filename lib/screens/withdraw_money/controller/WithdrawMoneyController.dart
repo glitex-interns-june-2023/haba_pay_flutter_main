@@ -29,6 +29,7 @@ class WithdrawMoneyController extends GetxController{
     } else if (amountController.text.isEmpty){
       amountError.value = "Enter a valid amount";
     } else {
+
       Get.to(() => const WithdrawConfirmDetails(),
           transition: Transition.rightToLeft,
           arguments: MoneyModel(
