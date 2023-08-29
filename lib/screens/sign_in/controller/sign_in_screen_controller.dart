@@ -3,6 +3,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
+import '../../../model/GoogleTokenModel.dart';
+import '../../../model/UserModel.dart';
+import '../../../services/base_client.dart';
+
 
 class SignInController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
@@ -12,23 +16,49 @@ class SignInController extends GetxController{
 
   login() async {
     isLoading(true);
-    try{
+    try {
       googleAccount.value = await _googleSignIn.signIn();
-      if(googleAccount.value?.email == null){
-        //show toast error
+      var credential = await _googleSignIn.currentUser!.authentication.catchError((onError){
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      });
+      var response = await BaseClient.post("/api/v1/auth/google",
+          GoogleTokenModel(token: credential.idToken))
+          .catchError((onError) {
+        Get.showSnackbar( const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      });
+
+      var user = userModelFromJson(response);
+
+      if (response != null) {
+        if (user.success != false) {
+          await _secureStorage.setEmail(user.data!.email);
+          await _secureStorage.setUserName(user.data!.username);
+          await _secureStorage.setFirstName(user.data!.firstName);
+          await _secureStorage.setLastName(user.data!.lastName);
+          await _secureStorage.setPhoneNumber(user.data!.phone);
+          await _secureStorage.setAuthToken(user.data!.accessToken);
+          await _secureStorage.setRefreshToken(user.data!.refreshToken);
+          Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: user.message,
+            duration: const Duration(seconds: 3),
+          ));
+        }
       } else {
-        // await _secureStorage.setClientId(googleAccount.value?.id ?? "no id");
-        // var response = await BaseClient.post(
-        //     "/google_token_validation",
-        //     await _secureStorage.getClientId()
-        // );
-        // user(SignInEntity.fromJson(response));
-        // await _secureStorage.setAuthToken(user.value.accessToken);
-        Get.to(()=> const Dashboard(), transition: Transition.rightToLeft);
+        Get.showSnackbar(GetSnackBar(
+          message: user.message,
+          duration: const Duration(seconds: 3),
+        ));
       }
     } finally {
       isLoading(false);
     }
   }
 }
-

@@ -48,12 +48,11 @@ class SignUpController extends GetxController {
     try {
       googleAccount.value = await _googleSignIn.signIn();
       var credential = await _googleSignIn.currentUser!.authentication.catchError((onError){
-        Get.showSnackbar(GetSnackBar(
-          message: "----------------auth error ======================${onError.toString()}",
-          duration: const Duration(seconds: 3),
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
         ));
       });
-      print("----------------auth error ======================${credential.idToken}");
       var response = await BaseClient.post("/api/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
@@ -69,6 +68,8 @@ class SignUpController extends GetxController {
         if (user.success != false) {
           await _secureStorage.setEmail(user.data!.email);
           await _secureStorage.setUserName(user.data!.username);
+          await _secureStorage.setFirstName(user.data!.firstName);
+          await _secureStorage.setLastName(user.data!.lastName);
           await _secureStorage.setPhoneNumber(user.data!.phone);
           await _secureStorage.setAuthToken(user.data!.accessToken);
           await _secureStorage.setRefreshToken(user.data!.refreshToken);
