@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../model/MoneyModel.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/withdraw_confirm_details.dart';
