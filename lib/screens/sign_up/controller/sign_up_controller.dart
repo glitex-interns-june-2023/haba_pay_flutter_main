@@ -53,12 +53,13 @@ class SignUpController extends GetxController {
           duration: const Duration(seconds: 3),
         ));
       });
+      print("----------------auth error ======================${credential.idToken}");
       var response = await BaseClient.post("/api/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
-        Get.showSnackbar(GetSnackBar(
-          message: onError.toString(),
-          duration: const Duration(seconds: 3),
+        Get.showSnackbar( const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
         ));
       });
 
