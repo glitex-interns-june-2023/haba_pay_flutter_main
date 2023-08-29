@@ -71,7 +71,7 @@ class SignUpController extends GetxController {
                 "/v1/auth/send-otp",
                 SendOtpModel(
                     phoneNumber: phoneNumberController.text,
-                    email: await _secureStorage.getEmail()))
+                    email: "jfjkdfkjj@gmail.com"))
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -79,6 +79,7 @@ class SignUpController extends GetxController {
           ));
         });
 
+        print("$response");
         var success = OtpResponseModel.fromJson(response);
 
         if (success.success == true) {
@@ -112,8 +113,8 @@ class SignUpController extends GetxController {
       var response = await BaseClient.post("/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown error occurred",
+        Get.showSnackbar( GetSnackBar(
+          message: onError.toString(),
           duration: Duration(seconds: 3),
         ));
       });
