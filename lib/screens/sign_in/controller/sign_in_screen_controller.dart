@@ -23,7 +23,7 @@ class SignInController extends GetxController{
           duration: Duration(seconds: 3),
         ));
       });
-      var response = await BaseClient.post("/api/v1/auth/google",
+      var response = await BaseClient.post("/v1/auth/google",
           GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
         Get.showSnackbar( const GetSnackBar(

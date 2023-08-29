@@ -29,7 +29,7 @@ class SignUpController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.post(
-                "/api/v1/auth/verify-otp",
+                "/v1/auth/verify-otp",
                 VerifyOtpModel(
                     phoneNumber: phoneNumberController.text,
                     otp: codeController.text))
@@ -68,7 +68,7 @@ class SignUpController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.post(
-                "/api/v1/auth/send-otp",
+                "/v1/auth/send-otp",
                 SendOtpModel(
                     phoneNumber: phoneNumberController.text,
                     email: await _secureStorage.getEmail()))
@@ -109,7 +109,7 @@ class SignUpController extends GetxController {
           duration: Duration(seconds: 3),
         ));
       });
-      var response = await BaseClient.post("/api/v1/auth/google",
+      var response = await BaseClient.post("/v1/auth/google",
               GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(

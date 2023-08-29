@@ -31,7 +31,7 @@ class HomeController extends GetxController{
       phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
       accountBalance.value = (await _secureStorage.getAccountBalance())!;
       var response = await BaseClient.get(
-          "/api/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
+          "/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
