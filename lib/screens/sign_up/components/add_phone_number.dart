@@ -7,6 +7,7 @@ import 'package:haba_pay_main/screens/sign_up/controller/sign_up_controller.dart
 
 final CustomTheme theme = CustomTheme();
 final SignUpController signUpController = Get.put(SignUpController());
+
 class AddPhoneNumber extends StatelessWidget {
   const AddPhoneNumber({super.key});
 
@@ -14,7 +15,7 @@ class AddPhoneNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -25,10 +26,13 @@ class AddPhoneNumber extends StatelessWidget {
                     children: [
                       const Spacer(),
                       SvgPicture.asset('assets/images/step_1.svg'),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Text(
                         "Add phone number",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       const Spacer(),
                       const Align(
@@ -36,33 +40,40 @@ class AddPhoneNumber extends StatelessWidget {
                         child: Text(
                           "Phone",
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Obx(() => TextField(
-                        cursorColor: theme.orange,
-                        keyboardType: TextInputType.phone,
-                        controller: signUpController.phoneNumberController,
-                        decoration:  InputDecoration(
-                            border: const OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: theme.orange
+                      Obx(
+                        () => TextField(
+                          cursorColor: theme.orange,
+                          keyboardType: TextInputType.phone,
+                          controller: signUpController.phoneNumberController,
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: theme.orange),
                               ),
-                            ),
-                            errorText: signUpController.phoneNumberError.isNotEmpty
-                                ? signUpController.phoneNumberError.value
-                                : null
+                              errorText:
+                                  signUpController.phoneNumberError.isNotEmpty
+                                      ? signUpController.phoneNumberError.value
+                                      : null),
                         ),
-                      ),),
+                      ),
                       const Spacer(
                         flex: 2,
                       ),
-                      const SizedBox(height: 20,),
-                      CustomButton(title: "Add", onClick: (){
-                        signUpController.onAddClicked();
-                      }),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Obx(
+                        () => CustomButton(
+                            isLoading:
+                                signUpController.isLoading.value,
+                            title: "Add",
+                            onClick: () {
+                              signUpController.onAddClicked();
+                            }),
+                      ),
                       const Spacer()
                     ],
                   ),

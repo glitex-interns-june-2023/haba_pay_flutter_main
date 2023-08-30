@@ -153,9 +153,14 @@ class ConfirmDetails extends StatelessWidget {
                                 width: 10,
                               ),
                               Expanded(
-                                child: CustomButton(title: "Send", onClick: (){
-                                  sendMoneyController.onConfirmDetailsSend();
-                                })
+                                child: Obx(() => CustomButton(
+                                  isLoading: sendMoneyController.isLoading.value,
+                                    title: "Send", onClick: (){
+                                  sendMoneyController.onConfirmDetailsSend(
+                                    sendMoneyModel.phoneNumber,
+                                    sendMoneyModel.amount
+                                  );
+                                })),
                               ),
                             ],
                           ),

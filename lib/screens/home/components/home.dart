@@ -1,4 +1,3 @@
-import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
@@ -50,234 +49,239 @@ class Home extends StatelessWidget {
         ],
       ),
       backgroundColor: theme.background,
-      body: LayoutBuilder(builder: (context, constraint) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraint.maxHeight),
-            child: IntrinsicHeight(
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: theme.white,
-                                borderRadius: BorderRadius.circular(5)),
-                            height: 200,
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      MaterialButton(
-                                        onPressed: () {
-                                          Get.to(() => const SendMoney(),
-                                              transition:
-                                                  Transition.rightToLeft);
-                                        },
-                                        color: theme.white,
-                                        child: SvgPicture.asset(
-                                            'assets/images/send.svg'),
-                                      ),
-                                      Text(
-                                        "Send",
-                                        style: TextStyle(
-                                            fontSize: 14, color: theme.orange),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      MaterialButton(
-                                        onPressed: () {
-                                          Get.to(() => const WithdrawMoney(),
-                                              transition:
-                                                  Transition.rightToLeft);
-                                        },
-                                        color: theme.white,
-                                        child: SvgPicture.asset(
-                                            'assets/images/withdraw.svg'),
-                                      ),
-                                      Text(
-                                        "Withdraw",
-                                        style: TextStyle(
-                                            fontSize: 14, color: theme.orange),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      MaterialButton(
-                                        onPressed: () {
-                                          Get.to(() => const DepositMoney(),
-                                              transition:
-                                                  Transition.rightToLeft);
-                                        },
-                                        color: theme.white,
-                                        child: SvgPicture.asset(
-                                          'assets/images/deposit.svg',
-                                          color: theme.orange,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Deposit",
-                                        style: TextStyle(
-                                            fontSize: 14, color: theme.orange),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
+      body: RefreshIndicator(
+        onRefresh: (){
+          return homeController.onInit();
+        },
+        child: LayoutBuilder(builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Column(
                           children: [
                             Container(
-                              height: 200,
                               decoration: BoxDecoration(
-                                  color: theme.linear,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  SvgPicture.asset('assets/images/Frame.svg'),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                  color: theme.white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              height: 200,
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
+                                        MaterialButton(
+                                          onPressed: () {
+                                            Get.to(() => const SendMoney(),
+                                                transition:
+                                                    Transition.rightToLeft);
+                                          },
+                                          color: theme.white,
+                                          child: SvgPicture.asset(
+                                              'assets/images/send.svg'),
+                                        ),
                                         Text(
-                                          "Account balance",
+                                          "Send",
                                           style: TextStyle(
-                                              fontSize: 12, color: theme.grey),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Obx(
-                                          () => HomeBalanceWidget(
-                                              balance: homeController
-                                                  .accountBalance.value,
-                                              isVisibilityOn: homeController
-                                                  .isVisibilityOn.value,
-                                              onVisibilityChanged: () {
-                                                homeController
-                                                    .onVisibilityChanged();
-                                              }),
-                                        ),
-                                        const Spacer(),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              homeController.phoneNumber.value,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: theme.grey),
-                                            ),
-                                            const Spacer(),
-                                            Text(
-                                              "Haba pay",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: theme.white),
-                                            )
-                                          ],
+                                              fontSize: 14, color: theme.orange),
                                         )
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        MaterialButton(
+                                          onPressed: () {
+                                            Get.to(() => const WithdrawMoney(),
+                                                transition:
+                                                    Transition.rightToLeft);
+                                          },
+                                          color: theme.white,
+                                          child: SvgPicture.asset(
+                                              'assets/images/withdraw.svg'),
+                                        ),
+                                        Text(
+                                          "Withdraw",
+                                          style: TextStyle(
+                                              fontSize: 14, color: theme.orange),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        MaterialButton(
+                                          onPressed: () {
+                                            Get.to(() => const DepositMoney(),
+                                                transition:
+                                                    Transition.rightToLeft);
+                                          },
+                                          color: theme.white,
+                                          child: SvgPicture.asset(
+                                            'assets/images/deposit.svg',
+                                            color: theme.orange,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Deposit",
+                                          style: TextStyle(
+                                              fontSize: 14, color: theme.orange),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 100,
-                            ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Transactions",
-                                  style: TextStyle(
-                                      fontSize: 18, color: theme.grey),
-                                ),
-                                const Spacer(),
-                                InkWell(
-                                  onTap: () {
-                                    bottomNavBarController.changeTabIndex(0);
-                                  },
-                                  child: Text(
-                                    "More",
-                                    style: TextStyle(
-                                        color: theme.orange, fontSize: 18),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 20,),
-                            Obx(() => Column(
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                    color: theme.linear,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Stack(
+                                  alignment: Alignment.center,
                                   children: [
-                                    for (var statement in homeController.list)
-                                      SingleStatement(
-                                          type: statement.type,
-                                          onClick: () {
-                                            Get.to(
-                                                () =>
-                                                    const TransactionDetails(),
-                                                transition:
-                                                    Transition.rightToLeft,
-                                                arguments: {
-                                                  'statement': statement,
-                                                  'date': "2 February 2023"
-                                                });
-                                          },
-                                          name: statement.name,
-                                          phoneNumber: statement.phoneNumber,
-                                          amount: statement.amount,
-                                          time: statement.time)
+                                    SvgPicture.asset('assets/images/Frame.svg'),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Account balance",
+                                            style: TextStyle(
+                                                fontSize: 12, color: theme.grey),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Obx(
+                                            () => HomeBalanceWidget(
+                                                balance: homeController
+                                                    .accountBalance.value,
+                                                isVisibilityOn: homeController
+                                                    .isVisibilityOn.value,
+                                                onVisibilityChanged: () {
+                                                  homeController
+                                                      .onVisibilityChanged();
+                                                }),
+                                          ),
+                                          const Spacer(),
+                                          Row(
+                                            children: [
+                                              Obx(() => Text(
+                                                homeController.phoneNumber.value,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: theme.grey),
+                                              )),
+                                              const Spacer(),
+                                              Text(
+                                                "Haba pay",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: theme.white),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ],
-                                ))
-                          ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 100,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Transactions",
+                                    style: TextStyle(
+                                        fontSize: 18, color: theme.grey),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    onTap: () {
+                                      bottomNavBarController.changeTabIndex(0);
+                                    },
+                                    child: Text(
+                                      "More",
+                                      style: TextStyle(
+                                          color: theme.orange, fontSize: 18),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 20,),
+                              Obx(() => Column(
+                                    children: [
+                                      for (var statement in homeController.list)
+                                        SingleStatement(
+                                            type: statement.type,
+                                            onClick: () {
+                                              Get.to(
+                                                  () =>
+                                                      const TransactionDetails(),
+                                                  transition:
+                                                      Transition.rightToLeft,
+                                                  arguments: {
+                                                    'statement': statement,
+                                                    'date': "2 February 2023"
+                                                  });
+                                            },
+                                            name: statement.name,
+                                            phoneNumber: statement.phoneNumber,
+                                            amount: statement.amount,
+                                            time: statement.time)
+                                    ],
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

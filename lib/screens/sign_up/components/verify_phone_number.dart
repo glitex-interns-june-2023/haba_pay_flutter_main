@@ -64,9 +64,11 @@ class VerifyPhoneNumber extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20,),
-                      CustomButton(title: "Verify", onClick: (){
+                      Obx(() => CustomButton(
+                        isLoading: signUpController.isLoading.value,
+                          title: "Verify", onClick: (){
                         signUpController.onVerifyClicked();
-                      }),
+                      })),
                       const Spacer()
                     ],
                   ),

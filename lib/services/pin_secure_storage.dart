@@ -4,20 +4,56 @@ class SecureStorage {
 
   final storage = const FlutterSecureStorage();
 
-  final String _quickLogin = "quick_login";
+  final String _keyAccountBalance = "account_balance";
+  final String _keyFirstName = "first_name";
+  final String _keyLastName = "last_name";
+  final String _keyQuickLogin = "quick_login";
   final String _keyPin = "pin";
   final String _keyUserName = "username";
   final String _keyClientId = "client_id";
   final String _keyEmail = "email";
   final String _keyPhoneNumber = "phone_number";
   final String _keyAuthToken = "auth_token";
+  final String _keyRefreshToken = "refresh_token";
+
+  Future setAccountBalance(String accountBalance) async {
+    await storage.write(key: _keyAccountBalance, value: accountBalance);
+  }
+
+  Future<String?> getAccountBalance() async {
+    return await storage.read(key: _keyAccountBalance);
+  }
+
+  Future setFirstName(String firstName) async {
+    await storage.write(key: _keyFirstName, value: firstName);
+  }
+
+  Future<String?> getFirstName() async {
+    return await storage.read(key: _keyFirstName);
+  }
+
+  Future setLastName(String lastName) async {
+    await storage.write(key: _keyLastName, value: lastName);
+  }
+
+  Future<String?> getLastName() async {
+    return await storage.read(key: _keyLastName);
+  }
+
+  Future setRefreshToken(String refreshToken) async {
+    await storage.write(key: _keyRefreshToken, value: refreshToken);
+  }
+
+  Future<String?> getRefreshToken() async {
+    return await storage.read(key: _keyRefreshToken);
+  }
 
   Future setQuickLogin(String quickLogin) async {
-    await storage.write(key: _quickLogin, value: quickLogin);
+    await storage.write(key: _keyQuickLogin, value: quickLogin);
   }
 
   Future<String?> getQuickLogin() async {
-    return await storage.read(key: _quickLogin);
+    return await storage.read(key: _keyQuickLogin);
   }
 
   Future setPin(String pin) async {

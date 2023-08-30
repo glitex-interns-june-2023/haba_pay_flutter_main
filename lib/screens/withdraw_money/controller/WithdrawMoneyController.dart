@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../model/MoneyModel.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/withdraw_confirm_details.dart';
@@ -29,6 +28,7 @@ class WithdrawMoneyController extends GetxController{
     } else if (amountController.text.isEmpty){
       amountError.value = "Enter a valid amount";
     } else {
+
       Get.to(() => const WithdrawConfirmDetails(),
           transition: Transition.rightToLeft,
           arguments: MoneyModel(

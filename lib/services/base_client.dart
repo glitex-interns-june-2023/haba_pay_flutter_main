@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 const String baseUrl = "https://habaapi.glitexsolutions.co.ke/api";
-
+final SecureStorage _secureStorage = SecureStorage();
 class BaseClient {
   static var client = http.Client();
   static Future<dynamic> get(String api) async {
     var url = Uri.parse(baseUrl + api);
     var headers = {
-      'Authorization': 'Bearer token',
+      'Authorization': 'Bearer ${await _secureStorage.getAuthToken()}',
     };
 
 // disable ssl certificate verification
