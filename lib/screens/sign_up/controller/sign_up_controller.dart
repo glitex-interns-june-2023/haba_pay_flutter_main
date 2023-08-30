@@ -19,7 +19,14 @@ class SignUpController extends GetxController {
   var codeController = TextEditingController();
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
-  final _googleSignIn = GoogleSignIn(clientId: "795286960923-irt4nht9ovhi2jr71kkcgvav54n0knsn.apps.googleusercontent.com");
+  final _googleSignIn = GoogleSignIn(
+      clientId:
+          "795286960923-irt4nht9ovhi2jr71kkcgvav54n0knsn.apps.googleusercontent.com",
+    scopes: [
+      'email',
+      'https://www.googleapi.com/auth/userinfo.profile'
+    ]
+  );
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   onVerifyClicked() async {
@@ -105,15 +112,15 @@ class SignUpController extends GetxController {
       googleAccount.value = await _googleSignIn.signIn();
       var credential =
           await _googleSignIn.currentUser!.authentication.catchError((onError) {
-            Get.showSnackbar(const GetSnackBar(
-              message: "Unknown error occurred",
-              duration: Duration(seconds: 3),
-            ));
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
       });
       var response = await BaseClient.post("/v1/auth/google",
               GoogleTokenModel(token: credential.accessToken))
           .catchError((onError) {
-        Get.showSnackbar( GetSnackBar(
+        Get.showSnackbar(GetSnackBar(
           message: onError.toString(),
           duration: const Duration(seconds: 3),
         ));
