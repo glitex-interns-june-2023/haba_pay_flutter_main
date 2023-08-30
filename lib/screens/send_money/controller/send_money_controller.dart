@@ -40,36 +40,36 @@ class SendMoneyController extends GetxController {
       amountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
-    }
-    try {
-      var response = await BaseClient.get(
-              "/api/v1/wallet/confirm-details/phone?=${phoneNumberController.text}")
-          .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
-        ));
-      });
+      try {
+        var response = await BaseClient.get(
+                "/v1/wallet/confirm-details/phone?=${phoneNumberController.text}")
+            .catchError((onError) {
+          Get.showSnackbar(const GetSnackBar(
+            message: "Unknown Error Occurred",
+            duration: Duration(seconds: 3),
+          ));
+        });
 
-      var success = ConfirmRecipientDetailsModel.fromJson(response);
+        var success = ConfirmRecipientDetailsModel.fromJson(response);
 
-      if (success.success == true) {
-        Get.to(() => const ConfirmDetails(),
-            transition: Transition.rightToLeft,
-            arguments: MoneyModel(
-                phoneNumber: success.data.phone,
-                recipient: success.data.fullName,
-                amount: amountController.text,
-                newBalance:
-                    "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
-      } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
-        ));
+        if (success.success == true) {
+          Get.to(() => const ConfirmDetails(),
+              transition: Transition.rightToLeft,
+              arguments: MoneyModel(
+                  phoneNumber: success.data.phone,
+                  recipient: success.data.fullName,
+                  amount: amountController.text,
+                  newBalance:
+                      "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
+        } else {
+          Get.showSnackbar(const GetSnackBar(
+            message: "Unknown Error Occurred",
+            duration: Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
       }
-    } finally {
-      isLoading(false);
     }
   }
 
@@ -92,7 +92,7 @@ class SendMoneyController extends GetxController {
     isLoading(true);
     try {
       var response = await BaseClient.post(
-              "/api/v1/wallet/send-money",
+              "/v1/wallet/send-money",
               SendMoneyModel(
                   senderPhone: (await _secureStorage.getPhoneNumber())!,
                   receiverPhone: recipientNumber,
