@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
-import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_confirm_identity.dart';
 import 'package:haba_pay_main/screens/withdraw_money/controller/WithdrawMoneyController.dart';
 
 import '../../../model/MoneyModel.dart';
@@ -158,7 +157,11 @@ class WithdrawConfirmDetails extends StatelessWidget {
                               Expanded(
                                 child: MaterialButton(
                                   onPressed: () {
-                                    withdrawMoneyController.onConfirmDetailsClicked();
+                                    withdrawMoneyController.onConfirmDetailsClicked(
+                                      withdrawMoneyModel.phoneNumber,
+                                      withdrawMoneyModel.payBillNumber!,
+                                      withdrawMoneyModel.amount
+                                    );
                                   },
                                   height: 50,
                                   color: theme.orange,
