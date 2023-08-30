@@ -24,9 +24,10 @@ class SignUpController extends GetxController {
           "795286960923-irt4nht9ovhi2jr71kkcgvav54n0knsn.apps.googleusercontent.com",
     scopes: [
       'email',
-      'https://www.googleapi.com/auth/userinfo.profile'
+      "https://www.googleapis.com/auth/userinfo.profile"
     ]
   );
+
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   onVerifyClicked() async {
@@ -126,6 +127,7 @@ class SignUpController extends GetxController {
         ));
       });
 
+      print("${credential.idToken}");
       var user = userModelFromJson(response);
 
       if (response != null) {
