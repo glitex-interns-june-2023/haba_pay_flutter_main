@@ -38,7 +38,6 @@ class HomeController extends GetxController{
         ));
       });
 
-      print(response);
       var success = AccountBalanceModel.fromJson(response);
 
       if (success.success == true) {
