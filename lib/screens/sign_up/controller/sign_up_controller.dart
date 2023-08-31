@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -48,7 +50,7 @@ class SignUpController extends GetxController {
           ));
         });
 
-        var success = OtpResponseModel.fromJson(response);
+        var success = OtpResponseModel.fromJson(json.decode(response));
 
         if (success.success == true) {
           Get.to(
@@ -79,16 +81,15 @@ class SignUpController extends GetxController {
                 "/v1/auth/send-otp",
                 SendOtpModel(
                     phoneNumber: phoneNumberController.text,
-                    email: "jfjkdfkjj@gmail.com"))
+                    email: await _secureStorage.getEmail()))
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
+            duration: Duration(seconds: 10),
           ));
         });
 
-        print("$response");
-        var success = OtpResponseModel.fromJson(response);
+        var success = OtpResponseModel.fromJson(json.decode(response));
 
         if (success.success == true) {
           Get.to(
@@ -118,28 +119,26 @@ class SignUpController extends GetxController {
           duration: Duration(seconds: 3),
         ));
       });
-      debugPrint("${credential.idToken}----------");
       var response = await BaseClient.post(
               "/v1/auth/google", GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
-        Get.showSnackbar(GetSnackBar(
-          message: onError.toString(),
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error",
           duration: Duration(seconds: 3),
         ));
       });
 
-      print(response);
       var user = userModelFromJson(response);
 
       if (response != null) {
         if (user.success != false) {
-          await _secureStorage.setEmail(user.data!.email!);
-          await _secureStorage.setUserName(user.data!.username!);
-          await _secureStorage.setFirstName(user.data!.firstName!);
-          await _secureStorage.setLastName(user.data!.lastName!);
-          await _secureStorage.setPhoneNumber(user.data!.phone!);
-          await _secureStorage.setAuthToken(user.data!.accessToken!);
-          await _secureStorage.setRefreshToken(user.data!.refreshToken!);
+          await _secureStorage.setEmail(user.data?.email ?? "");
+          await _secureStorage.setUserName(user.data?.username ?? "");
+          await _secureStorage.setFirstName(user.data?.firstName ?? "");
+          await _secureStorage.setLastName(user.data?.lastName ?? "");
+          await _secureStorage.setPhoneNumber(user.data?.phone ?? "");
+          await _secureStorage.setAuthToken(user.data?.accessToken ?? "");
+          await _secureStorage.setRefreshToken(user.data?.refreshToken ?? "");
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {

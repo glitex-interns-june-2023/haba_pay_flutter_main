@@ -39,7 +39,7 @@ class Data {
 	String? role;
 	dynamic isVerified;
 	String? createdAt;
-	bool? isActive;
+	dynamic isActive;
 	String? accessToken;
 	String? refreshToken;
 
@@ -70,24 +70,24 @@ class Data {
 		role: json["role"],
 		isVerified: json["is_verified"] == 0 ? false: true,
 		createdAt: json["created_at"],
-		isActive: json["is_active"],
+		isActive: json["is_active"] == 0 ? false: true,
 		accessToken: json["access_token"],
 		refreshToken: json["refresh_token"],
 	);
 
 	Map<String, dynamic> toJson() => {
 		"id": id,
-		"email": email,
-		"first_name": firstName,
-		"last_name": lastName,
-		"username": username,
-		"phone": phone,
-		"profile_url": profileUrl,
-		"role": role,
-		"is_verified": isVerified,
-		"created_at": createdAt,
-		"is_active": isActive,
-		"access_token": accessToken,
-		"refresh_token": refreshToken,
+		"email": email ?? "",
+		"first_name": firstName ?? "",
+		"last_name": lastName ?? "",
+		"username": username ?? "",
+		"phone": phone ?? "",
+		"profile_url": profileUrl ?? "",
+		"role": role ?? "",
+		"is_verified": isVerified ?? "",
+		"created_at": createdAt ?? "",
+		"is_active": isActive ?? "",
+		"access_token": accessToken ?? "",
+		"refresh_token": refreshToken ?? "",
 	};
 }
