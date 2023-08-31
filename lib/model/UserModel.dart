@@ -37,7 +37,7 @@ class Data {
 	String? phone;
 	String? profileUrl;
 	String? role;
-	int? isVerified;
+	dynamic isVerified;
 	String? createdAt;
 	bool? isActive;
 	String? accessToken;
@@ -68,7 +68,7 @@ class Data {
 		phone: json["phone"],
 		profileUrl: json["profile_url"],
 		role: json["role"],
-		isVerified: json["is_verified"],
+		isVerified: json["is_verified"] == 0 ? false: true,
 		createdAt: json["created_at"],
 		isActive: json["is_active"],
 		accessToken: json["access_token"],
