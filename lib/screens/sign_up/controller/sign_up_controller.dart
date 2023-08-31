@@ -20,14 +20,14 @@ class SignUpController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
   final _googleSignIn = GoogleSignIn(
-      clientId:
-          "795286960923-irt4nht9ovhi2jr71kkcgvav54n0knsn.apps.googleusercontent.com",
+    clientId:
+        "136354562599-ote548dd9lm4r34i8vjval0ifvfbhb77.apps.googleusercontent.com",
     scopes: [
-      'email',
-      "https://www.googleapis.com/auth/userinfo.profile"
-    ]
+      'https://www.googleapis.com/auth/userinfo.email',
+      'openid',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
   );
-
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   onVerifyClicked() async {
@@ -118,27 +118,28 @@ class SignUpController extends GetxController {
           duration: Duration(seconds: 3),
         ));
       });
-      var response = await BaseClient.post("/v1/auth/google",
-              GoogleTokenModel(token: credential.accessToken))
+      debugPrint("${credential.idToken}----------");
+      var response = await BaseClient.post(
+              "/v1/auth/google", GoogleTokenModel(token: credential.idToken))
           .catchError((onError) {
         Get.showSnackbar(GetSnackBar(
           message: onError.toString(),
-          duration: const Duration(seconds: 3),
+          duration: Duration(seconds: 3),
         ));
       });
 
-      print("${credential.idToken}");
+      print(response);
       var user = userModelFromJson(response);
 
       if (response != null) {
         if (user.success != false) {
-          await _secureStorage.setEmail(user.data!.email);
-          await _secureStorage.setUserName(user.data!.username);
-          await _secureStorage.setFirstName(user.data!.firstName);
-          await _secureStorage.setLastName(user.data!.lastName);
-          await _secureStorage.setPhoneNumber(user.data!.phone);
-          await _secureStorage.setAuthToken(user.data!.accessToken);
-          await _secureStorage.setRefreshToken(user.data!.refreshToken);
+          await _secureStorage.setEmail(user.data!.email!);
+          await _secureStorage.setUserName(user.data!.username!);
+          await _secureStorage.setFirstName(user.data!.firstName!);
+          await _secureStorage.setLastName(user.data!.lastName!);
+          await _secureStorage.setPhoneNumber(user.data!.phone!);
+          await _secureStorage.setAuthToken(user.data!.accessToken!);
+          await _secureStorage.setRefreshToken(user.data!.refreshToken!);
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {

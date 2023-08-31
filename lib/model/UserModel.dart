@@ -29,19 +29,19 @@ class UserModel {
 }
 
 class Data {
-	String id;
-	String email;
-	String firstName;
-	String lastName;
-	String username;
-	String phone;
-	String profileUrl;
-	String role;
-	bool isVerified;
-	String createdAt;
-	bool isActive;
-	String accessToken;
-	String refreshToken;
+	int id;
+	String? email;
+	String? firstName;
+	String? lastName;
+	String? username;
+	String? phone;
+	String? profileUrl;
+	String? role;
+	int? isVerified;
+	String? createdAt;
+	bool? isActive;
+	String? accessToken;
+	String? refreshToken;
 
 	Data({
 		required this.id,

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = "https://habaapi.glitexsolutions.co.ke/api";
+const String baseUrl = "https://b912-197-183-87-106.ngrok.io/api";
 final SecureStorage _secureStorage = SecureStorage();
 class BaseClient {
   static var client = http.Client();
