@@ -29,7 +29,6 @@ class HomeController extends GetxController{
     isLoading(true);
     try {
       phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
-      accountBalance.value = (await _secureStorage.getAccountBalance())!;
       var response = await BaseClient.get(
           "/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
           .catchError((onError) {
@@ -39,6 +38,7 @@ class HomeController extends GetxController{
         ));
       });
 
+      print(response);
       var success = AccountBalanceModel.fromJson(response);
 
       if (success.success == true) {
