@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:haba_pay_main/model/AccountBalanceModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -39,7 +41,7 @@ class HomeController extends GetxController{
       });
 
       print(response);
-      var success = AccountBalanceModel.fromJson(response);
+      var success = AccountBalanceModel.fromJson(json.decode(response));
 
       if (success.success == true) {
         accountBalance.value = "${success.data.currency} ${success.data.balance}";

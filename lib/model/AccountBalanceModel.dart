@@ -31,7 +31,7 @@ class AccountBalanceModel {
 
 class Data {
   String userId;
-  String balance;
+  double balance;
   String currency;
   String lastUpdate;
 

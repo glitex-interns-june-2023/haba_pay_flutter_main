@@ -77,6 +77,7 @@ class SignUpController extends GetxController {
     } else {
       isLoading(true);
       try {
+        await _secureStorage.setPhoneNumber(phoneNumberController.text);
         var response = await BaseClient.post(
                 "/v1/auth/send-otp",
                 SendOtpModel(
@@ -136,7 +137,6 @@ class SignUpController extends GetxController {
           await _secureStorage.setUserName(user.data?.username ?? "");
           await _secureStorage.setFirstName(user.data?.firstName ?? "");
           await _secureStorage.setLastName(user.data?.lastName ?? "");
-          await _secureStorage.setPhoneNumber(user.data?.phone ?? "");
           await _secureStorage.setAuthToken(user.data?.accessToken ?? "");
           await _secureStorage.setRefreshToken(user.data?.refreshToken ?? "");
           Get.to(() => const AddPhoneNumber(),
