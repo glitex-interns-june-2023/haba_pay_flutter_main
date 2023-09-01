@@ -18,7 +18,7 @@ class SendMoneyController extends GetxController {
   var phoneNumberController = TextEditingController();
   var isSuccessful = false.obs;
   var isLoading = false.obs;
-  var accountBalance = "Loading".obs;
+  var accountBalance = "".obs;
   var isVisibilityOn = false.obs;
 
   @override
