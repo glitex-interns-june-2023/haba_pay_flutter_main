@@ -98,14 +98,29 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  confirmIdentity() {
+  confirmIdentity() async {
     isLoading(true);
-    try{
-
-      Get.to(
-            () => const DepositVerifyTransaction(),
-        transition: Transition.rightToLeft,
-      );
+    try {
+      var data = {
+        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
+        'receiver_phone': phoneNumberController.text,
+        'amount': amountController.text
+      };
+      var response = await BaseClient.post(sendMoneyUrl, data);
+      print(response);
+      var success = json.decode(response);
+      if (success['success'] == true) {
+        isSuccessful(true);
+        Get.to(
+          () => const DepositVerifyTransaction(),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
     } finally {
       isLoading(false);
     }
@@ -137,12 +152,12 @@ class DepositMoneyController extends GetxController {
     Get.close(3);
   }
 
-  useMyNumber() async{
+  useMyNumber() async {
     isLoading(true);
-    try{
+    try {
       myNumber.value = await _secureStorage.getPhoneNumber() ?? "";
       Get.to(
-            () => const DepositDetails(),
+        () => const DepositDetails(),
         transition: Transition.rightToLeft,
       );
     } finally {
