@@ -73,15 +73,17 @@ class DepositConfirmDetails extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  depositMoneyModel.phoneNumber,
-                                  style: const TextStyle(fontSize: 18),
-                                )),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    depositMoneyController.myNumber.value,
+                                    style: const TextStyle(fontSize: 18),
+                                  )),
+                            ),
                           ),
                           const Align(
                             alignment: Alignment.topLeft,
@@ -154,13 +156,14 @@ class DepositConfirmDetails extends StatelessWidget {
                                 width: 10,
                               ),
                               Expanded(
-                                child: CustomButton(title: "Send", onClick: (){
-                                  depositMoneyController.send(
-                                    depositMoneyModel.phoneNumber,
-                                    depositMoneyModel.amount,
-                                  );
-                                })
-                              ),
+                                  child: CustomButton(
+                                      title: "Send",
+                                      onClick: () {
+                                        depositMoneyController.send(
+                                          depositMoneyModel.phoneNumber,
+                                          depositMoneyModel.amount,
+                                        );
+                                      })),
                             ],
                           ),
                           const Spacer()
