@@ -9,7 +9,7 @@ import '../../../services/base_client.dart';
 class HomeController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
-  var phoneNumber = "+254 767 784 774".obs;
+  var phoneNumber = "".obs;
   var accountBalance = "Refresh".obs;
   var list = [
     StatementModel(22,"Jane Mukenya", 'deposit', "Ksh 400",
