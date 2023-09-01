@@ -28,16 +28,20 @@ class BaseClient {
       'Authorization': 'Bearer ${await _secureStorage.getAuthToken()}',
     };
 
-// disable ssl certificate verification
-    if (Platform.isAndroid) {
-      HttpOverrides.global = MyHttpOverrides();
-    }
-
-    var response = await client.get(url, headers: headers);
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      //throw exception
+    try {
+      var response = await client.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        //throw exception
+        //throw exception
+        var result = json.decode(response.body);
+        Get.showSnackbar(GetSnackBar(
+            message: result['message'], duration: const Duration(seconds: 3)));
+      }
+    } on SocketException catch (e) {
+      Get.showSnackbar(const GetSnackBar(
+          message: "No internet connection", duration: Duration(seconds: 3)));
     }
   }
 
