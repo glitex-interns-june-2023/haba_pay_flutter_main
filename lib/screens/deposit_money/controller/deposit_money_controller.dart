@@ -83,7 +83,7 @@ class DepositMoneyController extends GetxController {
         'mpesa_number': mpesaNumberValue,
         'amount': amountValue
       };
-      var response = await BaseClient.post(sendMoneyUrl, data);
+      var response = await BaseClient.post(depositCashUrl, data);
       var success = json.decode(response);
       if (success['success'] == true) {
         isSuccessful(true);
@@ -116,7 +116,7 @@ class DepositMoneyController extends GetxController {
           'mpesa_number': mpesaNumberValue,
           'amount': amountValue
         };
-        var response = await BaseClient.post(sendMoneyUrl, data);
+        var response = await BaseClient.post(depositCashUrl, data);
         var success = json.decode(response);
         if (success['success'] == true) {
           isSuccessful(true);
