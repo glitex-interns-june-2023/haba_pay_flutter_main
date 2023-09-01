@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/GoogleTokenModel.dart';
-import '../../../model/UserModel.dart';
 import '../../../services/base_client.dart';
 
 
@@ -41,17 +42,16 @@ class SignInController extends GetxController{
         ));
       });
 
-      var user = userModelFromJson(response);
+      var user = json.decode(response);
 
       if (response != null) {
-        if (user.success != false) {
-          await _secureStorage.setEmail(user.data?.email ?? "");
-          await _secureStorage.setUserName(user.data?.username ?? "");
-          await _secureStorage.setFirstName(user.data?.firstName ?? "");
-          await _secureStorage.setLastName(user.data?.lastName ?? "");
-          await _secureStorage.setPhoneNumber(user.data?.phone ?? "");
-          await _secureStorage.setAuthToken(user.data?.accessToken ?? "");
-          await _secureStorage.setRefreshToken(user.data?.refreshToken ?? "");
+        if (user['success'] != false) {
+          await _secureStorage.setEmail(user['data']['email'] ?? "");
+          await _secureStorage.setUserName(user['data']['username'] ?? "");
+          await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
+          await _secureStorage.setLastName(user['data']['last_name'] ?? "");
+          await _secureStorage.setAuthToken(user['data']['access_token'] ?? "");
+          await _secureStorage.setRefreshToken(user['data']['refresh_token'] ?? "");
           Get.offAll(
                 () => const Dashboard(),
             transition: Transition.rightToLeft,

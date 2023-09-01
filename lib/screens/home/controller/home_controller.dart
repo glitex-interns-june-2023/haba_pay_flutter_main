@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:haba_pay_main/model/AccountBalanceModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 import '../../../model/StatementModel.dart';

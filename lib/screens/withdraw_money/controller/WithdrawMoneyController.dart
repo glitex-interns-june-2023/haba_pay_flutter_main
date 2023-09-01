@@ -1,8 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/model/WithdrawCashModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
-import '../../../model/ConfirmRecipientDetailsModel.dart';
 import '../../../model/MoneyModel.dart';
 import '../../../services/base_client.dart';
 import '../../dashboard/components/dashboard.dart';
@@ -46,7 +46,7 @@ class WithdrawMoneyController extends GetxController {
           ));
         });
 
-        var success = ConfirmRecipientDetailsModel.fromJson(response);
+        var success = json.decode(response);
 
         if (success.success == true) {
           Get.to(() => const WithdrawConfirmDetails(),
@@ -84,7 +84,7 @@ class WithdrawMoneyController extends GetxController {
           ));
         });
 
-        var success = ConfirmRecipientDetailsModel.fromJson(response);
+        var success = json.decode(response);
 
         if (success.success == true) {
           Get.to(() => const WithdrawConfirmDetails(),
@@ -144,9 +144,14 @@ class WithdrawMoneyController extends GetxController {
   onConfirmIdentityClicked() async {
     isLoading(true);
     try {
+      var data = {
+        'sender_phone':senderPhone,
+        'receiver_phone': receiverPhone,
+        'amount': amount
+      };
       var response = await BaseClient.post(
           "/v1/wallet/withdraw",
-          WithdrawCashModel(senderPhone: senderPhone, receiverPhone: receiverPhone, amount: amount)
+          json.encode(data)
       )
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
@@ -155,7 +160,7 @@ class WithdrawMoneyController extends GetxController {
         ));
       });
 
-      var success = ConfirmRecipientDetailsModel.fromJson(response);
+      var success = json.decode(response);
 
       if (success.success == true) {
         Get.to(

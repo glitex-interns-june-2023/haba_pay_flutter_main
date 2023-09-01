@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/model/GoogleTokenModel.dart';
-import 'package:haba_pay_main/model/OtpResponse.dart';
-import 'package:haba_pay_main/model/SendOtpModel.dart';
-import 'package:haba_pay_main/model/UserModel.dart';
-import 'package:haba_pay_main/model/VerifyOtpModel.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -38,11 +34,13 @@ class SignUpController extends GetxController {
     } else {
       isLoading(true);
       try {
+        var data = {
+          'phone_number':phoneNumberController.text,
+          'otp': codeController.text
+        };
         var response = await BaseClient.post(
                 "/v1/auth/verify-otp",
-                VerifyOtpModel(
-                    phoneNumber: phoneNumberController.text,
-                    otp: codeController.text))
+            json.encode(data))
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -50,9 +48,9 @@ class SignUpController extends GetxController {
           ));
         });
 
-        var success = OtpResponseModel.fromJson(json.decode(response));
+        var success = json.decode(response);
 
-        if (success.success == true) {
+        if (success['success'] == true) {
           Get.to(
             () => const VerificationSuccessful(),
             transition: Transition.rightToLeft,
@@ -78,11 +76,13 @@ class SignUpController extends GetxController {
       isLoading(true);
       try {
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
+        var data = {
+          'phone_number':phoneNumberController.text,
+          'email': await _secureStorage.getEmail()
+        };
         var response = await BaseClient.post(
                 "/v1/auth/send-otp",
-                SendOtpModel(
-                    phoneNumber: phoneNumberController.text,
-                    email: await _secureStorage.getEmail()))
+                json.encode(data))
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -90,9 +90,9 @@ class SignUpController extends GetxController {
           ));
         });
 
-        var success = OtpResponseModel.fromJson(json.decode(response));
+        var success = json.decode(response);
 
-        if (success.success == true) {
+        if (success['success'] == true) {
           Get.to(
             () => const VerifyPhoneNumber(),
             transition: Transition.rightToLeft,
@@ -129,16 +129,16 @@ class SignUpController extends GetxController {
         ));
       });
 
-      var user = userModelFromJson(response);
+      var user = json.decode(response);
 
       if (response != null) {
-        if (user.success != false) {
-          await _secureStorage.setEmail(user.data?.email ?? "");
-          await _secureStorage.setUserName(user.data?.username ?? "");
-          await _secureStorage.setFirstName(user.data?.firstName ?? "");
-          await _secureStorage.setLastName(user.data?.lastName ?? "");
-          await _secureStorage.setAuthToken(user.data?.accessToken ?? "");
-          await _secureStorage.setRefreshToken(user.data?.refreshToken ?? "");
+        if (user['success'] != false) {
+          await _secureStorage.setEmail(user['data']['email'] ?? "");
+          await _secureStorage.setUserName(user['data']['username'] ?? "");
+          await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
+          await _secureStorage.setLastName(user['data']['last_name'] ?? "");
+          await _secureStorage.setAuthToken(user['data']['access_token'] ?? "");
+          await _secureStorage.setRefreshToken(user['data']['refresh_token'] ?? "");
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {

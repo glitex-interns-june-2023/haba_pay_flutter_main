@@ -1,8 +1,7 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:haba_pay_main/model/ConfirmRecipientDetailsModel.dart';
-import 'package:haba_pay_main/model/SendMoneyModel.dart';
-import 'package:haba_pay_main/model/SendMoneyResponseModel.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/MoneyModel.dart';
@@ -50,7 +49,7 @@ class SendMoneyController extends GetxController {
           ));
         });
 
-        var success = ConfirmRecipientDetailsModel.fromJson(response);
+        var success = json.decode(response);
 
         if (success.success == true) {
           Get.to(() => const ConfirmDetails(),
@@ -91,12 +90,15 @@ class SendMoneyController extends GetxController {
   onConfirmDetailsSend(String recipientNumber, String amount) async {
     isLoading(true);
     try {
+      var data = {
+        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
+        'receiver_phone': recipientNumber,
+        'amount': amount
+      };
       var response = await BaseClient.post(
               "/v1/wallet/send-money",
-              SendMoneyModel(
-                  senderPhone: (await _secureStorage.getPhoneNumber())!,
-                  receiverPhone: recipientNumber,
-                  amount: amount))
+        json.encode(data)
+      )
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown Error Occurred",
@@ -104,7 +106,7 @@ class SendMoneyController extends GetxController {
         ));
       });
 
-      var success = SendMoneyResponseModel.fromJson(response);
+      var success = json.decode(response);
 
       if (success.success == true) {
         Get.showSnackbar(GetSnackBar(
