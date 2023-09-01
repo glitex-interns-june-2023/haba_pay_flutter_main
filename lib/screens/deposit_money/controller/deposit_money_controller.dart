@@ -102,8 +102,8 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  confirm(String senderPhone, String mpesaNumber, String amount) async {
-    senderPhoneValue = senderPhone;
+  confirm(String mpesaNumber, String amount) async {
+    senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
     mpesaNumberValue = mpesaNumber;
     amountValue = amount;
     if (passwordController.text.isEmpty) {
@@ -112,9 +112,9 @@ class DepositMoneyController extends GetxController {
       isLoading(true);
       try {
         var data = {
-          'sender_phone': senderPhone,
-          'mpesa_number': mpesaNumber,
-          'amount': amount
+          'sender_phone': senderPhoneValue,
+          'mpesa_number': mpesaNumberValue,
+          'amount': amountValue
         };
         var response = await BaseClient.post(sendMoneyUrl, data);
         var success = json.decode(response);
