@@ -76,7 +76,7 @@ class DepositDetails extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  depositMoneyController.number.value,
+                                  depositMoneyController.myNumber.value,
                                   style: const TextStyle(fontSize: 18),
                                 )),
                           ),
