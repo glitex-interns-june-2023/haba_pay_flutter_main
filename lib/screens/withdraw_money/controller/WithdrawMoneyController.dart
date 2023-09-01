@@ -84,7 +84,6 @@ class WithdrawMoneyController extends GetxController {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
 
-        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
