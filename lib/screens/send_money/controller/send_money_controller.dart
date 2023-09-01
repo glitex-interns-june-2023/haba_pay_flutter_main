@@ -41,7 +41,7 @@ class SendMoneyController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "/v1/wallet/confirm-details/phone?=${phoneNumberController.text}")
+                "$confirmRecipientDetailsUrl${phoneNumberController.text}")
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown Error Occurred",
@@ -51,19 +51,19 @@ class SendMoneyController extends GetxController {
 
         var success = json.decode(response);
 
-        if (success.success == true) {
+        if (success['success'] == true) {
           Get.to(() => const ConfirmDetails(),
               transition: Transition.rightToLeft,
               arguments: MoneyModel(
-                  phoneNumber: success.data.phone,
-                  recipient: success.data.fullName,
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
                   amount: amountController.text,
                   newBalance:
                       "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
         } else {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
-            duration: Duration(seconds: 3),
+          Get.showSnackbar( GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
           ));
         }
       } finally {
@@ -95,10 +95,7 @@ class SendMoneyController extends GetxController {
         'receiver_phone': recipientNumber,
         'amount': amount
       };
-      var response = await BaseClient.post(
-              "/v1/wallet/send-money",
-        json.encode(data)
-      )
+      var response = await BaseClient.post(sendMoneyUrl, data)
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown Error Occurred",
@@ -108,9 +105,9 @@ class SendMoneyController extends GetxController {
 
       var success = json.decode(response);
 
-      if (success.success == true) {
+      if (success['success'] == true) {
         Get.showSnackbar(GetSnackBar(
-          message: success.data.transactionMessage,
+          message: success['data']['transaction_message'],
           duration: const Duration(seconds: 3),
         ));
         Get.to(
@@ -118,9 +115,9 @@ class SendMoneyController extends GetxController {
           transition: Transition.rightToLeft,
         );
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
+        Get.showSnackbar( GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
         ));
       }
     } finally {
@@ -142,5 +139,12 @@ class SendMoneyController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    phoneNumberController.clear();
+    amountController.clear();
   }
 }
