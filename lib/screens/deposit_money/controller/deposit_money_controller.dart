@@ -107,7 +107,6 @@ class DepositMoneyController extends GetxController {
         'amount': amountController.text
       };
       var response = await BaseClient.post(sendMoneyUrl, data);
-      print(response);
       var success = json.decode(response);
       if (success['success'] == true) {
         isSuccessful(true);
