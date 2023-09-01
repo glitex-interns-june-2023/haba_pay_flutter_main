@@ -123,7 +123,7 @@ class WithdrawTo extends StatelessWidget {
                                     width: 40,
                                   ),
                                   Text(
-                                    " Deposit from mpesa",
+                                    " Withdraw to mpesa",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: theme.white,
@@ -138,7 +138,7 @@ class WithdrawTo extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
-                                "Deposit from ",
+                                "Withdraw to ",
                                 style: TextStyle(fontSize: 18),
                               ),
                               InkWell(
