@@ -25,7 +25,7 @@ class DepositMoneyController extends GetxController {
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
   var accountBalance = "".obs;
-  var myNumber = "+254 768 894 90".obs;
+  var myNumber = "".obs;
   var habaPay = "24356325".obs;
 
   @override
