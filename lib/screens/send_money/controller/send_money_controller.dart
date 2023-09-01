@@ -39,12 +39,13 @@ class SendMoneyController extends GetxController {
       amountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
+      print("$confirmRecipientDetailsUrl${phoneNumberController.text}");
       try {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${phoneNumberController.text}")
             .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
+          Get.showSnackbar( GetSnackBar(
+            message: onError.toString(),
             duration: Duration(seconds: 3),
           ));
         });
