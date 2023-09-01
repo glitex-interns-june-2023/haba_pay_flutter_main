@@ -84,15 +84,16 @@ class WithdrawMoneyController extends GetxController {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
 
+        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
           Get.to(() => const WithdrawConfirmDetails(),
               transition: Transition.rightToLeft,
               arguments: MoneyModel(
-                  phoneNumber: success.data.phone,
-                  recipient: success.data.fullName,
-                  amount: amountController.text,
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
+                  amount: withdrawToAmountController.text,
                   newBalance: ""
                   //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
               ));
