@@ -4,6 +4,17 @@ import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 const String baseUrl = "https://habaapi.glitexsolutions.co.ke/api";
+const String googleAuthUrl = "/api/v1/auth/google";
+const String sendOtpUrl = "/v1/verifications/otp/send";
+const String verifyOtpUrl = "/v1/verifications/otp/verify";
+const String walletBalanceUrl = "/v1/wallet/balance";
+const String confirmRecipientDetailsUrl = "/v1/wallet/confirm-details";
+const String sendMoneyUrl = "/v1/wallet/send-money";
+const String withdrawCashUrl = "/v1/wallet/withdraw";
+const String depositCashUrl = "/v1/wallet/deposit";
+const String listUserTransactions = "/v1/users/:userId/transactions";
+const String updateBusinessDetails = "/v1/users/:userId/business";
+
 final SecureStorage _secureStorage = SecureStorage();
 class BaseClient {
   static var client = http.Client();
