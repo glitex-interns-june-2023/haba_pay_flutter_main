@@ -109,7 +109,9 @@ class DepositMoney extends StatelessWidget {
                             flex: 2,
                           ),
                           const SizedBox(height: 20,),
-                          CustomButton(title: "Proceed with number", onClick: (){
+                          CustomButton(
+                              isLoading: depositMoneyController.isLoading.value,
+                              title: "Proceed with number", onClick: (){
                             depositMoneyController.proceedWithNumber();
                           }),
                           const SizedBox(
