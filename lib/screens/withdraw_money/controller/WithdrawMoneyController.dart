@@ -75,20 +75,14 @@ class WithdrawMoneyController extends GetxController {
     }
   }
 
-  onDepositFromMpesaClicked() async {
+  onWithdrawToMpesaClicked() async {
     if (withdrawToAmountController.text.isEmpty) {
       withdrawToAmountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "/v1/wallet/confirm-details/phone?=${await _secureStorage.getPhoneNumber()}")
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+                "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
 
         var success = json.decode(response);
 
@@ -99,8 +93,9 @@ class WithdrawMoneyController extends GetxController {
                   phoneNumber: success.data.phone,
                   recipient: success.data.fullName,
                   amount: amountController.text,
-                  newBalance:
-                      "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
+                  newBalance: ""
+                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+              ));
         } else {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown Error Occurred",

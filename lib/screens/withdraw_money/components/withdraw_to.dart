@@ -109,7 +109,7 @@ class WithdrawTo extends StatelessWidget {
                           ),
                           MaterialButton(
                               onPressed: () {
-                                withdrawMoneyController.onDepositFromMpesaClicked();
+                                withdrawMoneyController.onWithdrawToMpesaClicked();
                               },
                               height: 50,
                               minWidth: double.infinity,
