@@ -35,12 +35,10 @@ class SignUpController extends GetxController {
       isLoading(true);
       try {
         var data = {
-          'phone_number':phoneNumberController.text,
+          'phone_number': phoneNumberController.text,
           'otp': codeController.text
         };
-        var response = await BaseClient.post(
-                "/v1/auth/verify-otp",
-            data)
+        var response = await BaseClient.post("/v1/auth/verify-otp", data)
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -81,11 +79,9 @@ class SignUpController extends GetxController {
         };
         print(json.encode(data));
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
-        var response = await BaseClient.post(
-                "/v1/auth/send-otp",
-                data)
+        var response = await BaseClient.post("/v1/auth/send-otp", data)
             .catchError((onError) {
-          Get.showSnackbar( GetSnackBar(
+          Get.showSnackbar(GetSnackBar(
             message: onError.toString(),
             duration: Duration(seconds: 10),
           ));
@@ -140,7 +136,8 @@ class SignUpController extends GetxController {
           await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
           await _secureStorage.setLastName(user['data']['last_name'] ?? "");
           await _secureStorage.setAuthToken(user['data']['access_token'] ?? "");
-          await _secureStorage.setRefreshToken(user['data']['refresh_token'] ?? "");
+          await _secureStorage
+              .setRefreshToken(user['data']['refresh_token'] ?? "");
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {
