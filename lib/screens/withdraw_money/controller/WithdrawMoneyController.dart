@@ -156,10 +156,7 @@ class WithdrawMoneyController extends GetxController {
         'amount': amountValue
       };
       var response = await BaseClient.post(withdrawCashUrl, data);
-
-      print(response);
       var success = json.decode(response);
-
       if (success['success'] == true) {
         isSuccessful(true);
         Get.to(
