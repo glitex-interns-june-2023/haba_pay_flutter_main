@@ -13,6 +13,9 @@ import '../components/deposit_verify_transaction.dart';
 
 class DepositMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
+  var senderPhone = "";
+  var mpesaNumber = "";
+  var amount = "";
   var phoneNumberError = "".obs;
   var amountError = "".obs;
   var depositDetailsAmountError = "".obs;
@@ -76,9 +79,9 @@ class DepositMoneyController extends GetxController {
     isLoading(true);
     try {
       var data = {
-        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
-        'receiver_phone': phoneNumberController.text,
-        'amount': amountController.text
+        'sender_phone': senderPhone,
+        'mpesa_number': mpesaNumber,
+        'amount': amount
       };
       var response = await BaseClient.post(sendMoneyUrl, data);
       var success = json.decode(response);
@@ -110,7 +113,10 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  send() {
+  send(String senderPhone, String mpesaNumber, String amount) {
+    senderPhone = senderPhone;
+    mpesaNumber = mpesaNumber;
+    amount = amount;
     Get.to(
       () => const DepositConfirmIdentity(),
       transition: Transition.rightToLeft,
