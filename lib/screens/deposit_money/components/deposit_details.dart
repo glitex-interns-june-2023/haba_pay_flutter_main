@@ -70,17 +70,17 @@ class DepositDetails extends StatelessWidget {
                                       fontSize: 18),
                                 )),
                           ),
-                          Obx(() => Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 8),
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: Obx(() => Text(
                                   depositMoneyController.myNumber.value,
                                   style: const TextStyle(fontSize: 18),)
                                 )
                             ),
-                          ),),
+                          ),
                           const Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
