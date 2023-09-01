@@ -61,40 +61,14 @@ class DepositMoneyController extends GetxController {
     if (depositDetailsAmountController.text.isEmpty) {
       depositDetailsAmountError.value = "Enter a valid amount";
     } else {
-      isLoading(true);
-      try {
-        var response = await BaseClient.get(
-            "$confirmRecipientDetailsUrl${phoneNumberController.text}");
-
-        var success = json.decode(response);
-
-        if (success['success'] == true) {
-          Get.to(() => const DepositConfirmDetails(),
-              transition: Transition.rightToLeft,
-              arguments: MoneyModel(
-                  phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
-                  recipient: "Jane Makena",
-                  amount: depositDetailsAmountController.text,
-                  newBalance: "800",
-                  payBillNumber: "${habaPay.value} habapay"));
-          // Get.to(() => const ConfirmDetails(),
-          //     transition: Transition.rightToLeft,
-          //     arguments: MoneyModel(
-          //         phoneNumber: success['data']['phone'],
-          //         recipient: success['data']['full_name'],
-          //         amount: amountController.text,
-          //         newBalance: "unavailable"
-          //       //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
-          //     ));
-        } else {
-          Get.showSnackbar(GetSnackBar(
-            message: success['message'],
-            duration: const Duration(seconds: 3),
-          ));
-        }
-      } finally {
-        isLoading(false);
-      }
+      Get.to(() => const DepositConfirmDetails(),
+          transition: Transition.rightToLeft,
+          arguments: MoneyModel(
+              phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
+              recipient: "",
+              amount: depositDetailsAmountController.text,
+              newBalance: "",
+              payBillNumber: "${habaPay.value} habapay"));
     }
   }
 
