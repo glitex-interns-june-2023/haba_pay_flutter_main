@@ -40,7 +40,6 @@ class SendMoneyController extends GetxController {
       amountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
-      print("$confirmRecipientDetailsUrl${phoneNumberController.text}");
       try {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${phoneNumberController.text}")

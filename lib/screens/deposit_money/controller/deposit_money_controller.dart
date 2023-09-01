@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/MoneyModel.dart';
+import '../../../services/base_client.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/deposit_confirm_details.dart';
 import '../components/deposit_confirm_identity.dart';
-import '../components/deposit_confirm_payment.dart';
 import '../components/deposit_details.dart';
 import '../components/deposit_verify_transaction.dart';
 
 class DepositMoneyController extends GetxController {
+  final SecureStorage _secureStorage = SecureStorage();
   var phoneNumberError = "".obs;
   var amountError = "".obs;
   var depositDetailsAmountError = "".obs;
@@ -41,41 +45,68 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  depositFromMpesa() {
+  depositFromMpesa() async {
     if (depositDetailsAmountController.text.isEmpty) {
       depositDetailsAmountError.value = "Enter a valid amount";
     } else {
-      Get.to(() => const DepositConfirmDetails(),
-          transition: Transition.rightToLeft,
-          arguments: MoneyModel(
-              phoneNumber: number.value,
-              recipient: "Jane Makena",
-              amount: depositDetailsAmountController.text,
-              newBalance: "800",
-              payBillNumber: "${habaPay.value} habapay"));
+      isLoading(true);
+      try {
+        var response = await BaseClient.get(
+            "$confirmRecipientDetailsUrl${phoneNumberController.text}");
+
+        var success = json.decode(response);
+
+        if (success['success'] == true) {
+          Get.to(() => const DepositConfirmDetails(),
+              transition: Transition.rightToLeft,
+              arguments: MoneyModel(
+                  phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
+                  recipient: "Jane Makena",
+                  amount: depositDetailsAmountController.text,
+                  newBalance: "800",
+                  payBillNumber: "${habaPay.value} habapay"));
+          // Get.to(() => const ConfirmDetails(),
+          //     transition: Transition.rightToLeft,
+          //     arguments: MoneyModel(
+          //         phoneNumber: success['data']['phone'],
+          //         recipient: success['data']['full_name'],
+          //         amount: amountController.text,
+          //         newBalance: "unavailable"
+          //       //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+          //     ));
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
     }
   }
 
-  confirmIdentity(){
-    Get.to(()=> const DepositVerifyTransaction(),
+  confirmIdentity() {
+    Get.to(
+      () => const DepositVerifyTransaction(),
       transition: Transition.rightToLeft,
     );
   }
 
-  confirm(){
+  confirm() {
     if (passwordController.text.isEmpty) {
       passwordError.value = "Enter a valid password";
     } else {
       Get.to(
-            () => const DepositVerifyTransaction(),
+        () => const DepositVerifyTransaction(),
         transition: Transition.rightToLeft,
       );
     }
   }
 
-  send(){
+  send() {
     Get.to(
-          () => const DepositConfirmIdentity(),
+      () => const DepositConfirmIdentity(),
       transition: Transition.rightToLeft,
     );
   }
@@ -84,7 +115,7 @@ class DepositMoneyController extends GetxController {
     Get.back();
   }
 
-  cancel(){
+  cancel() {
     Get.close(3);
   }
 
@@ -95,9 +126,9 @@ class DepositMoneyController extends GetxController {
     );
   }
 
-  onReturnHomeCLicked(){
+  onReturnHomeCLicked() {
     Get.offAll(
-          () => const Dashboard(),
+      () => const Dashboard(),
       transition: Transition.rightToLeft,
     );
   }
