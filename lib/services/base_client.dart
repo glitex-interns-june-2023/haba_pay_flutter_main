@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +31,6 @@ class BaseClient {
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        //throw exception
         //throw exception
         var result = json.decode(response.body);
         Get.showSnackbar(GetSnackBar(
