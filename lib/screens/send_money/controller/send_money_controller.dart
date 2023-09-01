@@ -39,13 +39,12 @@ class SendMoneyController extends GetxController {
       amountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
-      print("$confirmRecipientDetailsUrl${phoneNumberController.text}");
       try {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${phoneNumberController.text}")
             .catchError((onError) {
-          Get.showSnackbar( GetSnackBar(
-            message: onError.toString(),
+          Get.showSnackbar( const GetSnackBar(
+            message: "Unknown error occurred",
             duration: Duration(seconds: 3),
           ));
         });
@@ -60,8 +59,9 @@ class SendMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: amountController.text,
-                  newBalance:
-                      "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
+                  newBalance: "unavailable"
+                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+          ));
         } else {
           Get.showSnackbar( GetSnackBar(
             message: success['message'],
