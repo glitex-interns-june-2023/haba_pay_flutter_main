@@ -139,7 +139,7 @@ class WithdrawMoneyController extends GetxController {
 
   onConfirmDetailsClicked(String receiverPhone, String amount) async {
     senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
-    receiverPhoneValue= receiverPhone;
+    receiverPhoneValue = receiverPhone;
     amountValue = amount;
     Get.to(
       () => const WithdrawConfirmIdentity(),
@@ -155,21 +155,21 @@ class WithdrawMoneyController extends GetxController {
         'receiver_phone': receiverPhoneValue,
         'amount': amountValue
       };
-      var response =
-          await BaseClient.post("/v1/wallet/withdraw", json.encode(data));
+      var response = await BaseClient.post(withdrawCashUrl, data);
 
       print(response);
       var success = json.decode(response);
 
-      if (success.success == true) {
+      if (success['success'] == true) {
+        isSuccessful(true);
         Get.to(
           () => const WithdrawVerifyingTransaction(),
           transition: Transition.rightToLeft,
         );
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
         ));
       }
     } finally {
