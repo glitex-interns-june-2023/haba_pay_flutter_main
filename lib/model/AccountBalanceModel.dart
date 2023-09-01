@@ -7,12 +7,12 @@ String accountBalanceModelToJson(AccountBalanceModel data) => json.encode(data.t
 
 class AccountBalanceModel {
   bool success;
-  String message;
+  String? message;
   Data data;
 
   AccountBalanceModel({
     required this.success,
-    required this.message,
+    this.message,
     required this.data,
   });
 
@@ -30,8 +30,8 @@ class AccountBalanceModel {
 }
 
 class Data {
-  String userId;
-  double balance;
+  int userId;
+  dynamic balance;
   String currency;
   String lastUpdate;
 

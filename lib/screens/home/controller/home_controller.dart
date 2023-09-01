@@ -40,12 +40,11 @@ class HomeController extends GetxController{
         ));
       });
 
-      print(response);
-      var success = AccountBalanceModel.fromJson(json.decode(response));
+      var success = json.decode(response);
 
-      if (success.success == true) {
-        accountBalance.value = "${success.data.currency} ${success.data.balance}";
-        await _secureStorage.setAccountBalance("${success.data.currency} ${success.data.balance}");
+      if (success['success'] == true) {
+        accountBalance.value = "${success['data']['currency']} ${success['data']['balance']}";
+        await _secureStorage.setAccountBalance("${success['data']['currency']} ${success['data']['balance']}");
       } else {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
