@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class SendMoneyController extends GetxController {
   var phoneNumberController = TextEditingController();
   var isSuccessful = false.obs;
   var isLoading = false.obs;
-  var accountBalance = "Loading".obs;
+  var accountBalance = "".obs;
   var isVisibilityOn = false.obs;
 
   @override
@@ -41,29 +42,30 @@ class SendMoneyController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "/v1/wallet/confirm-details/phone?=${phoneNumberController.text}")
+                "$confirmRecipientDetailsUrl${phoneNumberController.text}")
             .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
+          Get.showSnackbar(  const GetSnackBar(
+            message: "Unknown error occurred",
             duration: Duration(seconds: 3),
           ));
         });
 
         var success = json.decode(response);
 
-        if (success.success == true) {
+        if (success['success'] == true) {
           Get.to(() => const ConfirmDetails(),
               transition: Transition.rightToLeft,
               arguments: MoneyModel(
-                  phoneNumber: success.data.phone,
-                  recipient: success.data.fullName,
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
                   amount: amountController.text,
-                  newBalance:
-                      "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
+                  newBalance: "unavailable"
+                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+          ));
         } else {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
-            duration: Duration(seconds: 3),
+          Get.showSnackbar( GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
           ));
         }
       } finally {
@@ -95,32 +97,21 @@ class SendMoneyController extends GetxController {
         'receiver_phone': recipientNumber,
         'amount': amount
       };
-      var response = await BaseClient.post(
-              "/v1/wallet/send-money",
-        json.encode(data)
-      )
-          .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
-        ));
-      });
-
+      var response = await BaseClient.post(sendMoneyUrl, data);
       var success = json.decode(response);
-
-      if (success.success == true) {
+      if (success['success'] == true) {
         Get.showSnackbar(GetSnackBar(
-          message: success.data.transactionMessage,
+          message: success['data']['transaction_message'],
           duration: const Duration(seconds: 3),
         ));
         Get.to(
-          () => const SendMoneyConfirmIdentity(),
+              () => const SendMoneyConfirmIdentity(),
           transition: Transition.rightToLeft,
         );
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
+        Get.showSnackbar( GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
         ));
       }
     } finally {
@@ -142,5 +133,12 @@ class SendMoneyController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    phoneNumberController.clear();
+    amountController.clear();
   }
 }

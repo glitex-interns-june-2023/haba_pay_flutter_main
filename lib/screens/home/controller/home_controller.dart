@@ -9,7 +9,7 @@ import '../../../services/base_client.dart';
 class HomeController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
-  var phoneNumber = "+254 767 784 774".obs;
+  var phoneNumber = "".obs;
   var accountBalance = "Refresh".obs;
   var list = [
     StatementModel(22,"Jane Mukenya", 'deposit', "Ksh 400",
@@ -31,7 +31,7 @@ class HomeController extends GetxController{
     try {
       phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
       var response = await BaseClient.get(
-          "/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
+          "$walletBalanceUrl${await _secureStorage.getPhoneNumber()}")
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
@@ -45,9 +45,9 @@ class HomeController extends GetxController{
         accountBalance.value = "${success['data']['currency']} ${success['data']['balance']}";
         await _secureStorage.setAccountBalance("${success['data']['currency']} ${success['data']['balance']}");
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown error occurred",
-          duration: Duration(seconds: 3),
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
         ));
       }
     } finally {

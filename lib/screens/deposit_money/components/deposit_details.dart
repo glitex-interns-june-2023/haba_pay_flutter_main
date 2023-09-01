@@ -75,10 +75,11 @@ class DepositDetails extends StatelessWidget {
                             child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  depositMoneyController.number.value,
-                                  style: const TextStyle(fontSize: 18),
-                                )),
+                                child: Obx(() => Text(
+                                  depositMoneyController.myNumber.value,
+                                  style: const TextStyle(fontSize: 18),)
+                                )
+                            ),
                           ),
                           const Align(
                             alignment: Alignment.topLeft,

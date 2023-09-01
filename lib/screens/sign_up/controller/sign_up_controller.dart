@@ -38,7 +38,7 @@ class SignUpController extends GetxController {
           'phone_number': phoneNumberController.text,
           'otp': codeController.text
         };
-        var response = await BaseClient.post("/v1/auth/verify-otp", data)
+        var response = await BaseClient.post(verifyOtpUrl, data)
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -77,17 +77,15 @@ class SignUpController extends GetxController {
           'phone_number': phoneNumberController.text,
           'email': await _secureStorage.getEmail()
         };
-        print(json.encode(data));
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
-        var response = await BaseClient.post("/v1/auth/send-otp", data)
+        var response = await BaseClient.post(sendOtpUrl, data)
             .catchError((onError) {
-          Get.showSnackbar(GetSnackBar(
-            message: onError.toString(),
-            duration: Duration(seconds: 10),
+          Get.showSnackbar(const GetSnackBar(
+            message: "Unknown error occurred",
+            duration: Duration(seconds: 3),
           ));
         });
 
-        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
@@ -96,9 +94,9 @@ class SignUpController extends GetxController {
             transition: Transition.rightToLeft,
           );
         } else {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
+          Get.showSnackbar( GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
           ));
         }
       } finally {
@@ -118,8 +116,10 @@ class SignUpController extends GetxController {
           duration: Duration(seconds: 3),
         ));
       });
-      var response = await BaseClient.post(
-              "/v1/auth/google", GoogleTokenModel(token: credential.idToken))
+      var data = {
+        'token': credential.idToken
+      };
+      var response = await BaseClient.post(googleAuthUrl, data)
           .catchError((onError) {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error",

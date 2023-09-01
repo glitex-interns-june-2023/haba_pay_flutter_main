@@ -1,14 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/MoneyModel.dart';
+import '../../../services/base_client.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/deposit_confirm_details.dart';
 import '../components/deposit_confirm_identity.dart';
-import '../components/deposit_confirm_payment.dart';
 import '../components/deposit_details.dart';
 import '../components/deposit_verify_transaction.dart';
 
 class DepositMoneyController extends GetxController {
+  final SecureStorage _secureStorage = SecureStorage();
+  var senderPhone = "";
+  var mpesaNumber = "";
+  var amount = "";
   var phoneNumberError = "".obs;
   var amountError = "".obs;
   var depositDetailsAmountError = "".obs;
@@ -20,11 +27,22 @@ class DepositMoneyController extends GetxController {
   var isSuccessful = false.obs;
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
-  var accountBalance = "Ksh 800".obs;
-  var number = "+254 768 894 90".obs;
+  var accountBalance = "".obs;
+  var myNumber = "".obs;
   var habaPay = "24356325".obs;
 
-  proceedWithNumber() {
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    isLoading(true);
+    try {
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  proceedWithNumber() async {
     if (phoneNumberController.text.isEmpty) {
       phoneNumberError.value = "Enter phone number";
     } else if (amountController.text.isEmpty) {
@@ -34,48 +52,96 @@ class DepositMoneyController extends GetxController {
           transition: Transition.rightToLeft,
           arguments: MoneyModel(
               phoneNumber: phoneNumberController.text,
-              recipient: "Jane Makena",
+              recipient: "",
               amount: amountController.text,
+              //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
               newBalance: "800",
               payBillNumber: "12344 Habapay"));
     }
   }
 
-  depositFromMpesa() {
+  depositFromMpesa() async {
     if (depositDetailsAmountController.text.isEmpty) {
       depositDetailsAmountError.value = "Enter a valid amount";
     } else {
       Get.to(() => const DepositConfirmDetails(),
           transition: Transition.rightToLeft,
           arguments: MoneyModel(
-              phoneNumber: number.value,
-              recipient: "Jane Makena",
+              phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
+              recipient: "",
               amount: depositDetailsAmountController.text,
-              newBalance: "800",
+              newBalance: "",
               payBillNumber: "${habaPay.value} habapay"));
     }
   }
 
-  confirmIdentity(){
-    Get.to(()=> const DepositVerifyTransaction(),
-      transition: Transition.rightToLeft,
-    );
-  }
-
-  confirm(){
-    if (passwordController.text.isEmpty) {
-      passwordError.value = "Enter a valid password";
-    } else {
-      Get.to(
-            () => const DepositVerifyTransaction(),
-        transition: Transition.rightToLeft,
-      );
+  confirmIdentity() async {
+    isLoading(true);
+    try {
+      var data = {
+        'sender_phone': senderPhone,
+        'mpesa_number': mpesaNumber,
+        'amount': amount
+      };
+      var response = await BaseClient.post(sendMoneyUrl, data);
+      var success = json.decode(response);
+      if (success['success'] == true) {
+        isSuccessful(true);
+        Get.to(
+          () => const DepositVerifyTransaction(),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
     }
   }
 
-  send(){
+  confirm(String senderPhone, String mpesaNumber, String amount) async {
+    senderPhone = senderPhone;
+    mpesaNumber = mpesaNumber;
+    amount = amount;
+    if (passwordController.text.isEmpty) {
+      passwordError.value = "Enter a valid password";
+    } else {
+      isLoading(true);
+      try {
+        var data = {
+          'sender_phone': senderPhone,
+          'mpesa_number': mpesaNumber,
+          'amount': amount
+        };
+        var response = await BaseClient.post(sendMoneyUrl, data);
+        var success = json.decode(response);
+        if (success['success'] == true) {
+          isSuccessful(true);
+          Get.to(
+                () => const DepositVerifyTransaction(),
+            transition: Transition.rightToLeft,
+          );
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
+    }
+  }
+
+  send(String senderPhone, String mpesaNumber, String amount) {
+    senderPhone = senderPhone;
+    mpesaNumber = mpesaNumber;
+    amount = amount;
     Get.to(
-          () => const DepositConfirmIdentity(),
+      () => const DepositConfirmIdentity(),
       transition: Transition.rightToLeft,
     );
   }
@@ -84,20 +150,26 @@ class DepositMoneyController extends GetxController {
     Get.back();
   }
 
-  cancel(){
+  cancel() {
     Get.close(3);
   }
 
-  useMyNumber() {
-    Get.to(
-      () => const DepositDetails(),
-      transition: Transition.rightToLeft,
-    );
+  useMyNumber() async {
+    isLoading(true);
+    try {
+      myNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+      Get.to(
+        () => const DepositDetails(),
+        transition: Transition.rightToLeft,
+      );
+    } finally {
+      isLoading(false);
+    }
   }
 
-  onReturnHomeCLicked(){
+  onReturnHomeCLicked() {
     Get.offAll(
-          () => const Dashboard(),
+      () => const Dashboard(),
       transition: Transition.rightToLeft,
     );
   }
