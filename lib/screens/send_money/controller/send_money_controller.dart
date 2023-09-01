@@ -44,13 +44,12 @@ class SendMoneyController extends GetxController {
         var response = await BaseClient.get(
                 "$confirmRecipientDetailsUrl${phoneNumberController.text}")
             .catchError((onError) {
-          Get.showSnackbar( const GetSnackBar(
+          Get.showSnackbar(  const GetSnackBar(
             message: "Unknown error occurred",
             duration: Duration(seconds: 3),
           ));
         });
 
-        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
@@ -100,12 +99,13 @@ class SendMoneyController extends GetxController {
       };
       var response = await BaseClient.post(sendMoneyUrl, data)
           .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
+        Get.showSnackbar( GetSnackBar(
+          message: onError.toString(),
           duration: Duration(seconds: 3),
         ));
       });
 
+      print(response);
       var success = json.decode(response);
 
       if (success['success'] == true) {
