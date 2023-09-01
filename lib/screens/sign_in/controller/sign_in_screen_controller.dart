@@ -47,6 +47,7 @@ class SignInController extends GetxController{
 
       if (response != null) {
         if (user['success'] != false) {
+          await _secureStorage.setUserId(user['data']['id'] ?? "");
           await _secureStorage.setEmail(user['data']['email'] ?? "");
           await _secureStorage.setUserName(user['data']['username'] ?? "");
           await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
