@@ -46,8 +46,8 @@ class WithdrawMoneyController extends GetxController {
           Get.to(() => const WithdrawConfirmDetails(),
               transition: Transition.rightToLeft,
               arguments: MoneyModel(
-                  phoneNumber: success.data.phone,
-                  recipient: success.data.fullName,
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
                   amount: amountController.text,
                   newBalance: ""
                   //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
