@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
 import 'package:haba_pay_main/screens/Shared/custom_button.dart';
-import 'package:haba_pay_main/screens/dashboard/components/dashboard.dart';
 import 'package:haba_pay_main/screens/deposit_money/controller/deposit_money_controller.dart';
 
-import '../../home/components/home.dart';
 
 final DepositMoneyController depositMoneyController =
     Get.put(DepositMoneyController());

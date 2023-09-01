@@ -183,7 +183,8 @@ class DepositConfirmPayment extends StatelessWidget {
                               Expanded(
                                 child: CustomButton(title: "Confirm", onClick: (){
                                   depositMoneyController.confirm(
-
+                                    depositMoneyModel.phoneNumber,
+                                    depositMoneyModel.amount
                                   );
                                 })
                               ),
