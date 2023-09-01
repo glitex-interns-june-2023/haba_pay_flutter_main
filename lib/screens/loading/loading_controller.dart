@@ -14,7 +14,7 @@ class LoadingController extends GetxController{
     if(quickLogin == "true" && accessToken!.isNotEmpty){
       Get.offAll(() => const PinLogin(),
           transition: Transition.rightToLeft);
-    } else if(accessToken!.isNotEmpty) {
+    } else if (accessToken!.isNotEmpty) {
       Get.offAll(
           const Dashboard(),
           transition: Transition.rightToLeft
@@ -22,7 +22,6 @@ class LoadingController extends GetxController{
     }else{
         Get.offAll(() => const SignUp(),
             transition: Transition.rightToLeft);
-      }
     }
   }
 }
