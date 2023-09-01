@@ -25,7 +25,7 @@ class DepositMoneyController extends GetxController {
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
   var accountBalance = "Ksh 800".obs;
-  var number = "+254 768 894 90".obs;
+  var myNumber = "+254 768 894 90".obs;
   var habaPay = "24356325".obs;
 
   proceedWithNumber() {
@@ -34,14 +34,32 @@ class DepositMoneyController extends GetxController {
     } else if (amountController.text.isEmpty) {
       amountError.value = "Enter a valid amount";
     } else {
-      Get.to(() => const DepositConfirmDetails(),
-          transition: Transition.rightToLeft,
-          arguments: MoneyModel(
-              phoneNumber: phoneNumberController.text,
-              recipient: "Jane Makena",
-              amount: amountController.text,
-              newBalance: "800",
-              payBillNumber: "12344 Habapay"));
+      isLoading(true);
+      try {
+        var response = await BaseClient.get(
+            "$confirmRecipientDetailsUrl${phoneNumberController.text}");
+
+        var success = json.decode(response);
+
+        if (success['success'] == true) {
+          Get.to(() => const DepositConfirmDetails(),
+              transition: Transition.rightToLeft,
+              arguments: MoneyModel(
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
+                  amount: amountController.text,
+                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+                  newBalance: "800",
+                  payBillNumber: "12344 Habapay"));
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
     }
   }
 
@@ -119,11 +137,17 @@ class DepositMoneyController extends GetxController {
     Get.close(3);
   }
 
-  useMyNumber() {
-    Get.to(
-      () => const DepositDetails(),
-      transition: Transition.rightToLeft,
-    );
+  useMyNumber() async{
+    isLoading(true);
+    try{
+      myNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+      Get.to(
+            () => const DepositDetails(),
+        transition: Transition.rightToLeft,
+      );
+    } finally {
+      isLoading(false);
+    }
   }
 
   onReturnHomeCLicked() {
