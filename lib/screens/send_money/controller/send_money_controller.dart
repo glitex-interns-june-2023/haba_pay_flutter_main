@@ -49,6 +49,7 @@ class SendMoneyController extends GetxController {
           ));
         });
 
+        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
