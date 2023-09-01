@@ -192,14 +192,17 @@ class ConfirmIdentity extends StatelessWidget {
                             ],
                           ),
                           const Spacer(),
-                          const SizedBox(height: 20,),
-                          CustomButton(
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Obx(() => CustomButton(
                               isLoading: isLoading,
-                              title: "Confirm", onClick: (){
-                            pinLoginController.confirmLoginPin(
-                                (){ onConfirm(); }
-                            );
-                          }),
+                              title: "Confirm",
+                              onClick: () {
+                                pinLoginController.confirmLoginPin(() {
+                                  onConfirm();
+                                });
+                              })),
                           const Spacer()
                         ],
                       ),
