@@ -28,7 +28,7 @@ class DepositMoneyController extends GetxController {
   var myNumber = "+254 768 894 90".obs;
   var habaPay = "24356325".obs;
 
-  proceedWithNumber() {
+  proceedWithNumber() async {
     if (phoneNumberController.text.isEmpty) {
       phoneNumberError.value = "Enter phone number";
     } else if (amountController.text.isEmpty) {
