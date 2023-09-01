@@ -40,7 +40,7 @@ class SignUpController extends GetxController {
         };
         var response = await BaseClient.post(
                 "/v1/auth/verify-otp",
-            json.encode(data))
+            data)
             .catchError((onError) {
           Get.showSnackbar(const GetSnackBar(
             message: "Unknown error occurred",
@@ -75,21 +75,23 @@ class SignUpController extends GetxController {
     } else {
       isLoading(true);
       try {
-        await _secureStorage.setPhoneNumber(phoneNumberController.text);
         var data = {
-          'phone_number':phoneNumberController.text,
+          'phone_number': phoneNumberController.text,
           'email': await _secureStorage.getEmail()
         };
+        print(json.encode(data));
+        await _secureStorage.setPhoneNumber(phoneNumberController.text);
         var response = await BaseClient.post(
                 "/v1/auth/send-otp",
-                json.encode(data))
+                data)
             .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
+          Get.showSnackbar( GetSnackBar(
+            message: onError.toString(),
             duration: Duration(seconds: 10),
           ));
         });
 
+        print(response);
         var success = json.decode(response);
 
         if (success['success'] == true) {
