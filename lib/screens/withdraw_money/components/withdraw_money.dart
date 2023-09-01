@@ -123,12 +123,13 @@ class WithdrawMoney extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          CustomButton(
+                          Obx(() => CustomButton(
+                              isLoading: withdrawMoneyController.isLoading.value,
                               title: "Proceed with number",
                               onClick: () {
                                 withdrawMoneyController
                                     .onProceedWithNumberClicked();
-                              }),
+                              })),
                           const SizedBox(
                             height: 20,
                           ),
