@@ -156,14 +156,9 @@ class WithdrawMoneyController extends GetxController {
         'amount': amountValue
       };
       var response =
-          await BaseClient.post("/v1/wallet/withdraw", json.encode(data))
-              .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
-        ));
-      });
+          await BaseClient.post("/v1/wallet/withdraw", json.encode(data));
 
+      print(response);
       var success = json.decode(response);
 
       if (success.success == true) {
