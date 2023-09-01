@@ -32,7 +32,7 @@ class Balance extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              flex: 4,
+              flex: 5,
               child: Blur(
                 blur: isVisibilityOn ? 0 : 5,
                 child: Text(
