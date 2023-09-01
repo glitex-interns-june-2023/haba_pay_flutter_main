@@ -29,6 +29,17 @@ class WithdrawMoneyController extends GetxController {
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
 
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    isLoading(true);
+    try {
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+    } finally {
+      isLoading(false);
+    }
+  }
+
   onProceedWithNumberClicked() async {
     if (phoneNumberController.text.isEmpty) {
       phoneNumberError.value = "Enter a valid number";
