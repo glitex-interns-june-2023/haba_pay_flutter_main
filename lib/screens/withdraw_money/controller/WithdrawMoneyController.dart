@@ -82,7 +82,7 @@ class WithdrawMoneyController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
+            "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
 
         var success = json.decode(response);
 
@@ -95,9 +95,9 @@ class WithdrawMoneyController extends GetxController {
                   amount: withdrawToAmountController.text,
                   newBalance: ""
                   //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
-              ));
+                  ));
         } else {
-          Get.showSnackbar( GetSnackBar(
+          Get.showSnackbar(GetSnackBar(
             message: success['message'],
             duration: const Duration(seconds: 3),
           ));
