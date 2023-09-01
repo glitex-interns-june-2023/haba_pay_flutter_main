@@ -14,9 +14,9 @@ import '../components/withdraw_verifying_transaction.dart';
 
 class WithdrawMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
-  var senderPhone = "";
-  var receiverPhone = "";
-  var amount = "";
+  var senderPhoneValue = "";
+  var receiverPhoneValue = "";
+  var amountValue = "";
   var withdrawToPhoneNumber = "".obs;
   var phoneNumberError = "".obs;
   var amountError = "".obs;
@@ -139,9 +139,9 @@ class WithdrawMoneyController extends GetxController {
 
   onConfirmDetailsClicked(
       String senderPhone, String receiverPhone, String amount) {
-    senderPhone = senderPhone;
-    receiverPhone = receiverPhone;
-    amount = amount;
+    senderPhoneValue = senderPhone;
+    receiverPhoneValue= receiverPhone;
+    amountValue = amount;
     Get.to(
       () => const WithdrawConfirmIdentity(),
       transition: Transition.rightToLeft,
@@ -152,9 +152,9 @@ class WithdrawMoneyController extends GetxController {
     isLoading(true);
     try {
       var data = {
-        'sender_phone': senderPhone,
-        'receiver_phone': receiverPhone,
-        'amount': amount
+        'sender_phone': senderPhoneValue,
+        'receiver_phone': receiverPhoneValue,
+        'amount': amountValue
       };
       var response =
           await BaseClient.post("/v1/wallet/withdraw", json.encode(data))
