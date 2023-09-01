@@ -137,9 +137,8 @@ class WithdrawMoneyController extends GetxController {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
 
-  onConfirmDetailsClicked(
-      String senderPhone, String receiverPhone, String amount) {
-    senderPhoneValue = senderPhone;
+  onConfirmDetailsClicked(String receiverPhone, String amount) async {
+    senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
     receiverPhoneValue= receiverPhone;
     amountValue = amount;
     Get.to(
