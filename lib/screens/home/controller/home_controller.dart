@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import 'package:haba_pay_main/model/AccountBalanceModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 import '../../../model/StatementModel.dart';
@@ -29,7 +30,6 @@ class HomeController extends GetxController{
     isLoading(true);
     try {
       phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
-      accountBalance.value = (await _secureStorage.getAccountBalance())!;
       var response = await BaseClient.get(
           "/v1/wallet/balance?phone=${await _secureStorage.getPhoneNumber()}")
           .catchError((onError) {
@@ -39,11 +39,11 @@ class HomeController extends GetxController{
         ));
       });
 
-      var success = AccountBalanceModel.fromJson(response);
+      var success = json.decode(response);
 
-      if (success.success == true) {
-        accountBalance.value = "${success.data.currency} ${success.data.balance}";
-        await _secureStorage.setAccountBalance("${success.data.currency} ${success.data.balance}");
+      if (success['success'] == true) {
+        accountBalance.value = "${success['data']['currency']} ${success['data']['balance']}";
+        await _secureStorage.setAccountBalance("${success['data']['currency']} ${success['data']['balance']}");
       } else {
         Get.showSnackbar(const GetSnackBar(
           message: "Unknown error occurred",
