@@ -102,14 +102,37 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  confirm() {
+  confirm(String senderPhone, String mpesaNumber, String amount) async {
+    senderPhone = senderPhone;
+    mpesaNumber = mpesaNumber;
+    amount = amount;
     if (passwordController.text.isEmpty) {
       passwordError.value = "Enter a valid password";
     } else {
-      Get.to(
-        () => const DepositVerifyTransaction(),
-        transition: Transition.rightToLeft,
-      );
+      isLoading(true);
+      try {
+        var data = {
+          'sender_phone': senderPhone,
+          'mpesa_number': mpesaNumber,
+          'amount': amount
+        };
+        var response = await BaseClient.post(sendMoneyUrl, data);
+        var success = json.decode(response);
+        if (success['success'] == true) {
+          isSuccessful(true);
+          Get.to(
+                () => const DepositVerifyTransaction(),
+            transition: Transition.rightToLeft,
+          );
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
     }
   }
 
