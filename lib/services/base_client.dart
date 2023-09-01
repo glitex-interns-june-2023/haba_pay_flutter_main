@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,6 +19,7 @@ const String listUserTransactions = "/v1/users/:userId/transactions";
 const String updateBusinessDetails = "/v1/users/:userId/business";
 
 final SecureStorage _secureStorage = SecureStorage();
+
 class BaseClient {
   static var client = http.Client();
   static Future<dynamic> get(String api) async {
@@ -42,12 +46,19 @@ class BaseClient {
     var url = Uri.parse(baseUrl + api);
     var headers = {'Content-Type': 'application/json'};
 
-    var response = await client.post(url, headers: headers, body: payload);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      return response.body;
-    } else {
-      //throw exception
-      throw Exception(response.body);
+    try {
+      var response = await client.post(url, headers: headers, body: payload);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.body;
+      } else {
+        //throw exception
+        var result = json.decode(response.body);
+        Get.showSnackbar(GetSnackBar(
+            message: result['message'], duration: const Duration(seconds: 3)));
+      }
+    } on SocketException catch (e) {
+      Get.showSnackbar(const GetSnackBar(
+          message: "No internet connection", duration: Duration(seconds: 3)));
     }
   }
 

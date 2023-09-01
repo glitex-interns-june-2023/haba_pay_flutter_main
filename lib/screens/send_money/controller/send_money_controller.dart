@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -97,24 +98,15 @@ class SendMoneyController extends GetxController {
         'receiver_phone': recipientNumber,
         'amount': amount
       };
-      var response = await BaseClient.post(sendMoneyUrl, data)
-          .catchError((onError) {
-        Get.showSnackbar( GetSnackBar(
-          message: onError.toString(),
-          duration: Duration(seconds: 3),
-        ));
-      });
-
-      print(response);
+      var response = await BaseClient.post(sendMoneyUrl, data);
       var success = json.decode(response);
-
       if (success['success'] == true) {
         Get.showSnackbar(GetSnackBar(
           message: success['data']['transaction_message'],
           duration: const Duration(seconds: 3),
         ));
         Get.to(
-          () => const SendMoneyConfirmIdentity(),
+              () => const SendMoneyConfirmIdentity(),
           transition: Transition.rightToLeft,
         );
       } else {
