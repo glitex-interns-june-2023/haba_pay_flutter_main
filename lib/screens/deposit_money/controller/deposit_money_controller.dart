@@ -24,9 +24,20 @@ class DepositMoneyController extends GetxController {
   var isSuccessful = false.obs;
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
-  var accountBalance = "Ksh 800".obs;
+  var accountBalance = "".obs;
   var myNumber = "+254 768 894 90".obs;
   var habaPay = "24356325".obs;
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    isLoading(true);
+    try {
+      accountBalance.value = (await _secureStorage.getAccountBalance())!;
+    } finally {
+      isLoading(false);
+    }
+  }
 
   proceedWithNumber() async {
     if (phoneNumberController.text.isEmpty) {
