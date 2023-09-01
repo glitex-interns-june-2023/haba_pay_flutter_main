@@ -124,7 +124,8 @@ class WithdrawMoneyController extends GetxController {
     );
   }
 
-  onUseNumber() {
+  onUseNumber() async {
+    withdrawToPhoneNumber.value = await _secureStorage.getPhoneNumber() ?? "";
     Get.to(() => const WithdrawTo(), transition: Transition.rightToLeft);
   }
 
