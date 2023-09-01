@@ -64,7 +64,7 @@ class WithdrawTo extends StatelessWidget {
                             child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "From",
+                                  "Phone",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
@@ -74,10 +74,11 @@ class WithdrawTo extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
+                                child: Obx(() => Text(
                                   withdrawMoneyController.withdrawToPhoneNumber.value,
                                   style: const TextStyle(fontSize: 18),
                                 )),
+                            ),
                           ),
                           const Align(
                             alignment: Alignment.topLeft,
