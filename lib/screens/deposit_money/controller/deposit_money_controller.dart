@@ -33,7 +33,7 @@ class DepositMoneyController extends GetxController {
     super.onInit();
     isLoading(true);
     try {
-      accountBalance.value = (await _secureStorage.getAccountBalance())!;
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
     } finally {
       isLoading(false);
     }
