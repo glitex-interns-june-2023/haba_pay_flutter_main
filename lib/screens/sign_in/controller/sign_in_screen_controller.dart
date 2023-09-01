@@ -33,8 +33,10 @@ class SignInController extends GetxController{
         ));
       });
 
-      var response = await BaseClient.post("/v1/auth/google",
-          GoogleTokenModel(token: credential.idToken))
+      var data = {
+        'token': credential.idToken
+      };
+      var response = await BaseClient.post(googleAuthUrl,data)
           .catchError((onError) {
         Get.showSnackbar(GetSnackBar(
           message: onError.toString(),
@@ -58,13 +60,13 @@ class SignInController extends GetxController{
           );
         } else {
           Get.showSnackbar(GetSnackBar(
-            message: user.message,
+            message: user['message'],
             duration: const Duration(seconds: 3),
           ));
         }
       } else {
         Get.showSnackbar(GetSnackBar(
-          message: user.message,
+          message: user['message'],
           duration: const Duration(seconds: 3),
         ));
       }
