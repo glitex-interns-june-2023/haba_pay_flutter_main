@@ -40,7 +40,7 @@ class SettingsController extends GetxController {
     super.onInit();
     var first = await _secureStorage.getFirstName() ?? "";
     var last = await _secureStorage.getLastName() ?? "";
-    userNameInitials.value = "$first[0] $last[0]";
+    //userNameInitials.value = "${first[0]} ${last[0]}";
     userEmail.value = await _secureStorage.getEmail() ?? "";
     userNumber.value = await _secureStorage.getPhoneNumber() ?? "";
     userName.value = await _secureStorage.getUserName() ?? "";
