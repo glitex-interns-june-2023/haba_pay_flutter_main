@@ -46,15 +46,7 @@ class HomeController extends GetxController{
         if(listSuccess['data']['data'] == "[]"){
           print("empty array");
         } else {
-          list.value.add(
-              StatementModel(listSuccess['data']['data']['transactions']['transaction_id'],
-                  listSuccess['data']['data']['transactions']['full_name'],
-                  listSuccess['data']['data']['transactions']['type'],
-                  listSuccess['data']['data']['transactions']['amount'],
-                  listSuccess['data']['data']['transactions']['phone'],
-                  listSuccess['data']['data']['transactions']['timestamp']
-              )
-          );
+          print("values");
         }
 
       } else {
