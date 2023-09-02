@@ -56,6 +56,7 @@ class Home extends StatelessWidget {
         },
         child: LayoutBuilder(builder: (context, constraint) {
           return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
