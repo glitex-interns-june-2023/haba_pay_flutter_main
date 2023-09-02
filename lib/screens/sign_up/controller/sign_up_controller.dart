@@ -119,14 +119,8 @@ class SignUpController extends GetxController {
       var data = {
         'token': credential.idToken
       };
-      var response = await BaseClient.post(googleAuthUrl, data)
-          .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown error",
-          duration: Duration(seconds: 3),
-        ));
-      });
 
+      var response = await BaseClient.post(googleAuthUrl, data);
       var user = json.decode(response);
 
       if (response != null) {

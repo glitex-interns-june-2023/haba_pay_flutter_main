@@ -109,6 +109,7 @@ class SettingsController extends GetxController {
   logout() async {
     isLoading(true);
     try {
+      await _secureStorage.setAuthToken("");
       googleAccount.value = await _googleSignIn.signOut();
       Get.offAll(() => const SignUp(), transition: Transition.rightToLeft);
     } finally {
