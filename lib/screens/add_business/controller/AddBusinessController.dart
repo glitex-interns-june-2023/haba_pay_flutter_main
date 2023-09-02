@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
+import '../../../services/base_client.dart';
 import '../../dashboard/components/dashboard.dart';
 import '../components/add_business_successful.dart';
 
 class AddBusinessController extends GetxController {
+  final SecureStorage _secureStorage = SecureStorage();
   var businessNameError = "".obs;
   var locationError = "".obs;
   var dropDownError = "".obs;
-
+  var isLoading = false.obs;
   var businessNameController = TextEditingController();
   var locationController = TextEditingController();
   var dropDownValue = "Select".obs;
@@ -19,7 +22,7 @@ class AddBusinessController extends GetxController {
     dropDownValue.value = value;
   }
 
-  addBusiness() {
+  addBusiness() async {
     if (businessNameController.text.isEmpty) {
       businessNameError.value = "Enter business name";
     } else if (dropDownValue.value == "Select") {
@@ -27,10 +30,33 @@ class AddBusinessController extends GetxController {
     } else if (locationController.text.isEmpty) {
       locationError.value = "Enter location name";
     } else {
-      Get.to(
-        () => const AddBusinessSuccessful(),
-        transition: Transition.rightToLeft,
-      );
+      isLoading(true);
+      try {
+        var data = {
+        'name': (await _secureStorage.getPhoneNumber()) ?? "",
+    'category': recipientNumber,
+    'location': amount
+    };
+    var response = await BaseClient.post(updateBusinessDetails, data);
+    var success = json.decode(response);
+    if (success['success'] == true) {
+    Get.showSnackbar(GetSnackBar(
+    message: success['data']['transaction_message'],
+    duration: const Duration(seconds: 3),
+    ));
+    Get.to(
+    () => const AddBusinessSuccessful(),
+    transition: Transition.rightToLeft,
+    );
+    } else {
+    Get.showSnackbar( GetSnackBar(
+    message: success['message'],
+    duration: const Duration(seconds: 3),
+    ));
+    }
+    } finally {
+    isLoading(false);
+    }
     }
   }
 
