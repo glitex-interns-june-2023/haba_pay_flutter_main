@@ -1,5 +1,5 @@
 class StatementModel {
-  int id;
+  String id;
   String type;
   String name;
   String amount;

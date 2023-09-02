@@ -13,7 +13,7 @@ const String confirmRecipientDetailsUrl = "/v1/wallet/confirm-details?phone=";
 const String sendMoneyUrl = "/v1/wallet/send-money";
 const String withdrawCashUrl = "/v1/wallet/withdraw";
 const String depositCashUrl = "/v1/wallet/deposit";
-const String listUserTransactionsUrl = "/v1/users/:userId/transactions";
+const String listUserTransactionsUrl = "/v1/users/";
 const String updateBusinessDetailsUrl = "/v1/users/";
 
 final SecureStorage _secureStorage = SecureStorage();
