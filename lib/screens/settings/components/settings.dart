@@ -68,9 +68,11 @@ class Settings extends StatelessWidget {
                             alignment: Alignment.center,
                             child: CircleAvatar(
                               backgroundColor: theme.background,
-                              child: Text(
-                                "BN",
-                                style: TextStyle(color: theme.black),
+                              child: Obx(
+                                () => Text(
+                                  settingsController.userNameInitials.value,
+                                  style: TextStyle(color: theme.black),
+                                ),
                               ),
                             ),
                           ),
