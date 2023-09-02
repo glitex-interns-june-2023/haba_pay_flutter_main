@@ -78,13 +78,8 @@ class SignUpController extends GetxController {
           'email': await _secureStorage.getEmail()
         };
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
-        var response = await BaseClient.post(sendOtpUrl, data)
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+        var response = await BaseClient.post(sendOtpUrl, data);
+        print(response);
 
         var success = json.decode(response);
 
@@ -125,7 +120,7 @@ class SignUpController extends GetxController {
 
       if (response != null) {
         if (user['success'] != false) {
-          await _secureStorage.setUserId("$user['data']['id']" ?? "");
+          await _secureStorage.setUserId(user['data']['id'].toString() ?? "");
           await _secureStorage.setEmail(user['data']['email'] ?? "");
           await _secureStorage.setUserName(user['data']['username'] ?? "");
           await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
