@@ -41,7 +41,7 @@ class AddBusinessController extends GetxController {
         };
         print(data);
         var response = await BaseClient.post(updateBusinessDetailsUrl, data);
-        print(response)
+        print(response);
         var success = json.decode(response);
         if (success['success'] == true) {
           Get.to(
