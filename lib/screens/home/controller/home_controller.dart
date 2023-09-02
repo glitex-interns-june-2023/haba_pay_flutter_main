@@ -43,12 +43,14 @@ class HomeController extends GetxController{
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
-        if(listSuccess['data']['data'] == "[]"){
+        var dataList = [];
+        dataList = listSuccess['data']['data'];
+        if(dataList.isEmpty){
           print("empty array");
         } else {
+          print(listSuccess['data']['data']);
           print("values");
         }
-
       } else {
         Get.showSnackbar(GetSnackBar(
           message: listSuccess['message'],

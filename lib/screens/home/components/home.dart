@@ -12,7 +12,8 @@ import 'package:haba_pay_main/screens/withdraw_money/components/withdraw_money.d
 
 import '../../statement/components/transaction_details.dart';
 
-final BottomNavBarController bottomNavBarController = Get.put(BottomNavBarController());
+final BottomNavBarController bottomNavBarController =
+    Get.put(BottomNavBarController());
 final HomeController homeController = Get.put(HomeController());
 final CustomTheme theme = CustomTheme();
 
@@ -50,7 +51,7 @@ class Home extends StatelessWidget {
       ),
       backgroundColor: theme.background,
       body: RefreshIndicator(
-        onRefresh: (){
+        onRefresh: () {
           return homeController.onInit();
         },
         child: LayoutBuilder(builder: (context, constraint) {
@@ -94,7 +95,8 @@ class Home extends StatelessWidget {
                                         Text(
                                           "Send",
                                           style: TextStyle(
-                                              fontSize: 14, color: theme.orange),
+                                              fontSize: 14,
+                                              color: theme.orange),
                                         )
                                       ],
                                     ),
@@ -114,7 +116,8 @@ class Home extends StatelessWidget {
                                         Text(
                                           "Withdraw",
                                           style: TextStyle(
-                                              fontSize: 14, color: theme.orange),
+                                              fontSize: 14,
+                                              color: theme.orange),
                                         )
                                       ],
                                     ),
@@ -136,7 +139,8 @@ class Home extends StatelessWidget {
                                         Text(
                                           "Deposit",
                                           style: TextStyle(
-                                              fontSize: 14, color: theme.orange),
+                                              fontSize: 14,
+                                              color: theme.orange),
                                         )
                                       ],
                                     ),
@@ -170,7 +174,8 @@ class Home extends StatelessWidget {
                                           Text(
                                             "Account balance",
                                             style: TextStyle(
-                                                fontSize: 12, color: theme.grey),
+                                                fontSize: 12,
+                                                color: theme.grey),
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -190,11 +195,12 @@ class Home extends StatelessWidget {
                                           Row(
                                             children: [
                                               Obx(() => Text(
-                                                homeController.phoneNumber.value,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: theme.grey),
-                                              )),
+                                                    homeController
+                                                        .phoneNumber.value,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: theme.grey),
+                                                  )),
                                               const Spacer(),
                                               Text(
                                                 "Haba pay",
@@ -247,27 +253,42 @@ class Home extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              const SizedBox(height: 20,),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               Obx(() => Column(
                                     children: [
-                                      for (var statement in homeController.list)
-                                        SingleStatement(
-                                            type: statement.type,
-                                            onClick: () {
-                                              Get.to(
-                                                  () =>
-                                                      const TransactionDetails(),
-                                                  transition:
-                                                      Transition.rightToLeft,
-                                                  arguments: {
-                                                    'statement': statement,
-                                                    'date': "2 February 2023"
-                                                  });
-                                            },
-                                            name: statement.name,
-                                            phoneNumber: statement.phoneNumber,
-                                            amount: statement.amount,
-                                            time: statement.time)
+                                      if (homeController.list.isEmpty && !homeController.isLoading.value)
+                                        const Text(
+                                          "No transactions to display",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      else if (homeController.isLoading.value)
+                                        CircularProgressIndicator(
+                                          color: theme.orange,
+                                        )
+                                      else
+                                        for (var statement
+                                            in homeController.list)
+                                          SingleStatement(
+                                              type: statement.type,
+                                              onClick: () {
+                                                Get.to(
+                                                    () =>
+                                                        const TransactionDetails(),
+                                                    transition: Transition.rightToLeft,
+                                                    arguments: {
+                                                      'statement': statement,
+                                                      'date': "2 February 2023"
+                                                    });
+                                              },
+                                              name: statement.name,
+                                              phoneNumber:
+                                                  statement.phoneNumber,
+                                              amount: statement.amount,
+                                              time: statement.time)
                                     ],
                                   ))
                             ],
