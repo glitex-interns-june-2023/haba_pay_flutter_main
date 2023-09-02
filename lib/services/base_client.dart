@@ -14,7 +14,7 @@ const String sendMoneyUrl = "/v1/wallet/send-money";
 const String withdrawCashUrl = "/v1/wallet/withdraw";
 const String depositCashUrl = "/v1/wallet/deposit";
 const String listUserTransactionsUrl = "/v1/users/:userId/transactions";
-const String updateBusinessDetailsUrl = "/v1/users/:userId/business";
+const String updateBusinessDetailsUrl = "/v1/users/";
 
 final SecureStorage _secureStorage = SecureStorage();
 
@@ -71,11 +71,19 @@ class BaseClient {
       'Content-Type': 'application/json'
     };
 
-    var response = await client.put(url, headers: headers, body: payload);
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      //throw exception
+    try {
+      var response = await client.put(url, headers: headers, body: payload);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        //throw exception
+        var result = json.decode(response.body);
+        Get.showSnackbar(GetSnackBar(
+            message: result['message'], duration: const Duration(seconds: 3)));
+      }
+    } on SocketException catch (e) {
+      Get.showSnackbar(const GetSnackBar(
+          message: "No internet connection", duration: Duration(seconds: 3)));
     }
   }
 

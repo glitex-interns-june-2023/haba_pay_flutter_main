@@ -39,8 +39,7 @@ class AddBusinessController extends GetxController {
           'category': dropDownValue.value,
           'location': locationController.text
         };
-        print(data);
-        var response = await BaseClient.post(updateBusinessDetailsUrl, data);
+        var response = await BaseClient.post("$updateBusinessDetailsUrl${await _secureStorage.getUserId()}/business", data);
         print(response);
         var success = json.decode(response);
         if (success['success'] == true) {
