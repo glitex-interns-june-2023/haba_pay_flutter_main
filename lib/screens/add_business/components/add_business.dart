@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import 'package:haba_pay_main/screens/Shared/CustomAppBar.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 import 'package:haba_pay_main/screens/add_business/controller/AddBusinessController.dart';
-
 
 final AddBusinessController addBusinessController =
     Get.put(AddBusinessController());
@@ -60,19 +60,24 @@ class AddBusiness extends StatelessWidget {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               )),
                         ),
-                        Obx(() => TextField(
-                          decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: theme.orange)),
-                              errorText: addBusinessController.businessNameError.isNotEmpty
-                                  ? addBusinessController.businessNameError.value
-                                  : null
+                        Obx(
+                          () => TextField(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: theme.orange)),
+                                errorText: addBusinessController
+                                        .businessNameError.isNotEmpty
+                                    ? addBusinessController
+                                        .businessNameError.value
+                                    : null),
+                            cursorColor: theme.orange,
+                            keyboardType: TextInputType.name,
+                            controller:
+                                addBusinessController.businessNameController,
                           ),
-                          cursorColor: theme.orange,
-                          keyboardType: TextInputType.name,
-                          controller: addBusinessController.businessNameController,
-                        ),),
+                        ),
                         const Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
@@ -85,9 +90,10 @@ class AddBusiness extends StatelessWidget {
                         ),
                         Obx(() => DropdownButtonFormField(
                             decoration: InputDecoration(
-                                errorText: addBusinessController.dropDownError.isNotEmpty
-                                    ? addBusinessController.dropDownError.value
-                                    : null,
+                              errorText: addBusinessController
+                                      .dropDownError.isNotEmpty
+                                  ? addBusinessController.dropDownError.value
+                                  : null,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5)),
                               focusedBorder: OutlineInputBorder(
@@ -114,22 +120,27 @@ class AddBusiness extends StatelessWidget {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               )),
                         ),
-                        Obx(() => TextField(
-                          decoration: InputDecoration(
-                            errorText: addBusinessController.locationError.isNotEmpty
-                                ? addBusinessController.locationError.value
-                                : null,
-                            suffixIconColor: theme.orange,
-                            suffixIcon: const Icon(Icons.add_location_outlined),
-                            hintText: "Pin",
-                            border: const OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: theme.orange)),
+                        Obx(
+                          () => TextField(
+                            decoration: InputDecoration(
+                              errorText: addBusinessController
+                                      .locationError.isNotEmpty
+                                  ? addBusinessController.locationError.value
+                                  : null,
+                              suffixIconColor: theme.orange,
+                              suffixIcon:
+                                  const Icon(Icons.add_location_outlined),
+                              hintText: "Pin",
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: theme.orange)),
+                            ),
+                            cursorColor: theme.orange,
+                            keyboardType: TextInputType.name,
+                            controller:
+                                addBusinessController.locationController,
                           ),
-                          cursorColor: theme.orange,
-                          keyboardType: TextInputType.name,
-                          controller: addBusinessController.locationController,
-                        ),),
+                        ),
                         Align(
                           alignment: Alignment.topLeft,
                           child: InkWell(
@@ -147,24 +158,12 @@ class AddBusiness extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        MaterialButton(
-                            onPressed: () {
+                        Obx(() => CustomButton(
+                            isLoading: addBusinessController.isLoading.value,
+                            title: "Add",
+                            onClick: () {
                               addBusinessController.addBusiness();
-                            },
-                            height: 50,
-                            minWidth: double.infinity,
-                            color: theme.orange,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: Text(
-                                "Add",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.white,
-                                    fontSize: 20),
-                              ),
-                            )),
+                            })),
                         const Spacer()
                       ],
                     ),
