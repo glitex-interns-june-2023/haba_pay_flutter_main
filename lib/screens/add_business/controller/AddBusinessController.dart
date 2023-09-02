@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -33,36 +35,34 @@ class AddBusinessController extends GetxController {
       isLoading(true);
       try {
         var data = {
-        'name': (await _secureStorage.getPhoneNumber()) ?? "",
-    'category': recipientNumber,
-    'location': amount
-    };
-    var response = await BaseClient.post(updateBusinessDetails, data);
-    var success = json.decode(response);
-    if (success['success'] == true) {
-    Get.showSnackbar(GetSnackBar(
-    message: success['data']['transaction_message'],
-    duration: const Duration(seconds: 3),
-    ));
-    Get.to(
-    () => const AddBusinessSuccessful(),
-    transition: Transition.rightToLeft,
-    );
-    } else {
-    Get.showSnackbar( GetSnackBar(
-    message: success['message'],
-    duration: const Duration(seconds: 3),
-    ));
-    }
-    } finally {
-    isLoading(false);
-    }
+          'name': businessNameController.text,
+          'category': dropDownValue.value,
+          'location': locationController.text
+        };
+        print(data);
+        var response = await BaseClient.post(updateBusinessDetailsUrl, data);
+        print(response)
+        var success = json.decode(response);
+        if (success['success'] == true) {
+          Get.to(
+            () => const AddBusinessSuccessful(),
+            transition: Transition.rightToLeft,
+          );
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoading(false);
+      }
     }
   }
 
-  onReturnHomeClicked(){
+  onReturnHomeClicked() {
     Get.offAll(
-          () => const Dashboard(),
+      () => const Dashboard(),
       transition: Transition.rightToLeft,
     );
   }
