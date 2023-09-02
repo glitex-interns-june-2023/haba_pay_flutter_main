@@ -51,6 +51,7 @@ class Home extends StatelessWidget {
       ),
       backgroundColor: theme.background,
       body: RefreshIndicator(
+        color: theme.orange,
         onRefresh: () {
           return homeController.onInit();
         },
