@@ -79,7 +79,6 @@ class SignUpController extends GetxController {
         };
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
         var response = await BaseClient.post(sendOtpUrl, data);
-        print(response);
 
         var success = json.decode(response);
 
