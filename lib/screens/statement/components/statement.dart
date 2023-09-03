@@ -149,8 +149,7 @@ class Statement extends StatelessWidget {
                                             Get.to(
                                                 () =>
                                                     const TransactionDetails(),
-                                                transition:
-                                                    Transition.rightToLeft,
+                                                transition: Transition.rightToLeft,
                                                 arguments: {
                                                   'statement': statement,
                                                   'date': transaction.date
