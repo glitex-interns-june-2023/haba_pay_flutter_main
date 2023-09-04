@@ -14,6 +14,8 @@ import '../components/verifying_transaction.dart';
 class SendMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
   String balance = "";
+  String amountValue = "";
+  String recipientNumberValue = "";
   var amountError = "".obs;
   var phoneNumberError = "".obs;
   var amountController = TextEditingController();
@@ -29,7 +31,9 @@ class SendMoneyController extends GetxController {
     isLoading(true);
     try {
       accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
-      balance = accountBalance.value.substring(3,);
+      balance = accountBalance.value.substring(
+        3,
+      );
     } finally {
       isLoading(false);
     }
@@ -44,7 +48,7 @@ class SendMoneyController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "$confirmRecipientDetailsUrl${phoneNumberController.text}");
+            "$confirmRecipientDetailsUrl${phoneNumberController.text}");
 
         var success = json.decode(response);
 
@@ -55,10 +59,10 @@ class SendMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: amountController.text,
-                  newBalance: "${int.parse(balance) - int.parse(amountController.text)}"
-          ));
+                  newBalance:
+                      "${int.parse(balance) - int.parse(amountController.text)}"));
         } else {
-          Get.showSnackbar( GetSnackBar(
+          Get.showSnackbar(GetSnackBar(
             message: success['message'],
             duration: const Duration(seconds: 3),
           ));
@@ -69,11 +73,35 @@ class SendMoneyController extends GetxController {
     }
   }
 
-  onConfirmIdentityClicked() {
-    Get.to(
-      () => const VerifyingTransaction(),
-      transition: Transition.rightToLeft,
-    );
+  onConfirmIdentityClicked() async {
+    isLoading(true);
+    try {
+      var data = {
+        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
+        'receiver_phone': recipientNumberValue,
+        'amount': amountValue
+      };
+      var response = await BaseClient.post(sendMoneyUrl, data);
+      var success = json.decode(response);
+      if (success['success'] == true) {
+        isSuccessful(true);
+        Get.showSnackbar(GetSnackBar(
+          message: success['data']['transaction_message'],
+          duration: const Duration(seconds: 3),
+        ));
+        Get.to(
+          () => const VerifyingTransaction(),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
+    }
   }
 
   onVisibilityChanged() {
@@ -85,33 +113,12 @@ class SendMoneyController extends GetxController {
   }
 
   onConfirmDetailsSend(String recipientNumber, String amount) async {
-    isLoading(true);
-    try {
-      var data = {
-        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
-        'receiver_phone': recipientNumber,
-        'amount': amount
-      };
-      var response = await BaseClient.post(sendMoneyUrl, data);
-      var success = json.decode(response);
-      if (success['success'] == true) {
-        Get.showSnackbar(GetSnackBar(
-          message: success['data']['transaction_message'],
-          duration: const Duration(seconds: 3),
-        ));
-        Get.to(
-              () => const SendMoneyConfirmIdentity(),
-          transition: Transition.rightToLeft,
-        );
-      } else {
-        Get.showSnackbar( GetSnackBar(
-          message: success['message'],
-          duration: const Duration(seconds: 3),
-        ));
-      }
-    } finally {
-      isLoading(false);
-    }
+    recipientNumberValue = recipientNumber;
+    amountValue = amount;
+    Get.to(
+      () => const SendMoneyConfirmIdentity(),
+      transition: Transition.rightToLeft,
+    );
   }
 
   onReturnHomeCLicked() {
