@@ -128,7 +128,7 @@ class SignUpController extends GetxController {
               .setRefreshToken(user['data']['refresh_token'] ?? "");
           var first = user['data']['first_name'].toString()[0].capitalize;
           var last = user['data']['last_name'].toString()[0].capitalize;
-          await _secureStorage.setInitials("$first $last");
+          await _secureStorage.setInitials("$first$last");
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {
