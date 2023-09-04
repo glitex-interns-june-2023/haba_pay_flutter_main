@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:haba_pay_main/model/GoogleTokenModel.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
