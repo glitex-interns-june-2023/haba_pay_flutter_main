@@ -29,8 +29,9 @@ class StatementController extends GetxController {
   }
 
   Future<void> _scrollListener() async {
-    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      page = page + 1;
+    if(isLoadingMore.value == true) return;
+    if(scrollController.position.maxScrollExtent == scrollController.offset){
+      page++;
       isLoadingMore(true);
       try {
         var listResponse = await BaseClient.get(
@@ -119,5 +120,11 @@ class StatementController extends GetxController {
     } else {
       isDepositPressed(true);
     }
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }
