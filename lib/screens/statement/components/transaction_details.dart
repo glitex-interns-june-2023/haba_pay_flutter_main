@@ -140,7 +140,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                           child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                statement.amount as String,
+                                "${statement.amount}",
                                 style: const TextStyle(fontSize: 18),
                               )),
                         ),

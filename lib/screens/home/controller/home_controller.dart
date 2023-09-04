@@ -77,4 +77,11 @@ class HomeController extends GetxController {
   onVisibilityChanged() {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    isLoading(false);
+  }
 }
