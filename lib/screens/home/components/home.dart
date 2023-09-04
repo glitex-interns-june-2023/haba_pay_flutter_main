@@ -260,7 +260,7 @@ class Home extends StatelessWidget {
                               ),
                               Obx(() => Column(
                                     children: [
-                                      if (homeController.list.length == 1 &&
+                                      if (homeController.list.isEmpty &&
                                           !homeController.isLoading.value)
                                         Text(
                                           "No transactions to display",
