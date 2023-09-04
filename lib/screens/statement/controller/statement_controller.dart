@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/model/StatementModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
 import '../../../model/TransactionModel.dart';
@@ -14,7 +15,7 @@ class StatementController extends GetxController {
   var isLoadingMore = false.obs;
   var isLoading = false.obs;
   var list = [
-
+    TransactionModel("", [StatementModel("", "", "", 0, "", "", "")])
   ].obs;
   var updatedList = [].obs;
   var isAllPressed = false.obs;
@@ -29,8 +30,8 @@ class StatementController extends GetxController {
   }
 
   Future<void> _scrollListener() async {
-    if(isLoadingMore.value == true) return;
-    if(scrollController.position.maxScrollExtent == scrollController.offset){
+    if (isLoadingMore.value == true) return;
+    if (scrollController.position.maxScrollExtent == scrollController.offset) {
       page++;
       isLoadingMore(true);
       try {
@@ -39,11 +40,11 @@ class StatementController extends GetxController {
         var listSuccess = json.decode(listResponse);
 
         if (listSuccess['success'] == true) {
-          List dataList = listSuccess['data']['data'];
-          if (dataList.isEmpty) {
-            list.addAll(dataList);
-          } else {
-            list.addAll(dataList);
+          list.clear();
+          var dataList = listSuccess['data']['data'];
+          for (int i = 0; i < dataList.length; i++) {
+            list.add(TransactionModel(
+                dataList[i]['date'], dataList[i]['transactions']));
           }
         } else {
           Get.showSnackbar(GetSnackBar(
@@ -55,9 +56,7 @@ class StatementController extends GetxController {
         isLoadingMore(false);
       }
       updatedList.addAll(list.toList());
-    } else {
-
-    }
+    } else {}
   }
 
   onAllClicked() {
@@ -72,7 +71,6 @@ class StatementController extends GetxController {
           .any((statement) => statement.type == "send");
     }).map((transaction) {
       return TransactionModel(
-          transaction.id,
           transaction.date,
           transaction.statementList
               .where((statement) => statement.type == "send")
@@ -87,7 +85,6 @@ class StatementController extends GetxController {
           .any((statement) => statement.type == "withdraw");
     }).map((transaction) {
       return TransactionModel(
-          transaction.id,
           transaction.date,
           transaction.statementList
               .where((statement) => statement.type == "withdraw")
@@ -102,7 +99,6 @@ class StatementController extends GetxController {
           .any((statement) => statement.type == "deposit");
     }).map((transaction) {
       return TransactionModel(
-          transaction.id,
           transaction.date,
           transaction.statementList
               .where((statement) => statement.type == "deposit")

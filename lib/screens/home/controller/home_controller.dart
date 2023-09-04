@@ -60,7 +60,8 @@ class HomeController extends GetxController {
               data[i]['transactions'][0]['amount'],
               data[i]['transactions'][0]['phone'],
               data[i]['transactions'][0]['timestamp'],
-              data[i]['date']));
+              data[i]['date']
+          ));
         }
       } else {
         Get.showSnackbar(GetSnackBar(
