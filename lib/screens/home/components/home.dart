@@ -277,7 +277,7 @@ class Home extends StatelessWidget {
                                         for (var statement
                                             in homeController.list)
                                           SingleStatement(
-                                              type: statement.type,
+                                              type: statement['transactions']['type'],
                                               onClick: () {
                                                 Get.to(
                                                     () =>
@@ -285,14 +285,14 @@ class Home extends StatelessWidget {
                                                     transition: Transition.rightToLeft,
                                                     arguments: {
                                                       'statement': statement,
-                                                      'date': "2 February 2023"
+                                                      'date': statement['date']
                                                     });
                                               },
-                                              name: statement.name,
+                                              name: statement['transactions']['full_name'],
                                               phoneNumber:
-                                                  statement.phoneNumber,
-                                              amount: statement.amount,
-                                              time: statement.time)
+                                                  statement['transactions']['phone'],
+                                              amount: statement['transactions']['amount'],
+                                              time: statement['transactions']['timestamp'])
                                     ],
                                   ))
                             ],

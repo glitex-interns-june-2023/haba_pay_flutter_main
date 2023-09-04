@@ -2,7 +2,7 @@ class StatementModel {
   String id;
   String type;
   String name;
-  String amount;
+  double amount;
   String phoneNumber;
   String time;
 

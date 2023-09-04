@@ -5,7 +5,7 @@ class SingleStatement extends StatefulWidget {
   final String type;
   final String name;
   final String phoneNumber;
-  final String amount;
+  final double amount;
   final String time;
 
   final Function() onClick;
@@ -82,7 +82,7 @@ class _SingleStatementState extends State<SingleStatement> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                        widget.amount,
+                        widget.amount as String,
                       style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold

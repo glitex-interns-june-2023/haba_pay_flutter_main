@@ -41,17 +41,15 @@ class HomeController extends GetxController{
       //===========================================
 
       var listResponse = await BaseClient.get("$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions");
-      print(listResponse);
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
         var dataList = [];
         dataList = listSuccess['data']['data'];
         if(dataList.isEmpty){
-          print("empty array");
+          list.addAll(dataList);
         } else {
-          print(listSuccess['data']['data']);
-          print("values");
+          list.addAll(dataList);
         }
       } else {
         Get.showSnackbar(GetSnackBar(
