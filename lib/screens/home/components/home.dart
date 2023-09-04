@@ -260,7 +260,7 @@ class Home extends StatelessWidget {
                               ),
                               Obx(() => Column(
                                     children: [
-                                      if (homeController.list.isEmpty &&
+                                      if (homeController.list.length == 1 &&
                                           !homeController.isLoading.value)
                                         Text(
                                           "No transactions to display",
@@ -277,7 +277,7 @@ class Home extends StatelessWidget {
                                         for (var statement
                                             in homeController.list)
                                           SingleStatement(
-                                              type: statement['transactions']['type'],
+                                              type: statement.type,
                                               onClick: () {
                                                 Get.to(
                                                     () =>
@@ -285,14 +285,13 @@ class Home extends StatelessWidget {
                                                     transition: Transition.rightToLeft,
                                                     arguments: {
                                                       'statement': statement,
-                                                      'date': statement['date']
+                                                      'date': statement.date
                                                     });
                                               },
-                                              name: statement['transactions']['full_name'],
-                                              phoneNumber:
-                                                  statement['transactions']['phone'],
-                                              amount: statement['transactions']['amount'],
-                                              time: statement['transactions']['timestamp'])
+                                              name: statement.name,
+                                              phoneNumber:statement.phoneNumber,
+                                              amount: statement.amount,
+                                              time: statement.time)
                                     ],
                                   ))
                             ],

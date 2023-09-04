@@ -31,30 +31,34 @@ class SignUpController extends GetxController {
     if (codeController.text.isEmpty) {
       codeError.value = "Enter a valid code";
     } else {
-      isLoading(true);
-      try {
-        var data = {
-          'phone_number': phoneNumberController.text,
-          'otp': codeController.text
-        };
-        var response = await BaseClient.post(verifyOtpUrl, data);
-
-        var success = json.decode(response);
-
-        if (success['success'] == true) {
-          Get.to(
+      Get.to(
             () => const VerificationSuccessful(),
-            transition: Transition.rightToLeft,
-          );
-        } else {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        }
-      } finally {
-        isLoading(false);
-      }
+        transition: Transition.rightToLeft,
+      );
+      // isLoading(true);
+      // try {
+      //   var data = {
+      //     'phone_number': phoneNumberController.text,
+      //     'otp': codeController.text
+      //   };
+      //   var response = await BaseClient.post(verifyOtpUrl, data);
+      //
+      //   var success = json.decode(response);
+      //
+      //   if (success['success'] == true) {
+      //     Get.to(
+      //       () => const VerificationSuccessful(),
+      //       transition: Transition.rightToLeft,
+      //     );
+      //   } else {
+      //     Get.showSnackbar(const GetSnackBar(
+      //       message: "Unknown error occurred",
+      //       duration: Duration(seconds: 3),
+      //     ));
+      //   }
+      // } finally {
+      //   isLoading(false);
+      // }
     }
   }
 
