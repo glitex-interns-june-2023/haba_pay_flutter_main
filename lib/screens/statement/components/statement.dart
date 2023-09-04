@@ -129,42 +129,40 @@ class Statement extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: CustomScrollView(
+                      controller: statementController.scrollController,
                       slivers: [
-                        Obx(() => SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                final transaction =
-                                    statementController.updatedList[index];
-                                return Column(
-                                  children: [
-                                    Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(transaction.date)),
-                                    const Divider(),
-                                    for (var statement
-                                        in transaction.statementList)
-                                      SingleStatement(
-                                          type: statement.type,
-                                          onClick: () {
-                                            Get.to(
-                                                () =>
-                                                    const TransactionDetails(),
-                                                transition: Transition.rightToLeft,
-                                                arguments: {
-                                                  'statement': statement,
-                                                  'date': transaction.date
-                                                });
-                                          },
-                                          name: statement.name,
-                                          phoneNumber: statement.phoneNumber,
-                                          amount: statement.amount,
-                                          time: statement.time),
-                                  ],
-                                );
-                              },
-                              childCount:
-                                  statementController.updatedList.length,
-                            )))
+                        Obx(() => ListView.builder(
+                            itemCount: statementController.updatedList.length,
+                            itemBuilder: (context, index) {
+                              final transaction =
+                                  statementController.updatedList[index];
+                              return Column(
+                                children: [
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(transaction.date)),
+                                  const Divider(),
+                                  for (var statement
+                                      in transaction.statementList + 1)
+                                    SingleStatement(
+                                        type: statement.type,
+                                        onClick: () {
+                                          Get.to(
+                                              () => const TransactionDetails(),
+                                              transition:
+                                                  Transition.rightToLeft,
+                                              arguments: {
+                                                'statement': statement,
+                                                'date': transaction.date
+                                              });
+                                        },
+                                        name: statement.name,
+                                        phoneNumber: statement.phoneNumber,
+                                        amount: statement.amount,
+                                        time: statement.time),
+                                ],
+                              );
+                            }))
                       ],
                     ),
                   ),

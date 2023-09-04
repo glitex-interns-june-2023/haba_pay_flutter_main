@@ -1,25 +1,19 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 
-import '../../../model/StatementModel.dart';
 import '../../../model/TransactionModel.dart';
+import '../../../services/base_client.dart';
 
-class StatementController extends GetxController{
-  var list = [
-    TransactionModel(56,"2 February 2023", [
-      StatementModel("178","Jane Mukenya", "deposit", 400,
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("198","Jane jashas", "deposit", 7568,
-          "+254 787 787 879", "12:45 pm")
-    ]),
-    TransactionModel(12,"1 February 2023", [
-      StatementModel("156","Jane Mukenya", "send", 653,
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("787","liadhjld Mukenya", "deposit",
-          4535, "+254 787 787 879", "12:45 pm"),
-      StatementModel("789","Jane dhladk", "withdraw", 5667,
-          "+254 787 787 879", "12:45 pm"),
-    ])
-  ].obs;
+class StatementController extends GetxController {
+  final ScrollController scrollController = ScrollController();
+  final SecureStorage _secureStorage = SecureStorage();
+  int page = 1;
+  var isLoadingMore = false.obs;
+  var isLoading = false.obs;
+  var list = [].obs;
   var updatedList = [].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;
@@ -27,64 +21,98 @@ class StatementController extends GetxController{
   var isDepositPressed = false.obs;
 
   @override
-  void onInit(){
+  Future<void> onInit() async {
     super.onInit();
-    updatedList.addAll(list.toList());
+    scrollController.addListener(_scrollListener);
   }
 
-  onAllClicked(){
+  Future<void> _scrollListener() async {
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      page = page + 1;
+      isLoadingMore(true);
+      try {
+        var listResponse = await BaseClient.get(
+            "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=$page");
+        var listSuccess = json.decode(listResponse);
+
+        if (listSuccess['success'] == true) {
+          List dataList = listSuccess['data']['data'];
+          if (dataList.isEmpty) {
+            list.addAll(dataList);
+          } else {
+            list.addAll(dataList);
+          }
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: listSuccess['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoadingMore(false);
+      }
+      updatedList.addAll(list.toList());
+    } else {
+
+    }
+  }
+
+  onAllClicked() {
     updatedList.clear();
     updatedList.addAll(list.toList());
   }
 
-  onSentClicked(){
+  onSentClicked() {
     updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "send");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "send").toList());
-        }).toList()
-    );
+    updatedList.addAll(list.where((transaction) {
+      return transaction.statementList
+          .any((statement) => statement.type == "send");
+    }).map((transaction) {
+      return TransactionModel(
+          transaction.id,
+          transaction.date,
+          transaction.statementList
+              .where((statement) => statement.type == "send")
+              .toList());
+    }).toList());
   }
 
-  onWithdrawClicked(){
+  onWithdrawClicked() {
     updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "withdraw");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "withdraw").toList());
-        }).toList()
-    );
+    updatedList.addAll(list.where((transaction) {
+      return transaction.statementList
+          .any((statement) => statement.type == "withdraw");
+    }).map((transaction) {
+      return TransactionModel(
+          transaction.id,
+          transaction.date,
+          transaction.statementList
+              .where((statement) => statement.type == "withdraw")
+              .toList());
+    }).toList());
   }
 
-  onDepositClicked(){
+  onDepositClicked() {
     updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "deposit");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "deposit").toList());
-        }).toList()
-    );
+    updatedList.addAll(list.where((transaction) {
+      return transaction.statementList
+          .any((statement) => statement.type == "deposit");
+    }).map((transaction) {
+      return TransactionModel(
+          transaction.id,
+          transaction.date,
+          transaction.statementList
+              .where((statement) => statement.type == "deposit")
+              .toList());
+    }).toList());
   }
 
-  onButtonPressed(String title){
-    if(title == "All"){
+  onButtonPressed(String title) {
+    if (title == "All") {
       isAllPressed(true);
-    } else if (title == "Sent"){
+    } else if (title == "Sent") {
       isSentPressed(true);
-    } else if (title == "Withdraw"){
+    } else if (title == "Withdraw") {
       isWithdrawPressed(true);
     } else {
       isDepositPressed(true);
