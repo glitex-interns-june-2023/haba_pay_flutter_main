@@ -37,13 +37,7 @@ class SignUpController extends GetxController {
           'phone_number': phoneNumberController.text,
           'otp': codeController.text
         };
-        var response = await BaseClient.post(verifyOtpUrl, data)
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+        var response = await BaseClient.post(verifyOtpUrl, data);
 
         var success = json.decode(response);
 
