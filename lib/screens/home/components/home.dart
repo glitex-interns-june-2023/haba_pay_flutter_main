@@ -40,12 +40,13 @@ class Home extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleAvatar(
-              backgroundColor: theme.background,
-              child: Obx(() => Text(
-                homeController.initials.value,
-                style: TextStyle(color: theme.black),
-              ),)
-            ),
+                backgroundColor: theme.background,
+                child: Obx(
+                  () => Text(
+                    homeController.initials.value,
+                    style: TextStyle(color: theme.black),
+                  ),
+                )),
           ),
         ],
       ),
@@ -289,7 +290,8 @@ class Home extends StatelessWidget {
                                                     });
                                               },
                                               name: statement.name,
-                                              phoneNumber:statement.phoneNumber,
+                                              phoneNumber:
+                                                  statement.phoneNumber,
                                               amount: statement.amount,
                                               time: statement.time)
                                     ],
