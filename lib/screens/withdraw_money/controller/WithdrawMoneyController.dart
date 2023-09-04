@@ -14,6 +14,7 @@ import '../components/withdraw_verifying_transaction.dart';
 
 class WithdrawMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
+  String balance = "";
   var senderPhoneValue = "";
   var receiverPhoneValue = "";
   var amountValue = "";
@@ -35,6 +36,7 @@ class WithdrawMoneyController extends GetxController {
     isLoading(true);
     try {
       accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+      balance = accountBalance.value.substring(3,);
     } finally {
       isLoading(false);
     }
@@ -60,8 +62,7 @@ class WithdrawMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: amountController.text,
-                  newBalance: ""
-                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+                  newBalance: "${int.parse(balance) - int.parse(amountController.text)}"
                   ));
         } else {
           Get.showSnackbar(GetSnackBar(
@@ -93,8 +94,7 @@ class WithdrawMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: withdrawToAmountController.text,
-                  newBalance: ""
-                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+                  newBalance: "${int.parse(balance) - int.parse(amountController.text)}"
                   ));
         } else {
           Get.showSnackbar(GetSnackBar(
