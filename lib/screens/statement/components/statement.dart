@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
+import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
 import 'package:get/get.dart';
 
@@ -125,9 +127,37 @@ class Statement extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Obx(() => Text(statementController.updatedList.length.toString()))
-                  ),
+                      padding: const EdgeInsets.all(16),
+                      child: Obx(() => ListView.builder(
+                          itemCount: statementController.list.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                        statementController.list[index].date)),
+                                const Divider(),
+                                for (var statement in statementController
+                                    .list[index].statementList)
+                                  SingleStatement(
+                                      type: statement['type'],
+                                      onClick: () {
+                                        Get.to(() => const TransactionDetails(),
+                                            transition: Transition.rightToLeft,
+                                            arguments: {
+                                              'statement': statement,
+                                              'date': statementController
+                                                  .list[index].date
+                                            });
+                                      },
+                                      name: statement['full_name'],
+                                      phoneNumber: statement['phone'],
+                                      amount: statement['amount'],
+                                      time: statement['timestamp'])
+                              ],
+                            );
+                          }))),
                 ),
               ),
             )

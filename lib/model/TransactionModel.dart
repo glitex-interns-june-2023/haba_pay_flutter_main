@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
+
 import 'StatementModel.dart';
 
 class TransactionModel{
   String date;
-  List<StatementModel> statementList;
+  List statementList;
 
   TransactionModel(
       this.date,
