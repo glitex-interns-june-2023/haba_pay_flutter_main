@@ -157,8 +157,7 @@ class DepositConfirmDetails extends StatelessWidget {
                                 child: CustomButton(title: "Send", onClick: (){
                                   depositMoneyController.send(
                                     depositMoneyModel.phoneNumber,
-                                    depositMoneyModel.phoneNumber,
-                                    depositMoneyModel.amount
+                                    depositMoneyModel.amount,
                                   );
                                 })
                               ),

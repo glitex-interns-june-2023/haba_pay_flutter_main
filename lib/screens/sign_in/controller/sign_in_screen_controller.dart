@@ -47,12 +47,16 @@ class SignInController extends GetxController{
 
       if (response != null) {
         if (user['success'] != false) {
+          await _secureStorage.setUserId(user['data']['id'].toString() ?? "");
           await _secureStorage.setEmail(user['data']['email'] ?? "");
           await _secureStorage.setUserName(user['data']['username'] ?? "");
           await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
           await _secureStorage.setLastName(user['data']['last_name'] ?? "");
           await _secureStorage.setAuthToken(user['data']['access_token'] ?? "");
           await _secureStorage.setRefreshToken(user['data']['refresh_token'] ?? "");
+          var first = user['data']['first_name'].toString()[0].capitalize;
+          var last = user['data']['last_name'].toString()[0].capitalize;
+          await _secureStorage.setInitials("$first$last");
           Get.offAll(
                 () => const Dashboard(),
             transition: Transition.rightToLeft,

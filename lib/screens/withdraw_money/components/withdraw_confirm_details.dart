@@ -159,8 +159,7 @@ class WithdrawConfirmDetails extends StatelessWidget {
                                   onPressed: () {
                                     withdrawMoneyController.onConfirmDetailsClicked(
                                       withdrawMoneyModel.phoneNumber,
-                                      withdrawMoneyModel.payBillNumber!,
-                                      withdrawMoneyModel.amount
+                                      withdrawMoneyModel.amount,
                                     );
                                   },
                                   height: 50,

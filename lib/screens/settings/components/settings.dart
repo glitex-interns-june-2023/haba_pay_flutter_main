@@ -30,9 +30,7 @@ class Settings extends StatelessWidget {
         backgroundColor: theme.white,
         title: Text(
           "Settings",
-          style: TextStyle(
-              color: theme.black
-          ),
+          style: TextStyle(color: theme.black),
         ),
         actions: [
           InkWell(
@@ -48,7 +46,7 @@ class Settings extends StatelessWidget {
         ],
       ),
       body: LayoutBuilder(
-        builder: (context, constraint){
+        builder: (context, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -64,109 +62,172 @@ class Settings extends StatelessWidget {
                           const Text(
                             "Profile settings",
                             style: TextStyle(
-                              fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Align(
                             alignment: Alignment.center,
                             child: CircleAvatar(
                               backgroundColor: theme.background,
-                              child: Text(
-                                  "BN",
-                                style: TextStyle(
-                                  color: theme.black
+                              child: Obx(
+                                () => Text(
+                                  settingsController.userNameInitials.value,
+                                  style: TextStyle(color: theme.black),
                                 ),
                               ),
                             ),
                           ),
-                          const SingleSettingsText(title: "Brian Nakamoto", description: "Number : +254 789 890 890"),
+                          Obx(
+                            () => SingleSettingsText(
+                                title: settingsController.userName.value,
+                                description:
+                                    "Number : ${settingsController.userNumber.value}"),
+                          ),
                           const Divider(),
-                          const SingleSettingsText(title: "Email", description: "briannakamoto@gmail.com"),
+                          Obx(
+                            () => SingleSettingsText(
+                                title: "Email",
+                                description:
+                                    settingsController.userEmail.value),
+                          ),
                           const Divider(),
-                          const SingleSettingsText(title: "Location", description: "Machakos, kenya"),
+                          Obx(
+                            () => SingleSettingsText(
+                                title: "Location",
+                                description:
+                                    settingsController.userLocation.value),
+                          ),
                           const Divider(),
-                          Obx(() => ExpansionTile(
-                            iconColor: theme.black,
-                            textColor: theme.black,
-                            onExpansionChanged: (expanded){
-                              settingsController.onIsMoreExpanded();
-                            },
-                              initiallyExpanded: settingsController.isMoreExpanded.value,
+                          Obx(
+                            () => ExpansionTile(
+                              iconColor: theme.black,
+                              textColor: theme.black,
+                              onExpansionChanged: (expanded) {
+                                settingsController.onIsMoreExpanded();
+                              },
+                              initiallyExpanded:
+                                  settingsController.isMoreExpanded.value,
                               title: const Text(
                                 "More Information",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
+                                style: TextStyle(fontSize: 18),
                               ),
-                            children: [
-                              SingleSettingsButton(icon: 'assets/images/verify_email.svg', title: "Verify your email", onClick: (){
-                                Get.to(()=> const VerifyEmail(), transition: Transition.rightToLeft);
-                              }),
-                              SingleSettingsButton(icon: 'assets/images/add_new_number.svg', title: "Add new number", onClick: (){
-                                Get.to(()=> const AddPhoneNumberSettings(), transition: Transition.rightToLeft);
-                              }),
-                              SingleSettingsButton(icon: 'assets/images/add_your_business.svg', title: "Add your business", onClick: (){
-                                Get.to(()=> const AddBusiness(), transition: Transition.rightToLeft);
-                              }),
-                              SingleSettingsButton(icon: 'assets/images/download_my_statement.svg', title: "Download my statement", onClick: (){
-                                Get.to(()=> const StatementDownload(), transition: Transition.rightToLeft);
-                              })
-                            ],
-                          ),),
+                              children: [
+                                SingleSettingsButton(
+                                    icon: 'assets/images/verify_email.svg',
+                                    title: "Verify your email",
+                                    onClick: () {
+                                      Get.to(() => const VerifyEmail(),
+                                          transition: Transition.rightToLeft);
+                                    }),
+                                SingleSettingsButton(
+                                    icon: 'assets/images/add_new_number.svg',
+                                    title: "Add new number",
+                                    onClick: () {
+                                      Get.to(
+                                          () => const AddPhoneNumberSettings(),
+                                          transition: Transition.rightToLeft);
+                                    }),
+                                SingleSettingsButton(
+                                    icon: 'assets/images/add_your_business.svg',
+                                    title: "Add your business",
+                                    onClick: () {
+                                      Get.to(() => const AddBusiness(),
+                                          transition: Transition.rightToLeft);
+                                    }),
+                                SingleSettingsButton(
+                                    icon:
+                                        'assets/images/download_my_statement.svg',
+                                    title: "Download my statement",
+                                    onClick: () {
+                                      Get.to(() => const StatementDownload(),
+                                          transition: Transition.rightToLeft);
+                                    })
+                              ],
+                            ),
+                          ),
                           const Divider(),
                           const Text(
                             "App settings",
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                           ),
-                          SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Change login PIN", onClick: (){
-                            Get.to(()=> const UpdateLoginPin(), transition: Transition.rightToLeft);
-                          }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/change_login_pin.svg',
+                              title: "Change login PIN",
+                              onClick: () {
+                                Get.to(() => const UpdateLoginPin(),
+                                    transition: Transition.rightToLeft);
+                              }),
                           Row(
                             children: [
                               Expanded(
                                 flex: 4,
-                                child: SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Quick login", onClick: (){}),
+                                child: SingleSettingsButton(
+                                    icon: 'assets/images/quick_login.svg',
+                                    title: "Quick login",
+                                    onClick: () {}),
                               ),
                               Expanded(
-                                child: Obx(() => Switch(
-                                    activeColor: theme.orange,
-                                    value: settingsController.isQuickLoginChecked.value,
-                                    onChanged: (bool newValue){
-                                      settingsController.onQuickLoginChanged(newValue);
-                                    }
-                                ),),
+                                child: Obx(
+                                  () => Switch(
+                                      activeColor: theme.orange,
+                                      value: settingsController
+                                          .isQuickLoginChecked.value,
+                                      onChanged: (bool newValue) {
+                                        settingsController
+                                            .onQuickLoginChanged(newValue);
+                                      }),
+                                ),
                               )
                             ],
                           ),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Logout", onClick: (){
-                            settingsController.logout();
-                          }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/logout.svg',
+                              title: "Logout",
+                              onClick: () {
+                                settingsController.logout();
+                              }),
                           const Divider(),
                           const Text(
                             "About",
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                           ),
-                          SingleSettingsButton(icon: 'assets/images/call_support.svg', title: "Call support", onClick: (){}),
-                          SingleSettingsButton(icon: 'assets/images/faq.svg', title: "FAQ", onClick: (){
-                            Get.to(()=> const Faqs(), transition: Transition.rightToLeft);
-                          }),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "Share app", onClick: (){
-                            Get.to(()=> const ShareApp(), transition: Transition.rightToLeft);
-                          }),
-                          SingleSettingsButton(icon: 'assets/images/change_login_pin.svg', title: "Terms and conditions", onClick: (){
-                            Get.to(()=> const Tcs(), transition: Transition.rightToLeft);
-                          }),
-                          SingleSettingsButton(icon: 'assets/images/quick_login.svg', title: "Check for updates", onClick: (){
-                            Get.to(()=> const Updates(), transition: Transition.rightToLeft);
-                          }),
-                          SingleSettingsButton(icon: 'assets/images/logout.svg', title: "About developer", onClick: (){}),
+                          SingleSettingsButton(
+                              icon: 'assets/images/call_support.svg',
+                              title: "Call support",
+                              onClick: () {}),
+                          SingleSettingsButton(
+                              icon: 'assets/images/faq.svg',
+                              title: "FAQ",
+                              onClick: () {
+                                Get.to(() => const Faqs(),
+                                    transition: Transition.rightToLeft);
+                              }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/logout.svg',
+                              title: "Share app",
+                              onClick: () {
+                                Get.to(() => const ShareApp(),
+                                    transition: Transition.rightToLeft);
+                              }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/change_login_pin.svg',
+                              title: "Terms and conditions",
+                              onClick: () {
+                                Get.to(() => const Tcs(),
+                                    transition: Transition.rightToLeft);
+                              }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/quick_login.svg',
+                              title: "Check for updates",
+                              onClick: () {
+                                Get.to(() => const Updates(),
+                                    transition: Transition.rightToLeft);
+                              }),
+                          SingleSettingsButton(
+                              icon: 'assets/images/logout.svg',
+                              title: "About developer",
+                              onClick: () {}),
                         ],
                       ),
                     ),
@@ -180,4 +241,3 @@ class Settings extends StatelessWidget {
     );
   }
 }
-

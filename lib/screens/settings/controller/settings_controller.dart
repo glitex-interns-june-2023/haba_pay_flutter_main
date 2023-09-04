@@ -10,6 +10,11 @@ import '../components/verify_phone_number_settings.dart';
 class SettingsController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
   var obscurePin = [true, true, true].obs;
+  var userNameInitials = "".obs;
+  var userName = "".obs;
+  var userEmail = "".obs;
+  var userNumber = "".obs;
+  var userLocation = "".obs;
 
   var isQuickLoginChecked = false.obs;
   var codeError = "".obs;
@@ -33,8 +38,15 @@ class SettingsController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    userNameInitials.value = await _secureStorage.getInitials() ?? "";
+    userEmail.value = await _secureStorage.getEmail() ?? "";
+    userNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+    userName.value = await _secureStorage.getUserName() ?? "";
+    userLocation.value = await _secureStorage.getLocation() ?? "";
+
     var quickLogin = await _secureStorage.getQuickLogin();
     isQuickLoginChecked.value = quickLogin == "true" ? true : false;
+
   }
 
   onObscurePin(int index) {
@@ -109,6 +121,7 @@ class SettingsController extends GetxController {
   logout() async {
     isLoading(true);
     try {
+      await _secureStorage.setAuthToken("");
       googleAccount.value = await _googleSignIn.signOut();
       Get.offAll(() => const SignUp(), transition: Transition.rightToLeft);
     } finally {

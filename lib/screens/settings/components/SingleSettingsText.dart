@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SingleSettingsText extends StatelessWidget {
   final String title;
   final String description;
-  const SingleSettingsText({super.key, required this.title, required this.description});
+  SingleSettingsText({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {

@@ -14,9 +14,9 @@ import '../components/withdraw_verifying_transaction.dart';
 
 class WithdrawMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
-  var senderPhone = "";
-  var receiverPhone = "";
-  var amount = "";
+  var senderPhoneValue = "";
+  var receiverPhoneValue = "";
+  var amountValue = "";
   var withdrawToPhoneNumber = "".obs;
   var phoneNumberError = "".obs;
   var amountError = "".obs;
@@ -28,6 +28,17 @@ class WithdrawMoneyController extends GetxController {
   var isSuccessful = false.obs;
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    isLoading(true);
+    try {
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+    } finally {
+      isLoading(false);
+    }
+  }
 
   onProceedWithNumberClicked() async {
     if (phoneNumberController.text.isEmpty) {
@@ -64,36 +75,31 @@ class WithdrawMoneyController extends GetxController {
     }
   }
 
-  onDepositFromMpesaClicked() async {
+  onWithdrawToMpesaClicked() async {
     if (withdrawToAmountController.text.isEmpty) {
       withdrawToAmountError.value = "Enter a valid amount";
     } else {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "/v1/wallet/confirm-details/phone?=${await _secureStorage.getPhoneNumber()}")
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+            "$confirmRecipientDetailsUrl${await _secureStorage.getPhoneNumber()}");
 
         var success = json.decode(response);
 
-        if (success.success == true) {
+        if (success['success'] == true) {
           Get.to(() => const WithdrawConfirmDetails(),
               transition: Transition.rightToLeft,
               arguments: MoneyModel(
-                  phoneNumber: success.data.phone,
-                  recipient: success.data.fullName,
-                  amount: amountController.text,
-                  newBalance:
-                      "${int.parse(accountBalance.value) - int.parse(amountController.text)}"));
+                  phoneNumber: success['data']['phone'],
+                  recipient: success['data']['full_name'],
+                  amount: withdrawToAmountController.text,
+                  newBalance: ""
+                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
+                  ));
         } else {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown Error Occurred",
-            duration: Duration(seconds: 3),
+          Get.showSnackbar(GetSnackBar(
+            message: success['message'],
+            duration: const Duration(seconds: 3),
           ));
         }
       } finally {
@@ -118,7 +124,8 @@ class WithdrawMoneyController extends GetxController {
     );
   }
 
-  onUseNumber() {
+  onUseNumber() async {
+    withdrawToPhoneNumber.value = await _secureStorage.getPhoneNumber() ?? "";
     Get.to(() => const WithdrawTo(), transition: Transition.rightToLeft);
   }
 
@@ -126,11 +133,10 @@ class WithdrawMoneyController extends GetxController {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
 
-  onConfirmDetailsClicked(
-      String senderPhone, String receiverPhone, String amount) {
-    senderPhone = senderPhone;
-    receiverPhone = receiverPhone;
-    amount = amount;
+  onConfirmDetailsClicked(String receiverPhone, String amount) async {
+    senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
+    receiverPhoneValue = receiverPhone;
+    amountValue = amount;
     Get.to(
       () => const WithdrawConfirmIdentity(),
       transition: Transition.rightToLeft,
@@ -141,30 +147,22 @@ class WithdrawMoneyController extends GetxController {
     isLoading(true);
     try {
       var data = {
-        'sender_phone': senderPhone,
-        'receiver_phone': receiverPhone,
-        'amount': amount
+        'sender_phone': senderPhoneValue,
+        'receiver_phone': receiverPhoneValue,
+        'amount': amountValue
       };
-      var response =
-          await BaseClient.post("/v1/wallet/withdraw", json.encode(data))
-              .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
-        ));
-      });
-
+      var response = await BaseClient.post(withdrawCashUrl, data);
       var success = json.decode(response);
-
-      if (success.success == true) {
+      if (success['success'] == true) {
+        isSuccessful(true);
         Get.to(
           () => const WithdrawVerifyingTransaction(),
           transition: Transition.rightToLeft,
         );
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown Error Occurred",
-          duration: Duration(seconds: 3),
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
         ));
       }
     } finally {

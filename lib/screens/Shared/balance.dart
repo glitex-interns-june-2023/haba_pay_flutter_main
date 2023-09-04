@@ -31,23 +31,28 @@ class Balance extends StatelessWidget {
         ),
         Row(
           children: [
-            Blur(
-              blur: isVisibilityOn ? 0 : 5,
-              child: Text(
-                balance,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
+            Expanded(
+              flex: 5,
+              child: Blur(
+                blur: isVisibilityOn ? 0 : 5,
+                child: Text(
+                  balance,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32,
+                  ),
                 ),
               ),
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () {
-                onVisibilityChanged();
-              },
-              icon: Icon(
-                isVisibilityOn ? Icons.visibility : Icons.visibility_off,
+            Expanded(
+              child: IconButton(
+                onPressed: () {
+                  onVisibilityChanged();
+                },
+                icon: Icon(
+                  isVisibilityOn ? Icons.visibility : Icons.visibility_off,
+                ),
               ),
             )
           ],

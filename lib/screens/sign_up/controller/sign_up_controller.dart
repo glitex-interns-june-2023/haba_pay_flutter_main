@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:haba_pay_main/model/GoogleTokenModel.dart';
 import 'package:haba_pay_main/screens/sign_up/components/add_phone_number.dart';
 import 'package:haba_pay_main/services/base_client.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
@@ -38,13 +37,7 @@ class SignUpController extends GetxController {
           'phone_number': phoneNumberController.text,
           'otp': codeController.text
         };
-        var response = await BaseClient.post(verifyOtpUrl, data)
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+        var response = await BaseClient.post(verifyOtpUrl, data);
 
         var success = json.decode(response);
 
@@ -78,13 +71,7 @@ class SignUpController extends GetxController {
           'email': await _secureStorage.getEmail()
         };
         await _secureStorage.setPhoneNumber(phoneNumberController.text);
-        var response = await BaseClient.post(sendOtpUrl, data)
-            .catchError((onError) {
-          Get.showSnackbar(const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+        var response = await BaseClient.post(sendOtpUrl, data);
 
         var success = json.decode(response);
 
@@ -119,18 +106,13 @@ class SignUpController extends GetxController {
       var data = {
         'token': credential.idToken
       };
-      var response = await BaseClient.post(googleAuthUrl, data)
-          .catchError((onError) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Unknown error",
-          duration: Duration(seconds: 3),
-        ));
-      });
 
+      var response = await BaseClient.post(googleAuthUrl, data);
       var user = json.decode(response);
 
       if (response != null) {
         if (user['success'] != false) {
+          await _secureStorage.setUserId(user['data']['id'].toString() ?? "");
           await _secureStorage.setEmail(user['data']['email'] ?? "");
           await _secureStorage.setUserName(user['data']['username'] ?? "");
           await _secureStorage.setFirstName(user['data']['first_name'] ?? "");
@@ -138,6 +120,9 @@ class SignUpController extends GetxController {
           await _secureStorage.setAuthToken(user['data']['access_token'] ?? "");
           await _secureStorage
               .setRefreshToken(user['data']['refresh_token'] ?? "");
+          var first = user['data']['first_name'].toString()[0].capitalize;
+          var last = user['data']['last_name'].toString()[0].capitalize;
+          await _secureStorage.setInitials("$first$last");
           Get.to(() => const AddPhoneNumber(),
               transition: Transition.rightToLeft);
         } else {

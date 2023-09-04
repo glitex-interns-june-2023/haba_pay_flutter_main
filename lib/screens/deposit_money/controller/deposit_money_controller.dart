@@ -13,9 +13,9 @@ import '../components/deposit_verify_transaction.dart';
 
 class DepositMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
-  var senderPhone = "";
-  var mpesaNumber = "";
-  var amount = "";
+  var senderPhoneValue = "";
+  var mpesaNumberValue = "";
+  var amountValue = "";
   var phoneNumberError = "".obs;
   var amountError = "".obs;
   var depositDetailsAmountError = "".obs;
@@ -79,11 +79,11 @@ class DepositMoneyController extends GetxController {
     isLoading(true);
     try {
       var data = {
-        'sender_phone': senderPhone,
-        'mpesa_number': mpesaNumber,
-        'amount': amount
+        'sender_phone': senderPhoneValue,
+        'mpesa_number': mpesaNumberValue,
+        'amount': amountValue
       };
-      var response = await BaseClient.post(sendMoneyUrl, data);
+      var response = await BaseClient.post(depositCashUrl, data);
       var success = json.decode(response);
       if (success['success'] == true) {
         isSuccessful(true);
@@ -102,21 +102,21 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  confirm(String senderPhone, String mpesaNumber, String amount) async {
-    senderPhone = senderPhone;
-    mpesaNumber = mpesaNumber;
-    amount = amount;
+  confirm(String mpesaNumber, String amount) async {
+    senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
+    mpesaNumberValue = mpesaNumber;
+    amountValue = amount;
     if (passwordController.text.isEmpty) {
       passwordError.value = "Enter a valid password";
     } else {
       isLoading(true);
       try {
         var data = {
-          'sender_phone': senderPhone,
-          'mpesa_number': mpesaNumber,
-          'amount': amount
+          'sender_phone': senderPhoneValue,
+          'mpesa_number': mpesaNumberValue,
+          'amount': amountValue
         };
-        var response = await BaseClient.post(sendMoneyUrl, data);
+        var response = await BaseClient.post(depositCashUrl, data);
         var success = json.decode(response);
         if (success['success'] == true) {
           isSuccessful(true);
@@ -136,10 +136,10 @@ class DepositMoneyController extends GetxController {
     }
   }
 
-  send(String senderPhone, String mpesaNumber, String amount) {
-    senderPhone = senderPhone;
-    mpesaNumber = mpesaNumber;
-    amount = amount;
+  send(String mpesaNumber, String amount) async {
+    senderPhoneValue = await _secureStorage.getPhoneNumber() ?? "";
+    mpesaNumberValue = mpesaNumber;
+    amountValue = amount;
     Get.to(
       () => const DepositConfirmIdentity(),
       transition: Transition.rightToLeft,

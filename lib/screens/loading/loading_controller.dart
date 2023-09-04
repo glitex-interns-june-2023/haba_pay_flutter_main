@@ -11,10 +11,10 @@ class LoadingController extends GetxController{
     super.onInit();
     var accessToken = await _secureStorage.getAuthToken();
     var quickLogin = await _secureStorage.getQuickLogin();
-    if(quickLogin == "true" && accessToken!.isNotEmpty){
+    if(quickLogin != null && quickLogin == "true" && accessToken != null && accessToken.isNotEmpty){
       Get.offAll(() => const PinLogin(),
           transition: Transition.rightToLeft);
-    } else if (accessToken!.isNotEmpty) {
+    } else if (accessToken != null && accessToken.isNotEmpty) {
       Get.offAll(
           const Dashboard(),
           transition: Transition.rightToLeft

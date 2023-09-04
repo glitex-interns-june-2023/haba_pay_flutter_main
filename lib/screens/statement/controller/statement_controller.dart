@@ -6,17 +6,17 @@ import '../../../model/TransactionModel.dart';
 class StatementController extends GetxController{
   var list = [
     TransactionModel(56,"2 February 2023", [
-      StatementModel(178,"Jane Mukenya", "deposit", "Ksh 400",
+      StatementModel("178","Jane Mukenya", "deposit", "Ksh 400",
           "+254 787 787 879", "12:45 pm"),
-      StatementModel(198,"Jane jashas", "deposit", "Ksh 7568",
+      StatementModel("198","Jane jashas", "deposit", "Ksh 7568",
           "+254 787 787 879", "12:45 pm")
     ]),
     TransactionModel(12,"1 February 2023", [
-      StatementModel(156,"Jane Mukenya", "send", "Ksh 653",
+      StatementModel("156","Jane Mukenya", "send", "Ksh 653",
           "+254 787 787 879", "12:45 pm"),
-      StatementModel(787,"liadhjld Mukenya", "deposit",
+      StatementModel("787","liadhjld Mukenya", "deposit",
           "Ksh 4535", "+254 787 787 879", "12:45 pm"),
-      StatementModel(789,"Jane dhladk", "withdraw", "Ksh 5667",
+      StatementModel("789","Jane dhladk", "withdraw", "Ksh 5667",
           "+254 787 787 879", "12:45 pm"),
     ])
   ].obs;
