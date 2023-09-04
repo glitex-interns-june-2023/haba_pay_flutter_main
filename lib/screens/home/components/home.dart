@@ -41,10 +41,10 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleAvatar(
               backgroundColor: theme.background,
-              child: Text(
-                "BN",
+              child: Obx(() => Text(
+                homeController.initials.value,
                 style: TextStyle(color: theme.black),
-              ),
+              ),)
             ),
           ),
         ],
@@ -260,10 +260,12 @@ class Home extends StatelessWidget {
                               ),
                               Obx(() => Column(
                                     children: [
-                                      if (homeController.list.isEmpty && !homeController.isLoading.value)
-                                        const Text(
+                                      if (homeController.list.isEmpty &&
+                                          !homeController.isLoading.value)
+                                        Text(
                                           "No transactions to display",
                                           style: TextStyle(
+                                              color: theme.orange,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         )

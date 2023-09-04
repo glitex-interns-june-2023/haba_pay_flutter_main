@@ -38,9 +38,7 @@ class SettingsController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    var first = await _secureStorage.getFirstName() ?? "";
-    var last = await _secureStorage.getLastName() ?? "";
-    //userNameInitials.value = "${first[0]} ${last[0]}";
+    userNameInitials.value = await _secureStorage.getInitials() ?? "";
     userEmail.value = await _secureStorage.getEmail() ?? "";
     userNumber.value = await _secureStorage.getPhoneNumber() ?? "";
     userName.value = await _secureStorage.getUserName() ?? "";

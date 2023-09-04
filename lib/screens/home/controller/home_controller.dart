@@ -10,6 +10,7 @@ class HomeController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
   var phoneNumber = "".obs;
+  var initials = "".obs;
   var accountBalance = "Refresh".obs;
   var list = [].obs;
 
@@ -18,7 +19,8 @@ class HomeController extends GetxController{
     super.onInit();
     isLoading(true);
     try {
-      phoneNumber.value = (await _secureStorage.getPhoneNumber())!;
+      phoneNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+      initials.value = await _secureStorage.getInitials() ?? "";
       var response = await BaseClient.get(
           "$walletBalanceUrl${await _secureStorage.getPhoneNumber()}");
 
