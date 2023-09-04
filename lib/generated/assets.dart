@@ -8,6 +8,7 @@ class Assets {
   static const String imagesBell = 'assets/images/bell.svg';
   static const String imagesCallSupport = 'assets/images/call_support.svg';
   static const String imagesChangeLoginPin = 'assets/images/change_login_pin.svg';
+  static const String imagesCode = 'assets/images/code.svg';
   static const String imagesCopy = 'assets/images/copy.svg';
   static const String imagesDeposit = 'assets/images/deposit.svg';
   static const String imagesDownloadMyStatement = 'assets/images/download_my_statement.svg';
@@ -18,10 +19,12 @@ class Assets {
   static const String imagesHome = 'assets/images/home.svg';
   static const String imagesLogout = 'assets/images/logout.svg';
   static const String imagesMpesa = 'assets/images/mpesa.svg';
+  static const String imagesNotes = 'assets/images/notes.svg';
   static const String imagesQuickLogin = 'assets/images/quick_login.svg';
   static const String imagesSadFace = 'assets/images/sad_face.svg';
   static const String imagesSend = 'assets/images/send.svg';
   static const String imagesSettings = 'assets/images/settings.svg';
+  static const String imagesShare = 'assets/images/share.svg';
   static const String imagesSmileFace = 'assets/images/smile_face.svg';
   static const String imagesStatement = 'assets/images/statement.svg';
   static const String imagesStep1 = 'assets/images/step_1.svg';
@@ -30,6 +33,7 @@ class Assets {
   static const String imagesStep4 = 'assets/images/step_4.svg';
   static const String imagesUndrawSignIn = 'assets/images/undraw_sign_in.svg';
   static const String imagesUndrawSignUp = 'assets/images/undraw_sign_up.svg';
+  static const String imagesUpdate = 'assets/images/update.svg';
   static const String imagesUpdates = 'assets/images/updates.svg';
   static const String imagesVerifyEmail = 'assets/images/verify_email.svg';
   static const String imagesVisibilityOff = 'assets/images/visibility_off.svg';
