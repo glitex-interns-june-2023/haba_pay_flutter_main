@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/home/components/home.dart';
 import 'package:haba_pay_main/screens/statement/components/single_statement.dart';
 import 'package:haba_pay_main/screens/statement/components/transaction_details.dart';
 import 'package:haba_pay_main/screens/statement/controller/statement_controller.dart';
@@ -125,7 +126,12 @@ class Statement extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text("data")
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Obx(() => Text(statementController.list.length.toString()))
+                  ),
+                ),
               ),
             )
           ],
