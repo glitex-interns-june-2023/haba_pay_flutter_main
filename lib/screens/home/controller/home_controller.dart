@@ -11,7 +11,7 @@ class HomeController extends GetxController{
   var isLoading = false.obs;
   var phoneNumber = "".obs;
   var initials = "".obs;
-  var accountBalance = "Refresh".obs;
+  var accountBalance = "Loading..".obs;
   var list = [].obs;
 
   @override
