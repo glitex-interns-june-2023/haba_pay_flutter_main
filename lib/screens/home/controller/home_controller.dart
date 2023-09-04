@@ -48,6 +48,7 @@ class HomeController extends GetxController {
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
+        list.clear();
         var data = listSuccess['data']['data'] as List;
         if (data.isEmpty) return;
 
@@ -78,10 +79,4 @@ class HomeController extends GetxController {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    isLoading(false);
-  }
 }
