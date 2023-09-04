@@ -13,7 +13,9 @@ class StatementController extends GetxController {
   int page = 1;
   var isLoadingMore = false.obs;
   var isLoading = false.obs;
-  var list = [].obs;
+  var list = [
+
+  ].obs;
   var updatedList = [].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;

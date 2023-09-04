@@ -132,36 +132,48 @@ class Statement extends StatelessWidget {
                       controller: statementController.scrollController,
                       slivers: [
                         Obx(() => ListView.builder(
-                            itemCount: statementController.updatedList.length,
+                            itemCount: statementController.isLoadingMore.value
+                                ? statementController.updatedList.length + 1
+                                : statementController.updatedList.length,
                             itemBuilder: (context, index) {
-                              final transaction =
-                                  statementController.updatedList[index];
-                              return Column(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(transaction.date)),
-                                  const Divider(),
-                                  for (var statement
-                                      in transaction.statementList + 1)
-                                    SingleStatement(
-                                        type: statement.type,
-                                        onClick: () {
-                                          Get.to(
-                                              () => const TransactionDetails(),
-                                              transition:
-                                                  Transition.rightToLeft,
-                                              arguments: {
-                                                'statement': statement,
-                                                'date': transaction.date
-                                              });
-                                        },
-                                        name: statement.name,
-                                        phoneNumber: statement.phoneNumber,
-                                        amount: statement.amount,
-                                        time: statement.time),
-                                ],
-                              );
+                              if (index <
+                                  statementController.updatedList.length) {
+                                final transaction =
+                                    statementController.updatedList[index];
+                                return Column(
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(transaction.date)),
+                                    const Divider(),
+                                    for (var statement
+                                        in transaction.statementList + 1)
+                                      SingleStatement(
+                                          type: statement.type,
+                                          onClick: () {
+                                            Get.to(
+                                                () =>
+                                                    const TransactionDetails(),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                arguments: {
+                                                  'statement': statement,
+                                                  'date': transaction.date
+                                                });
+                                          },
+                                          name: statement.name,
+                                          phoneNumber: statement.phoneNumber,
+                                          amount: statement.amount,
+                                          time: statement.time),
+                                  ],
+                                );
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: theme.orange,
+                                  ),
+                                );
+                              }
                             }))
                       ],
                     ),
