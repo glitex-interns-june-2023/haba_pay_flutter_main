@@ -94,7 +94,7 @@ class WithdrawMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: withdrawToAmountController.text,
-                  newBalance: "${int.parse(balance) - int.parse(amountController.text)}"
+                  newBalance: "${int.parse(balance) - int.parse(withdrawToAmountController.text)}"
                   ));
         } else {
           Get.showSnackbar(GetSnackBar(
