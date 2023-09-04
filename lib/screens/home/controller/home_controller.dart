@@ -11,7 +11,7 @@ class HomeController extends GetxController{
   var isLoading = false.obs;
   var phoneNumber = "".obs;
   var initials = "".obs;
-  var accountBalance = "Loading..".obs;
+  var accountBalance = "".obs;
   var list = [].obs;
 
   @override
@@ -19,6 +19,7 @@ class HomeController extends GetxController{
     super.onInit();
     isLoading(true);
     try {
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "Ksh 0";
       phoneNumber.value = await _secureStorage.getPhoneNumber() ?? "";
       initials.value = await _secureStorage.getInitials() ?? "";
       var response = await BaseClient.get(
