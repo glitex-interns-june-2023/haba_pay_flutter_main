@@ -26,6 +26,27 @@ class StatementController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     scrollController.addListener(_scrollListener);
+    try {
+      var listResponse = await BaseClient.get(
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1");
+      var listSuccess = json.decode(listResponse);
+      if (listSuccess['success'] == true) {
+        list.clear();
+        var dataList = listSuccess['data']['data'];
+        for (int i = 0; i < dataList.length; i++) {
+          list.add(TransactionModel(
+              dataList[i]['date'], dataList[i]['transactions']));
+        }
+        updatedList.addAll(list.toList());
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: listSuccess['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoadingMore(false);
+    }
   }
 
   Future<void> _scrollListener() async {

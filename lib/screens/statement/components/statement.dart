@@ -129,7 +129,7 @@ class Statement extends StatelessWidget {
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Obx(() => Text(statementController.list.length.toString()))
+                    child: Obx(() => Text(statementController.updatedList.length.toString()))
                   ),
                 ),
               ),
