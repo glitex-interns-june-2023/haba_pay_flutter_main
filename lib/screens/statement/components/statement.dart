@@ -37,7 +37,7 @@ class Statement extends StatelessWidget {
       ),
       backgroundColor: theme.background,
       body: RefreshIndicator(
-        onRefresh: (){
+        onRefresh: () {
           return statementController.onInit();
         },
         child: Padding(
@@ -132,49 +132,71 @@ class Statement extends StatelessWidget {
                   child: Card(
                     child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: Obx(() => statementController.isLoading.value ?
-                            Center(child:  CircularProgressIndicator(
-                              color: theme.orange,
-                            )) :
-                            ListView.builder(
-                            itemCount: statementController.list.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(
-                                          statementController.list[index].date)),
-                                  const Divider(),
-                                  for (var transaction in statementController
-                                      .list[index].statementList)
-                                    SingleStatement(
-                                        type: transaction['type'],
-                                        onClick: () {
-                                          Get.to(() => const TransactionDetails(),
-                                              transition: Transition.rightToLeft,
-                                              arguments: {
-                                                'transaction_id':
-                                                transaction['transaction_id'],
-                                                'type': transaction['type'],
-                                                'name': transaction['full_name'],
-                                                'phone': transaction['phone'],
-                                                'amount': transaction['amount'],
-                                                'timestamp':
-                                                transaction['timestamp'],
-                                                'date': statementController
-                                                    .list[index].date
-                                              });
-                                        },
-                                        name: transaction['full_name'],
-                                        phoneNumber: transaction['phone'],
-                                        amount: transaction['amount'],
-                                        time: transaction['timestamp'])
-                                ],
-                              );
-                            })
-                        )
-                    ),
+                        child: Obx(() => statementController.isLoading.value
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                color: theme.orange,
+                              ))
+                            : ListView.builder(
+                                controller:
+                                    statementController.scrollController,
+                                itemCount:
+                                    statementController.isLoadingMore.value
+                                        ? statementController.list.length + 1
+                                        : statementController.list.length,
+                                itemBuilder: (context, index) {
+                                  if (index < statementController.list.length) {
+                                    return Column(
+                                      children: [
+                                        Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(statementController
+                                                .list[index].date)),
+                                        const Divider(),
+                                        for (var transaction
+                                            in statementController
+                                                .list[index].statementList)
+                                          SingleStatement(
+                                              type: transaction['type'],
+                                              onClick: () {
+                                                Get.to(
+                                                    () =>
+                                                        const TransactionDetails(),
+                                                    transition:
+                                                        Transition.rightToLeft,
+                                                    arguments: {
+                                                      'transaction_id':
+                                                          transaction[
+                                                              'transaction_id'],
+                                                      'type':
+                                                          transaction['type'],
+                                                      'name': transaction[
+                                                          'full_name'],
+                                                      'phone':
+                                                          transaction['phone'],
+                                                      'amount':
+                                                          transaction['amount'],
+                                                      'timestamp': transaction[
+                                                          'timestamp'],
+                                                      'date':
+                                                          statementController
+                                                              .list[index].date
+                                                    });
+                                              },
+                                              name: transaction['full_name'],
+                                              phoneNumber: transaction['phone'],
+                                              amount: transaction['amount'],
+                                              time: transaction['timestamp'])
+                                      ],
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: theme.orange,
+                                      ),
+                                    );
+                                  }
+                                }))),
                   ),
                 ),
               )

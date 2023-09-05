@@ -13,6 +13,7 @@ class StatementController extends GetxController {
   var isLoadingMore = false.obs;
   var isLoading = false.obs;
   var list = <TransactionModel>[].obs;
+  var moreList = <TransactionModel>[].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;
   var isWithdrawPressed = false.obs;
@@ -79,12 +80,12 @@ class StatementController extends GetxController {
         var listSuccess = json.decode(listResponse);
 
         if (listSuccess['success'] == true) {
-          list.clear();
           var dataList = listSuccess['data']['data'];
           for (int i = 0; i < dataList.length; i++) {
-            list.add(TransactionModel(
+            moreList.add(TransactionModel(
                 dataList[i]['date'], dataList[i]['transactions']));
           }
+          list.addAll(moreList);
         } else {
           Get.showSnackbar(GetSnackBar(
             message: listSuccess['message'],
