@@ -9,6 +9,7 @@ class StatementDownloadConfirmIdentity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConfirmIdentity(
+        isLoading: statementDownloadController.isLoading,
         onConfirm: (){
           statementDownloadController.onConfirmIdentityClicked();
         }

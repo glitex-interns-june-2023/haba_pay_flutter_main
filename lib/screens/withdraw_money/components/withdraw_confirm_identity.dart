@@ -11,7 +11,9 @@ class WithdrawConfirmIdentity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConfirmIdentity(onConfirm: () {
+    return ConfirmIdentity(
+        isLoading: withdrawMoneyController.isLoading,
+        onConfirm: () {
       withdrawMoneyController.onConfirmIdentityClicked();
     });
   }

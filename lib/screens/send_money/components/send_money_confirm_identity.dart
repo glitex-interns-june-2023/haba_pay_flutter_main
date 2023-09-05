@@ -10,7 +10,9 @@ class SendMoneyConfirmIdentity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConfirmIdentity(onConfirm: (){
+    return ConfirmIdentity(
+        isLoading: sendMoneyController.isLoading,
+        onConfirm: (){
       sendMoneyController.onConfirmIdentityClicked();
     });
   }

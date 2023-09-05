@@ -12,7 +12,7 @@ class DepositConfirmIdentity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConfirmIdentity(
-      isLoading: depositMoneyController.isLoading.value,
+      isLoading: depositMoneyController.isLoading,
       onConfirm: () {
         depositMoneyController.confirmIdentity();
       },
