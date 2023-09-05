@@ -24,9 +24,6 @@ class StatementController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     scrollController.addListener(_scrollListener);
-    hasMore(true);
-    page = 1;
-    moreList.clear();
     isLoading(true);
     try {
       var listResponse = await BaseClient.get(
@@ -51,6 +48,9 @@ class StatementController extends GetxController {
   }
 
   apiListCall(String type) async {
+    hasMore(true);
+    page = 1;
+    moreList.clear();
     isLoading(true);
     try {
       var listResponse = await BaseClient.get(
@@ -108,7 +108,7 @@ class StatementController extends GetxController {
   }
 
   onAllClicked() {
-    onInit();
+    apiListCall("");
   }
 
   onSentClicked() {
