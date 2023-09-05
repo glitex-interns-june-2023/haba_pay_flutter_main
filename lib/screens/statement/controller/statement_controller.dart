@@ -10,6 +10,7 @@ class StatementController extends GetxController {
   final ScrollController scrollController = ScrollController();
   final SecureStorage _secureStorage = SecureStorage();
   int page = 1;
+  var hasMore = true.obs;
   var isLoadingMore = false.obs;
   var isLoading = false.obs;
   var list = <TransactionModel>[].obs;
@@ -79,19 +80,23 @@ class StatementController extends GetxController {
             "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=$page");
         var listSuccess = json.decode(listResponse);
 
-        if (listSuccess['success'] == true) {
-          List dataList = listSuccess['data']['data'];
-          print(dataList);
-          for (int i = 0; i < dataList.length; i++) {
-            moreList.add(TransactionModel(
-                dataList[i]['date'], dataList[i]['transactions']));
-          }
-          list.addAll(moreList);
+        if(listSuccess['data']['next_page'] == null){
+          hasMore(false);
+          return;
         } else {
-          Get.showSnackbar(GetSnackBar(
-            message: listSuccess['message'],
-            duration: const Duration(seconds: 3),
-          ));
+          if (listSuccess['success'] == true) {
+            List dataList = listSuccess['data']['data'];
+            for (int i = 0; i < dataList.length; i++) {
+              moreList.add(TransactionModel(
+                  dataList[i]['date'], dataList[i]['transactions']));
+            }
+            list.addAll(moreList);
+          } else {
+            Get.showSnackbar(GetSnackBar(
+              message: listSuccess['message'],
+              duration: const Duration(seconds: 3),
+            ));
+          }
         }
       } finally {
         isLoadingMore(false);

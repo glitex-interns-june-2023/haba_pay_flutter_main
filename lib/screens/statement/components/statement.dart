@@ -193,9 +193,19 @@ class Statement extends StatelessWidget {
                                     return Center(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 16),
-                                        child: CircularProgressIndicator(
-                                          color: theme.orange,
-                                        ),
+                                        child: statementController.hasMore.value ?
+                                            CircularProgressIndicator(
+                                              color: theme.orange,
+                                            )
+                                            :
+                                            Text(
+                                              "No more transactions to load",
+                                              style: TextStyle(
+                                                color: theme.orange,
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            )
+                                        ,
                                       ),
                                     );
                                   }
