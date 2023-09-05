@@ -285,7 +285,13 @@ class Home extends StatelessWidget {
                                                         const TransactionDetails(),
                                                     transition: Transition.rightToLeft,
                                                     arguments: {
-                                                      'statement': statement,
+                                                      'transaction_id': statement.id,
+                                                      'type': statement.type,
+                                                      'name': statement.name,
+                                                      'phone': statement.phoneNumber,
+                                                      'amount': statement.amount,
+                                                      'timestamp':
+                                                      statement.time,
                                                       'date': statement.date
                                                     });
                                               },

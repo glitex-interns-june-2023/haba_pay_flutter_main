@@ -146,7 +146,14 @@ class Statement extends StatelessWidget {
                                         Get.to(() => const TransactionDetails(),
                                             transition: Transition.rightToLeft,
                                             arguments: {
-                                              'statement': statement,
+                                              'transaction_id':
+                                                  statement['transaction_id'],
+                                              'type': statement['type'],
+                                              'name': statement['full_name'],
+                                              'phone': statement['phone'],
+                                              'amount': statement['amount'],
+                                              'timestamp':
+                                                  statement['timestamp'],
                                               'date': statementController
                                                   .list[index].date
                                             });

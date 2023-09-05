@@ -90,12 +90,12 @@ class StatementController extends GetxController {
     updatedList.clear();
     updatedList.addAll(list.where((transaction) {
       return transaction.statementList
-          .any((statement) => statement.type == "send");
+          .any((statement) => statement['type'] == "send");
     }).map((transaction) {
       return TransactionModel(
           transaction.date,
           transaction.statementList
-              .where((statement) => statement.type == "send")
+              .where((statement) => statement['type'] == "send")
               .toList());
     }).toList());
   }

@@ -44,24 +44,22 @@ class HomeController extends GetxController {
       //===========================================
 
       var listResponse = await BaseClient.get(
-          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions");
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1");
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
         list.clear();
         var data = listSuccess['data']['data'] as List;
         if (data.isEmpty) return;
-
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i <= data.length; i++) {
           list.add(StatementModel(
-              data[i]['transactions'][0]['transaction_id'].toString(),
-              data[i]['transactions'][0]['full_name'],
-              data[i]['transactions'][0]['type'],
-              data[i]['transactions'][0]['amount'],
-              data[i]['transactions'][0]['phone'],
-              data[i]['transactions'][0]['timestamp'],
-              data[i]['date']
-          ));
+              data[0]['transactions'][i]['transaction_id'].toString(),
+              data[0]['transactions'][i]['full_name'],
+              data[0]['transactions'][i]['type'],
+              data[0]['transactions'][i]['amount'],
+              data[0]['transactions'][i]['phone'],
+              data[0]['transactions'][i]['timestamp'],
+              data[0]['date']));
         }
       } else {
         Get.showSnackbar(GetSnackBar(
@@ -79,5 +77,4 @@ class HomeController extends GetxController {
   onVisibilityChanged() {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
-
 }

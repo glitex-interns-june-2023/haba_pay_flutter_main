@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -20,7 +22,12 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   @override
   Widget build(BuildContext context) {
     final arguments = Get.arguments as Map<String, dynamic>;
-    final statement = arguments['statement'] as StatementModel;
+    final transactionId = arguments['transaction_id'];
+    final type = arguments['type'] as String;
+    final name = arguments['name'] as String;
+    final phone = arguments['phone'] as String;
+    final amount = arguments['amount'];
+    final timestamp = arguments['timestamp'] as String;
     final date = arguments['date'] as String;
 
     return Scaffold(
@@ -49,12 +56,12 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            if (statement.type == "send")
+                            if (type == "send")
                               SvgPicture.asset(
                                 'assets/images/send.svg',
                                 color: theme.black,
                               )
-                            else if (statement.type == "deposit")
+                            else if (type == "deposit")
                               SvgPicture.asset(
                                 'assets/images/deposit.svg',
                                 color: theme.black,
@@ -64,13 +71,13 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                 'assets/images/withdraw.svg',
                                 color: theme.black,
                               ),
-                            if (statement.type == "send")
+                            if (type == "send")
                               const Text(
                                 "  Send",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               )
-                            else if (statement.type == "deposit")
+                            else if (type == "deposit")
                               const Text(
                                 "  Deposit",
                                 style: TextStyle(
@@ -102,7 +109,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                           child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                statement.phoneNumber,
+                                phone,
                                 style: const TextStyle(fontSize: 18),
                               )),
                         ),
@@ -121,7 +128,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                           child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                statement.name,
+                                name,
                                 style: const TextStyle(fontSize: 18),
                               )),
                         ),
@@ -140,7 +147,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                           child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                "${statement.amount}",
+                                "${amount}",
                                 style: const TextStyle(fontSize: 18),
                               )),
                         ),
@@ -154,20 +161,20 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               )),
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
+                              padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                "BN127613897",
-                                style: TextStyle(fontSize: 18),
+                                "$transactionId",
+                                style: const TextStyle(fontSize: 18),
                               )),
                         ),
                         const Spacer(),
                         const Divider(),
                         const Spacer(),
                         Text(
-                          "$date ${statement.time}",
+                          "$date $timestamp",
                           style: const TextStyle(fontSize: 18),
                         ),
                         const Spacer()
