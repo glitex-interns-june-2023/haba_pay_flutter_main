@@ -62,6 +62,7 @@ class _SignUpState extends State<SignUp> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Obx(() => CustomButton(
+                          isLoading: signUpController.isLoading.value,
                             isSvgVector: true,
                             svgVector: 'assets/images/google_logo.svg',
                             title: "Continue with Google",

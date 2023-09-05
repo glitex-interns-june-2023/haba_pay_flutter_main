@@ -50,8 +50,9 @@ class HomeController extends GetxController {
       if (listSuccess['success'] == true) {
         list.clear();
         var data = listSuccess['data']['data'] as List;
+        var transactions = listSuccess['data']['data'][0]['transactions'] as List;
         if (data.isEmpty) return;
-        for (int i = 0; i <= 4; i++) {
+        for (int i = 0; i <= transactions.length; i++) {
           list.add(StatementModel(
               data[0]['transactions'][i]['transaction_id'].toString(),
               data[0]['transactions'][i]['full_name'],
