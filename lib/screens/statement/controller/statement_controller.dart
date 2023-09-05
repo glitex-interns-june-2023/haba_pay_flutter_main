@@ -24,6 +24,7 @@ class StatementController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     scrollController.addListener(_scrollListener);
+    hasMore(true);
     isLoading(true);
     try {
       var listResponse = await BaseClient.get(
