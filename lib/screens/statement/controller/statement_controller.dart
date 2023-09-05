@@ -80,13 +80,13 @@ class StatementController extends GetxController {
         var listSuccess = json.decode(listResponse);
 
         if (listSuccess['success'] == true) {
-          var dataList = listSuccess['data']['data'];
+          List dataList = listSuccess['data']['data'];
+          print(dataList);
           for (int i = 0; i < dataList.length; i++) {
             moreList.add(TransactionModel(
                 dataList[i]['date'], dataList[i]['transactions']));
           }
-          print(moreList.length);
-          list.addAll(moreList.toList());
+          list.addAll(moreList);
         } else {
           Get.showSnackbar(GetSnackBar(
             message: listSuccess['message'],
