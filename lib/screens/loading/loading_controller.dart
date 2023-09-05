@@ -12,21 +12,21 @@ class LoadingController extends GetxController {
     super.onInit();
     var accessToken = await _secureStorage.getAuthToken();
     var quickLogin = await _secureStorage.getQuickLogin();
-    //var isPhoneVerified = await _secureStorage.getIsPhoneVerified();
+    var isPhoneVerified = await _secureStorage.getIsPhoneVerified();
     if (quickLogin != null &&
         quickLogin == "true" &&
         accessToken != null &&
-        accessToken.isNotEmpty // &&
-        // isPhoneVerified != null &&
-        // isPhoneVerified == "true"
+        accessToken.isNotEmpty &&
+        isPhoneVerified != null &&
+        isPhoneVerified == "true"
     ) {
       Get.offAll(() => const PinLogin(), transition: Transition.rightToLeft);
     } else if (accessToken != null &&
-        accessToken.isNotEmpty // &&
-        // isPhoneVerified != null &&
-        // isPhoneVerified == "true"
+        accessToken.isNotEmpty &&
+        isPhoneVerified != null &&
+        isPhoneVerified == "true"
     ) {
-      Get.offAll(const Dashboard(), transition: Transition.rightToLeft);
+      Get.offAll(() => const Dashboard(), transition: Transition.rightToLeft);
     } else {
       Get.offAll(() => const SignUp(), transition: Transition.rightToLeft);
     }

@@ -57,7 +57,6 @@ class SignInController extends GetxController{
           var first = user['data']['first_name'].toString()[0].capitalize;
           var last = user['data']['last_name'].toString()[0].capitalize;
           await _secureStorage.setInitials("$first$last");
-          await _secureStorage.setIsPhoneVerified(user['data']['is_phone_verified'] == 0 ? "false" : "true" ?? "");
           Get.offAll(
                 () => const Dashboard(),
             transition: Transition.rightToLeft,

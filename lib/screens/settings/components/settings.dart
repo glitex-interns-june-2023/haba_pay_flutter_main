@@ -132,10 +132,11 @@ class Settings extends StatelessWidget {
                                     onClick: () {
                                       Get.to(() => const AddBusiness(),
                                           transition: Transition.rightToLeft);
-                                    }),
+                                    }
+                                    ),
                                 SingleSettingsButton(
                                     icon:
-                                        'assets/images/download_my_statement.svg',
+                                    'assets/images/download_my_statement.svg',
                                     title: "Download my statement",
                                     onClick: () {
                                       Get.to(() => const StatementDownload(),

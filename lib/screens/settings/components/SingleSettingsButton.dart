@@ -20,6 +20,7 @@ class SingleSettingsButton extends StatelessWidget {
       child: InkWell(
         onTap: (){onClick();},
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -31,7 +32,7 @@ class SingleSettingsButton extends StatelessWidget {
                 child: SvgPicture.asset(
                   icon,
                   color: theme.black,
-                  height: 20,
+                  width: 20,
                 ),
               ),
             ),

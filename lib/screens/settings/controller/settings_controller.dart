@@ -46,7 +46,7 @@ class SettingsController extends GetxController {
     userEmail.value = await _secureStorage.getEmail() ?? "";
     userNumber.value = await _secureStorage.getPhoneNumber() ?? "";
     userName.value = await _secureStorage.getUserName() ?? "";
-    userLocation.value = await _secureStorage.getLocation() ?? "";
+    userLocation.value = await _secureStorage.getLocation() ?? "Update location";
 
     var quickLogin = await _secureStorage.getQuickLogin();
     isQuickLoginChecked.value = quickLogin == "true" ? true : false;
