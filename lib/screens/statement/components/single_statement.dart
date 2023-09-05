@@ -39,7 +39,7 @@ class _SingleStatementState extends State<SingleStatement> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if(widget.type == "send")
+                    if(widget.type == "sent")
                       SvgPicture.asset(
                         'assets/images/send.svg',
                         color: Colors.orange,

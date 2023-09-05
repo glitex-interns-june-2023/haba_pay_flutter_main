@@ -132,7 +132,11 @@ class Statement extends StatelessWidget {
                   child: Card(
                     child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: Obx(() => ListView.builder(
+                        child: Obx(() => statementController.isLoading.value ?
+                            Center(child:  CircularProgressIndicator(
+                              color: theme.orange,
+                            )) :
+                            ListView.builder(
                             itemCount: statementController.list.length,
                             itemBuilder: (context, index) {
                               return Column(
@@ -151,13 +155,13 @@ class Statement extends StatelessWidget {
                                               transition: Transition.rightToLeft,
                                               arguments: {
                                                 'transaction_id':
-                                                    transaction['transaction_id'],
+                                                transaction['transaction_id'],
                                                 'type': transaction['type'],
                                                 'name': transaction['full_name'],
                                                 'phone': transaction['phone'],
                                                 'amount': transaction['amount'],
                                                 'timestamp':
-                                                    transaction['timestamp'],
+                                                transaction['timestamp'],
                                                 'date': statementController
                                                     .list[index].date
                                               });
@@ -168,7 +172,9 @@ class Statement extends StatelessWidget {
                                         time: transaction['timestamp'])
                                 ],
                               );
-                            }))),
+                            })
+                        )
+                    ),
                   ),
                 ),
               )

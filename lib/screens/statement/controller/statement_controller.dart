@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:haba_pay_main/model/StatementModel.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/TransactionModel.dart';
 import '../../../services/base_client.dart';
@@ -13,10 +12,7 @@ class StatementController extends GetxController {
   int page = 1;
   var isLoadingMore = false.obs;
   var isLoading = false.obs;
-  var list = [
-    TransactionModel("", [StatementModel("", "", "", 0, "", "", "")])
-  ].obs;
-  var updatedList = [].obs;
+  var list = <TransactionModel>[].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;
   var isWithdrawPressed = false.obs;
@@ -35,11 +31,8 @@ class StatementController extends GetxController {
         List dataList = listSuccess['data']['data'];
         for (int i = 0; i < dataList.length; i++) {
           list.add(TransactionModel(
-            dataList[i]['date'],
-            dataList[i]['transactions']
-          ));
+              dataList[i]['date'], dataList[i]['transactions']));
         }
-        updatedList.addAll(list.toList());
       } else {
         Get.showSnackbar(GetSnackBar(
           message: listSuccess['message'],
@@ -48,6 +41,30 @@ class StatementController extends GetxController {
       }
     } finally {
       isLoadingMore(false);
+    }
+  }
+
+  apiListCall(String type) async {
+    isLoading(true);
+    try {
+      var listResponse = await BaseClient.get(
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1&type=$type");
+      var listSuccess = json.decode(listResponse);
+      if (listSuccess['success'] == true) {
+        list.clear();
+        List dataList = listSuccess['data']['data'];
+        for (int i = 0; i < dataList.length; i++) {
+          list.add(TransactionModel(
+              dataList[i]['date'], dataList[i]['transactions']));
+        }
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: listSuccess['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
     }
   }
 
@@ -68,7 +85,6 @@ class StatementController extends GetxController {
             list.add(TransactionModel(
                 dataList[i]['date'], dataList[i]['transactions']));
           }
-          updatedList.addAll(list.toList());
         } else {
           Get.showSnackbar(GetSnackBar(
             message: listSuccess['message'],
@@ -82,50 +98,19 @@ class StatementController extends GetxController {
   }
 
   onAllClicked() {
-    updatedList.clear();
-    updatedList.addAll(list.toList());
+    onInit();
   }
 
   onSentClicked() {
-    updatedList.clear();
-    updatedList.addAll(list.where((transaction) {
-      return transaction.statementList
-          .any((statement) => statement['type'] == "send");
-    }).map((transaction) {
-      return TransactionModel(
-          transaction.date,
-          transaction.statementList
-              .where((statement) => statement['type'] == "send")
-              .toList());
-    }).toList());
+    apiListCall("sent");
   }
 
   onWithdrawClicked() {
-    updatedList.clear();
-    updatedList.addAll(list.where((transaction) {
-      return transaction.statementList
-          .any((statement) => statement.type == "withdraw");
-    }).map((transaction) {
-      return TransactionModel(
-          transaction.date,
-          transaction.statementList
-              .where((statement) => statement.type == "withdraw")
-              .toList());
-    }).toList());
+    apiListCall("withdraw");
   }
 
   onDepositClicked() {
-    updatedList.clear();
-    updatedList.addAll(list.where((transaction) {
-      return transaction.statementList
-          .any((statement) => statement.type == "deposit");
-    }).map((transaction) {
-      return TransactionModel(
-          transaction.date,
-          transaction.statementList
-              .where((statement) => statement.type == "deposit")
-              .toList());
-    }).toList());
+    apiListCall("deposit");
   }
 
   onButtonPressed(String title) {

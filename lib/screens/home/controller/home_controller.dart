@@ -11,7 +11,7 @@ class HomeController extends GetxController {
   var phoneNumber = "".obs;
   var initials = "".obs;
   var accountBalance = "".obs;
-  RxList<StatementModel> list = [StatementModel("", "", "", 0, "", "", "")].obs;
+  RxList<StatementModel> list = <StatementModel>[].obs;
 
   @override
   Future<void> onInit() async {
@@ -44,14 +44,14 @@ class HomeController extends GetxController {
       //===========================================
 
       var listResponse = await BaseClient.get(
-          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1");
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=5&page=1");
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
         list.clear();
         var data = listSuccess['data']['data'] as List;
         if (data.isEmpty) return;
-        for (int i = 0; i <= data.length; i++) {
+        for (int i = 0; i <= 4; i++) {
           list.add(StatementModel(
               data[0]['transactions'][i]['transaction_id'].toString(),
               data[0]['transactions'][i]['full_name'],
