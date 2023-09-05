@@ -56,7 +56,7 @@ class DepositMoneyController extends GetxController {
               phoneNumber: phoneNumberController.text,
               recipient: "",
               amount: amountController.text,
-              newBalance: "${int.parse(balance) - int.parse(amountController.text)}",
+              newBalance: "Ksh ${int.parse(balance) - int.parse(amountController.text)}",
               payBillNumber: "12344 Habapay"));
     }
   }
@@ -71,7 +71,7 @@ class DepositMoneyController extends GetxController {
               phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
               recipient: "",
               amount: depositDetailsAmountController.text,
-              newBalance: "${int.parse(balance) - int.parse(depositDetailsAmountController.text)}",
+              newBalance: "Ksh ${int.parse(balance) - int.parse(depositDetailsAmountController.text)}",
               payBillNumber: "${habaPay.value} habapay"));
     }
   }

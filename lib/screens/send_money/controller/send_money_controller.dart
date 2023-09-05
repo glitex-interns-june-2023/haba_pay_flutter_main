@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class SendMoneyController extends GetxController {
                   recipient: success['data']['full_name'],
                   amount: amountController.text,
                   newBalance:
-                      "${int.parse(balance) - int.parse(amountController.text)}"));
+                      "Ksh ${int.parse(balance) - int.parse(amountController.text)}"));
         } else {
           Get.showSnackbar(GetSnackBar(
             message: success['message'],
