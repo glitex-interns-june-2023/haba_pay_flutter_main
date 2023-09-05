@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:haba_pay_main/screens/sign_up/components/sign_up.dart';
+import '../../../services/base_client.dart';
 import '../../../services/pin_secure_storage.dart';
+import '../../dashboard/components/dashboard.dart';
 import '../components/pin_updated.dart';
 import '../components/verification_successful_phone_settings.dart';
 import '../components/verify_phone_number_settings.dart';
@@ -129,10 +133,24 @@ class SettingsController extends GetxController {
     }
   }
 
-  sendEmail() {
+  sendEmail() async {
     isSendingEmail(true);
     try {
-      isEmailSend(true);
+      var data = {
+        'email': userEmail.value,
+      };
+      var response = await BaseClient.post(emailVerificationUrl, data);
+
+      var success = json.decode(response);
+
+      if (success['success'] == true) {
+        isEmailSend(true);
+      } else {
+        Get.showSnackbar(const GetSnackBar(
+          message: "Unknown error occurred",
+          duration: Duration(seconds: 3),
+        ));
+      }
     } finally {
       isSendingEmail(false);
     }
@@ -144,5 +162,9 @@ class SettingsController extends GetxController {
 
   verifyNumber(String number) {
     phoneNumber.value = number;
+  }
+
+  goToHome(){
+    Get.offAll(() => const Dashboard());
   }
 }
