@@ -85,6 +85,7 @@ class StatementController extends GetxController {
             moreList.add(TransactionModel(
                 dataList[i]['date'], dataList[i]['transactions']));
           }
+          print(moreList.length);
           list.addAll(moreList.toList());
         } else {
           Get.showSnackbar(GetSnackBar(
