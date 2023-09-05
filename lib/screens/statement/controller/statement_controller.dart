@@ -105,7 +105,7 @@ class StatementController extends GetxController {
   }
 
   onAllClicked() {
-    onInit();
+    apiListCall("");
   }
 
   onSentClicked() {
