@@ -25,6 +25,7 @@ class StatementController extends GetxController {
     super.onInit();
     scrollController.addListener(_scrollListener);
     hasMore(true);
+    page = 1;
     isLoading(true);
     try {
       var listResponse = await BaseClient.get(
