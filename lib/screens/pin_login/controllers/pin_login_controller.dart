@@ -6,7 +6,6 @@ import '../../../services/pin_secure_storage.dart';
 
 class PinLoginController extends GetxController{
   final SecureStorage _secureStorage = SecureStorage();
-  var isAuthenticated = false.obs;
   var pin = [].obs;
 
   onNumberClicked(int number){
@@ -76,5 +75,11 @@ class PinLoginController extends GetxController{
         ),
       );
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    pin.clear();
   }
 }
