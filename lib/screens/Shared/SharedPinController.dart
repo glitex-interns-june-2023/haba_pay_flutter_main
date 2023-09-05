@@ -52,4 +52,10 @@ class SharedPinController extends GetxController{
       );
     }
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    pin.clear();
+  }
 }
