@@ -128,99 +128,102 @@ class Statement extends StatelessWidget {
                 child: Card(
                   child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          if(statementController.list.isEmpty)
-                            Center(
-                              child: Text(
-                                  "No Transactions to display",
-                                style: TextStyle(
-                                  color: theme.orange,
-                                  fontWeight: FontWeight.bold
-                                ),
+                      child: Obx((){
+                        if(statementController.isLoading.value){
+                          return Center(
+                              child: CircularProgressIndicator(
+                                color: theme.orange,
+                              ));
+                        } else if(!statementController.isLoading.value &&
+                        statementController.list.isEmpty
+                        ) {
+                          return Center(
+                            child: Text(
+                              "No Transactions to display",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: theme.orange
                               ),
-                            )
-                          else
-                          Obx(() => statementController.isLoading.value
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                  color: theme.orange,
-                                ))
-                              : ListView.builder(
-                                  controller:
-                                      statementController.scrollController,
-                                  itemCount:
-                                      statementController.isLoadingMore.value
-                                          ? statementController.list.length + 1
-                                          : statementController.list.length,
-                                  itemBuilder: (context, index) {
-                                    if (index < statementController.list.length) {
-                                      return Column(
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Text(statementController
-                                                  .list[index].date)),
-                                          const Divider(),
-                                          for (var transaction
-                                              in statementController
-                                                  .list[index].statementList)
-                                            SingleStatement(
-                                                type: transaction['type'],
-                                                onClick: () {
-                                                  Get.to(
+                            ),
+                          );
+                        } else {
+                          return ListView.builder(
+                              controller:
+                              statementController.scrollController,
+                              itemCount:
+                              statementController.isLoadingMore.value
+                                  ? statementController.list.length + 1
+                                  : statementController.list.length,
+                              itemBuilder: (context, index) {
+                                if (index < statementController.list.length) {
+                                  return Column(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Text(statementController
+                                              .list[index].date)),
+                                      const Divider(),
+                                      for (var transaction
+                                      in statementController
+                                          .list[index].statementList)
+                                        SingleStatement(
+                                            type: transaction['type'],
+                                            onClick: () {
+                                              Get.to(
                                                       () =>
-                                                          const TransactionDetails(),
-                                                      transition:
-                                                          Transition.rightToLeft,
-                                                      arguments: {
-                                                        'transaction_id':
-                                                            transaction[
-                                                                'transaction_id'],
-                                                        'type':
-                                                            transaction['type'],
-                                                        'name': transaction[
-                                                            'full_name'],
-                                                        'phone':
-                                                            transaction['phone'],
-                                                        'amount':
-                                                            transaction['amount'],
-                                                        'timestamp': transaction[
-                                                            'timestamp'],
-                                                        'date':
-                                                            statementController
-                                                                .list[index].date
-                                                      });
-                                                },
-                                                name: transaction['full_name'],
-                                                phoneNumber: transaction['phone'],
-                                                amount: transaction['amount'],
-                                                time: transaction['timestamp'])
-                                        ],
-                                      );
-                                    } else {
-                                      return Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 16),
-                                          child: statementController.hasMore.value ?
-                                              CircularProgressIndicator(
-                                                color: theme.orange,
-                                              )
-                                              :
-                                              Text(
-                                                "No more transactions to load",
-                                                style: TextStyle(
-                                                  color: theme.orange,
-                                                  fontWeight: FontWeight.bold
-                                                ),
-                                              )
-                                          ,
+                                                  const TransactionDetails(),
+                                                  transition:
+                                                  Transition.rightToLeft,
+                                                  arguments: {
+                                                    'transaction_id':
+                                                    transaction[
+                                                    'transaction_id'],
+                                                    'type':
+                                                    transaction['type'],
+                                                    'name': transaction[
+                                                    'full_name'],
+                                                    'phone':
+                                                    transaction['phone'],
+                                                    'amount':
+                                                    transaction['amount'],
+                                                    'timestamp': transaction[
+                                                    'timestamp'],
+                                                    'date':
+                                                    statementController
+                                                        .list[index].date
+                                                  });
+                                            },
+                                            name: transaction['full_name'],
+                                            phoneNumber: transaction['phone'],
+                                            amount: transaction['amount'],
+                                            time: transaction['timestamp'])
+                                    ],
+                                  );
+                                } else {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      child: statementController.hasMore.value ?
+                                      CircularProgressIndicator(
+                                        color: theme.orange,
+                                      )
+                                          :
+                                      Text(
+                                        "No more transactions to load",
+                                        style: TextStyle(
+                                            color: theme.orange,
+                                            fontWeight: FontWeight.bold
                                         ),
-                                      );
-                                    }
-                                  })),
-                        ],
-                      )),
+                                      )
+                                      ,
+                                    ),
+                                  );
+                                }
+                              });
+                        }
+                      })
+                  ),
                 ),
               ),
             )
