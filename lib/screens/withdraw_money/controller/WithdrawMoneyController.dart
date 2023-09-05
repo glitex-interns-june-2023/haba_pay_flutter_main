@@ -185,4 +185,15 @@ class WithdrawMoneyController extends GetxController {
       isLoading(false);
     }
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    phoneNumberError = "".obs;
+    amountError = "".obs;
+    withdrawToAmountError = "".obs;
+    withdrawToAmountController.clear();
+    phoneNumberController.clear();
+    amountController.clear();
+  }
 }
