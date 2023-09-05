@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
+import 'package:haba_pay_main/screens/Shared/custom_button.dart';
 
 import '../../sign_in/components/sign_in.dart';
 import '../controller/sign_up_controller.dart';
@@ -60,35 +61,13 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Obx(() => MaterialButton(
-                            onPressed: () {
+                        child: Obx(() => CustomButton(
+                            isSvgVector: true,
+                            svgVector: 'assets/images/google_logo.svg',
+                            title: "Continue with Google",
+                            onClick: () {
                               signUpController.signUp();
-                            },
-                            height: 50,
-                            color: theme.orange,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (!signUpController.isLoading.value)
-                                  SvgPicture.asset(
-                                      'assets/images/google_logo.svg')
-                                else
-                                  Icon(
-                                    Icons.refresh,
-                                    color: theme.white,
-                                  ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Continue with Google",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.white,
-                                      fontSize: 18),
-                                )
-                              ],
-                            )))),
+                            }))),
                     const SizedBox(
                       height: 20,
                     ),
