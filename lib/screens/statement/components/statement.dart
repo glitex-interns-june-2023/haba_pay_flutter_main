@@ -36,185 +36,180 @@ class Statement extends StatelessWidget {
         ],
       ),
       backgroundColor: theme.background,
-      body: RefreshIndicator(
-        onRefresh: () {
-          return statementController.onInit();
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    OutlinedButton(
-                        onPressed: () {
-                          statementController.onAllClicked();
-                        },
-                        child: Text(
-                          "All",
-                          style: TextStyle(color: theme.orange),
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    OutlinedButton(
-                        onPressed: () {
-                          statementController.onSentClicked();
-                        },
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/images/send.svg'),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Send",
-                              style: TextStyle(color: theme.orange),
-                            )
-                          ],
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    OutlinedButton(
-                        onPressed: () {
-                          statementController.onWithdrawClicked();
-                        },
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/images/withdraw.svg'),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Withdraw",
-                              style: TextStyle(color: theme.orange),
-                            )
-                          ],
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    OutlinedButton(
-                        onPressed: () {
-                          statementController.onDepositClicked();
-                        },
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/deposit.svg',
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onAllClicked();
+                      },
+                      child: Text(
+                        "All",
+                        style: TextStyle(color: theme.orange),
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onSentClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/send.svg'),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Send",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onWithdrawClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/withdraw.svg'),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Withdraw",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        statementController.onDepositClicked();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/deposit.svg',
+                            color: theme.orange,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Deposit",
+                            style: TextStyle(color: theme.orange),
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Card(
+                  child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Obx(() => statementController.isLoading.value
+                          ? Center(
+                              child: CircularProgressIndicator(
                               color: theme.orange,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Deposit",
-                              style: TextStyle(color: theme.orange),
-                            )
-                          ],
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
+                            ))
+                          : ListView.builder(
+                              controller:
+                                  statementController.scrollController,
+                              itemCount:
+                                  statementController.isLoadingMore.value
+                                      ? statementController.list.length + 1
+                                      : statementController.list.length,
+                              itemBuilder: (context, index) {
+                                if (index < statementController.list.length) {
+                                  return Column(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Text(statementController
+                                              .list[index].date)),
+                                      const Divider(),
+                                      for (var transaction
+                                          in statementController
+                                              .list[index].statementList)
+                                        SingleStatement(
+                                            type: transaction['type'],
+                                            onClick: () {
+                                              Get.to(
+                                                  () =>
+                                                      const TransactionDetails(),
+                                                  transition:
+                                                      Transition.rightToLeft,
+                                                  arguments: {
+                                                    'transaction_id':
+                                                        transaction[
+                                                            'transaction_id'],
+                                                    'type':
+                                                        transaction['type'],
+                                                    'name': transaction[
+                                                        'full_name'],
+                                                    'phone':
+                                                        transaction['phone'],
+                                                    'amount':
+                                                        transaction['amount'],
+                                                    'timestamp': transaction[
+                                                        'timestamp'],
+                                                    'date':
+                                                        statementController
+                                                            .list[index].date
+                                                  });
+                                            },
+                                            name: transaction['full_name'],
+                                            phoneNumber: transaction['phone'],
+                                            amount: transaction['amount'],
+                                            time: transaction['timestamp'])
+                                    ],
+                                  );
+                                } else {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      child: statementController.hasMore.value ?
+                                          CircularProgressIndicator(
+                                            color: theme.orange,
+                                          )
+                                          :
+                                          Text(
+                                            "No more transactions to load",
+                                            style: TextStyle(
+                                              color: theme.orange,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          )
+                                      ,
+                                    ),
+                                  );
+                                }
+                              }))),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Card(
-                    child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Obx(() => statementController.isLoading.value
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                color: theme.orange,
-                              ))
-                            : ListView.builder(
-                                controller:
-                                    statementController.scrollController,
-                                itemCount:
-                                    statementController.isLoadingMore.value
-                                        ? statementController.list.length + 1
-                                        : statementController.list.length,
-                                itemBuilder: (context, index) {
-                                  if (index < statementController.list.length) {
-                                    return Column(
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(statementController
-                                                .list[index].date)),
-                                        const Divider(),
-                                        for (var transaction
-                                            in statementController
-                                                .list[index].statementList)
-                                          SingleStatement(
-                                              type: transaction['type'],
-                                              onClick: () {
-                                                Get.to(
-                                                    () =>
-                                                        const TransactionDetails(),
-                                                    transition:
-                                                        Transition.rightToLeft,
-                                                    arguments: {
-                                                      'transaction_id':
-                                                          transaction[
-                                                              'transaction_id'],
-                                                      'type':
-                                                          transaction['type'],
-                                                      'name': transaction[
-                                                          'full_name'],
-                                                      'phone':
-                                                          transaction['phone'],
-                                                      'amount':
-                                                          transaction['amount'],
-                                                      'timestamp': transaction[
-                                                          'timestamp'],
-                                                      'date':
-                                                          statementController
-                                                              .list[index].date
-                                                    });
-                                              },
-                                              name: transaction['full_name'],
-                                              phoneNumber: transaction['phone'],
-                                              amount: transaction['amount'],
-                                              time: transaction['timestamp'])
-                                      ],
-                                    );
-                                  } else {
-                                    return Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 16),
-                                        child: statementController.hasMore.value ?
-                                            CircularProgressIndicator(
-                                              color: theme.orange,
-                                            )
-                                            :
-                                            Text(
-                                              "No more transactions to load",
-                                              style: TextStyle(
-                                                color: theme.orange,
-                                                fontWeight: FontWeight.bold
-                                              ),
-                                            )
-                                        ,
-                                      ),
-                                    );
-                                  }
-                                }))),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
