@@ -146,6 +146,8 @@ class SignUpController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    phoneNumberError = "".obs;
+    codeError = "".obs;
     phoneNumberController.clear();
     codeController.clear();
   }
