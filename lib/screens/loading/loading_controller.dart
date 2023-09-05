@@ -13,6 +13,7 @@ class LoadingController extends GetxController {
     var accessToken = await _secureStorage.getAuthToken();
     var quickLogin = await _secureStorage.getQuickLogin();
     var isPhoneVerified = await _secureStorage.getIsPhoneVerified();
+    print("=================$isPhoneVerified");
     if (quickLogin != null &&
         quickLogin == "true" &&
         accessToken != null &&
