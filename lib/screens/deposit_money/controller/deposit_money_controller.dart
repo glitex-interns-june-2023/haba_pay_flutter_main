@@ -185,4 +185,17 @@ class DepositMoneyController extends GetxController {
       isLoading(false);
     }
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    passwordController.clear();
+    phoneNumberController.clear();
+    amountController.clear();
+    depositDetailsAmountController.clear();
+    phoneNumberError = "".obs;
+    amountError = "".obs;
+    depositDetailsAmountError = "".obs;
+    passwordError = "".obs;
+  }
 }
