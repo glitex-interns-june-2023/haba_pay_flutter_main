@@ -24,6 +24,7 @@ class StatementController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     scrollController.addListener(_scrollListener);
+    isLoading(true);
     try {
       var listResponse = await BaseClient.get(
           "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1");
@@ -42,7 +43,7 @@ class StatementController extends GetxController {
         ));
       }
     } finally {
-      isLoadingMore(false);
+      isLoading(false);
     }
   }
 
@@ -80,23 +81,22 @@ class StatementController extends GetxController {
             "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=$page");
         var listSuccess = json.decode(listResponse);
 
-        if(listSuccess['data']['next_page'] == null){
+        var transactions = listSuccess['data']['data'][0]['transactions'] as List;
+        if(transactions.length < 10){
           hasMore(false);
-          return;
-        } else {
-          if (listSuccess['success'] == true) {
-            List dataList = listSuccess['data']['data'];
-            for (int i = 0; i < dataList.length; i++) {
-              moreList.add(TransactionModel(
-                  dataList[i]['date'], dataList[i]['transactions']));
-            }
-            list.addAll(moreList);
-          } else {
-            Get.showSnackbar(GetSnackBar(
-              message: listSuccess['message'],
-              duration: const Duration(seconds: 3),
-            ));
+        }
+        if (listSuccess['success'] == true) {
+          List dataList = listSuccess['data']['data'];
+          for (int i = 0; i < dataList.length; i++) {
+            moreList.add(TransactionModel(
+                dataList[i]['date'], dataList[i]['transactions']));
           }
+          list.addAll(moreList);
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: listSuccess['message'],
+            duration: const Duration(seconds: 3),
+          ));
         }
       } finally {
         isLoadingMore(false);
