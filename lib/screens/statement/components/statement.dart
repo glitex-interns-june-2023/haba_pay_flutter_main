@@ -191,8 +191,11 @@ class Statement extends StatelessWidget {
                                     );
                                   } else {
                                     return Center(
-                                      child: CircularProgressIndicator(
-                                        color: theme.orange,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 16),
+                                        child: CircularProgressIndicator(
+                                          color: theme.orange,
+                                        ),
                                       ),
                                     );
                                   }
