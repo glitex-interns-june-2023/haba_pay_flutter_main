@@ -142,5 +142,7 @@ class SendMoneyController extends GetxController {
     super.onClose();
     phoneNumberController.clear();
     amountController.clear();
+    amountError = "".obs;
+    phoneNumberError = "".obs;
   }
 }
