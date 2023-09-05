@@ -156,15 +156,13 @@ class DepositMoneyController extends GetxController {
   }
 
   useMyNumber() async {
-    isLoading(true);
     try {
-      myNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+      myNumber.value = (await _secureStorage.getPhoneNumber())!;
+    } finally {
       Get.to(
-        () => const DepositDetails(),
+            () => const DepositDetails(),
         transition: Transition.rightToLeft,
       );
-    } finally {
-      isLoading(false);
     }
   }
 
