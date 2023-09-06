@@ -1,93 +1,143 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../../model/StatementModel.dart';
+import 'package:haba_pay_main/services/pin_secure_storage.dart';
 import '../../../model/TransactionModel.dart';
+import '../../../services/base_client.dart';
 
-class StatementController extends GetxController{
-  var list = [
-    TransactionModel(56,"2 February 2023", [
-      StatementModel("178","Jane Mukenya", "deposit", "Ksh 400",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("198","Jane jashas", "deposit", "Ksh 7568",
-          "+254 787 787 879", "12:45 pm")
-    ]),
-    TransactionModel(12,"1 February 2023", [
-      StatementModel("156","Jane Mukenya", "send", "Ksh 653",
-          "+254 787 787 879", "12:45 pm"),
-      StatementModel("787","liadhjld Mukenya", "deposit",
-          "Ksh 4535", "+254 787 787 879", "12:45 pm"),
-      StatementModel("789","Jane dhladk", "withdraw", "Ksh 5667",
-          "+254 787 787 879", "12:45 pm"),
-    ])
-  ].obs;
-  var updatedList = [].obs;
+class StatementController extends GetxController {
+  final ScrollController scrollController = ScrollController();
+  final SecureStorage _secureStorage = SecureStorage();
+  int page = 1;
+  var hasMore = true.obs;
+  var isLoadingMore = false.obs;
+  var isLoading = false.obs;
+  var list = <TransactionModel>[].obs;
+  var moreList = <TransactionModel>[].obs;
   var isAllPressed = false.obs;
   var isSentPressed = false.obs;
   var isWithdrawPressed = false.obs;
   var isDepositPressed = false.obs;
 
   @override
-  void onInit(){
+  Future<void> onInit() async {
     super.onInit();
-    updatedList.addAll(list.toList());
+    scrollController.addListener(_scrollListener);
+    isLoading(true);
+    try {
+      var listResponse = await BaseClient.get(
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1");
+      var listSuccess = json.decode(listResponse);
+      if (listSuccess['success'] == true) {
+        list.clear();
+        List dataList = listSuccess['data']['data'];
+        for (int i = 0; i < dataList.length; i++) {
+          list.add(TransactionModel(
+              dataList[i]['date'], dataList[i]['transactions']));
+        }
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: listSuccess['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
+    }
   }
 
-  onAllClicked(){
-    updatedList.clear();
-    updatedList.addAll(list.toList());
+  apiListCall(String type) async {
+    hasMore(true);
+    page = 1;
+    moreList.clear();
+    isLoading(true);
+    try {
+      var listResponse = await BaseClient.get(
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=1&type=$type");
+      var listSuccess = json.decode(listResponse);
+      if (listSuccess['success'] == true) {
+        list.clear();
+        List dataList = listSuccess['data']['data'];
+        for (int i = 0; i < dataList.length; i++) {
+          list.add(TransactionModel(
+              dataList[i]['date'], dataList[i]['transactions']));
+        }
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: listSuccess['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
+    }
   }
 
-  onSentClicked(){
-    updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "send");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "send").toList());
-        }).toList()
-    );
+  Future<void> _scrollListener() async {
+    if (isLoadingMore.value == true) return;
+    if (scrollController.position.maxScrollExtent == scrollController.offset) {
+      page++;
+      isLoadingMore(true);
+      try {
+        var listResponse = await BaseClient.get(
+            "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=10&page=$page");
+        var listSuccess = json.decode(listResponse);
+
+        var transactions = listSuccess['data']['data'][0]['transactions'] as List;
+        if(transactions.length < 10){
+          hasMore(false);
+        }
+        if (listSuccess['success'] == true) {
+          List dataList = listSuccess['data']['data'];
+          for (int i = 0; i < dataList.length; i++) {
+            moreList.add(TransactionModel(
+                dataList[i]['date'], dataList[i]['transactions']));
+          }
+          list.addAll(moreList);
+        } else {
+          Get.showSnackbar(GetSnackBar(
+            message: listSuccess['message'],
+            duration: const Duration(seconds: 3),
+          ));
+        }
+      } finally {
+        isLoadingMore(false);
+      }
+    } else {}
   }
 
-  onWithdrawClicked(){
-    updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "withdraw");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "withdraw").toList());
-        }).toList()
-    );
+  onAllClicked() {
+    apiListCall("");
   }
 
-  onDepositClicked(){
-    updatedList.clear();
-    updatedList.addAll(
-        list.where((transaction){
-          return transaction.statementList.any((statement) => statement.type == "deposit");
-        }).map((transaction){
-          return TransactionModel(
-            transaction.id,
-              transaction.date,
-              transaction.statementList.where((statement) => statement.type == "deposit").toList());
-        }).toList()
-    );
+  onSentClicked() {
+    apiListCall("sent");
   }
 
-  onButtonPressed(String title){
-    if(title == "All"){
+  onWithdrawClicked() {
+    apiListCall("withdraw");
+  }
+
+  onDepositClicked() {
+    apiListCall("deposit");
+  }
+
+  onButtonPressed(String title) {
+    if (title == "All") {
       isAllPressed(true);
-    } else if (title == "Sent"){
+    } else if (title == "Sent") {
       isSentPressed(true);
-    } else if (title == "Withdraw"){
+    } else if (title == "Withdraw") {
       isWithdrawPressed(true);
     } else {
       isDepositPressed(true);
     }
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }

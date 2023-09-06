@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,9 @@ import '../components/verifying_transaction.dart';
 
 class SendMoneyController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
+  String balance = "";
+  String amountValue = "";
+  String recipientNumberValue = "";
   var amountError = "".obs;
   var phoneNumberError = "".obs;
   var amountController = TextEditingController();
@@ -27,7 +29,10 @@ class SendMoneyController extends GetxController {
     super.onInit();
     isLoading(true);
     try {
-      accountBalance.value = (await _secureStorage.getAccountBalance())!;
+      accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+      balance = accountBalance.value.substring(
+        3,
+      );
     } finally {
       isLoading(false);
     }
@@ -42,13 +47,7 @@ class SendMoneyController extends GetxController {
       isLoading(true);
       try {
         var response = await BaseClient.get(
-                "$confirmRecipientDetailsUrl${phoneNumberController.text}")
-            .catchError((onError) {
-          Get.showSnackbar(  const GetSnackBar(
-            message: "Unknown error occurred",
-            duration: Duration(seconds: 3),
-          ));
-        });
+            "$confirmRecipientDetailsUrl${phoneNumberController.text}");
 
         var success = json.decode(response);
 
@@ -59,11 +58,10 @@ class SendMoneyController extends GetxController {
                   phoneNumber: success['data']['phone'],
                   recipient: success['data']['full_name'],
                   amount: amountController.text,
-                  newBalance: "unavailable"
-                  //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
-          ));
+                  newBalance:
+                      "Ksh ${int.parse(balance) - int.parse(amountController.text)}"));
         } else {
-          Get.showSnackbar( GetSnackBar(
+          Get.showSnackbar(GetSnackBar(
             message: success['message'],
             duration: const Duration(seconds: 3),
           ));
@@ -74,11 +72,35 @@ class SendMoneyController extends GetxController {
     }
   }
 
-  onConfirmIdentityClicked() {
-    Get.to(
-      () => const VerifyingTransaction(),
-      transition: Transition.rightToLeft,
-    );
+  onConfirmIdentityClicked() async {
+    isLoading(true);
+    try {
+      var data = {
+        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
+        'receiver_phone': recipientNumberValue,
+        'amount': amountValue
+      };
+      var response = await BaseClient.post(sendMoneyUrl, data);
+      var success = json.decode(response);
+      if (success['success'] == true) {
+        isSuccessful(true);
+        Get.showSnackbar(GetSnackBar(
+          message: success['data']['transaction_message'],
+          duration: const Duration(seconds: 3),
+        ));
+        Get.to(
+          () => const VerifyingTransaction(),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          message: success['message'],
+          duration: const Duration(seconds: 3),
+        ));
+      }
+    } finally {
+      isLoading(false);
+    }
   }
 
   onVisibilityChanged() {
@@ -90,33 +112,12 @@ class SendMoneyController extends GetxController {
   }
 
   onConfirmDetailsSend(String recipientNumber, String amount) async {
-    isLoading(true);
-    try {
-      var data = {
-        'sender_phone': (await _secureStorage.getPhoneNumber()) ?? "",
-        'receiver_phone': recipientNumber,
-        'amount': amount
-      };
-      var response = await BaseClient.post(sendMoneyUrl, data);
-      var success = json.decode(response);
-      if (success['success'] == true) {
-        Get.showSnackbar(GetSnackBar(
-          message: success['data']['transaction_message'],
-          duration: const Duration(seconds: 3),
-        ));
-        Get.to(
-              () => const SendMoneyConfirmIdentity(),
-          transition: Transition.rightToLeft,
-        );
-      } else {
-        Get.showSnackbar( GetSnackBar(
-          message: success['message'],
-          duration: const Duration(seconds: 3),
-        ));
-      }
-    } finally {
-      isLoading(false);
-    }
+    recipientNumberValue = recipientNumber;
+    amountValue = amount;
+    Get.to(
+      () => const SendMoneyConfirmIdentity(),
+      transition: Transition.rightToLeft,
+    );
   }
 
   onReturnHomeCLicked() {
@@ -140,5 +141,7 @@ class SendMoneyController extends GetxController {
     super.onClose();
     phoneNumberController.clear();
     amountController.clear();
+    amountError = "".obs;
+    phoneNumberError = "".obs;
   }
 }

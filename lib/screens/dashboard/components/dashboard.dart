@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:haba_pay_main/Theme/custom_theme.dart';
 import '../../home/components/home.dart';
 import '../../settings/components/settings.dart';
-import '../../settings/components/update_login_pin.dart';
 import '../../statement/components/statement.dart';
 import '../controller/dashboard_controller.dart';
 

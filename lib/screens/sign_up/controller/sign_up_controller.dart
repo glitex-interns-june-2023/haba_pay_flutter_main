@@ -42,6 +42,7 @@ class SignUpController extends GetxController {
         var success = json.decode(response);
 
         if (success['success'] == true) {
+          await _secureStorage.setIsPhoneVerified("true");
           Get.to(
             () => const VerificationSuccessful(),
             transition: Transition.rightToLeft,
@@ -145,6 +146,8 @@ class SignUpController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    phoneNumberError = "".obs;
+    codeError = "".obs;
     phoneNumberController.clear();
     codeController.clear();
   }

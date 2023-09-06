@@ -40,12 +40,13 @@ class Home extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleAvatar(
-              backgroundColor: theme.background,
-              child: Obx(() => Text(
-                homeController.initials.value,
-                style: TextStyle(color: theme.black),
-              ),)
-            ),
+                backgroundColor: theme.background,
+                child: Obx(
+                  () => Text(
+                    homeController.initials.value,
+                    style: TextStyle(color: theme.black),
+                  ),
+                )),
           ),
         ],
       ),
@@ -284,8 +285,14 @@ class Home extends StatelessWidget {
                                                         const TransactionDetails(),
                                                     transition: Transition.rightToLeft,
                                                     arguments: {
-                                                      'statement': statement,
-                                                      'date': "2 February 2023"
+                                                      'transaction_id': statement.id,
+                                                      'type': statement.type,
+                                                      'name': statement.name,
+                                                      'phone': statement.phoneNumber,
+                                                      'amount': statement.amount,
+                                                      'timestamp':
+                                                      statement.time,
+                                                      'date': statement.date
                                                     });
                                               },
                                               name: statement.name,

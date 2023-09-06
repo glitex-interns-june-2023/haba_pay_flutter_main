@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class SingleStatement extends StatefulWidget {
   final String type;
   final String name;
   final String phoneNumber;
-  final String amount;
+  final int amount;
   final String time;
 
   final Function() onClick;
@@ -38,7 +39,7 @@ class _SingleStatementState extends State<SingleStatement> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if(widget.type == "send")
+                    if(widget.type == "sent")
                       SvgPicture.asset(
                         'assets/images/send.svg',
                         color: Colors.orange,
@@ -61,7 +62,7 @@ class _SingleStatementState extends State<SingleStatement> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        widget.name,
+                        widget.name.capitalizeFirst ?? "",
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold
@@ -82,7 +83,7 @@ class _SingleStatementState extends State<SingleStatement> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                        widget.amount,
+                        "${widget.amount}",
                       style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold

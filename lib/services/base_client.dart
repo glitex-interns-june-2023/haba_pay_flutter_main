@@ -8,6 +8,7 @@ const String baseUrl = "https://habaapi.glitexsolutions.co.ke/api";
 const String googleAuthUrl = "/v1/auth/google";
 const String sendOtpUrl = "/v1/verifications/otp/send";
 const String verifyOtpUrl = "/v1/verifications/otp/verify";
+const String emailVerificationUrl = "/v1/verifications/email/send";
 const String walletBalanceUrl = "/v1/wallet/balance?phone=";
 const String confirmRecipientDetailsUrl = "/v1/wallet/confirm-details?phone=";
 const String sendMoneyUrl = "/v1/wallet/send-money";

@@ -132,10 +132,11 @@ class Settings extends StatelessWidget {
                                     onClick: () {
                                       Get.to(() => const AddBusiness(),
                                           transition: Transition.rightToLeft);
-                                    }),
+                                    }
+                                    ),
                                 SingleSettingsButton(
                                     icon:
-                                        'assets/images/download_my_statement.svg',
+                                    'assets/images/download_my_statement.svg',
                                     title: "Download my statement",
                                     onClick: () {
                                       Get.to(() => const StatementDownload(),
@@ -204,28 +205,28 @@ class Settings extends StatelessWidget {
                                     transition: Transition.rightToLeft);
                               }),
                           SingleSettingsButton(
-                              icon: 'assets/images/logout.svg',
+                              icon: 'assets/images/share.svg',
                               title: "Share app",
                               onClick: () {
                                 Get.to(() => const ShareApp(),
                                     transition: Transition.rightToLeft);
                               }),
                           SingleSettingsButton(
-                              icon: 'assets/images/change_login_pin.svg',
+                              icon: 'assets/images/notes.svg',
                               title: "Terms and conditions",
                               onClick: () {
                                 Get.to(() => const Tcs(),
                                     transition: Transition.rightToLeft);
                               }),
                           SingleSettingsButton(
-                              icon: 'assets/images/quick_login.svg',
+                              icon: 'assets/images/update.svg',
                               title: "Check for updates",
                               onClick: () {
                                 Get.to(() => const Updates(),
                                     transition: Transition.rightToLeft);
                               }),
                           SingleSettingsButton(
-                              icon: 'assets/images/logout.svg',
+                              icon: 'assets/images/code.svg',
                               title: "About developer",
                               onClick: () {}),
                         ],

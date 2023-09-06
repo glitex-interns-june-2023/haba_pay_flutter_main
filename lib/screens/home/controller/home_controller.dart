@@ -2,23 +2,24 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:haba_pay_main/services/pin_secure_storage.dart';
-
 import '../../../model/StatementModel.dart';
 import '../../../services/base_client.dart';
 
-class HomeController extends GetxController{
+class HomeController extends GetxController {
   final SecureStorage _secureStorage = SecureStorage();
   var isLoading = false.obs;
   var phoneNumber = "".obs;
   var initials = "".obs;
-  var accountBalance = "Refresh".obs;
-  var list = [].obs;
+  var accountBalance = "".obs;
+  RxList<StatementModel> list = <StatementModel>[].obs;
 
   @override
   Future<void> onInit() async {
     super.onInit();
     isLoading(true);
     try {
+      accountBalance.value =
+          await _secureStorage.getAccountBalance() ?? "Ksh 0";
       phoneNumber.value = await _secureStorage.getPhoneNumber() ?? "";
       initials.value = await _secureStorage.getInitials() ?? "";
       var response = await BaseClient.get(
@@ -27,8 +28,10 @@ class HomeController extends GetxController{
       var success = json.decode(response);
 
       if (success['success'] == true) {
-        accountBalance.value = "${success['data']['currency']} ${success['data']['balance']}";
-        await _secureStorage.setAccountBalance("${success['data']['currency']} ${success['data']['balance']}");
+        accountBalance.value =
+            "${success['data']['currency']} ${success['data']['balance']}";
+        await _secureStorage.setAccountBalance(
+            "${success['data']['currency']} ${success['data']['balance']}");
       } else {
         Get.showSnackbar(GetSnackBar(
           message: success['message'],
@@ -40,18 +43,24 @@ class HomeController extends GetxController{
       //get list of statements
       //===========================================
 
-      var listResponse = await BaseClient.get("$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions");
-      print(listResponse);
+      var listResponse = await BaseClient.get(
+          "$listUserTransactionsUrl${await _secureStorage.getUserId()}/transactions?per_page=5&page=1");
       var listSuccess = json.decode(listResponse);
 
       if (listSuccess['success'] == true) {
-        var dataList = [];
-        dataList = listSuccess['data']['data'];
-        if(dataList.isEmpty){
-          print("empty array");
-        } else {
-          print(listSuccess['data']['data']);
-          print("values");
+        list.clear();
+        var data = listSuccess['data']['data'] as List;
+        var transactions = listSuccess['data']['data'][0]['transactions'] as List;
+        if (data.isEmpty) return;
+        for (int i = 0; i < transactions.length; i++) {
+          list.add(StatementModel(
+              data[0]['transactions'][i]['transaction_id'].toString(),
+              data[0]['transactions'][i]['full_name'],
+              data[0]['transactions'][i]['type'],
+              data[0]['transactions'][i]['amount'],
+              data[0]['transactions'][i]['phone'],
+              data[0]['transactions'][i]['timestamp'],
+              data[0]['date']));
         }
       } else {
         Get.showSnackbar(GetSnackBar(
@@ -59,7 +68,6 @@ class HomeController extends GetxController{
           duration: const Duration(seconds: 3),
         ));
       }
-
     } finally {
       isLoading(false);
     }
@@ -67,8 +75,7 @@ class HomeController extends GetxController{
 
   var isVisibilityOn = false.obs;
 
-  onVisibilityChanged(){
+  onVisibilityChanged() {
     isVisibilityOn.value = !isVisibilityOn.value;
   }
-
 }

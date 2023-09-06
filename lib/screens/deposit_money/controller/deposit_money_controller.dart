@@ -28,6 +28,7 @@ class DepositMoneyController extends GetxController {
   var isLoading = false.obs;
   var isVisibilityOn = false.obs;
   var accountBalance = "".obs;
+  String balance = "";
   var myNumber = "".obs;
   var habaPay = "24356325".obs;
 
@@ -37,6 +38,7 @@ class DepositMoneyController extends GetxController {
     isLoading(true);
     try {
       accountBalance.value = await _secureStorage.getAccountBalance() ?? "";
+      balance = accountBalance.value.substring(3,);
     } finally {
       isLoading(false);
     }
@@ -54,8 +56,7 @@ class DepositMoneyController extends GetxController {
               phoneNumber: phoneNumberController.text,
               recipient: "",
               amount: amountController.text,
-              //newBalance: "${int.parse(accountBalance.value) - int.parse(amountController.text)}"
-              newBalance: "800",
+              newBalance: "Ksh ${int.parse(balance) - int.parse(amountController.text)}",
               payBillNumber: "12344 Habapay"));
     }
   }
@@ -70,7 +71,7 @@ class DepositMoneyController extends GetxController {
               phoneNumber: await _secureStorage.getPhoneNumber() ?? "",
               recipient: "",
               amount: depositDetailsAmountController.text,
-              newBalance: "",
+              newBalance: "Ksh ${int.parse(balance) - int.parse(depositDetailsAmountController.text)}",
               payBillNumber: "${habaPay.value} habapay"));
     }
   }
@@ -155,15 +156,13 @@ class DepositMoneyController extends GetxController {
   }
 
   useMyNumber() async {
-    isLoading(true);
     try {
-      myNumber.value = await _secureStorage.getPhoneNumber() ?? "";
+      myNumber.value = (await _secureStorage.getPhoneNumber())!;
+    } finally {
       Get.to(
-        () => const DepositDetails(),
+            () => const DepositDetails(),
         transition: Transition.rightToLeft,
       );
-    } finally {
-      isLoading(false);
     }
   }
 
@@ -185,5 +184,18 @@ class DepositMoneyController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    passwordController.clear();
+    phoneNumberController.clear();
+    amountController.clear();
+    depositDetailsAmountController.clear();
+    phoneNumberError = "".obs;
+    amountError = "".obs;
+    depositDetailsAmountError = "".obs;
+    passwordError = "".obs;
   }
 }

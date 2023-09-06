@@ -12,11 +12,11 @@ final CustomTheme theme = CustomTheme();
 final pinLoginController = Get.put(SharedPinController());
 
 class ConfirmIdentity extends StatelessWidget {
-  final bool isLoading;
+  final RxBool isLoading;
   final Function() onConfirm;
   const ConfirmIdentity({
     super.key,
-    this.isLoading = false,
+    required this.isLoading,
     required this.onConfirm,
   });
 
@@ -195,14 +195,14 @@ class ConfirmIdentity extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          CustomButton(
-                              isLoading: isLoading,
+                          Obx(() => CustomButton(
+                              isLoading: isLoading.value,
                               title: "Confirm",
                               onClick: () {
                                 pinLoginController.confirmLoginPin(() {
                                   onConfirm();
                                 });
-                              }),
+                              })),
                           const Spacer()
                         ],
                       ),
